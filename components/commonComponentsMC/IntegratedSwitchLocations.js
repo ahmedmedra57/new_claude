@@ -96,6 +96,12 @@ import MasterControlBySwitchTitle from './MasterControlBySwitchTitle';
 const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
+  // Navigation state for two-panel layout
+  const [navigationView, setNavigationView] = useState('zones'); // 'zones' or 'switches'
+  const [selectedZone, setSelectedZone] = useState(null);
+  const [selectedSpecificLocation, setSelectedSpecificLocation] = useState(null);
+  const [selectedSwitch, setSelectedSwitch] = useState(null);
+
   function getQueryParam(key) {
     const currentHash = window.location.hash.replace('#', '');
     const params = new URLSearchParams(currentHash);
@@ -723,6 +729,37 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
     );
   };
 
+  // Two-panel navigation handlers
+  const handleZoneClick = (location) => {
+    setSelectedZone(location);
+    setSelectedSpecificLocation(null);
+    setNavigationView('switches');
+    setSelectedSwitch(null); // Clear selected switch when changing zones
+  };
+
+  const handleBackToZones = () => {
+    setNavigationView('zones');
+    setSelectedZone(null);
+    setSelectedSpecificLocation(null);
+    setSelectedSwitch(null);
+  };
+
+  const handleSwitchClick = (location, machine, specificLocation = null) => {
+    setSelectedSwitch({
+      location: specificLocation || location,
+      machine,
+      parentLocation: specificLocation ? location : null,
+    });
+  };
+
+  const handleSpecificLocationClick = (specificLocation) => {
+    setSelectedSpecificLocation(specificLocation);
+  };
+
+  const handleBackToParentZone = () => {
+    setSelectedSpecificLocation(null);
+  };
+
   // console.log('switchStatus:', switchStatus);
   // console.log(':',);
   // console.log(':',);
@@ -963,345 +1000,150 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
         </Wrapper>
       ) : (
         <Wrapper>
-          <Header>
-            <Title>
-              integrated switch locations - {locationNumber} locations
-            </Title>
-          </Header>
+          <TwoPanelContainer>
+            {/* LEFT PANEL */}
+            <LeftPanel>
+              <Header>
+                <Title>
+                  integrated switch locations - {locationNumber} locations
+                </Title>
+              </Header>
 
-          <SectionMainContent>
-            {Object.keys(switchStatus).map((location, index) => {
-              //check if there is specific location
-              // if(switchStatus[location].isSpecificLocation){
-              //   // console.log('switchStatusInside:', location,index,isLocationOpen[index]);
-              // }
-              const locationData = locations[swtName][location];
-              const isExpanded = selectedZoneId === location;
-              const isSpecificLocation =
-                switchStatus[location].isSpecificLocation;
-              const numSpecLocations =
-                isSpecificLocation &&
-                Object.keys(switchStatus[location].subLocations).length;
-              return (
-                <SectionInnerWrapper key={location} id={location}>
-                  <ContentHeader>
-                    <ContentHeaderTitle>
-                      {`${locationData?.location_name} - ${
-                        locationData?.location_name_short
-                          ? `${locationData?.location_name_short}`
-                          : ''
-                      }  ${
-                        isSpecificLocation
-                          ? ''
-                          : `- ${locationData?.zone_city},`
-                      } ${
-                        isSpecificLocation
-                          ? ''
-                          : `- ${locationData?.zone_state_short_name}`
-                      } - ${
-                        isSpecificLocation
-                          ? numSpecLocations
-                          : machineNumber[index]
-                      } ${isSpecificLocation ? 's. loc' : 'switches'}`}
-                    </ContentHeaderTitle>
-                    <ButtonGroup
-                      displayHandler={handleOpenLocation}
-                      openArr={isLocationOpen}
-                      handleOnClick={headerGroupButtonsHandler}
-                      btnName={
-                        isExpanded || isLocationOpen[index] ? 'close' : 'expand'
-                      }
-                      id={index}
-                      locationId={location}
-                      swtName={swtName}
-                      disabled={disabled}
-                      expandFC={handleOpenLocationMasterControl}
-                    />
-                  </ContentHeader>
-                  <MainController
-                    swtName={swtName}
-                    isExpanded={isExpanded}
-                    location={location}
-                    disabled={disabled}
-                    isSpecificLocation={
-                      switchStatus[location].isSpecificLocation
-                    }
-                    openMiniMC={isExpanded || isLocationOpen[index]}
-                    handleExpand={() =>
-                      headerGroupButtonsHandler(
-                        dispatch,
-                        handleOpenLocation,
-                        isLocationOpen,
-                        swtName,
-                        'expand',
-                        index,
-                        location
-                      )
-                    }
-                    buttonHandler={handleControllerInHead}
-                    machineNumber={machineNumber[index]}
-                  />
+              {/* Navigation Area */}
+              {navigationView === 'zones' ? (
+                // ZONES LIST VIEW
+                <ZonesListContainer>
+                  {Object.keys(switchStatus).map((location, index) => {
+                    const locationData = locations[swtName][location];
+                    const isSpecificLocation = switchStatus[location].isSpecificLocation;
+                    const numSpecLocations = isSpecificLocation && Object.keys(switchStatus[location].subLocations).length;
+                    const count = isSpecificLocation ? numSpecLocations : machineNumber[index];
 
-                  {/* specific location master control */}
-                  {isExpanded && isSpecLocationValidArr[index] ? (
-                    // <div key={location}>
-                    //   {isSpecificLocationOpen.every((el) => !el) && (
-                    //     <SectionMasterControl>
-                    //       <SectionInnerLayer>
-                    //         <MasterControlByLocation
-                    //           location={location}
-                    //           swtName={swtName}
-                    //           buttonHandler={buttonHandler}
-                    //           isSpecificLocation={isSpecLocationValidArr[index]}
-                    //         />
-                    //       </SectionInnerLayer>
-                    //     </SectionMasterControl>
-                    //   )}
-                    //   <IntegratedSwitchSpecificLocations
-                    //     locationData={switchStatus[location]}
-                    //     location={location}
-                    //     // locationIdx={index}
-                    //     swtName={swtName}
-                    //     buttonHandler={buttonHandler}
-                    //     handleControllerInHead={handleControllerInHead}
-                    //   />
-                    // </div>
-                    <></>
-                  ) : isExpanded || isLocationOpen[index] || parentLocation ? (
-                    <>
-                      {/* location master control */}
-                      <MCTitleWrapper
-                        isExpanded={locationMasterControl[index]}
-                        isLocation={true}
+                    return (
+                      <ZoneItem
+                        key={location}
+                        onClick={() => handleZoneClick(location)}
                       >
-                        <MCTitleInnerWrapper
-                          isExpanded={locationMasterControl[index]}
-                          isLocation={true}
-                        >
-                          <MasterControlBySwitchTitle
-                            isExpand={locationMasterControl[index]}
-                            expandFC={handleOpenLocationMasterControl}
-                            isLocation={true}
-                            swtName={swtName}
-                            index={index}
-                            modifyLength={'1192px'}
-                            modifyBorderRadius={'16px'}
-                          />
-                          {locationMasterControl[index] && (
-                            <MasterControlByLocation
-                              location={location}
-                              swtName={swtName}
-                              buttonHandler={buttonHandler}
-                              disabled={disabled}
-                            />
-                          )}
-                        </MCTitleInnerWrapper>
-                      </MCTitleWrapper>
-                      {/* {locationMasterControl[index] && (
-                        <SectionMasterControl>
-                          <SectionInnerLayer>
-                            <MasterControlByLocation
-                              location={location}
-                              swtName={swtName}
-                              buttonHandler={buttonHandler}
-                              disabled={disabled}
-                            />
-                          </SectionInnerLayer>
-                        </SectionMasterControl>
-                      )} */}
+                        <ZoneItemTitle>
+                          {locationData?.location_name} - {locationData?.location_name_short}
+                          {!isSpecificLocation && ` - ${locationData?.zone_city}, ${locationData?.zone_state_short_name}`}
+                        </ZoneItemTitle>
+                        <ZoneItemCount>
+                          {count} {isSpecificLocation ? 'sub-locations' : 'switches'}
+                        </ZoneItemCount>
+                      </ZoneItem>
+                    );
+                  })}
+                </ZonesListContainer>
+              ) : (
+                // SWITCHES LIST VIEW (when zone is selected)
+                <SwitchesListContainer>
+                  <BackButton onClick={handleBackToZones}>
+                    ← Back to Zones
+                  </BackButton>
 
-                      {/* map depends on number of machines by location */}
-                      {switchStatus[location].isSpecificLocation
-                        ? Object.keys(switchStatus[location].subLocations).map(
-                            (specificLocation, idx) => {
-                              const specificLocationData =
-                                locations[swtName][specificLocation];
-                              const devicesLength = Object.keys(
-                                switchStatus[location].subLocations[
-                                  specificLocation
-                                ].devices
-                              ).length;
-                              const isSpecExpanded =
-                                selectedZoneId === location &&
-                                selectedSpecificLocationId === specificLocation;
+                  {selectedZone && (
+                    <>
+                      {switchStatus[selectedZone].isSpecificLocation ? (
+                        // Zone has sub-locations
+                        <>
+                          {!selectedSpecificLocation ? (
+                            // Show sub-locations list
+                            Object.keys(switchStatus[selectedZone].subLocations).map((specLoc) => {
+                              const specificLocationData = locations[swtName][specLoc];
+                              const devicesLength = Object.keys(switchStatus[selectedZone].subLocations[specLoc].devices).length;
+
                               return (
-                                <SpecificLocationWrapper key={specificLocation}>
-                                  <ContentHeader>
-                                    <SubLocationContentHeaderTitle>
-                                      {`${specificLocationData?.location_name_short} - ${specificLocationData?.specific_address} - ${specificLocationData?.zone_city},${specificLocationData?.zone_state_short_name} - ${devicesLength} switches `}
-                                    </SubLocationContentHeaderTitle>
-                                    <ButtonGroup
-                                      displayHandler={handleOpenLocation}
-                                      openArr={isLocationOpen}
-                                      handleOnClick={headerGroupButtonsHandler}
-                                      btnName={
-                                        isSpecExpanded ? 'close' : 'expand'
-                                      }
-                                      id={idx}
-                                      locationId={specificLocation}
-                                      specificLocationId={specificLocation}
-                                      swtName={swtName}
-                                      disabled={disabled}
-                                      expandFC={
-                                        handleOpenSpecificLocationMasterControl
-                                      }
-                                    />
-                                  </ContentHeader>
-                                  <MainController
-                                    swtName={swtName}
-                                    isExpanded={isExpanded}
-                                    location={specificLocation}
-                                    disabled={disabled}
-                                    openMiniMC={isSpecExpanded}
-                                    handleExpand={() =>
-                                      headerGroupButtonsHandler(
-                                        dispatch,
-                                        handleOpenLocation,
-                                        isLocationOpen,
-                                        swtName,
-                                        'expand',
-                                        idx,
-                                        location,
-                                        specificLocation
-                                      )
-                                    }
-                                    buttonHandler={handleControllerInHead}
-                                    machineNumber={devicesLength}
-                                  />
-                                  {/* sub location master control */}
-                                  {isSpecExpanded && (
-                                    <MCTitleWrapper
-                                      isExpanded={
-                                        specificLocationMasterControl[idx]
-                                      }
-                                      specificLocation={true}
-                                    >
-                                      <MCTitleInnerWrapper
-                                        isExpanded={
-                                          specificLocationMasterControl[idx]
-                                        }
-                                        specificLocation={true}
-                                      >
-                                        <MasterControlBySwitchTitle
-                                          isExpand={
-                                            specificLocationMasterControl[idx]
-                                          }
-                                          expandFC={
-                                            handleOpenSpecificLocationMasterControl
-                                          }
-                                          swtName={swtName}
-                                          isSpecificLocation={true}
-                                          index={idx}
-                                          modifyLength={'1192px'}
-                                          modifyBorderRadius={'16px'}
-                                        />
-                                        {specificLocationMasterControl[idx] && (
-                                          <MasterControlByLocation
-                                            location={specificLocation}
-                                            swtName={swtName}
-                                            buttonHandler={buttonHandler}
-                                            disabled={disabled}
-                                          />
-                                        )}
-                                      </MCTitleInnerWrapper>
-                                    </MCTitleWrapper>
-                                  )}
-                                  {/* {isSpecExpanded &&
-                                    specificLocationMasterControl[idx] && (
-                                      <SectionMasterControl>
-                                        <SectionInnerLayer>
-                                          <MasterControlByLocation
-                                            location={specificLocation}
-                                            swtName={swtName}
-                                            buttonHandler={buttonHandler}
-                                            disabled={disabled}
-                                          />
-                                        </SectionInnerLayer>
-                                      </SectionMasterControl>
-                                    )} */}
-                                  {isSpecExpanded ? (
-                                    <>
-                                      {/* map depends on number of machines by location */}
-                                      {Object.keys(
-                                        switchStatus[location].subLocations[
-                                          specificLocation
-                                        ].devices
-                                      ).map((machine, idx) => (
-                                        <SectionMachine key={machine}>
-                                          {swtName === 'ess' && (
-                                            <EssMasterControlByMachine
-                                              location={specificLocation}
-                                              machine={machine}
-                                              swtName={swtName}
-                                              indivLocationName={
-                                                specificLocationData?.location_name_short
-                                              }
-                                            />
-                                          )}
-                                          {swtName === 'tes' && (
-                                            <TesMasterControlByMachine
-                                              location={specificLocation}
-                                              machine={machine}
-                                              swtName={swtName}
-                                              indivLocationName={
-                                                specificLocationData?.location_name_short
-                                              }
-                                            />
-                                          )}
-                                          {swtName === 'tgs' && (
-                                            <TgsMasterControlByMachine
-                                              location={specificLocation}
-                                              machine={machine}
-                                              swtName={swtName}
-                                            />
-                                          )}
-                                        </SectionMachine>
-                                      ))}
-                                    </>
-                                  ) : null}
-                                </SpecificLocationWrapper>
+                                <SubLocationItem
+                                  key={specLoc}
+                                  onClick={() => handleSpecificLocationClick(specLoc)}
+                                >
+                                  <SubLocationTitle>
+                                    {specificLocationData?.location_name_short} - {specificLocationData?.specific_address}
+                                  </SubLocationTitle>
+                                  <SubLocationCount>{devicesLength} switches</SubLocationCount>
+                                </SubLocationItem>
                               );
-                            }
-                          )
-                        : Object.keys(switchStatus[location].devices).map(
-                            (machine, idx) => (
-                              <SectionMachine key={machine}>
-                                {swtName === 'ess' && (
-                                  <EssMasterControlByMachine
-                                    location={location}
-                                    machine={machine}
-                                    swtName={swtName}
-                                    indivLocationName={
-                                      locationData?.locationName
-                                    }
-                                  />
-                                )}
-                                {swtName === 'tes' && (
-                                  <TesMasterControlByMachine
-                                    location={location}
-                                    machine={machine}
-                                    swtName={swtName}
-                                    indivLocationName={
-                                      locationData?.locationName
-                                    }
-                                  />
-                                )}
-                                {swtName === 'tgs' && (
-                                  <TgsMasterControlByMachine
-                                    location={location}
-                                    machine={machine}
-                                    swtName={swtName}
-                                  />
-                                )}
-                              </SectionMachine>
-                            )
+                            })
+                          ) : (
+                            // Show switches in selected sub-location
+                            <>
+                              <BackButton onClick={handleBackToParentZone}>
+                                ← Back to Sub-locations
+                              </BackButton>
+                              {Object.keys(switchStatus[selectedZone].subLocations[selectedSpecificLocation].devices).map((machine) => {
+                                const isActive = selectedSwitch?.machine === machine && selectedSwitch?.location === selectedSpecificLocation;
+
+                                return (
+                                  <SwitchItem
+                                    key={machine}
+                                    active={isActive}
+                                    onClick={() => handleSwitchClick(selectedZone, machine, selectedSpecificLocation)}
+                                  >
+                                    {machine}
+                                  </SwitchItem>
+                                );
+                              })}
+                            </>
                           )}
+                        </>
+                      ) : (
+                        // Zone has direct switches (no sub-locations)
+                        Object.keys(switchStatus[selectedZone].devices).map((machine) => {
+                          const isActive = selectedSwitch?.machine === machine && selectedSwitch?.location === selectedZone;
+
+                          return (
+                            <SwitchItem
+                              key={machine}
+                              active={isActive}
+                              onClick={() => handleSwitchClick(selectedZone, machine)}
+                            >
+                              {machine}
+                            </SwitchItem>
+                          );
+                        })
+                      )}
                     </>
-                  ) : null}
-                </SectionInnerWrapper>
-              );
-            })}
-          </SectionMainContent>
+                  )}
+                </SwitchesListContainer>
+              )}
+            </LeftPanel>
+
+            {/* RIGHT PANEL */}
+            <RightPanel>
+              {selectedSwitch ? (
+                <>
+                  {swtName === 'ess' && (
+                    <EssMasterControlByMachine
+                      location={selectedSwitch.location}
+                      machine={selectedSwitch.machine}
+                      swtName={swtName}
+                      indivLocationName={locations[swtName][selectedSwitch.location]?.location_name_short}
+                    />
+                  )}
+                  {swtName === 'tes' && (
+                    <TesMasterControlByMachine
+                      location={selectedSwitch.location}
+                      machine={selectedSwitch.machine}
+                      swtName={swtName}
+                      indivLocationName={locations[swtName][selectedSwitch.location]?.location_name_short}
+                    />
+                  )}
+                  {swtName === 'tgs' && (
+                    <TgsMasterControlByMachine
+                      location={selectedSwitch.location}
+                      machine={selectedSwitch.machine}
+                      swtName={swtName}
+                    />
+                  )}
+                </>
+              ) : (
+                <PlaceholderContainer>
+                  <PlaceholderText>Select a switch to view details</PlaceholderText>
+                </PlaceholderContainer>
+              )}
+            </RightPanel>
+          </TwoPanelContainer>
           {openLocationMessageBox && (
             <MessageBoxWrapper>
               <InputTempMessage
@@ -1623,6 +1465,152 @@ const MessageBoxWrapper = styled.div`
   top: 43%;
   left: 18%;
   z-index: 100;
+`;
+
+// New Two-Panel Layout Styled Components
+const TwoPanelContainer = styled.div`
+  display: flex;
+  width: 1216px;
+  gap: 8px;
+  margin-top: 8px;
+`;
+
+const LeftPanel = styled.div`
+  flex: 0 0 400px;
+  ${flexDirectionColumn};
+  gap: 8px;
+`;
+
+const RightPanel = styled.div`
+  flex: 1;
+  border-radius: 18px;
+  ${layerC};
+  ${flexBoxCenter};
+  padding: 16px;
+  min-height: 600px;
+`;
+
+const ZonesListContainer = styled.div`
+  ${flexDirectionColumn};
+  gap: 6px;
+  border-radius: 18px;
+  ${layerC};
+  padding: 8px;
+  max-height: 700px;
+  overflow-y: auto;
+`;
+
+const ZoneItem = styled.div`
+  border-radius: 14px;
+  ${layerA180Deg};
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    ${layerB};
+    transform: translateX(4px);
+  }
+`;
+
+const ZoneItemTitle = styled.div`
+  font-size: 13px;
+  letter-spacing: 1.2px;
+  color: #95ff45;
+  margin-bottom: 4px;
+`;
+
+const ZoneItemCount = styled.div`
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #fff;
+  opacity: 0.7;
+`;
+
+const SwitchesListContainer = styled.div`
+  ${flexDirectionColumn};
+  gap: 6px;
+  border-radius: 18px;
+  ${layerC};
+  padding: 8px;
+  max-height: 700px;
+  overflow-y: auto;
+`;
+
+const BackButton = styled.button`
+  border-radius: 12px;
+  ${layerBDark};
+  padding: 10px 16px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 1.1px;
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+
+  &:hover {
+    ${layerB};
+    transform: translateX(-4px);
+  }
+`;
+
+const SwitchItem = styled.div`
+  border-radius: 12px;
+  ${(p) => p.active ? layerB : layerA180Deg};
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 1.1px;
+  color: ${(p) => p.active ? '#95ff45' : '#fff'};
+  transition: all 0.2s ease;
+  border: ${(p) => p.active ? '2px solid #95ff45' : '2px solid transparent'};
+
+  &:hover {
+    ${layerB};
+    color: #95ff45;
+  }
+`;
+
+const SubLocationItem = styled.div`
+  border-radius: 12px;
+  ${layerA180Deg};
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    ${layerB};
+    transform: translateX(4px);
+  }
+`;
+
+const SubLocationTitle = styled.div`
+  font-size: 12px;
+  letter-spacing: 1.1px;
+  color: #ff920c;
+  margin-bottom: 4px;
+`;
+
+const SubLocationCount = styled.div`
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #fff;
+  opacity: 0.7;
+`;
+
+const PlaceholderContainer = styled.div`
+  ${flexBoxCenter};
+  width: 100%;
+  height: 100%;
+`;
+
+const PlaceholderText = styled.div`
+  font-size: 16px;
+  letter-spacing: 1.4px;
+  color: #fff;
+  opacity: 0.5;
+  text-align: center;
 `;
 
 // const handleControllerInHead = (btn, state, location, temp) => {
