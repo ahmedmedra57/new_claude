@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
+import useNavigationState from '../../hooks/useNavigationState';
+import LeftPanelNavigation from './LeftPanelNavigation';
+import SwitchDetailsPanel from './SwitchDetailsPanel';
 
 import {
   handleInstantHeat,
@@ -51,9 +54,6 @@ import {
 import ButtonGroup from './ButtonGroup';
 import MainController from './MainController';
 import MasterControlByLocation from './MasterControlByLocation';
-import EssMasterControlByMachine from '../ess/EssMasterControlByMachine';
-import TesMasterControlByMachine from '../tes/TesMasterControlByMachine';
-import TgsMasterControlByMachine from '../tgs/TgsMasterControlByMachine';
 import {
   handleEssInitialState,
   handleOpenLocation,
@@ -96,11 +96,18 @@ import MasterControlBySwitchTitle from './MasterControlBySwitchTitle';
 const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
-  // Navigation state for two-panel layout
-  const [navigationView, setNavigationView] = useState('zones'); // 'zones' or 'switches'
-  const [selectedZone, setSelectedZone] = useState(null);
-  const [selectedSpecificLocation, setSelectedSpecificLocation] = useState(null);
-  const [selectedSwitch, setSelectedSwitch] = useState(null);
+  // Navigation state for two-panel layout using custom hook
+  const {
+    navigationView,
+    selectedZone,
+    selectedSpecificLocation,
+    selectedSwitch,
+    handleZoneClick,
+    handleBackToZones,
+    handleSwitchClick,
+    handleSpecificLocationClick,
+    handleBackToParentZone,
+  } = useNavigationState();
 
   function getQueryParam(key) {
     const currentHash = window.location.hash.replace('#', '');
@@ -729,37 +736,6 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
     );
   };
 
-  // Two-panel navigation handlers
-  const handleZoneClick = (location) => {
-    setSelectedZone(location);
-    setSelectedSpecificLocation(null);
-    setNavigationView('switches');
-    setSelectedSwitch(null); // Clear selected switch when changing zones
-  };
-
-  const handleBackToZones = () => {
-    setNavigationView('zones');
-    setSelectedZone(null);
-    setSelectedSpecificLocation(null);
-    setSelectedSwitch(null);
-  };
-
-  const handleSwitchClick = (location, machine, specificLocation = null) => {
-    setSelectedSwitch({
-      location: specificLocation || location,
-      machine,
-      parentLocation: specificLocation ? location : null,
-    });
-  };
-
-  const handleSpecificLocationClick = (specificLocation) => {
-    setSelectedSpecificLocation(specificLocation);
-  };
-
-  const handleBackToParentZone = () => {
-    setSelectedSpecificLocation(null);
-  };
-
   // console.log('switchStatus:', switchStatus);
   // console.log(':',);
   // console.log(':',);
@@ -1001,147 +977,27 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
       ) : (
         <Wrapper>
           <TwoPanelContainer>
-            {/* LEFT PANEL */}
-            <LeftPanel>
-              <Header>
-                <Title>
-                  integrated switch locations - {locationNumber} locations
-                </Title>
-              </Header>
-
-              {/* Navigation Area */}
-              {navigationView === 'zones' ? (
-                // ZONES LIST VIEW
-                <ZonesListContainer>
-                  {Object.keys(switchStatus).map((location, index) => {
-                    const locationData = locations[swtName][location];
-                    const isSpecificLocation = switchStatus[location].isSpecificLocation;
-                    const numSpecLocations = isSpecificLocation && Object.keys(switchStatus[location].subLocations).length;
-                    const count = isSpecificLocation ? numSpecLocations : machineNumber[index];
-
-                    return (
-                      <ZoneItem
-                        key={location}
-                        onClick={() => handleZoneClick(location)}
-                      >
-                        <ZoneItemTitle>
-                          {locationData?.location_name_short || locationData?.location_name}
-                        </ZoneItemTitle>
-                        <ZoneItemCount>
-                          {count} {isSpecificLocation ? 'sub-loc' : 'sw'}
-                        </ZoneItemCount>
-                      </ZoneItem>
-                    );
-                  })}
-                </ZonesListContainer>
-              ) : (
-                // SWITCHES LIST VIEW (when zone is selected)
-                <SwitchesListContainer>
-                  <BackButton onClick={handleBackToZones}>
-                    ← Back to Zones
-                  </BackButton>
-
-                  {selectedZone && (
-                    <>
-                      {switchStatus[selectedZone].isSpecificLocation ? (
-                        // Zone has sub-locations
-                        <>
-                          {!selectedSpecificLocation ? (
-                            // Show sub-locations list
-                            Object.keys(switchStatus[selectedZone].subLocations).map((specLoc) => {
-                              const specificLocationData = locations[swtName][specLoc];
-                              const devicesLength = Object.keys(switchStatus[selectedZone].subLocations[specLoc].devices).length;
-
-                              return (
-                                <SubLocationItem
-                                  key={specLoc}
-                                  onClick={() => handleSpecificLocationClick(specLoc)}
-                                >
-                                  <SubLocationTitle>
-                                    {specificLocationData?.location_name_short}
-                                  </SubLocationTitle>
-                                  <SubLocationCount>{devicesLength} sw</SubLocationCount>
-                                </SubLocationItem>
-                              );
-                            })
-                          ) : (
-                            // Show switches in selected sub-location
-                            <>
-                              <BackButton onClick={handleBackToParentZone}>
-                                ← Back to Sub-locations
-                              </BackButton>
-                              {Object.keys(switchStatus[selectedZone].subLocations[selectedSpecificLocation].devices).map((machine) => {
-                                const isActive = selectedSwitch?.machine === machine && selectedSwitch?.location === selectedSpecificLocation;
-
-                                return (
-                                  <SwitchItem
-                                    key={machine}
-                                    active={isActive}
-                                    onClick={() => handleSwitchClick(selectedZone, machine, selectedSpecificLocation)}
-                                  >
-                                    {machine}
-                                  </SwitchItem>
-                                );
-                              })}
-                            </>
-                          )}
-                        </>
-                      ) : (
-                        // Zone has direct switches (no sub-locations)
-                        Object.keys(switchStatus[selectedZone].devices).map((machine) => {
-                          const isActive = selectedSwitch?.machine === machine && selectedSwitch?.location === selectedZone;
-
-                          return (
-                            <SwitchItem
-                              key={machine}
-                              active={isActive}
-                              onClick={() => handleSwitchClick(selectedZone, machine)}
-                            >
-                              {machine}
-                            </SwitchItem>
-                          );
-                        })
-                      )}
-                    </>
-                  )}
-                </SwitchesListContainer>
-              )}
-            </LeftPanel>
-
-            {/* RIGHT PANEL */}
-            <RightPanel>
-              {selectedSwitch ? (
-                <>
-                  {swtName === 'ess' && (
-                    <EssMasterControlByMachine
-                      location={selectedSwitch.location}
-                      machine={selectedSwitch.machine}
-                      swtName={swtName}
-                      indivLocationName={locations[swtName][selectedSwitch.location]?.location_name_short}
-                    />
-                  )}
-                  {swtName === 'tes' && (
-                    <TesMasterControlByMachine
-                      location={selectedSwitch.location}
-                      machine={selectedSwitch.machine}
-                      swtName={swtName}
-                      indivLocationName={locations[swtName][selectedSwitch.location]?.location_name_short}
-                    />
-                  )}
-                  {swtName === 'tgs' && (
-                    <TgsMasterControlByMachine
-                      location={selectedSwitch.location}
-                      machine={selectedSwitch.machine}
-                      swtName={swtName}
-                    />
-                  )}
-                </>
-              ) : (
-                <PlaceholderContainer>
-                  <PlaceholderText>Select a switch to view details</PlaceholderText>
-                </PlaceholderContainer>
-              )}
-            </RightPanel>
+            <LeftPanelNavigation
+              navigationView={navigationView}
+              switchStatus={switchStatus}
+              locations={locations}
+              swtName={swtName}
+              locationNumber={locationNumber}
+              machineNumber={machineNumber}
+              selectedZone={selectedZone}
+              selectedSpecificLocation={selectedSpecificLocation}
+              selectedSwitch={selectedSwitch}
+              onZoneClick={handleZoneClick}
+              onBackToZones={handleBackToZones}
+              onSpecificLocationClick={handleSpecificLocationClick}
+              onBackToParentZone={handleBackToParentZone}
+              onSwitchClick={handleSwitchClick}
+            />
+            <SwitchDetailsPanel
+              selectedSwitch={selectedSwitch}
+              swtName={swtName}
+              locations={locations}
+            />
           </TwoPanelContainer>
           {openLocationMessageBox && (
             <MessageBoxWrapper>
@@ -1472,147 +1328,6 @@ const TwoPanelContainer = styled.div`
   width: 1216px;
   gap: 8px;
   margin-top: 8px;
-`;
-
-const LeftPanel = styled.div`
-  flex: 0 0 280px;
-  ${flexDirectionColumn};
-  gap: 8px;
-`;
-
-const RightPanel = styled.div`
-  flex: 1;
-  border-radius: 18px;
-  ${layerC};
-  ${flexBoxCenter};
-  padding: 16px;
-  min-height: 600px;
-`;
-
-const ZonesListContainer = styled.div`
-  ${flexDirectionColumn};
-  gap: 6px;
-  border-radius: 18px;
-  ${layerC};
-  padding: 8px;
-  max-height: 700px;
-  overflow-y: auto;
-`;
-
-const ZoneItem = styled.div`
-  border-radius: 12px;
-  ${layerA180Deg};
-  padding: 10px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    ${layerB};
-    transform: translateX(2px);
-  }
-`;
-
-const ZoneItemTitle = styled.div`
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: #95ff45;
-  margin-bottom: 3px;
-  word-break: break-word;
-`;
-
-const ZoneItemCount = styled.div`
-  font-size: 10px;
-  letter-spacing: 0.8px;
-  color: #fff;
-  opacity: 0.7;
-`;
-
-const SwitchesListContainer = styled.div`
-  ${flexDirectionColumn};
-  gap: 6px;
-  border-radius: 18px;
-  ${layerC};
-  padding: 8px;
-  max-height: 700px;
-  overflow-y: auto;
-`;
-
-const BackButton = styled.button`
-  border-radius: 10px;
-  ${layerBDark};
-  padding: 8px 12px;
-  cursor: pointer;
-  border: none;
-  color: #fff;
-  font-size: 11px;
-  letter-spacing: 1px;
-  transition: all 0.2s ease;
-  margin-bottom: 6px;
-
-  &:hover {
-    ${layerB};
-    transform: translateX(-2px);
-  }
-`;
-
-const SwitchItem = styled.div`
-  border-radius: 10px;
-  ${(p) => p.active ? layerB : layerA180Deg};
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: ${(p) => p.active ? '#95ff45' : '#fff'};
-  transition: all 0.2s ease;
-  border: ${(p) => p.active ? '2px solid #95ff45' : '2px solid transparent'};
-  word-break: break-word;
-
-  &:hover {
-    ${layerB};
-    color: #95ff45;
-  }
-`;
-
-const SubLocationItem = styled.div`
-  border-radius: 10px;
-  ${layerA180Deg};
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    ${layerB};
-    transform: translateX(2px);
-  }
-`;
-
-const SubLocationTitle = styled.div`
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: #ff920c;
-  margin-bottom: 3px;
-  word-break: break-word;
-`;
-
-const SubLocationCount = styled.div`
-  font-size: 9px;
-  letter-spacing: 0.8px;
-  color: #fff;
-  opacity: 0.7;
-`;
-
-const PlaceholderContainer = styled.div`
-  ${flexBoxCenter};
-  width: 100%;
-  height: 100%;
-`;
-
-const PlaceholderText = styled.div`
-  font-size: 16px;
-  letter-spacing: 1.4px;
-  color: #fff;
-  opacity: 0.5;
-  text-align: center;
 `;
 
 // const handleControllerInHead = (btn, state, location, temp) => {
