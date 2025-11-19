@@ -11,3 +11,10 @@ export * from './useSelectSwitchesDispatches';
 export * from './useSelectSwitchesDisplay';
 export * from './useGetSpecificLocationList';
 export * from './useCheckControlPermsission';
+
+// New shared hooks for ESS/TGS/TES components
+export { default as useNavigationState } from './useNavigationState';
+export { default as useProgramIcons } from './useProgramIcons';
+export { default as useSwitchData } from './useSwitchData';
+export { default as useSwitchControls } from './useSwitchControls';
+export { default as useHeaderHat } from './useHeaderHat';
