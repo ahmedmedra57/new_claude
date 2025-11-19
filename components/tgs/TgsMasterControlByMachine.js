@@ -127,19 +127,8 @@ const TgsMasterControlByMachine = ({
     controls.handleButtonClick(btnName, { isOff, isReady, fanOnly });
   };
 
-  const handleMessage = (title) => {
-    setMessageTitle(title);
-    setMessage([
-      `in order to finalize instant heat program, `,
-      'please input your temperature',
-      '( the minimum temperature is 121°C - 250°F )',
-      '( the maximum temperature is 999°C - 1830°F )',
-    ]);
-    setOpenMessageBox(true);
-  };
-
   const handleCloseMessage = () => {
-    if (typeof instantHeat.inputTemp === 'number') {
+    if (typeof instantHeat?.inputTemp === 'number') {
       if (isF) {
         setInputTemp(`${instantHeat.inputTemp} °F`);
       } else {
@@ -148,100 +137,20 @@ const TgsMasterControlByMachine = ({
     } else {
       setInputTemp('');
     }
-    setOpenMessageBox(false);
+    controls.closeMessageBox();
   };
 
-  const handleInstantHeatBtn = (e) => {
+  const handleInstantHeatBtn = (e, title) => {
     e.preventDefault();
-    const temp = Number(inputTemp.match(/\d+/)[0]);
-
-    if (isActivated || isReadyInstantHeat) {
-      postTgsCommand(deviceMac, 'on_switch', 0);
-      dispatch(tgsHandleInstantHeatOff({ location, machine }));
-    } else {
-      if (isF) {
-        if (temp >= 250 && temp <= 1830) {
-          postTgsCommand(
-            deviceMac,
-            'instant_temp',
-            isF ? convertFahrenheitToCelsius(temp) : temp
-          );
-          postTgsCommand(deviceMac, 'on_switch', 1);
-
-          dispatch(
-            tgsHandleInstantHeatIsReady({
-              location,
-              machine,
-              isF,
-              temp,
-            })
-          );
-        } else {
-          handleMessage();
-        }
-      } else {
-        if (temp >= 121 && temp <= 999) {
-          postTgsCommand(
-            deviceMac,
-            'instant_temp',
-            isF ? convertFahrenheitToCelsius(temp) : temp
-          );
-          postTgsCommand(deviceMac, 'on_switch', 1);
-
-          dispatch(
-            tgsHandleInstantHeatIsReady({
-              location,
-              machine,
-              isF,
-              temp,
-            })
-          );
-        } else {
-          handleMessage();
-        }
-      }
-    }
+    controls.handleInstantHeat(inputTemp, isActivated, isReadyInstantHeat, title);
   };
 
   const handleOpenMachineDetail = () => {
-    if (openMachineController) {
-      dispatch(
-        tgsHandleOpenMachineController({
-          location,
-          machine,
-          status: false,
-        })
-      );
-      dispatch(tgsHandleUnselectAllProgram({ location, machine }));
-    } else {
-      dispatch(
-        tgsHandleOpenMachineController({
-          location,
-          machine,
-          status: true,
-        })
-      );
-    }
+    controls.handleMachineDetailToggle(openMachineController);
   };
 
-  // sets the hats of each UOS (format:SVG)
-  const hatImg = isOff
-    ? headerTitle.length < 29
-      ? '/images/MC-machine-header1-off.svg'
-      : headerTitle.length < 46
-      ? '/images/MC-machine-header-mediumSize-off.svg'
-      : '/images/MC-machine-header-largeSize-off.svg'
-    : isFaults
-    ? headerTitle.length < 29
-      ? '/images/MC-machine-header1-faults.svg'
-      : headerTitle.length < 46
-      ? '/images/MC-machine-header-mediumSize-faults.svg'
-      : '/images/MC-machine-header-largeSize-faults.svg'
-    : headerTitle.length < 29
-    ? '/images/MC-machine-header1.svg'
-    : headerTitle.length < 46
-    ? '/images/MC-machine-header-medium-size.svg'
-    : '/images/MC-machine-header-long-size.svg';
+  // Use shared hook for header hat (replaces ~40 lines of nested ternaries)
+  const hatImg = useHeaderHat(isOff, isFaults, headerTitle, isMobile);
 
   return (
     <>
@@ -987,13 +896,13 @@ const TgsMasterControlByMachine = ({
               </SectionSub>
             </SectionMainContentClose>
           )}
-          {openMessageBox && (
+          {controls.openMessageBox && (
             <MessageBoxWrapper>
               <InputTempMessage
                 onClose={handleCloseMessage}
-                title={messageTitle}
+                title={controls.messageTitle}
                 subtitle={'instant heat program'}
-                messages={message}
+                messages={controls.message}
               />
             </MessageBoxWrapper>
           )}

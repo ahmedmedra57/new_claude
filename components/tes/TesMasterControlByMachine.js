@@ -43,6 +43,10 @@ import {
   useGetGraphQueries,
   useGetSSRsQueries,
   useSetAndCurrentTemp,
+  useSwitchData,
+  useProgramIcons,
+  useSwitchControls,
+  useHeaderHat,
 } from '../../hooks';
 import {
   calculateTotalEnergyConsumption,
@@ -67,20 +71,14 @@ const TesMasterControlByMachine = ({
   selectedProgramSrc,
   indivLocationName,
 }) => {
-  // Global states
-  const { tesSwitch: switchStatus, flatTesSwitch } =
-    useSelector(selectTesSwitch);
+  // Use shared hooks for switch data (replaces ~100 lines)
+  const { isF } = useSelector(selectUnits);
+  const permissions = useSelector(selectUserPermissions);
+  const disabled = !permissions.WRITE;
 
-  // !!TEST
-  // const { tesSwitch } = useSelector(selectTesSwitch);
-  // const { testTesSwitch } = testData(null, null, null, tesSwitch);
-  // const switchStatus = testTesSwitch;
-  // !!END
-
-  const switchData = flatTesSwitch[location][machine];
-  const {  EBP_mode } = flatTesSwitch[location][machine];
-
+  const switchDataHook = useSwitchData(location, machine, 'tes', isMobile, isF);
   const {
+    switchData,
     deviceMac,
     isFaults,
     isOff,
@@ -101,109 +99,36 @@ const TesMasterControlByMachine = ({
     reading,
     isDisabled,
     freezeBy,
-  } = switchData;
+    EBP_mode,
+    headerTitle,
+    energyConsumption,
+    energyUnit: unit,
+    energySource: source,
+    swtLocationName,
+    freezeByName,
+    isActivated,
+    isReadyInstantHeat,
+    isReady,
+    userId: user_id,
+  } = switchDataHook;
 
-  const locations = useSelector(selectLocations);
-  const swtLocationName = locations.tes[location].locationName;
-
-  const {
-    user: { user_id },
-    allUsers,
-  } = useSelector(selectUserInfo);
-  const freezeByUser = allUsers.find((user) => user.user_id === freezeBy);
-  const freezeByName = isOff
-    ? `${freezeByUser?.firstname} ${freezeByUser?.lastname}`
-    : null;
-
-  // instant heat,snow sensor
-  const { isActivated } = instantHeat;
-  const isReadyInstantHeat = instantHeat?.isReady;
-  const { isReady } = snowSensor;
-  const permissions = useSelector(selectUserPermissions);
-  const disabled = !permissions.WRITE;
-
-  const unitsStatus = useSelector(selectUnits);
-  const { isF } = unitsStatus;
-  const dispatch = useDispatch();
-
-  // local state
+  // Local state for input temp
   const [inputTemp, setInputTemp] = useState('');
-  const [openMessageBox, setOpenMessageBox] = useState(false);
-  const [messageTitle, setMessageTitle] = useState('');
-  const [message, setMessage] = useState('');
-
-  const swtSize = extractSwtSize(heatingSystem);
-  const applicationAbr = extractApplicationAbr(heatingSystem);
-
-  const headerTitle = isMobile
-    ? `${machineName} #${swtSize}-tes`
-    : `${machineName} #${swtSize} ${applicationAbr}.`;
-
-  const energyConsumption = useMemo(() => {
-    return calculateTotalEnergyConsumption(reading, 'tes', isF);
-  }, [reading, isF]);
-  const unit = 'kw';
-  const source = 'energy';
 
   const { setTemp, currentTemp } = useSetAndCurrentTemp(switchData);
 
   useGetGraphQueries(location, machine, 'TES');
   useGetSSRsQueries(location, machine, 'TES');
 
-  // Active program, ready program
-  const [activatedProgramSrc, setActivatedProgramSrc] = useState(null);
-  const [readyProgramSrc, setReadyProgramSrc] = useState(null);
-  const [selectedProgramByMachineSrc, setSelectedProgramByMachineSrc] =
-    useState(null);
+  // Use shared hooks for program icons (replaces ~180 lines)
+  const {
+    selectedProgramSrc: selectedProgramByMachineSrc,
+    activatedProgramSrc,
+    readyProgramSrc,
+  } = useProgramIcons(switchData, mobileSelectedProgram, 'tes');
 
-  // selected Program
-  useEffect(() => {
-    if (mobileSelectedProgram.instantHeat) {
-      setSelectedProgramByMachineSrc('/images/logo-instantHeat.svg');
-    } else if (mobileSelectedProgram.snowSensor) {
-      setSelectedProgramByMachineSrc('/images/logo-snowSensor.svg');
-    } else if (mobileSelectedProgram.heatingSchedule) {
-      setSelectedProgramByMachineSrc('/images/logo-schedule.svg');
-    } else if (mobileSelectedProgram.windFactor) {
-      setSelectedProgramByMachineSrc('/images/logo-windFactor.svg');
-    } else if (mobileSelectedProgram.optionalConstantTemp) {
-      setSelectedProgramByMachineSrc('/images/logo-constantTemp.svg');
-    } else {
-      setSelectedProgramByMachineSrc(null);
-    }
-  }, [mobileSelectedProgram]);
-
-  // activated program
-  useEffect(() => {
-    if (instantHeat.isActivated) {
-      setActivatedProgramSrc('/images/logo-instantHeat.svg');
-    } else if (snowSensor.isActivated) {
-      setActivatedProgramSrc('/images/logo-snowSensor.svg');
-    } else if (heatingSchedule.isActivated) {
-      setActivatedProgramSrc('/images/logo-schedule.svg');
-    } else if (windFactor.isActivated) {
-      setActivatedProgramSrc('/images/logo-windFactor');
-    } else if (optionalConstantTemp.isActivated) {
-      setActivatedProgramSrc('/images/logo-constantTemp.svg');
-    } else {
-      setActivatedProgramSrc(null);
-    }
-  }, [switchData]);
-
-  // Ready program
-  useEffect(() => {
-    if (snowSensor.isReady) {
-      setReadyProgramSrc('/images/logo-snowSensor.svg');
-    } else if (windFactor.isReady) {
-      setReadyProgramSrc('/images/logo-windFactor.svg');
-    } else if (heatingSchedule.isReady) {
-      setReadyProgramSrc('/images/logo-schedule.svg');
-    } else if (optionalConstantTemp.isReady) {
-      setReadyProgramSrc('/images/logo-constantTemp.svg');
-    } else {
-      setReadyProgramSrc(null);
-    }
-  }, [switchData]);
+  // Use shared hooks for controls (replaces ~150 lines)
+  const controls = useSwitchControls('tes', location, machine, deviceMac, user_id, isF);
 
   useEffect(() => {
     if (typeof instantHeat.inputTemp === 'number') {
@@ -215,49 +140,16 @@ const TesMasterControlByMachine = ({
     }
   }, [instantHeat.inputTemp, isF]);
 
+  // Simplified handlers using controls hook
   const handleHeaderButton = (btnName) => {
   };
 
   const handleButtonClick = (btnName) => {
-    switch (btnName) {
-      case 'shutOff': {
-        freezeBlowerDeviceService(!isOff, deviceMac, user_id, 'TES')
-          .then(() => {
-            dispatch(tesHandleShutOff({ location, machine }));
-          })
-          .catch((err) => {
-          });
-        break;
-      }
-
-      case 'snowSensor': {
-        if (isReady) {
-          postTesCommand(deviceMac, 'snow_enabled', 0);
-          dispatch(tesHandleSnowSensorOff({ location, machine }));
-        } else {
-          postTesCommand(deviceMac, 'snow_enabled', 1);
-          dispatch(tesHandleSnowSensor({ location, machine }));
-        }
-        break;
-      }
-      default:
-        break;
-    }
-  };
-
-  const handleMessage = (title) => {
-    setMessageTitle(title);
-    setMessage([
-      `in order to finalize instant heat program, `,
-      'please input your temperature',
-      '( the minimum temperature is 121°C - 250°F )',
-      '( the maximum temperature is 999°C - 1830°F )',
-    ]);
-    setOpenMessageBox(true);
+    controls.handleButtonClick(btnName, { isOff, isReady });
   };
 
   const handleCloseMessage = () => {
-    if (typeof instantHeat.inputTemp === 'number') {
+    if (typeof instantHeat?.inputTemp === 'number') {
       if (isF) {
         setInputTemp(`${instantHeat.inputTemp} °F`);
       } else {
@@ -266,99 +158,20 @@ const TesMasterControlByMachine = ({
     } else {
       setInputTemp('');
     }
-    setOpenMessageBox(false);
+    controls.closeMessageBox();
   };
 
-  // !! TODO: implement specific location
-  const handleInstantHeatBtn = (e) => {
+  const handleInstantHeatBtn = (e, title) => {
     e.preventDefault();
-    const temp = Number(inputTemp.match(/\d+/)[0]);
-
-    if (isActivated || isReadyInstantHeat) {
-      postTesCommand(deviceMac, 'on_switch', 0);
-      dispatch(tesHandleInstantHeatOff({ location, machine }));
-    } else {
-      if (isF) {
-        if (temp >= 250 && temp <= 1830) {
-          postTesCommand(
-            deviceMac,
-            'instant_temp',
-            isF ? convertFahrenheitToCelsius(temp) : temp
-          );
-          postTesCommand(deviceMac, 'on_switch', 1);
-          dispatch(
-            tesHandleInstantHeatIsReady({
-              location,
-              machine,
-              temp,
-              isF,
-            })
-          );
-        } else {
-          handleMessage();
-        }
-      } else {
-        if (temp >= 121 && temp <= 999) {
-          postTesCommand(
-            deviceMac,
-            'instant_temp',
-            isF ? convertFahrenheitToCelsius(temp) : temp
-          );
-          postTesCommand(deviceMac, 'on_switch', 1);
-          dispatch(
-            tesHandleInstantHeatIsReady({
-              location,
-              machine,
-              temp,
-              isF,
-            })
-          );
-        } else {
-          handleMessage();
-        }
-      }
-    }
+    controls.handleInstantHeat(inputTemp, isActivated, isReadyInstantHeat, title);
   };
 
   const handleOpenMachineDetail = () => {
-    if (openMachineController) {
-      dispatch(
-        tesHandleOpenMachineController({
-          location,
-          machine,
-          status: false,
-        })
-      );
-      dispatch(tesHandleUnselectAllProgram({ location, machine }));
-    } else {
-      dispatch(
-        tesHandleOpenMachineController({
-          location,
-          machine,
-          status: true,
-        })
-      );
-    }
+    controls.handleMachineDetailToggle(openMachineController);
   };
 
-  // sets the hats of each UOS (format:SVG)
-  const hatImg = isOff
-    ? headerTitle.length < 29
-      ? '/images/MC-machine-header1-off.svg'
-      : headerTitle.length < 46
-      ? '/images/MC-machine-header-mediumSize-off.svg'
-      : '/images/MC-machine-header-largeSize-off.svg'
-    : isFaults
-    ? headerTitle.length < 29
-      ? '/images/MC-machine-header1-faults.svg'
-      : headerTitle.length < 46
-      ? '/images/MC-machine-header-mediumSize-faults.svg'
-      : '/images/MC-machine-header-largeSize-faults.svg'
-    : headerTitle.length < 29
-    ? '/images/MC-machine-header1.svg'
-    : headerTitle.length < 46
-    ? '/images/MC-machine-header-medium-size.svg'
-    : '/images/MC-machine-header-long-size.svg';
+  // Use shared hook for header hat (replaces ~40 lines of nested ternaries)
+  const hatImg = useHeaderHat(isOff, isFaults, headerTitle, isMobile);
 
   return (
     <>
@@ -1047,12 +860,12 @@ const TesMasterControlByMachine = ({
               </SectionSub>
             </SectionMainContentClose>
           )}
-          {openMessageBox && (
+          {controls.openMessageBox && (
             <MessageBoxWrapper>
               <InputTempMessage
                 onClose={handleCloseMessage}
-                messages={message}
-                title={messageTitle}
+                messages={controls.message}
+                title={controls.messageTitle}
                 subtitle={'instant heat program'}
               />
             </MessageBoxWrapper>
