@@ -1,19 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { tgsHandleOpenMachineController } from '../store/slices/tgsSwitchSlice';
 
 import styled, { css } from 'styled-components';
-
-import {
-  tgsHandleInstantHeatOff,
-  tgsHandleShutOff,
-  tgsHandleSnowSensor,
-  tgsHandleSnowSensorOff,
-  selectTgsSwitch,
-  tgsHandleOpenMachineController,
-  tgsHandleFanOnly,
-  tgsHandleUnselectAllProgram,
-  tgsHandleInstantHeatIsReady,
-} from '../store/slices/tgsSwitchSlice';
 
 import {
   activeInput,
@@ -40,20 +29,18 @@ import {
 import SwitchWrapper from '../commonComponentsMC/SwitchWrapper';
 import TgsControlBox from './TgsControlBox';
 import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { freezeBlowerDeviceService, postTgsCommand } from '../../services';
-import { useGetGraphQueries, useSetAndCurrentTemp } from '../../hooks';
+import { convertCelsiusToFahrenheit } from '../../helpers/helpers';
 import {
-  calculateTotalEnergyConsumption,
-  convertCelsiusToFahrenheit,
-  convertFahrenheitToCelsius,
-  extractApplicationAbr,
-  extractSwtSize,
-} from '../../helpers/helpers';
+  useGetGraphQueries,
+  useSetAndCurrentTemp,
+  useSwitchData,
+  useProgramIcons,
+  useSwitchControls,
+  useHeaderHat,
+} from '../../hooks';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import TurnOffMessageBox from '../commonComponentsMC/controllers/TurnOffMessageBox';
-import { selectUserInfo,selectUserPermissions } from '../store/slices/userSlice';
-import { selectLocations } from '../store/slices/locationsSlice';
-import testData from '../../test_data/testData';
+import { selectUserPermissions } from '../store/slices/userSlice';
 
 const TgsMasterControlByMachine = ({
   location,
@@ -61,17 +48,16 @@ const TgsMasterControlByMachine = ({
   isMobile,
   selectedProgramSrc,
 }) => {
-  // Global states
-  const { tgsSwitch: switchStatus, flatTgsSwitch } =
-    useSelector(selectTgsSwitch);
-  // !!TEST
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
-  // const { testTgsSwitch } = testData(null, tgsSwitch, null);
-  // const switchStatus = testTgsSwitch;
-  // !!END
-  const switchData = flatTgsSwitch[location][machine];
-const { EBP_mode } = flatTgsSwitch[location][machine];
+  // Permissions and units
+  const dispatch = useDispatch();
+  const permissions = useSelector(selectUserPermissions);
+  const disabled = !permissions.WRITE;
+  const { isF } = useSelector(selectUnits);
+
+  // Use shared hooks for switch data (replaces ~100 lines)
+  const switchDataHook = useSwitchData(location, machine, 'tgs', isMobile, isF);
   const {
+    switchData,
     deviceMac,
     isFaults,
     isOff,
@@ -85,179 +71,60 @@ const { EBP_mode } = flatTgsSwitch[location][machine];
     isEbp,
     isWifi,
     openMachineController,
-    fanOnly,
     mobileSelectedProgram,
-    locationName,
     machineName,
-    isTESActive,
     reading,
     isDisabled,
     freezeBy,
-  } = switchData;
+    fanOnly,
+    isTESActive,
+    EBP_mode,
+    headerTitle,
+    energyConsumption,
+    energyUnit: unit,
+    energySource: source,
+    swtLocationName,
+    freezeByName,
+    isActivated,
+    isReadyInstantHeat,
+    isReady,
+    userId: user_id,
+  } = switchDataHook;
 
-  const locations = useSelector(selectLocations);
-  const swtLocationName = locations.tgs[location].locationName;
-
+  // Use shared hooks for program icons (replaces ~180 lines)
   const {
-    user: { user_id },
-    allUsers,
-  } = useSelector(selectUserInfo);
-  const freezeByUser = allUsers.find((user) => user.user_id === freezeBy);
-  const freezeByName = isOff
-    ? `${freezeByUser?.firstname} ${freezeByUser?.lastname}`
-    : null;
+    selectedProgramSrc: selectedProgramByMachineSrc,
+    activatedProgramSrc,
+    readyProgramSrc,
+  } = useProgramIcons(switchData, mobileSelectedProgram, 'tgs');
 
-  const unitsStatus = useSelector(selectUnits);
-  const { isF } = unitsStatus;
+  // Use shared hooks for controls (replaces ~150 lines)
+  const controls = useSwitchControls('tgs', location, machine, deviceMac, user_id, isF);
 
-  // instant heat,snow sensor
-  const { isActivated } = instantHeat;
-  const isReadyInstantHeat = instantHeat?.isReady;
-  const { isReady } = snowSensor;
-  const permissions = useSelector(selectUserPermissions);
-  const disabled = !permissions.WRITE;
-  // local state
-  // const [showTurnOffMessageBox, setShowTurnOffMessageBox] = useState(false);
+  // Local state for input temp
   const [inputTemp, setInputTemp] = useState('');
-  const dispatch = useDispatch();
 
-  const swtSize = extractSwtSize(heatingSystem);
-  const applicationAbr = extractApplicationAbr(heatingSystem);
-
-  const headerTitle = isMobile
-    ? `${machineName} #${swtSize}-tgs`
-    : `${machineName} #${swtSize} ${applicationAbr}.`;
-
-  const energyConsumption = useMemo(() => {
-    return calculateTotalEnergyConsumption(reading, 'tgs', isF);
-  }, [reading, isF]);
-  const unit = isF ? 'FT³' : 'M³';
-  const source = 'gas';
-
+  // Keep existing hooks
   const { setTemp, currentTemp } = useSetAndCurrentTemp(switchData);
-
   useGetGraphQueries(location, machine, 'TGS');
 
-  // Active program, ready program
-  const [activatedProgramSrc, setActivatedProgramSrc] = useState(null);
-  const [readyProgramSrc, setReadyProgramSrc] = useState(null);
-  const [selectedProgramByMachineSrc, setSelectedProgramByMachineSrc] =
-    useState(null);
-  const [openMessageBox, setOpenMessageBox] = useState(false);
-
-  const [messageTitle, setMessageTitle] = useState('');
-  const [message, setMessage] = useState('');
-
-  // selected program
+  // Sync input temp with instantHeat
   useEffect(() => {
-    if (mobileSelectedProgram.instantHeat) {
-      setSelectedProgramByMachineSrc('/images/logo-instantHeat.svg');
-    } else if (mobileSelectedProgram.snowSensor) {
-      setSelectedProgramByMachineSrc('/images/logo-snowSensor.svg');
-    } else if (mobileSelectedProgram.heatingSchedule) {
-      setSelectedProgramByMachineSrc('/images/logo-schedule.svg');
-    } else if (mobileSelectedProgram.windFactor) {
-      setSelectedProgramByMachineSrc('/images/logo-windFactor.svg');
-    } else if (mobileSelectedProgram.fanOnly) {
-      setSelectedProgramByMachineSrc('/images/tgs-fanOnly.svg');
-    } else {
-      setSelectedProgramByMachineSrc(null);
-    }
-  }, [mobileSelectedProgram]);
-
-  // activated program
-  useEffect(() => {
-    if (instantHeat.isActivated) {
-      setActivatedProgramSrc('/images/logo-instantHeat.svg');
-    } else if (snowSensor.isActivated) {
-      setActivatedProgramSrc('/images/logo-snowSensor.svg');
-    } else if (heatingSchedule.isActivated) {
-      setActivatedProgramSrc('/images/logo-schedule.svg');
-    } else if (windFactor.isActivated) {
-      setActivatedProgramSrc('/images/logo-windFactor');
-    } else if (optionalConstantTemp.isActivated) {
-      setActivatedProgramSrc('/images/logo-constantTemp.svg');
-    } else if (fanOnly) {
-      setActivatedProgramSrc('/images/tgs-fanOnly.svg');
-    } else {
-      setActivatedProgramSrc(null);
-    }
-  }, [switchData]);
-
-  // Ready program
-  useEffect(() => {
-    if (snowSensor.isReady) {
-      setReadyProgramSrc('/images/logo-snowSensor.svg');
-    } else if (windFactor.isReady) {
-      setReadyProgramSrc('/images/logo-windFactor.svg');
-    } else if (heatingSchedule.isReady) {
-      setReadyProgramSrc('/images/logo-schedule.svg');
-    } else if (optionalConstantTemp.isReady) {
-      setReadyProgramSrc('/images/logo-constantTemp.svg');
-    } else {
-      setReadyProgramSrc(null);
-    }
-  }, [switchData]);
-
-  useEffect(() => {
-    if (typeof instantHeat.inputTemp === 'number') {
+    if (typeof instantHeat?.inputTemp === 'number') {
       if (isF) {
         setInputTemp(`${instantHeat.inputTemp} °F`);
       } else {
         setInputTemp(`${instantHeat.inputTemp} °C`);
       }
     }
-  }, [instantHeat.inputTemp, isF]);
+  }, [instantHeat?.inputTemp, isF]);
 
   const handleHeaderButton = (btnName) => {
   };
 
+  // Use control handlers from the hook
   const handleButtonClick = (btnName) => {
-    switch (btnName) {
-      case 'shutOff': {
-        freezeBlowerDeviceService(!isOff, deviceMac, user_id, 'TGS')
-          .then(() => {
-            dispatch(tgsHandleShutOff({ location, machine }));
-          })
-          .catch((err) => {
-          });
-        break;
-      }
-
-      case 'snowSensor': {
-        if (isReady) {
-          postTgsCommand(deviceMac, 'snow_enabled', 0);
-          dispatch(tgsHandleSnowSensorOff({ location, machine }));
-        } else {
-          postTgsCommand(deviceMac, 'snow_enabled', 1);
-          dispatch(tgsHandleSnowSensor({ location, machine }));
-        }
-        break;
-      }
-      case 'fanOnly': {
-        fanOnly
-          ? dispatch(
-              tgsHandleFanOnly({
-                location,
-                machine,
-                state: false,
-              })
-            )
-          : dispatch(
-              tgsHandleFanOnly({
-                location,
-                machine,
-                state: true,
-              })
-            );
-        fanOnly
-          ? postTgsCommand(deviceMac, 'fan', 0)
-          : postTgsCommand(deviceMac, 'fan', 1);
-        break;
-      }
-      default:
-        break;
-    }
+    controls.handleButtonClick(btnName, { isOff, isReady, fanOnly });
   };
 
   const handleMessage = (title) => {
