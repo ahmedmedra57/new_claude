@@ -1025,11 +1025,10 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
                         onClick={() => handleZoneClick(location)}
                       >
                         <ZoneItemTitle>
-                          {locationData?.location_name} - {locationData?.location_name_short}
-                          {!isSpecificLocation && ` - ${locationData?.zone_city}, ${locationData?.zone_state_short_name}`}
+                          {locationData?.location_name_short || locationData?.location_name}
                         </ZoneItemTitle>
                         <ZoneItemCount>
-                          {count} {isSpecificLocation ? 'sub-locations' : 'switches'}
+                          {count} {isSpecificLocation ? 'sub-loc' : 'sw'}
                         </ZoneItemCount>
                       </ZoneItem>
                     );
@@ -1059,9 +1058,9 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
                                   onClick={() => handleSpecificLocationClick(specLoc)}
                                 >
                                   <SubLocationTitle>
-                                    {specificLocationData?.location_name_short} - {specificLocationData?.specific_address}
+                                    {specificLocationData?.location_name_short}
                                   </SubLocationTitle>
-                                  <SubLocationCount>{devicesLength} switches</SubLocationCount>
+                                  <SubLocationCount>{devicesLength} sw</SubLocationCount>
                                 </SubLocationItem>
                               );
                             })
@@ -1476,7 +1475,7 @@ const TwoPanelContainer = styled.div`
 `;
 
 const LeftPanel = styled.div`
-  flex: 0 0 400px;
+  flex: 0 0 280px;
   ${flexDirectionColumn};
   gap: 8px;
 `;
@@ -1501,28 +1500,29 @@ const ZonesListContainer = styled.div`
 `;
 
 const ZoneItem = styled.div`
-  border-radius: 14px;
+  border-radius: 12px;
   ${layerA180Deg};
-  padding: 12px 16px;
+  padding: 10px 12px;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
     ${layerB};
-    transform: translateX(4px);
+    transform: translateX(2px);
   }
 `;
 
 const ZoneItemTitle = styled.div`
-  font-size: 13px;
-  letter-spacing: 1.2px;
+  font-size: 11px;
+  letter-spacing: 1px;
   color: #95ff45;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  word-break: break-word;
 `;
 
 const ZoneItemCount = styled.div`
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-size: 10px;
+  letter-spacing: 0.8px;
   color: #fff;
   opacity: 0.7;
 `;
@@ -1538,33 +1538,34 @@ const SwitchesListContainer = styled.div`
 `;
 
 const BackButton = styled.button`
-  border-radius: 12px;
+  border-radius: 10px;
   ${layerBDark};
-  padding: 10px 16px;
+  padding: 8px 12px;
   cursor: pointer;
   border: none;
   color: #fff;
-  font-size: 12px;
-  letter-spacing: 1.1px;
+  font-size: 11px;
+  letter-spacing: 1px;
   transition: all 0.2s ease;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 
   &:hover {
     ${layerB};
-    transform: translateX(-4px);
+    transform: translateX(-2px);
   }
 `;
 
 const SwitchItem = styled.div`
-  border-radius: 12px;
+  border-radius: 10px;
   ${(p) => p.active ? layerB : layerA180Deg};
-  padding: 10px 16px;
+  padding: 8px 12px;
   cursor: pointer;
-  font-size: 12px;
-  letter-spacing: 1.1px;
+  font-size: 11px;
+  letter-spacing: 1px;
   color: ${(p) => p.active ? '#95ff45' : '#fff'};
   transition: all 0.2s ease;
   border: ${(p) => p.active ? '2px solid #95ff45' : '2px solid transparent'};
+  word-break: break-word;
 
   &:hover {
     ${layerB};
@@ -1573,28 +1574,29 @@ const SwitchItem = styled.div`
 `;
 
 const SubLocationItem = styled.div`
-  border-radius: 12px;
+  border-radius: 10px;
   ${layerA180Deg};
-  padding: 10px 16px;
+  padding: 8px 12px;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
     ${layerB};
-    transform: translateX(4px);
+    transform: translateX(2px);
   }
 `;
 
 const SubLocationTitle = styled.div`
-  font-size: 12px;
-  letter-spacing: 1.1px;
+  font-size: 11px;
+  letter-spacing: 1px;
   color: #ff920c;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  word-break: break-word;
 `;
 
 const SubLocationCount = styled.div`
-  font-size: 10px;
-  letter-spacing: 1px;
+  font-size: 9px;
+  letter-spacing: 0.8px;
   color: #fff;
   opacity: 0.7;
 `;
