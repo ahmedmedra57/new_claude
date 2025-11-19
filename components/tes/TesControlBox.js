@@ -60,6 +60,11 @@ import {
   updateScheduleService,
 } from '../../services/schedule.service';
 import ConflictMessage from '../masterControl/userMessages/ConflictMessage';
+import {
+  useControlBoxTemperatures,
+  useActivationStates,
+  useControlBoxMessages,
+} from '../../hooks';
 
 const TesControlBox = ({
   location,
@@ -93,88 +98,55 @@ const TesControlBox = ({
     currentRun,
   } = flatTesSwitch[location][machine];
 
-  const unitsStatus = useSelector(selectUnits);
-  const { isF } = unitsStatus;
-
-  const heatingScheduleActivated = useMemo(() => {
-    return switchStatus.heatingSchedule.isActivated && switchStatus.op_mode === "SCHEDULE" ;
-  }, [switchStatus]);
-
-  const snowSensorActivated = useMemo(() => {
-    return switchStatus.snowSensor.isActivated && switchStatus.op_mode === "SNOW" ;
-  }, [switchStatus]);
-
-  const instantHeatActivated = useMemo(() => {
-    return switchStatus.instantHeat.isActivated && switchStatus.op_mode === "SWITCH" ;
-  }, [switchStatus]);
-
-  const windFactorActivated = useMemo(() => {
-    return switchStatus.windFactor.isActivated && switchStatus.op_mode === "WIND" ;
-  }, [switchStatus]);
-
   const permissions = useSelector(selectUserPermissions);
   const disable = !permissions.WRITE;
-
-  // localStates
-  const [instantHeatTemp, setInstantHeatTemp] = useState('');
-  const [constantTemp, setConstantTemp] = useState('');
-  const [schedulerTemp, setSchedulerTemp] = useState('');
-  const [snowSensorTemp, setSnowSensorTemp] = useState('');
-
-  const [openMessageBox, setOpenMessageBox] = useState(false);
-  const [message, setMessage] = useState([]);
-  const [programName, setProgramName] = useState(null);
-
   const dispatch = useDispatch();
 
-  // const isF = false;
-  const unit = isF ? '°F' : '°C';
+  // Use shared hooks for temperature state management (replaces ~80 lines)
+  const {
+    instantHeatTemp,
+    constantTemp,
+    schedulerTemp,
+    snowSensorTemp,
+    unit,
+    isF,
+    setInstantHeatTemp,
+    setConstantTemp,
+    setSchedulerTemp,
+    setSnowSensorTemp,
+  } = useControlBoxTemperatures(switchStatus, 'tes');
 
-  // ** temporary variables
+  // Use shared hooks for activation states (replaces ~25 lines)
+  const {
+    heatingScheduleActivated,
+    snowSensorActivated,
+    instantHeatActivated,
+    windFactorActivated,
+    constantTempActivated,
+  } = useActivationStates(switchStatus, 'tes');
 
-  useEffect(() => {
-    if (instantHeat.inputTemp > 0) {
-      setInstantHeatTemp(`${instantHeat.inputTemp} ${unit}`);
-    } else {
-      setInstantHeatTemp('');
-    }
-  }, [instantHeat]);
+  // Use shared hooks for message box state (replaces ~15 lines)
+  const {
+    openMessageBox,
+    message,
+    programName,
+    messageTitle,
+    showMessage,
+    closeMessageBox,
+  } = useControlBoxMessages();
 
+  // Keep heating schedule ready state dispatch (business logic not in hook)
   useEffect(() => {
     if (heatingScheduleList[0].inputTemp > 0) {
-      setSchedulerTemp(`${heatingScheduleList[0].inputTemp} ${unit}`);
       dispatch(
         tesHandleReadyHeatingSchedule({ location, machine, state: true })
       );
     } else {
-      setSchedulerTemp('');
       dispatch(
         tesHandleReadyHeatingSchedule({ location, machine, state: false })
       );
     }
-  }, [heatingScheduleList]);
-
-  useEffect(() => {
-    if (optionalConstantTemp.inputTemp > 0) {
-      setConstantTemp(`${optionalConstantTemp.inputTemp} ${unit}`);
-    } else {
-      setConstantTemp('');
-    }
-  }, [optionalConstantTemp]);
-
-  useEffect(() => {
-    if (snowSensor.defaultTemp > 0) {
-      setSnowSensorTemp(
-        `${
-          isF
-            ? convertCelsiusToFahrenheit(snowSensor.defaultTemp)
-            : snowSensor.defaultTemp
-        } ${unit}`
-      );
-    } else {
-      setSnowSensorTemp('');
-    }
-  }, [snowSensor]);
+  }, [heatingScheduleList, dispatch, location, machine]);
 
   const integratedButtonHandler = (
     id,
