@@ -1,0 +1,451 @@
+{
+  "common": {
+    "apply": "apply",
+    "save": "save",
+    "cancel": "cancel",
+    "edit": "edit",
+    "delete": "delete",
+    "confirm": "confirm",
+    "ok": "ok",
+    "close": "close",
+    "expand": "expand",
+    "submit": "submit",
+    "send": "send",
+    "back": "back",
+    "next": "next",
+    "search": "search",
+    "select": "select",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "clear": "clear",
+    "all": "all",
+    "date": "date",
+    "pm": "pm",
+    "am": "am",
+    "name": "name",
+    "title": "title",
+    "time": "time",
+    "comment": "comment",
+    "printPdf": "print pdf",
+    "thermocoupleOptions": {
+      "tc01": "tc-01",
+      "tc02": "tc-02",
+      "tc03": "tc-03",
+      "tc04": "tc-04",
+      "tc05": "tc-05",
+      "tc06": "tc-06",
+      "tc07": "tc-07",
+      "tc08": "tc-08",
+      "tc09": "tc-09",
+      "tc10": "tc-10",
+      "tc11": "tc-11"
+    }
+  },
+  "auth": {
+    "login": "login",
+    "logout": "logout",
+    "accountName": "account name",
+    "accountNamePlaceholder": "account name",
+    "password": "password",
+    "passwordPlaceholder": "password",
+    "rememberMe": "remember my account name",
+    "rememberAccount": "remember my account name",
+    "forgotPassword": "forgot your password?",
+    "enter": "enter",
+    "send": "send",
+    "changeAccount": "change account",
+    "sessionExpired": "Session expired. Please login again.",
+    "invalidCredentials": "invalid username or password",
+    "fillAllFields": "Please fill in all fields",
+    "enterAccountName": "enter your account name",
+    "enterAccountNameReset": "enter your account name to reset password",
+    "resetPasswordPrompt": "enter your account name to reset password",
+    "resetEmailSent": "Password reset email sent successfully!",
+    "resetError": "Error sending reset email. Please try again.",
+    "notAllowed": "You are not allowed to login"
+  },
+  "navigation": {
+    "home": "Home",
+    "features": "Features",
+    "about": "About",
+    "tempora": "Tempora",
+    "contact": "Contact",
+    "login": "Login",
+    "english": "English",
+    "french": "French",
+    "globalOverview": "Global Overview",
+    "masterControl": "Master Control",
+    "telemetry": "Telemetry",
+    "ess": "ESS",
+    "tgs": "TGS",
+    "tes": "TES",
+    "heatingPlatform": "Heating Platform",
+    "settings": "Settings",
+    "auditTrail": "Audit Trail",
+    "faults": "Faults",
+    "reportStatus": "Report Status"
+  },
+  "masterControl": {
+    "title": "master control",
+    "selectLocations": "select locations",
+    "selectSwitches": "select switches",
+    "selectSpecificLocation": "select specific location",
+    "commands": {
+      "title": "master control commands",
+      "selectCreateNew": "please select \"create new command\"",
+      "selectSystem": "select system"
+    },
+    "messages": {
+      "selectSystemFirst": "you must first select the desired system"
+    },
+    "systems": {
+      "ess": "ess-electric switch system",
+      "tgs": "tgs-typhoon gas system",
+      "tes": "tes-typhoon electric system",
+      "hp": "hp-heated platform"
+    },
+    "programs": {
+      "heatingSchedule": "heating schedule program",
+      "fanOnly": "fan only program",
+      "windFactor": "wind factor program",
+      "optionalConstant": "opt. const. temp. program",
+      "optionalConstantShort": "opt. const. temperature",
+      "optionalConstantFull": "optional constant program"
+    },
+    "heatingSchedule": {
+      "startEndDate": "start & end date",
+      "inputTemp": "input temp.",
+      "selectLocationsAndSchedule": "select locations and a schedule",
+      "selectDateRange": "please select location and a start date and end date",
+      "wrongTemperature": "wrong temperature",
+      "finalizePrompt": "in order to finalize instant heat program,",
+      "inputTempFirst": "please input your temperature first",
+      "minTemp": "( the minimum temperature is 121°C - 250°F )",
+      "maxTemp": "( the maximum temperature is 999°C - 1830°F )"
+    },
+    "fanOnly": {
+      "selectLocations": "select locations",
+      "selectLocationPrompt": "please select location to continue"
+    },
+    "windFactor": {
+      "selectLocations": "select locations",
+      "selectLocationPrompt": "please select location to continue"
+    },
+    "ats": {
+      "title": "select ats",
+      "shortTitle": "ATS",
+      "selectLocations": "select locations",
+      "selectLocationPrompt": "please select location to continue",
+      "selectAts": "select ats",
+      "selectAtsPrompt": "please select an ats option to continue",
+      "selected": "selected",
+      "options": {
+        "ess": {
+          "block": "BLOCK AND DO NOT ALLOW ESS TO OPERATE WHEN ON EBP (EMERGENCY BACKUP POWER)",
+          "reactivate": "REACTIVATES ESS WHEN POWERED BY EBP (EMERGENCY BACKUP POWER)"
+        },
+        "tgs": {
+          "reactivate": "REACTIVATE TGS (TYPHOON GAS POWER HEATING SYSTEM) WHEN ON EBP (EMERGENCY BACKUP POWER)",
+          "block": "BLOCK AND DO NOT ALLOW TGS TO OPERATE WHEN ON EBP (EMERGENCY BACKUP POWER)"
+        },
+        "tes": {
+          "switchToTgs": "SWITCH TO tgs (TYPHOON GAS POWERED HEATING SYSTEM) WHEN ON EBP (EMERGENCY BACKUP POWER)",
+          "reactivate": "reactivate TES WHEN POWERED BY EBP (EMERGENCY BACKUP POWER)",
+          "remainOff": "TES TO REMAIN OFF WHEN POWERED BY EBP (EMERGENCY BACKUP POWER)"
+        }
+      }
+    },
+    "optionalConstant": {
+      "inputTemperature": "input temperature",
+      "selectLocations": "select locations",
+      "selectLocationPrompt": "please select location to continue",
+      "wrongTemperature": "wrong temperature",
+      "finalizePrompt": "in order to finalize instant heat program,",
+      "inputTempFirst": "please input your temperature first",
+      "minTemp": "( the minimum temperature is 24°C - 77°F )",
+      "maxTemp": "( the maximum temperature is 120°C - 248°F )",
+      "fillAllInputs": "please fill the user name input and the action taken input",
+      "fillUserName": "please fill the  user name input",
+      "fillActionTaken": "please fill the action taken input"
+    }
+  },
+  "faults": {
+    "title": "faults",
+    "systems": {
+      "ess": "electric switch systems",
+      "tgs": "typhoon gas systems",
+      "tes": "typhoon electric systems",
+      "hp": "heating platforms",
+      "ate": "additional track equipment"
+    },
+    "attend": {
+      "title": "attend",
+      "userName": "uos user name :",
+      "inputNamePlaceholder": "please input your name",
+      "fault": "fault",
+      "previousComments": "previous comments",
+      "addComment": "add a comment",
+      "actionPlaceholder": "please leave your actions here..",
+      "messageTitle": "fault - attend",
+      "inputUserNameFirst": "please input user name first",
+      "fillAllInputs": "please fill the user name input and the action taken input",
+      "fillUserName": "please fill the  user name input",
+      "fillActionTaken": "please fill the action taken input",
+      "timeAndDate": "time & date:"
+    }
+  },
+  "auditTrail": {
+    "title": "audit trail",
+    "selectionBox": "selection box",
+    "selectBy": "select by",
+    "selectStartDate": "select start date",
+    "selectEndDate": "select end date",
+    "additionalActions": "additional actions",
+    "actionsHistory": "actions history",
+    "faultsHistory": "faults history",
+    "logInHistory": "log in history",
+    "settingsOptions": "settings options",
+    "faultDetails": "fault details",
+    "logIn": "log in",
+    "logOut": "log out",
+    "additionalActionHistory": "additional action history",
+    "actions": "actions",
+    "faults": "faults",
+    "components": {
+      "electricalSwitchSystems": "electrical switch systems",
+      "typhoonGasSystems": "typhoon gas systems",
+      "typhoonElectricSystems": "typhoon electric systems",
+      "heatingPlatforms": "heating platforms",
+      "additionalTrackEquipment": "additional track equipment",
+      "additionalActionTaken": "additional action taken",
+      "settings": "settings"
+    },
+    "options": {
+      "userName": "user name",
+      "location": "location"
+    },
+    "messages": {
+      "finalizePrompt": "in order to finalize your audit trail",
+      "chooseAllSelections": "please choose all the selections"
+    }
+  },
+  "reportStatus": {
+    "title": "report status",
+    "heaterStatus": "Heater Status",
+    "switchStatus": "Switch Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "ready": "Ready"
+  },
+  "telemetry": {
+    "title": "global system telemetry overview",
+    "selectionBox": "selection box",
+    "energyConsumption": "Energy Consumption",
+    "totalEnergyConsumption": "Total Energy Consumption",
+    "usageHours": "Usage Hours",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "dataConsumption": "data consumption",
+    "gasConsumption": "gas consumption",
+    "switches": "switches",
+    "selectStartDate": "select start date",
+    "selectEndDate": "select end date",
+    "selectSystem": "select system",
+    "switchSpecification": {
+      "title": "switch specification"
+    },
+    "messages": {
+      "selectAllBoxes": "in order to view your global system telemetry overview, please select all the selection boxes."
+    }
+  },
+  "globalOverview": {
+    "title": "global system overview",
+    "integratedSystems": "integrated systems"
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General Settings",
+    "units": "Units",
+    "temperature": "Temperature",
+    "celsius": "Celsius",
+    "fahrenheit": "Fahrenheit",
+    "windFactor": "Wind Factor",
+    "snowSensor": "Snow Sensor Settings",
+    "interfaceMode": "Interface Mode",
+    "systemIdentification": "System Identification",
+    "userProfile": "user profile",
+    "forceCommands": "force & commands",
+    "admin": "administration settings",
+    "settingsOptions": "settings options",
+    "imperial": "Imperial",
+    "metric": "Metric",
+    "selectUnitsOfMeasurement": "select units of measurement",
+    "darkMode": "dark mode",
+    "lightMode": "light mode"
+  },
+  "contact": {
+    "title": "Contact us!",
+    "thankYou": "Thank you for your interest in Our Company",
+    "introText": "We would love to hear from you and discuss how we can help bring your ideas to life. Here are the different ways you can get in touch with us.",
+    "address1": {
+      "street": "2501 Avenue Dollard",
+      "city": "Lasalle, Quebec",
+      "postal": "H8N 1S2"
+    },
+    "address2": {
+      "street": "795 George V. Avenue",
+      "city": "Lachine, Quebec",
+      "postal": "H8S 1L2"
+    },
+    "phone": "Tel: 514 933 - 1649",
+    "tollFree": "Toll free: 877 933 - 1649",
+    "fax": "Fax: 514 933 - 2245",
+    "email": "Email: sales@temporaheaters.com"
+  },
+  "contactForm": {
+    "title": "contact us",
+    "name": "name",
+    "fullName": "Full Name",
+    "phone": "phone",
+    "email": "email",
+    "message": "message",
+    "send": "send",
+    "submit": "Submit",
+    "namePlaceholder": "your name",
+    "phonePlaceholder": "your phone number",
+    "emailPlaceholder": "your email",
+    "messagePlaceholder": "your message",
+    "placeholder": "Type here",
+    "nameRequired": "name is required",
+    "phoneRequired": "phone number is required",
+    "emailRequired": "email is required",
+    "messageRequired": "message is required",
+    "invalidEmail": "please enter a valid email address",
+    "submitSuccess": "message sent successfully",
+    "submitError": "error sending message",
+    "errors": {
+      "nameRequired": "Name is required",
+      "phoneRequired": "phone number is required",
+      "emailRequired": "Email Address is required",
+      "messageMinLength": "Minimum 10 words is required"
+    }
+  },
+  "features": {
+    "title": "Features",
+    "platform": {
+      "title": "platform",
+      "description": "TEMPORA'S world first centralized monitoring & control platform for distributed rail network."
+    },
+    "smartControls": {
+      "title": "smart e-controls",
+      "description": "Smart I-Management Energy efficient power Control enclosure.Meteorological detection Sensors & response center. Thermal rail integration."
+    },
+    "monitoring": {
+      "title": "site monitoring",
+      "description": "24/7 On-site monitoring utilizing smart robotic speed-sphere vision. Live streaming. Data & video logging."
+    },
+    "dataLogging": {
+      "title": "data logging",
+      "description": "Data evolution & reporting. Direct communication & virtual presence."
+    },
+    "feature1": {
+      "title": "Real-time Monitoring",
+      "text": "Monitor your systems in real-time with advanced telemetry"
+    },
+    "feature2": {
+      "title": "Master Control",
+      "text": "Full control over all heating systems from one interface"
+    },
+    "feature3": {
+      "title": "Audit Trail",
+      "text": "Complete history of all actions and system changes"
+    },
+    "feature4": {
+      "title": "Multi-language Support",
+      "text": "Available in English and French with easy language switching"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "paragraph1": "The ability of railway operators and maintenance engineers to prevent costly system failures depends on real-time asset condition. UMBRELLA OS empowers the authorized user-assigned territory a single point of entry to oversee and manage all operational functionality of integrated critical assets spread across a globally distributed infrastructure.",
+    "paragraph2": "UMBRELLA OS integration constitutes an investment in safety, efficiency & resiliency through infrastructure modernization improving network fluidity to meet growing demand by its ability to set future rail safety standards as an essential day to day operational tool further benefiting situational awareness and commuter safety.",
+    "vision": "Our Vision",
+    "mission": "Our Mission",
+    "values": "Our Values",
+    "features": {
+      "01": {
+        "title": "Full Audit Trail & Traceability",
+        "description": "Provides a connection report to keep traceability about whom, when, and how long each user has connected."
+      },
+      "02": {
+        "title": "Firewall Friendly",
+        "description": "uses an outbound connection across the factory LAN (HTTPS port 443 or UDP 1194). No IT/firewall changes are needed to establish communication. A key IT asset!"
+      },
+      "03": {
+        "title": "Security & Control",
+        "description": "A fully secure SSL-based VPN tunnel is used for all traffic. The information exchanged during the communication is encrypted via SSL (2048-bit key) allowing only authenticated users to connect. The VPN access can be controlled by a key switch or HMI button to manually enable or disable the VPN connection on-site letting the end user control when access is available."
+      },
+      "04": {
+        "title": "Vantage Point",
+        "description": "Direct live remote access & control of all locations through Smart Track Integration. System Integrators Troubleshoot remotely without going on site, drastically reducing support costs."
+      },
+      "05": {
+        "title": "Communication Made Easy",
+        "description": "The administrator remotely to log into his UMBRELLA account, and selects the location he wants to connect through a fully secure VPN tunnel."
+      },
+      "06": {
+        "title": "Integrated WiFi & Cellular Connectivity",
+        "description": "WiFi and cellular capable allows Internet connectivity while avoiding a connection on the factory/corporate LAN network with high bandwidth, easy deployment (no cabling) and facilitates secure network management."
+      }
+    }
+  },
+  "heatingPlatform": {
+    "company": {
+      "mbta": "mbta"
+    },
+    "stations": {
+      "sharon": {
+        "address": "sharon massachusetts",
+        "title": "sharon"
+      },
+      "blueHill": {
+        "address": "boston massachusetts",
+        "title": "blue hill"
+      }
+    },
+    "segments": {
+      "outboundPlatform": "outbound platform",
+      "inboundPlatform": "inbound platform",
+      "cummingsWalkway": "cummings highway walkway",
+      "blueHillWalkway": "blue hill avenue walkway"
+    }
+  },
+  "messages": {
+    "confirmDelete": "Are you sure you want to delete this?",
+    "changesSaved": "Changes saved successfully",
+    "changesDiscarded": "Changes discarded",
+    "systemOff": {
+      "title": "system off",
+      "message": "SYSTEM OFF UNTIL RELEASE FAULT OR BY forcing the SYSTEM."
+    },
+    "noData": "No data available",
+    "errorOccurred": "An error occurred. Please try again.",
+    "notAllowed": "you are not allowed to login"
+  },
+  "landing": {
+    "features": "Features",
+    "about": "About",
+    "contact": "Contact",
+    "getStarted": "Get Started",
+    "learnMore": "learn more",
+    "login": {
+      "paragraph1": "UMBRELLA OS centralized monitoring & control rail operating platform and power management system allows operational asset accessibility in real-time to oversee, control and analyze all vital temperature parameters of integrated track heating systems, providing status and condition reporting further benefiting safety and situational awareness relevant to the safeguard of the rail network and commuters during the harshest of winter conditions.",
+      "paragraph2": "Advanced UMB-360 dashboard analytics, video Monitoring for rapid validation of track conditions and operating practices, generated alerts reporting site-specific asset performance parameters andoperational safety failure modes greatly reduces the crew teams and man-power needed to validate the working order of switch locations and platforms during the harshest of winter conditions.",
+      "paragraph3": "The operational performance history and telemetry generated from UOS is categorized, stored and accessible at any time and available in a PDF printable format. This unprecedented generated data can now be viewed, analyzed and derived from considerable asset management awareness, identifying patterns of consumptions trends leading to the elaboration of energy preservation guidelines & protocols of efficient operation practices."
+    }
+  }
+}

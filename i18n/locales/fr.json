@@ -1,0 +1,451 @@
+{
+  "common": {
+    "apply": "appliquer",
+    "save": "enregistrer",
+    "cancel": "annuler",
+    "edit": "modifier",
+    "delete": "supprimer",
+    "confirm": "confirmer",
+    "ok": "ok",
+    "close": "fermer",
+    "expand": "développer",
+    "submit": "soumettre",
+    "send": "envoyer",
+    "back": "retour",
+    "next": "suivant",
+    "search": "rechercher",
+    "select": "sélectionner",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Avertissement",
+    "clear": "effacer",
+    "all": "tout",
+    "date": "date",
+    "pm": "pm",
+    "am": "am",
+    "name": "nom",
+    "title": "titre",
+    "time": "temps",
+    "comment": "commentaire",
+    "printPdf": "imprimer pdf",
+    "thermocoupleOptions": {
+      "tc01": "tc-01",
+      "tc02": "tc-02",
+      "tc03": "tc-03",
+      "tc04": "tc-04",
+      "tc05": "tc-05",
+      "tc06": "tc-06",
+      "tc07": "tc-07",
+      "tc08": "tc-08",
+      "tc09": "tc-09",
+      "tc10": "tc-10",
+      "tc11": "tc-11"
+    }
+  },
+  "auth": {
+    "login": "connexion",
+    "logout": "déconnexion",
+    "accountName": "nom du compte",
+    "accountNamePlaceholder": "nom de compte",
+    "password": "mot de passe",
+    "passwordPlaceholder": "mot de passe",
+    "rememberMe": "Mémoriser mon nom de compte",
+    "rememberAccount": "Mémoriser mon nom de compte",
+    "forgotPassword": "Mot de passe oublié?",
+    "enter": "entrer",
+    "send": "envoyer",
+    "changeAccount": "Modifier le compte",
+    "sessionExpired": "Session expirée. Veuillez vous reconnecter.",
+    "invalidCredentials": "Nom d'utilisateur ou mot de passe invalide",
+    "fillAllFields": "Veuillez remplir tous les champs",
+    "enterAccountName": "entrez votre nom de compte",
+    "enterAccountNameReset": "Entrez votre nom de compte pour réinitialiser le mot de passe",
+    "resetPasswordPrompt": "Entrez votre nom de compte pour réinitialiser le mot de passe",
+    "resetEmailSent": "E-mail de réinitialisation du mot de passe envoyé avec succès!",
+    "resetError": "Erreur lors de l'envoi de l'e-mail de réinitialisation. Veuillez réessayer.",
+    "notAllowed": "Vous n'êtes pas autorisé à vous connecter"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "features": "Caractéristiques",
+    "about": "À propos",
+    "tempora": "Tempora",
+    "contact": "Contact",
+    "login": "Connexion",
+    "english": "Anglais",
+    "french": "Français",
+    "globalOverview": "Vue d'ensemble globale",
+    "masterControl": "Contrôle principal",
+    "telemetry": "Télémétrie",
+    "ess": "ESS",
+    "tgs": "TGS",
+    "tes": "TES",
+    "heatingPlatform": "Plateforme de chauffage",
+    "settings": "Paramètres",
+    "auditTrail": "Piste d'audit",
+    "faults": "Défauts",
+    "reportStatus": "État du rapport"
+  },
+  "masterControl": {
+    "title": "contrôle principal",
+    "selectLocations": "sélectionner les emplacements",
+    "selectSwitches": "sélectionner les commutateurs",
+    "selectSpecificLocation": "sélectionner un emplacement spécifique",
+    "commands": {
+      "title": "commandes de contrôle principal",
+      "selectCreateNew": "veuillez sélectionner \"créer une nouvelle commande\"",
+      "selectSystem": "sélectionner le système"
+    },
+    "messages": {
+      "selectSystemFirst": "vous devez d'abord sélectionner le système souhaité"
+    },
+    "systems": {
+      "ess": "ess-système de commutation électrique",
+      "tgs": "tgs-système à gaz typhoon",
+      "tes": "tes-système électrique typhoon",
+      "hp": "hp-plateforme chauffée"
+    },
+    "programs": {
+      "heatingSchedule": "programme de calendrier de chauffage",
+      "fanOnly": "programme ventilateur uniquement",
+      "windFactor": "programme facteur de vent",
+      "optionalConstant": "programme temp. const. opt.",
+      "optionalConstantShort": "température constante optionnelle",
+      "optionalConstantFull": "programme constant optionnel"
+    },
+    "heatingSchedule": {
+      "startEndDate": "date de début et de fin",
+      "inputTemp": "température d'entrée",
+      "selectLocationsAndSchedule": "sélectionner les emplacements et un calendrier",
+      "selectDateRange": "veuillez sélectionner l'emplacement et une date de début et de fin",
+      "wrongTemperature": "mauvaise température",
+      "finalizePrompt": "afin de finaliser le programme de chauffage instantané,",
+      "inputTempFirst": "veuillez d'abord entrer votre température",
+      "minTemp": "( la température minimale est de 121°C - 250°F )",
+      "maxTemp": "( la température maximale est de 999°C - 1830°F )"
+    },
+    "fanOnly": {
+      "selectLocations": "sélectionner les emplacements",
+      "selectLocationPrompt": "veuillez sélectionner un emplacement pour continuer"
+    },
+    "windFactor": {
+      "selectLocations": "sélectionner les emplacements",
+      "selectLocationPrompt": "veuillez sélectionner un emplacement pour continuer"
+    },
+    "ats": {
+      "title": "sélectionner ats",
+      "shortTitle": "ATS",
+      "selectLocations": "sélectionner les emplacements",
+      "selectLocationPrompt": "veuillez sélectionner un emplacement pour continuer",
+      "selectAts": "sélectionner ats",
+      "selectAtsPrompt": "veuillez sélectionner une option ats pour continuer",
+      "selected": "sélectionné",
+      "options": {
+        "ess": {
+          "block": "BLOQUER ET NE PAS PERMETTRE AU ESS DE FONCTIONNER SUR EBP (ALIMENTATION DE SECOURS D'URGENCE)",
+          "reactivate": "RÉACTIVE LE ESS LORSQU'IL EST ALIMENTÉ PAR EBP (ALIMENTATION DE SECOURS D'URGENCE)"
+        },
+        "tgs": {
+          "reactivate": "RÉACTIVER TGS (SYSTÈME DE CHAUFFAGE À GAZ TYPHOON) SUR EBP (ALIMENTATION DE SECOURS D'URGENCE)",
+          "block": "BLOQUER ET NE PAS PERMETTRE AU TGS DE FONCTIONNER SUR EBP (ALIMENTATION DE SECOURS D'URGENCE)"
+        },
+        "tes": {
+          "switchToTgs": "PASSER AU tgs (SYSTÈME DE CHAUFFAGE À GAZ TYPHOON) SUR EBP (ALIMENTATION DE SECOURS D'URGENCE)",
+          "reactivate": "réactiver TES LORSQU'IL EST ALIMENTÉ PAR EBP (ALIMENTATION DE SECOURS D'URGENCE)",
+          "remainOff": "TES RESTE ÉTEINT LORSQU'IL EST ALIMENTÉ PAR EBP (ALIMENTATION DE SECOURS D'URGENCE)"
+        }
+      }
+    },
+    "optionalConstant": {
+      "inputTemperature": "température d'entrée",
+      "selectLocations": "sélectionner les emplacements",
+      "selectLocationPrompt": "veuillez sélectionner un emplacement pour continuer",
+      "wrongTemperature": "mauvaise température",
+      "finalizePrompt": "afin de finaliser le programme de chauffage instantané,",
+      "inputTempFirst": "veuillez d'abord entrer votre température",
+      "minTemp": "( la température minimale est de 24°C - 77°F )",
+      "maxTemp": "( la température maximale est de 120°C - 248°F )",
+      "fillAllInputs": "veuillez remplir le nom d'utilisateur et l'action effectuée",
+      "fillUserName": "veuillez remplir le nom d'utilisateur",
+      "fillActionTaken": "veuillez remplir l'action effectuée"
+    }
+  },
+  "faults": {
+    "title": "défauts",
+    "systems": {
+      "ess": "systèmes de commutation électrique",
+      "tgs": "systèmes à gaz typhoon",
+      "tes": "systèmes électriques typhoon",
+      "hp": "plateformes de chauffage",
+      "ate": "équipement de voie supplémentaire"
+    },
+    "attend": {
+      "title": "assister",
+      "userName": "nom d'utilisateur uos :",
+      "inputNamePlaceholder": "veuillez entrer votre nom",
+      "fault": "défaut",
+      "previousComments": "commentaires précédents",
+      "addComment": "ajouter un commentaire",
+      "actionPlaceholder": "veuillez laisser vos actions ici..",
+      "messageTitle": "défaut - assister",
+      "inputUserNameFirst": "veuillez d'abord entrer le nom d'utilisateur",
+      "fillAllInputs": "veuillez remplir le nom d'utilisateur et l'action effectuée",
+      "fillUserName": "veuillez remplir le nom d'utilisateur",
+      "fillActionTaken": "veuillez remplir l'action effectuée",
+      "timeAndDate": "heure et date :"
+    }
+  },
+  "auditTrail": {
+    "title": "piste d'audit",
+    "selectionBox": "boîte de sélection",
+    "selectBy": "sélectionner par",
+    "selectStartDate": "sélectionner la date de début",
+    "selectEndDate": "sélectionner la date de fin",
+    "additionalActions": "actions supplémentaires",
+    "actionsHistory": "historique des actions",
+    "faultsHistory": "historique des défauts",
+    "logInHistory": "historique de connexion",
+    "settingsOptions": "options de paramètres",
+    "faultDetails": "détails du défaut",
+    "logIn": "connexion",
+    "logOut": "déconnexion",
+    "additionalActionHistory": "historique des actions supplémentaires",
+    "actions": "actions",
+    "faults": "défauts",
+    "components": {
+      "electricalSwitchSystems": "systèmes de commutation électrique",
+      "typhoonGasSystems": "systèmes à gaz typhoon",
+      "typhoonElectricSystems": "systèmes électriques typhoon",
+      "heatingPlatforms": "plateformes de chauffage",
+      "additionalTrackEquipment": "équipement de voie supplémentaire",
+      "additionalActionTaken": "action supplémentaire prise",
+      "settings": "paramètres"
+    },
+    "options": {
+      "userName": "nom d'utilisateur",
+      "location": "emplacement"
+    },
+    "messages": {
+      "finalizePrompt": "afin de finaliser votre piste d'audit",
+      "chooseAllSelections": "veuillez choisir toutes les sélections"
+    }
+  },
+  "reportStatus": {
+    "title": "état du rapport",
+    "heaterStatus": "État du chauffage",
+    "switchStatus": "État de l'interrupteur",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "ready": "Prêt"
+  },
+  "telemetry": {
+    "title": "vue d'ensemble de la télémétrie du système global",
+    "selectionBox": "boîte de sélection",
+    "energyConsumption": "Consommation d'énergie",
+    "totalEnergyConsumption": "Consommation d'énergie totale",
+    "usageHours": "Heures d'utilisation",
+    "daily": "Quotidien",
+    "weekly": "Hebdomadaire",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "dataConsumption": "consommation de données",
+    "gasConsumption": "consommation de gaz",
+    "switches": "commutateurs",
+    "selectStartDate": "sélectionner la date de début",
+    "selectEndDate": "sélectionner la date de fin",
+    "selectSystem": "sélectionner le système",
+    "switchSpecification": {
+      "title": "spécification du commutateur"
+    },
+    "messages": {
+      "selectAllBoxes": "afin de voir votre vue d'ensemble de la télémétrie du système global, veuillez sélectionner toutes les boîtes de sélection."
+    }
+  },
+  "globalOverview": {
+    "title": "vue d'ensemble du système global",
+    "integratedSystems": "systèmes intégrés"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "general": "Paramètres généraux",
+    "units": "Unités",
+    "temperature": "Température",
+    "celsius": "Celsius",
+    "fahrenheit": "Fahrenheit",
+    "windFactor": "Facteur de vent",
+    "snowSensor": "Paramètres du capteur de neige",
+    "interfaceMode": "Mode d'interface",
+    "systemIdentification": "Identification du système",
+    "userProfile": "profil utilisateur",
+    "forceCommands": "force et commandes",
+    "admin": "paramètres d'administration",
+    "settingsOptions": "options de paramètres",
+    "imperial": "Impérial",
+    "metric": "Métrique",
+    "selectUnitsOfMeasurement": "sélectionner les unités de mesure",
+    "darkMode": "mode sombre",
+    "lightMode": "mode clair"
+  },
+  "contact": {
+    "title": "Contactez-nous!",
+    "thankYou": "Merci de votre intérêt pour notre entreprise",
+    "introText": "Nous aimerions avoir de vos nouvelles et discuter de la façon dont nous pouvons aider à donner vie à vos idées. Voici les différentes façons de nous contacter.",
+    "address1": {
+      "street": "2501 Avenue Dollard",
+      "city": "Lasalle, Québec",
+      "postal": "H8N 1S2"
+    },
+    "address2": {
+      "street": "795 Avenue George V.",
+      "city": "Lachine, Québec",
+      "postal": "H8S 1L2"
+    },
+    "phone": "Tél: 514 933 - 1649",
+    "tollFree": "Sans frais: 877 933 - 1649",
+    "fax": "Fax: 514 933 - 2245",
+    "email": "Email: sales@temporaheaters.com"
+  },
+  "contactForm": {
+    "title": "contactez-nous",
+    "name": "nom",
+    "fullName": "Nom",
+    "phone": "téléphone",
+    "email": "email",
+    "message": "message",
+    "send": "envoyer",
+    "submit": "Envoyer Le Message",
+    "namePlaceholder": "votre nom",
+    "phonePlaceholder": "votre numéro de téléphone",
+    "emailPlaceholder": "votre email",
+    "messagePlaceholder": "votre message",
+    "placeholder": "Tapez ici",
+    "nameRequired": "le nom est requis",
+    "phoneRequired": "le numéro de téléphone est requis",
+    "emailRequired": "l'email est requis",
+    "messageRequired": "le message est requis",
+    "invalidEmail": "veuillez entrer une adresse email valide",
+    "submitSuccess": "message envoyé avec succès",
+    "submitError": "erreur lors de l'envoi du message",
+    "errors": {
+      "nameRequired": "Le nom est requis",
+      "phoneRequired": "le numéro de téléphone est requis",
+      "emailRequired": "L'adresse e-mail est requise",
+      "messageMinLength": "Un minimum de 10 mots est requis"
+    }
+  },
+  "features": {
+    "title": "Caractéristiques",
+    "platform": {
+      "title": "plateau",
+      "description": "La première plateforme centralisée de surveillance et de contrôle de TEMPORA pour les réseaux ferroviaires distribués."
+    },
+    "smartControls": {
+      "title": "e-controls intelligents",
+      "description": "Boîtier de contrôle de puissance à gestion d'énergie intelligente I-Management. Capteurs de détection météorologique et centre de réponse. Intégration thermique des rails."
+    },
+    "monitoring": {
+      "title": "surveillance du site",
+      "description": "Surveillance sur site 24/7 utilisant une vision sphérique robotique intelligente à grande vitesse. Diffusion en direct. Enregistrement de données et de vidéos."
+    },
+    "dataLogging": {
+      "title": "enregistrement des données",
+      "description": "Évolution et reporting des données. Communication directe et présence virtuelle."
+    },
+    "feature1": {
+      "title": "Surveillance en temps réel",
+      "text": "Surveillez vos systèmes en temps réel avec une télémétrie avancée"
+    },
+    "feature2": {
+      "title": "Contrôle principal",
+      "text": "Contrôle total de tous les systèmes de chauffage depuis une seule interface"
+    },
+    "feature3": {
+      "title": "Piste d'audit",
+      "text": "Historique complet de toutes les actions et modifications du système"
+    },
+    "feature4": {
+      "title": "Support multilingue",
+      "text": "Disponible en anglais et en français avec changement de langue facile"
+    }
+  },
+  "about": {
+    "title": "À propos de nous",
+    "paragraph1": "La capacité des opérateurs ferroviaires et des ingénieurs de maintenance à prévenir les défaillances coûteuses des systèmes dépend de l'état des actifs en temps réel. UMBRELLA OS permet à l'utilisateur autorisé - assigné à un territoire - de disposer d'un point d'entrée unique pour superviser et gérer toutes les fonctionnalités opérationnelles des actifs critiques intégrés répartis sur une infrastructure mondiale.",
+    "paragraph2": "L'intégration d'UMBRELLA OS constitue un investissement dans la sécurité, l'efficacité et la résilience grâce à la modernisation de l'infrastructure, améliorant ainsi la fluidité du réseau pour répondre à la demande croissante, grâce à sa capacité à définir les futures normes de sécurité ferroviaire en tant qu'outil opérationnel quotidien essentiel, améliorant ainsi la connaissance de la situation et la sécurité des voyageurs.",
+    "vision": "Notre vision",
+    "mission": "Notre mission",
+    "values": "Nos valeurs",
+    "features": {
+      "01": {
+        "title": "Piste D'audit et Traçabilité Complètes",
+        "description": "Fournit un rapport de connexion pour assurer la traçabilité de qui, quand, et combien de temps chaque utilisateur s'est connecté."
+      },
+      "02": {
+        "title": "Compatible Avec les Pare-feu",
+        "description": "utilise une connexion sortante à travers le réseau local de l'usine (port HTTPS 443 ou UDP 1194). Aucune modification de l'informatique ou du pare-feu n'est nécessaire pour établir la communication. Un atout informatique essentiel !"
+      },
+      "03": {
+        "title": "Sécurité et Contrôle",
+        "description": "Un tunnel VPN entièrement sécurisé basé sur le protocole SSL est utilisé pour tout le trafic. Les informations échangées pendant la communication sont cryptées via SSL (clé de 2048 bits), ce qui permet aux seuls utilisateurs authentifiés de se conznecter. L'accès au VPN peut être contrôlé par un interrupteur à clé ou un bouton HMI pour activer ou désactiver manuellement la connexion VPN sur site, ce qui permet à l'utilisateur final de contrôler quand l'accès est disponible."
+      },
+      "04": {
+        "title": "Vantage Point",
+        "description": "Accès et contrôle à distance en direct de tous les sites grâce à l'intégration de Smart Track. Les intégrateurs de systèmes dépannent à distance sans se rendre sur place, ce qui réduit considérablement les coûts d'assistance."
+      },
+      "05": {
+        "title": "La Communication Facilitée",
+        "description": "L'administrateur se connecte à distance à son compte UMBRELLA et sélectionne le site auquel il souhaite se connecter via un tunnel VPN entièrement sécurisé. un tunnel VPN entièrement sécurisé."
+      },
+      "06": {
+        "title": "Connectivité WiFi et Cellulaire Intégrée",
+        "description": "La capacité WiFi et cellulaire permet une connectivité Internet tout en évitant une connexion sur le réseau LAN de l'usine/de l'entreprise avec une bande passante élevée, un déploiement facile (pas de câblage) et facilite la gestion sécurisée du réseau."
+      }
+    }
+  },
+  "heatingPlatform": {
+    "company": {
+      "mbta": "mbta"
+    },
+    "stations": {
+      "sharon": {
+        "address": "sharon massachusetts",
+        "title": "sharon"
+      },
+      "blueHill": {
+        "address": "boston massachusetts",
+        "title": "blue hill"
+      }
+    },
+    "segments": {
+      "outboundPlatform": "plateforme sortante",
+      "inboundPlatform": "plateforme entrante",
+      "cummingsWalkway": "passerelle cummings highway",
+      "blueHillWalkway": "passerelle blue hill avenue"
+    }
+  },
+  "messages": {
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer ceci?",
+    "changesSaved": "Modifications enregistrées avec succès",
+    "changesDiscarded": "Modifications annulées",
+    "systemOff": {
+      "title": "système éteint",
+      "message": "SYSTÈME ÉTEINT JUSQU'À CE QUE LE DÉFAUT SOIT LIBÉRÉ OU EN FORÇANT LE SYSTÈME."
+    },
+    "noData": "Aucune donnée disponible",
+    "errorOccurred": "Une erreur s'est produite. Veuillez réessayer.",
+    "notAllowed": "vous n'êtes pas autorisé à vous connecter"
+  },
+  "landing": {
+    "features": "Caractéristiques",
+    "about": "À propos",
+    "contact": "Contact",
+    "getStarted": "Commencer",
+    "learnMore": "apprendre plus",
+    "login": {
+      "paragraph1": "La plateforme d'exploitation ferroviaire et le système de gestion de l'énergie UMBRELLA OS permettent de surveiller et de contrôler en temps réel les actifs opérationnels. Permet l'accès aux actifs opérationnels en temps réel pour superviser, contrôler et analyser tous les paramètres de température vitaux des systèmes intégrés de chauffage des voies, des systèmes intégrés de chauffage des voies en fournissant des rapports d'état et de condition qui améliorent la sécurité et la de la sécurité et de la connaissance de la situation pour la sauvegarde du réseau ferroviaire et des usagers dans les conditions hivernales les plus difficiles.",
+      "paragraph2": "Son tableau de bord analytique avancé UMB-360, lasurveillance vidéo pour une validation rapide de l'état des voies et des pratiques d'exploitation, les alertes générées signalant les paramètres de performance des actifs spécifiques au site et les modes de défaillance de la sécurité opérationnelle réduisent considérablement les équipes et la main-d'œuvre nécessaires pour valider l'état de fonctionnement des emplacements d'aiguillage et des plateformes dans les conditions hivernales les plus difficiles.",
+      "paragraph3": "L'historique des performances opérationnelles et la télémétrie générée par l'UOS sont catégorisés, stockés et accessibles à tout moment et disponibles dans un format PDF imprimable. Ces données sans précédent peuvent maintenant être visualisées, analysées et déduites d'une sensibilisation considérable à la gestion des actifs, en identifiant des modèles de tendances de consommation menant à l'élaboration de directives et de protocoles de conservation de l'énergie pour des pratiques d'exploitation efficaces."
+    }
+  }
+}
