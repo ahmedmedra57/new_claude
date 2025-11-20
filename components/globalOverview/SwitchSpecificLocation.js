@@ -4,6 +4,7 @@ import { justifyContentSpaceBetween, layerA } from '../styles/commonStyles';
 
 import IndividualMachine from './IndividualMachine';
 import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
+import { useLocationsStore } from '../zustand-stores';
 
 const SwitchSpecificLocation = ({
   handleOnClick,
@@ -33,16 +34,14 @@ const SwitchSpecificLocation = ({
 
   const handleExpand = () => {
     if (isExpanded) {
-      dispatch(
-        handleOpenSpecificLocation({
+      useLocationsStore().openSpecificLocation({
           swtName: systemType,
           openLocationIdx,
           openSpecificLocationIdx,
           status: false,
         });
     } else {
-      dispatch(
-        handleOpenSpecificLocation({
+      useLocationsStore().openSpecificLocation({
           swtName: systemType,
           openLocationIdx,
           openSpecificLocationIdx,

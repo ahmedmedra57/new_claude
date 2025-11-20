@@ -59,8 +59,7 @@ const FaultsDetailButtonContainer = ({
             state: true,
           });
         // 2.open force selection box
-        dispatch(
-          handleDisplayForceSelectionBox({
+        useSettingsOptionsStore().toggleDisplayForceSelectionBox({
             swtName: name,
             location,
             specificLocation,
@@ -139,8 +138,7 @@ const FaultsDetailButtonContainer = ({
           });
         break;
       case 'attend':
-        dispatch(
-          handleAttendButtonClick({
+        useMCCommandStore().setAttendButtonClick({
             swtName: name,
             location,
             specificLocation,

@@ -108,15 +108,13 @@ const EssControlBox = ({
   // Keep heating schedule ready state dispatch (business logic not in hook)
   useEffect(() => {
     if (heatingScheduleList[0].inputTemp > 0) {
-      dispatch(
-        handleReadyHeatingSchedule({
+      useESSSwitchStore().setReadyHeatingSchedule({
           location,
           machine,
           state: true,
         });
     } else {
-      dispatch(
-        handleReadyHeatingSchedule({
+      useESSSwitchStore().setReadyHeatingSchedule({
           location,
           machine,
           state: false,
@@ -157,8 +155,7 @@ const EssControlBox = ({
           isF: null,
         },
       ];
-      dispatch(
-        handleClearHeatingSchedule({
+      useESSSwitchStore().clearHeatingSchedule({
           location,
           machine,
           data,
@@ -178,8 +175,7 @@ const EssControlBox = ({
         ];
         deleteScheduleService(heatingScheduleList[index]?.id)
           .then(() => {
-            dispatch(
-              handleClearHeatingSchedule({
+            useESSSwitchStore().clearHeatingSchedule({
                 location,
                 machine,
                 data,
@@ -194,8 +190,7 @@ const EssControlBox = ({
         );
         deleteScheduleService(heatingScheduleList[index]?.id)
           .then(() => {
-            dispatch(
-              handleClearHeatingSchedule({
+            useESSSwitchStore().clearHeatingSchedule({
                 location,
                 machine,
                 data,
@@ -220,8 +215,7 @@ const EssControlBox = ({
       if (heatingScheduleList[index]?.id) {
         updateScheduleService(heatingScheduleList[index]?.id, scheduleData)
           .then((res) => {
-            dispatch(
-              handleAddHeatingSchedule({
+            useESSSwitchStore().addHeatingSchedule({
                 location,
                 machine,
                 start: data.start,
@@ -237,8 +231,7 @@ const EssControlBox = ({
       } else {
         createScheduleService(scheduleData)
           .then((res) => {
-            dispatch(
-              handleAddHeatingSchedule({
+            useESSSwitchStore().addHeatingSchedule({
                 location,
                 machine,
                 start: data.start,
@@ -264,8 +257,7 @@ const EssControlBox = ({
         'instant_temp',
         isF ? convertFahrenheitToCelsius(temp) : temp
       );
-      dispatch(
-        handleInstantHeatReady({
+      useESSSwitchStore().setInstantHeatIsReady({
           location,
           machine,
           isF,
@@ -292,8 +284,7 @@ const EssControlBox = ({
         isF ? convertFahrenheitToCelsius(temp) : temp
       );
       postEssCommand(deviceMac, 'on_constant', 1);
-      dispatch(
-        handleOptionalConstantTempReady({
+      useESSSwitchStore().setOptionalConstantTempReady({
           location,
           machine,
           isF,
@@ -302,8 +293,7 @@ const EssControlBox = ({
     } else if (state === 'off') {
       // turn off
       postEssCommand(deviceMac, 'on_constant', 0);
-      dispatch(
-        handleMachineOptionalConstantTempOff({
+      useESSSwitchStore().setMachineOptionalConstantTempOff({
           location,
           machine,
         });

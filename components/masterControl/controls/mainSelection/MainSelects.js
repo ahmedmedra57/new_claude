@@ -353,8 +353,7 @@ const MainSelects = ({
   ) => {
     useMasterControlSelectStore().selectAll({ switch: swt, status: false });
     useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: swt });
-    dispatch(
-      handleSpecificLocationSelect({
+    useMasterControlSelectStore().selectSpecificLocation({
         arr: specificLocationArr,
         switch: swt,
       });
@@ -589,8 +588,7 @@ const MainSelects = ({
         setGreenDetour(copyArr);
 
         const swt = tgs ? 'tgs' : tes ? 'tes' : 'ess';
-        dispatch(
-          toggleAtsHandlerTempo({
+        useESSSwitchStore().toggleAts({
             swt,
             selections: [
               isSelectedForAts[0],

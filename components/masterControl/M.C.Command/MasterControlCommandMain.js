@@ -562,8 +562,7 @@ function MasterControlCommandMain({
       const locations = Object.keys(switchesData);
       const isAllSelected =
         selectedLocations.length === locations.length ? true : false;
-      dispatch(
-        handleSelectAll({
+      useMasterControlSelectStore().selectAll({
           switch: selectedSystemAbr,
           status: isAllSelected,
         });
@@ -574,8 +573,7 @@ function MasterControlCommandMain({
         selectedLocations.some(
           (selectedLocation) => selectedLocation === location
         );
-      dispatch(
-        handleLocationSelect({ arr: locationArr, switch: selectedSystemAbr });
+      useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: selectedSystemAbr });
 
       // update selected location
       // push all the names of the locations that were saved in the selected command to be ready for dispatch
@@ -586,8 +584,7 @@ function MasterControlCommandMain({
         }
       });
 
-      dispatch(
-        handleAddLocations({
+      useMasterControlSelectStore().addLocations({
           switch: selectedSystemAbr,
           arr: newSelectLocations,
         });
@@ -604,8 +601,7 @@ function MasterControlCommandMain({
           .filter((specLocation) => specLocation.length > 0)
           .map((el) => el.map((_) => true);
 
-        dispatch(
-          handleSpecificLocationSelect({
+        useMasterControlSelectStore().selectSpecificLocation({
             arr: specificLocationState,
             switch: selectedSystemAbr,
           });
@@ -614,8 +610,7 @@ function MasterControlCommandMain({
         const newSpecLocation = [];
         selectedSpecificLocations.forEach((specLocation) =>
           specLocation.forEach((el) => newSpecLocation.push(el);
-        dispatch(
-          handleAddSpecificLocations({
+        useMasterControlSelectStore().addSpecificLocations({
             arr: newSpecLocation,
             switch: selectedSystemAbr,
           });
@@ -650,8 +645,7 @@ function MasterControlCommandMain({
       });
 
       // update isMachineSelected state
-      dispatch(
-        handleMachineSelect({ arr: machineArr, switch: selectedSystemAbr });
+      useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: selectedSystemAbr });
 
       // push all the names of the machines that were saved in the selected command to be ready for dispatch
       const newSelectedMachineArr = [];
@@ -678,8 +672,7 @@ function MasterControlCommandMain({
         }
       });
 
-      dispatch(
-        handleAddMachines({
+      useMasterControlSelectStore().addMachines({
           switch: selectedSystemAbr,
           arr: newSelectedMachineArr,
         });
@@ -989,8 +982,7 @@ function MasterControlCommandMain({
 
   // handles the select box of "select ATS"
   const handleSetPrevCommandSelectedAts = (selectedSysAbr, commandInfo) => {
-    dispatch(
-      toggleAtsHandlerTempo({
+    useESSSwitchStore().toggleAts({
         swt: selectedSysAbr,
         selections: [
           commandInfo.ats.reactivate,
@@ -1051,8 +1043,7 @@ function MasterControlCommandMain({
       // extract numbers out of the instantHeat
       const InstantHeatTempNumbers = instantHeat.match(/\d+/)[0];
 
-      dispatch(
-        instantHeatHandlerTempo({
+      useESSSwitchStore().setInstantHeat({
           temp: InstantHeatTempNumbers,
           state: true,
           isF,
@@ -1063,15 +1054,13 @@ function MasterControlCommandMain({
     }
     if (optionalConstantTemp) {
       const optionalConstantTempNumbers = optionalConstantTemp.match(/\d+/)[0];
-      dispatch(
-        constantHeatHandlerTempo({ temp: optionalConstantTempNumbers, isF });
+      useESSSwitchStore().setConstantTemp({ temp: optionalConstantTempNumbers, isF });
     }
     // ! this is not doable because we cannot set a previous schedule of past dates.
     if (heatingSchedule) {
       const newHeatingSchedule = heatingSchedule.split("|");
       const heatingScheduleTempNumbers = +newHeatingSchedule[0].match(/\d+/)[0];
-      dispatch(
-        AddScheduleHandlerTempo({
+      useESSSwitchStore().addHeatingSchedule({
           inputTemp: heatingScheduleTempNumbers,
           start: readableTime(newHeatingSchedule[1]),
           end: readableTime(newHeatingSchedule[2]),

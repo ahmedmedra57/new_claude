@@ -126,8 +126,7 @@ const SectionControllers = ({
   const instantHeatHandler = (state) => {
     if (state === 'on') {
       // turn on
-      dispatch(
-        instantHeatHandlerTempo({ temp: instantHeatTemp, isF, state: true });
+      useESSSwitchStore().setInstantHeat({ temp: instantHeatTemp, isF, state: true });
     } else if (state === 'off') {
       // turn off
       useESSSwitchStore().setInstantHeat({ temp: 0, isF, state: false });
@@ -144,8 +143,7 @@ const SectionControllers = ({
 
   const constantTempHandler = (state) => {
     if (state === 'on') {
-      dispatch(
-        constantHeatHandlerTempo({ temp: optionalTemp, isF, state: true });
+      useESSSwitchStore().setConstantTemp({ temp: optionalTemp, isF, state: true });
     } else if (state === 'off') {
       // turn off
       useESSSwitchStore().setConstantTemp({ temp: 0, isF, state: false });

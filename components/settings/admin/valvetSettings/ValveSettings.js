@@ -70,8 +70,7 @@ function ValveSettings({
     if (value >= 0 && value <= 100) {
       switch (inputIdx) {
         case 0:
-          dispatch(
-            handleGasValuePosition({
+          useAdminStore().setGasValuePosition({
               location,
               machine,
               position: "startPosition",
@@ -79,8 +78,7 @@ function ValveSettings({
             });
           break;
         case 1:
-          dispatch(
-            handleGasValuePosition({
+          useAdminStore().setGasValuePosition({
               location,
               machine,
               position: "minPosition",
@@ -88,8 +86,7 @@ function ValveSettings({
             });
           break;
         case 2:
-          dispatch(
-            handleGasValuePosition({
+          useAdminStore().setGasValuePosition({
               location,
               machine,
               position: "maxPosition",
@@ -114,14 +111,12 @@ function ValveSettings({
   ) => {
     const machines = Object.keys(tgs[location]);
     machines.forEach((machine) =>
-      dispatch(
-        handleGasValuePosition({
+      useAdminStore().setGasValuePosition({
           location,
           machine,
           position: ConfirmOrApplyKey,
           value: false,
-        })
-      );
+        });
   };
 
   const handleRemoveUnApplyMachinesInputs = (location) => {
@@ -244,8 +239,7 @@ function ValveSettings({
       tgsState[location][machine].gasValue.minPosition &&
       tgsState[location][machine].gasValue.maxPosition
     ) {
-      return dispatch(
-        handleGasValuePosition({
+      return useAdminStore().setGasValuePosition({
           location,
           machine,
           position: "isConfirm",

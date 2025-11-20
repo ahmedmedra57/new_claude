@@ -87,14 +87,12 @@ const SearchBox = ({ handleClose, isMobile }) => {
       });
 
     if (machine) {
-      dispatch(
-        handleOpenLocation({
+      useLocationsStore().openLocation({
           swtName,
           index: locationIdx,
           status: true,
         });
-      dispatch(
-        handleOpenSpecificLocation({
+      useLocationsStore().openSpecificLocation({
           swtName,
           openSpecificLocationIdx: elIdx,
           status: true,
@@ -108,8 +106,7 @@ const SearchBox = ({ handleClose, isMobile }) => {
           status: true,
         });
     } else {
-      dispatch(
-        handleOpenLocation({
+      useLocationsStore().openLocation({
           swtName,
           index: locationIdx,
           status: true,

@@ -72,8 +72,7 @@ const SelectForce = ({
       case options[0]: {
         // Max heat for 3 days => max heat display box
         // 2. call the timer with 72 hours (setTime)
-        dispatch(
-          handleTimer({
+        useMCStore().setTimer({
             swtName,
             location,
             specificLocation,
@@ -85,8 +84,7 @@ const SelectForce = ({
       case options[1]: {
         // Max heat with 12 hrs timer
         // display the box, timer on with time set
-        dispatch(
-          handleTimer({
+        useMCStore().setTimer({
             swtName,
             location,
             specificLocation,

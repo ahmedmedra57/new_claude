@@ -159,16 +159,14 @@ const Header = () => {
           updateHash({ location: device.zone_id });
           sessionStorage.setItem('locationId', device.zone_id);
         }
-        dispatch(
-          handleOpenLocation({
+        useLocationsStore().openLocation({
             swtName: swtSystem,
             openSpecificLocationIdx: index,
             index: index,
             status: true,
           });
       } else {
-        dispatch(
-          handleOpenLocation({
+        useLocationsStore().openLocation({
             swtName: swtSystem,
             openSpecificLocationIdx: index,
             index: index,
@@ -178,8 +176,7 @@ const Header = () => {
     });
     specificLocationArr.forEach((el, index) => {
       if (index === searchedParentLocationIndex) {
-        dispatch(
-          handleOpenLocation({
+        useLocationsStore().openLocation({
             swtName: swtSystem,
             openSpecificLocationIdx: index,
             index: index,
@@ -230,8 +227,7 @@ const Header = () => {
           essSwitches
         );
         
-        dispatch(
-          handleOpenMasterControl({ swtName: searchedSwitch, status: false });
+        useMCStore().setOpenMasterControl({ swtName: searchedSwitch, status: false });
       } else if (searchedSwitch === 'tgs') {
         controlMachinesDispatcher(
           flatTgsSwitch,

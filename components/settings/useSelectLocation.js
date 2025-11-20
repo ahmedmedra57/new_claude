@@ -37,26 +37,22 @@ const useSelectLocationBox = (
     if (specificLocation) {
       const machines = Object.keys(swtData[location].subLocations[specificLocation].devices);
       machines.forEach((machine) =>
-        dispatch(
-          handleUnSelectIndividualMachine({
+        useMasterControlSelectStore().unselectMachine({
             swt,
             location,
             specificLocation,
             machine,
             isSelectedSys,
-          })
-        );
+          });
     } else {
       const machines = Object.keys(swtData[location].devices);
       machines.forEach((machine) =>
-        dispatch(
-          handleUnSelectIndividualMachine({
+        useMasterControlSelectStore().unselectMachine({
             swt,
             location,
             machine,
             isSelectedSys,
-          })
-        );
+          });
     }
   };
 
@@ -184,8 +180,7 @@ const useSelectLocationBox = (
   const dispatchLocationsHandler = (programData, program) => {
     const locations = Object.keys(programData);
     const locationsArr = locations.map((_) => false);
-    dispatch(
-      handleSettingsLocationSelect({ arr: locationsArr, switch: program });
+    useSettingsOptionsStore().selectLocation({ arr: locationsArr, switch: program });
   };
   const dispatchSpecificLocationsHandler = (programData, program) => {
     const specificLocationName = getAllSpecificLocationNames(programData);
@@ -199,8 +194,7 @@ const useSelectLocationBox = (
           allSpecificLocationsArr.push(specLocation);
         }
       });
-    dispatch(
-      handleSettingsSpecificLocationSelect({
+    useSettingsOptionsStore().selectSpecificLocation({
         arr: allSpecificLocationsArr,
         switch: program,
       });

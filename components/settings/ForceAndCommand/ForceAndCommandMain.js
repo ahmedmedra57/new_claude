@@ -213,8 +213,7 @@ function ForceAndCommandMain({
   };
 
   const handleOpenMultipleSelectLocations = (sysOptions, swt, contentTitle) => {
-    dispatch(
-      handleSettingsMultipleDisplaySelectBox({ sysOptions, swt, contentTitle });
+    useSettingsOptionsStore().toggleMultipleDisplaySelectBox({ sysOptions, swt, contentTitle });
   };
 
   return (

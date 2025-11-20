@@ -414,8 +414,7 @@ const MainSelections = ({
     });
 
     //isSpecificLocationSelected
-    dispatch(
-      handleSpecificLocationSelect({
+    useMasterControlSelectStore().selectSpecificLocation({
         arr: specificLocationArr,
         switch: swt,
       });

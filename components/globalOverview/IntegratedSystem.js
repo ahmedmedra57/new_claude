@@ -494,8 +494,7 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
     setInputSearch(tempArr);
 
     // Toggle expand button
-    dispatch(
-      handleOpenMasterControl({
+    useMCStore().setOpenMasterControl({
         swtName,
         status: !MCIsExpanded[swtName].masterControl,
       });
@@ -509,8 +508,7 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
     setInputSearch(arr);
     setSelectedSuggestionIdx(-1);
     setDisplaySuggestions(false);
-    dispatch(
-      handleOpenMasterControl({
+    useMCStore().setOpenMasterControl({
         swtName,
         status: true,
       });

@@ -457,8 +457,7 @@ const EssMasterControlByMachine = ({
                         machine,
                         status: false,
                       });
-                    dispatch(
-                      handleExpandSSRDetail({
+                    useESSSwitchStore().expandSSRDetail({
                         location,
 
                         machine,

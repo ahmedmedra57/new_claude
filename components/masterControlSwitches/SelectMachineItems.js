@@ -165,8 +165,7 @@ const SelectMachineItems = ({
                 selectedOne: "all",
               })
             )
-          : dispatch(
-              handleSelectedOneByLocation({
+          : useMasterControlSelectByLocationStore().setSelectedOne({
                 controller: name,
                 selectedOne: "all",
               });
@@ -248,8 +247,7 @@ const SelectMachineItems = ({
           ? dispatch(
               handleSelectedOneBySwitch({ controller: name, selectedOne: null })
             )
-          : dispatch(
-              handleSelectedOneByLocation({
+          : useMasterControlSelectByLocationStore().setSelectedOne({
                 controller: name,
                 selectedOne: null,
               });
@@ -321,8 +319,7 @@ const SelectMachineItems = ({
         // 1.reset all and title (selected one)
         dispatch(
           handleSelectAllByLocation({ controller: name, status: false });
-        dispatch(
-          handleSelectedOneByLocation({ controller: name, selectedOne: null });
+        useMasterControlSelectByLocationStore().setSelectedOne({ controller: name, selectedOne: null });
 
         // 2. Empty selected location names
         useMasterControlSelectByLocationStore().addLocations(resetObj);

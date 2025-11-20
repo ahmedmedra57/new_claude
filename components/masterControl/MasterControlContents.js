@@ -113,20 +113,17 @@ const MasterControlContents = ({
       // **if Deactivate for instant heat is TRUE, then the code below will be executed
       switch (system) {
         case 'ess':
-          dispatch(
-            handleInstantHeatReset({
+          useESSSwitchStore().resetInstantHeat({
               location,
               machine,
               specificLocation,
             });
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleInstantHeatReset({ location, machine, specificLocation });
+          useTGSSwitchStore().resetInstantHeat({ location, machine, specificLocation });
           break;
         case 'tes':
-          dispatch(
-            tesHandleInstantHeatReset({ location, machine, specificLocation });
+          useTESSwitchStore().resetInstantHeat({ location, machine, specificLocation });
           break;
         default:
           break;
@@ -137,8 +134,7 @@ const MasterControlContents = ({
 
       switch (system) {
         case 'ess':
-          dispatch(
-            handleInstantHeatReady({
+          useESSSwitchStore().setInstantHeatIsReady({
               location,
               specificLocation,
               machine,
@@ -178,20 +174,17 @@ const MasterControlContents = ({
 
       switch (system) {
         case 'ess':
-          dispatch(
-            handleSnowSensorReset({
+          useESSSwitchStore().resetSnowSensor({
               location,
               specificLocation,
               machine,
             });
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleSnowSensorReset({ location, specificLocation, machine });
+          useTGSSwitchStore().resetSnowSensor({ location, specificLocation, machine });
           break;
         case 'tes':
-          dispatch(
-            tesHandleSnowSensorReset({ location, specificLocation, machine });
+          useTESSwitchStore().resetSnowSensor({ location, specificLocation, machine });
           break;
         default:
           break;
@@ -240,15 +233,13 @@ const MasterControlContents = ({
       if (optionalConstantTemp) {
         // **if Deactivate for optional constant temperature is TRUE, then the code below will be executed
         if (system === 'ess') {
-          dispatch(
-            handleOptionalConstantTempReset({
+          useESSSwitchStore().resetOptionalConstantTemp({
               location,
               specificLocation,
               machine,
             });
         } else if (system === 'tes') {
-          dispatch(
-            tesHandleOptionalConstantTempReset({
+          useTESSwitchStore().resetOptionalConstantTemp({
               location,
               specificLocation,
               machine,
@@ -258,8 +249,7 @@ const MasterControlContents = ({
         // else if optional constant temperature is selected, the code below will be executed
         useMCStore().setControllersStatus(2);
         if (system === 'ess') {
-          dispatch(
-            handleOptionalConstantTempReady({
+          useESSSwitchStore().setOptionalConstantTempReady({
               location,
               specificLocation,
               machine,
@@ -282,8 +272,7 @@ const MasterControlContents = ({
       // **if Deactivate for heating schedule is TRUE, then the code below will be executed
       switch (system) {
         case 'ess':
-          dispatch(
-            handleHeatingScheduleReset({
+          useESSSwitchStore().resetHeatingSchedule({
               location,
               specificLocation,
               machine,
@@ -291,8 +280,7 @@ const MasterControlContents = ({
 
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleHeatingScheduleReset({
+          useTGSSwitchStore().resetHeatingSchedule({
               location,
               specificLocation,
               machine,
@@ -300,8 +288,7 @@ const MasterControlContents = ({
 
           break;
         case 'tes':
-          dispatch(
-            tesHandleHeatingScheduleReset({
+          useTESSwitchStore().resetHeatingSchedule({
               location,
               specificLocation,
               machine,
@@ -316,15 +303,13 @@ const MasterControlContents = ({
 
       switch (system) {
         case 'ess':
-          dispatch(
-            handleReadyHeatingSchedule({
+          useESSSwitchStore().setReadyHeatingSchedule({
               location,
               machine,
               specificLocation,
               state: true,
             });
-          dispatch(
-            handleAddHeatingSchedule({
+          useESSSwitchStore().addHeatingSchedule({
               location,
               specificLocation,
               machine,
@@ -383,16 +368,13 @@ const MasterControlContents = ({
 
       switch (system) {
         case 'ess':
-          dispatch(
-            handleWindFactorReset({ location, specificLocation, machine });
+          useESSSwitchStore().resetWindFactor({ location, specificLocation, machine });
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleWindFactorReset({ location, specificLocation, machine });
+          useTGSSwitchStore().resetWindFactor({ location, specificLocation, machine });
           break;
         case 'tes':
-          dispatch(
-            tesHandleWindFactorReset({ location, specificLocation, machine });
+          useTESSwitchStore().resetWindFactor({ location, specificLocation, machine });
           break;
         default:
           break;
@@ -419,8 +401,7 @@ const MasterControlContents = ({
     if (swt) {
       switch (system) {
         case 'ess':
-          dispatch(
-            handleAtsSelection({
+          useESSSwitchStore().setAtsSelection({
               location,
               machine,
               specificLocation,
@@ -429,8 +410,7 @@ const MasterControlContents = ({
 
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleAtsSelection({
+          useTGSSwitchStore().setAtsSelection({
               location,
               machine,
               specificLocation,
@@ -439,8 +419,7 @@ const MasterControlContents = ({
 
           break;
         case 'tes':
-          dispatch(
-            tesHandleAtsSelection({
+          useTESSwitchStore().setAtsSelection({
               location,
               machine,
               specificLocation,
@@ -462,8 +441,7 @@ const MasterControlContents = ({
             getAuditTrailService({
               actionType: 'GLOBAL_MASTER_CONTROL',
             }).then((res) => {
-              dispatch(
-                handleCommandInfo({
+              useMCCommandStore().setCommandInfo({
                   data: res,
                   user,
                   isF,
@@ -484,8 +462,7 @@ const MasterControlContents = ({
           getAuditTrailService({
             actionType: 'GLOBAL_MASTER_CONTROL',
           }).then((res) => {
-            dispatch(
-              handleCommandInfo({
+            useMCCommandStore().setCommandInfo({
                 data: res,
                 user,
                 isF,

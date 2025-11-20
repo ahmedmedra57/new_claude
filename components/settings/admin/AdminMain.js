@@ -165,8 +165,7 @@ function AdminMain({
   };
 
   const handleOpenMultipleSelectLocations = (sysOptions, swt, contentTitle) => {
-    dispatch(
-      handleSettingsMultipleDisplaySelectBox({ sysOptions, swt, contentTitle });
+    useSettingsOptionsStore().toggleMultipleDisplaySelectBox({ sysOptions, swt, contentTitle });
   };
 
   const handleConfirmOrSave = (idx, str) => {

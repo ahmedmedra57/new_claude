@@ -981,8 +981,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               }
               if (accessMachineData?.isSelected) {
                 deviceIds.push(machine);
-                dispatch(
-                  handleSelectAts({
+                useESSSwitchStore().setAtsSelection({
                     swt: 'ess',
                     location,
                     specificLocation,
@@ -1051,8 +1050,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               }
               if (accessMachineData?.isSelected) {
                 deviceIds.push(machine);
-                dispatch(
-                  handleSelectAts({
+                useESSSwitchStore().setAtsSelection({
                     swt: 'tgs',
                     location,
                     specificLocation,
@@ -1121,8 +1119,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               }
               if (accessMachineData?.isSelected) {
                 deviceIds.push(machine);
-                dispatch(
-                  handleSelectAts({
+                useESSSwitchStore().setAtsSelection({
                     swt: 'tes',
                     location,
                     specificLocation,
@@ -1197,8 +1194,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                   blowerDeviceIds.push(machine);
                   countAllDevicesIds++;
                 }
-                dispatch(
-                  handleSelectTC({
+                useESSSwitchStore().selectTC({
                     location,
                     specificLocation,
                     machine,
@@ -1251,8 +1247,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               if (accessMachineData?.isBurningChamberSelected) {
                 blowerDeviceIds.push(accessMachineData.deviceMac);
                 countAllDevicesIds++;
-                dispatch(
-                  handleSelectTC({
+                useESSSwitchStore().selectTC({
                     location,
                     machine,
                     specificLocation,
@@ -1303,8 +1298,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                   blowerDeviceIds.push(machine);
                   countAllDevicesIds++;
                 }
-                dispatch(
-                  handleSelectTC({
+                useESSSwitchStore().selectTC({
                     location,
                     machine,
                     specificLocation,
@@ -1357,8 +1351,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               if (accessMachineData?.isCurrEssSelected) {
                 switchDeviceIds.push(accessMachineData.deviceMac);
                 countAllDevicesIds++;
-                dispatch(
-                  handleSelectTC({
+                useESSSwitchStore().selectTC({
                     location,
                     specificLocation,
                     machine,
@@ -1403,8 +1396,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               if (accessMachineData?.isCurrTgsSelected) {
                 blowerDeviceIds.push(accessMachineData.deviceMac);
                 countAllDevicesIds++;
-                dispatch(
-                  handleSelectTC({
+                useESSSwitchStore().selectTC({
                     location,
                     specificLocation,
                     machine,
@@ -1451,8 +1443,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
 
                 countAllDevicesIds++;
 
-                dispatch(
-                  handleSelectTC({
+                useESSSwitchStore().selectTC({
                     location,
                     specificLocation,
                     machine,
@@ -1542,8 +1533,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               }
               if (accessMachineData?.isSelected) {
                 deviceIds.push(machine);
-                dispatch(
-                  handleTrackTempControl({
+                useMCStore().setTrackTempControl({
                     swt: 'ess',
                     location,
                     specificLocation,
@@ -1648,8 +1638,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               }
               if (accessMachineData?.isSelectedGasType) {
                 deviceIds.push(machine);
-                dispatch(
-                  handleGasType({
+                useAdminStore().setGasType({
                     location,
                     specificLocation,
                     machine,
@@ -1725,16 +1714,14 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                   });
                 }
                 if (specificLocation) {
-                  dispatch(
-                    handleGasValuePosition({
+                  useAdminStore().setGasValuePosition({
                       location: specificLocation,
                       machine,
                       position: 'isApply',
                       value: true,
                     });
                 } else {
-                  dispatch(
-                    handleGasValuePosition({
+                  useAdminStore().setGasValuePosition({
                       location,
                       machine,
                       position: 'isApply',
@@ -1824,8 +1811,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               }
               if (accessMachineData?.isSelected) {
                 deviceIds.push(machine);
-                dispatch(
-                  handleTrackTempControl({
+                useMCStore().setTrackTempControl({
                     swt: 'tes',
                     location,
                     specificLocation,
@@ -1927,8 +1913,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                   })
                   .then(() => {
                     getZonesInfoForSystemIdentificationService().then((res) => {
-                      dispatch(
-                        handleLocationsSystemIdentification({
+                      useAdminStore().setLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
                         });
@@ -1966,8 +1951,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     .then(() => {
                       getZonesInfoForSystemIdentificationService().then(
                         (res) => {
-                          dispatch(
-                            handleLocationsSystemIdentification({
+                          useAdminStore().setLocationsSystemIdentification({
                               data: res,
                               heaterSpecs: elementsOptions,
                             });
@@ -1994,8 +1978,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     .then(() => {
                       getZonesInfoForSystemIdentificationService().then(
                         (res) => {
-                          dispatch(
-                            handleLocationsSystemIdentification({
+                          useAdminStore().setLocationsSystemIdentification({
                               data: res,
                               heaterSpecs: elementsOptions,
                             });
@@ -2021,8 +2004,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                   })
                   .then(() => {
                     getZonesInfoForSystemIdentificationService().then((res) => {
-                      dispatch(
-                        handleLocationsSystemIdentification({
+                      useAdminStore().setLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
                         });
@@ -2059,8 +2041,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                   })
                   .then(() => {
                     getZonesInfoForSystemIdentificationService().then((res) => {
-                      dispatch(
-                        handleLocationsSystemIdentification({
+                      useAdminStore().setLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
                         });
@@ -2093,8 +2074,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                 ).then(() => {
                   setUOSDelete([]);
                   getZonesInfoForSystemIdentificationService().then((res) => {
-                    dispatch(
-                      handleLocationsSystemIdentification({
+                    useAdminStore().setLocationsSystemIdentification({
                         data: res,
                         heaterSpecs: elementsOptions,
                       });
@@ -2174,8 +2154,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     // );
                     setUOSDelete([]);
                     getZonesInfoForSystemIdentificationService().then((res) => {
-                      dispatch(
-                        handleLocationsSystemIdentification({
+                      useAdminStore().setLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
                         });
@@ -2235,8 +2214,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                       });
                     setUOSDelete([]);
                     getZonesInfoForSystemIdentificationService().then((res) => {
-                      dispatch(
-                        handleLocationsSystemIdentification({
+                      useAdminStore().setLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
                         });
@@ -2386,28 +2364,23 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     handleCloseMessageBox();
     switch (settingOptions) {
       case 'windFactor':
-        dispatch(
-          handleSetWindTemp({
+        useMCStore().setWindTemp({
             objectName: 'lowWindTemp',
             temp: lowWindTempRef.current.value,
           });
-        dispatch(
-          handleSetWindTemp({
+        useMCStore().setWindTemp({
             objectName: 'medWindTemp',
             temp: medWindTempRef.current.value,
           });
-        dispatch(
-          handleSetWindTemp({
+        useMCStore().setWindTemp({
             objectName: 'highWindTemp',
             temp: highWindTempRef.current.value,
           });
-        dispatch(
-          handleSetWindTemp({
+        useMCStore().setWindTemp({
             objectName: 'extremeWindTemp',
             temp: extremeWindTempRef.current.value,
           });
-        dispatch(
-          handleSetWindTemp({
+        useMCStore().setWindTemp({
             objectName: 'windFactorSavedUnitIsF',
             temp: isF,
           });
@@ -2445,8 +2418,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
         break;
       case 'snowSensor':
         // dispatch the unit of measurement for the saved temp
-        dispatch(
-          handleSnowSensorTemp({
+        useESSSwitchStore().setSnowSensorTemp({
             keyName: 'snowSensorSavedUnitIsF',
             value: isF,
           });
@@ -2456,8 +2428,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
           +essSnowSensorRef.current.value !== +essSnowSensorTemp
         ) {
           const switchDeviceIds = getDeviceIdsByLocationData(flatEssSwitch);
-          dispatch(
-            handleSnowSensorTemp({
+          useESSSwitchStore().setSnowSensorTemp({
               keyName: 'essSnowSensorTemp',
               value: essSnowSensorRef.current.value,
             });
@@ -2474,8 +2445,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
           tgsSnowSensorRef.current.value &&
           +tgsSnowSensorRef.current.value !== +tgsSnowSensorTemp
         ) {
-          dispatch(
-            handleSnowSensorTemp({
+          useESSSwitchStore().setSnowSensorTemp({
               keyName: 'tgsSnowSensorTemp',
               value: tgsSnowSensorRef.current.value,
             });
@@ -2484,8 +2454,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
           tesSnowSensorRef.current.value &&
           +tesSnowSensorRef.current.value !== +tesSnowSensorTemp
         ) {
-          dispatch(
-            handleSnowSensorTemp({
+          useESSSwitchStore().setSnowSensorTemp({
               keyName: 'tesSnowSensorTemp',
               value: tesSnowSensorRef.current.value,
             });

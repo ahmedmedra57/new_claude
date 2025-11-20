@@ -177,8 +177,7 @@ const SystemIdentification = ({
     getZonesInfoForSystemIdentificationService({
       structured: true,
     }).then((res) => {
-      dispatch(
-        handleLocationsSystemIdentification({
+      useAdminStore().setLocationsSystemIdentification({
           data: res,
           heaterSpecs: elementsOptions,
         });

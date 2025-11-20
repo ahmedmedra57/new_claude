@@ -2,6 +2,7 @@ import moment from 'moment';
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
 import {
+import { useMCCommandStore, useSettingsOptionsStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceBetween,
 } from '../styles/commonStyles';
@@ -80,8 +81,7 @@ const FaultsDetails = ({ faultContents, column, name }) => {
 
   
   const handleCloseSelectForceBox = () => {
-    dispatch(
-      handleDisplayForceSelectionBox({
+    useSettingsOptionsStore().toggleDisplayForceSelectionBox({
         swtName: name,
         location,
         specificLocation,
@@ -106,8 +106,7 @@ const FaultsDetails = ({ faultContents, column, name }) => {
   };
 
   const attendButtonHandler = () => {
-    dispatch(
-      handleAttendButtonClick({
+    useMCCommandStore().setAttendButtonClick({
         swtName: name,
         location,
         specificLocation,

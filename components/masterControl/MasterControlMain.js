@@ -54,8 +54,7 @@ const MasterControlMain = () => {
     getAuditTrailService({
       actionType: 'GLOBAL_MASTER_CONTROL',
     }).then((res) => {
-      dispatch(
-        handleCommandInfo({
+      useMCCommandStore().setCommandInfo({
           data: res,
           user,
           isF,

@@ -72,8 +72,7 @@ const MobileMasterControl = () => {
     // dispatches
     useMasterControlSelectStore().selectAll({ switch: swt, status: false });
     useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: swt });
-    dispatch(
-      handleSpecificLocationSelect({
+    useMasterControlSelectStore().selectSpecificLocation({
         arr: specificLocationArr,
         switch: swt,
       });

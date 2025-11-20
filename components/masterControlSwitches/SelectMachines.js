@@ -26,14 +26,12 @@ const SelectMachines = ({ size, name, disabled }) => {
 
       // unSelect all the locations
       const locationArr = essLocations.map((location) => false);
-      dispatch(
-        handleLocationSelectBySwitch({ arr: locationArr, controller: name });
+      useMasterControlBySwitchSelectStore().selectLocation({ arr: locationArr, controller: name });
 
       // unSelect all the individual machines into Back end(later)
       const machineArr = Object.values(essSwitch).map((location) =>
         Object.keys(location).map((machine) => false);
-      dispatch(
-        handleMachineSelectBySwitch({ arr: machineArr, controller: name });
+      useMasterControlBySwitchSelectStore().selectMachine({ arr: machineArr, controller: name });
     }
   }, []);
 

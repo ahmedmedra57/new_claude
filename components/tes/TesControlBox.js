@@ -487,8 +487,7 @@ const TesControlBox = ({
         threshold,
       };
       const dispatchData = (res) =>
-        dispatch(
-          tesHandleAddHeatingSchedule({
+        useTESSwitchStore().addHeatingSchedule({
             location,
             machine,
             start: devicesConflicts.extraData.start,

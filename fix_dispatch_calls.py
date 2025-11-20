@@ -127,8 +127,10 @@ ACTION_TO_ZUSTAND = {
 
     # ATS selection actions
     'handleAtsSelection': ('useESSSwitchStore', 'setAtsSelection'),
+    'handleSelectAts': ('useESSSwitchStore', 'setAtsSelection'),
     'tesHandleAtsSelection': ('useTESSwitchStore', 'setAtsSelection'),
     'tgsHandleAtsSelection': ('useTGSSwitchStore', 'setAtsSelection'),
+    'handleCommandDate': ('useMCCommandStore', 'setCommandDate'),
 
     # TGS/TES specific actions
     'tgsHandleShutOff': ('useTGSSwitchStore', 'setShutOff'),
@@ -240,6 +242,33 @@ ACTION_TO_ZUSTAND = {
     'handleSelectTes': ('useMCStore', 'selectTes'),
     'handleSelectHp': ('useMCStore', 'selectHp'),
 
+    # SSR and TC actions
+    'handleSelectTC': ('useESSSwitchStore', 'selectTC'),
+    'handleExpandSSRDetail': ('useESSSwitchStore', 'expandSSRDetail'),
+
+    # Temperature and sensor actions
+    'handleSetWindTemp': ('useMCStore', 'setWindTemp'),
+    'handleSnowSensorTemp': ('useESSSwitchStore', 'setSnowSensorTemp'),
+    'handleMachineOptionalConstantTempOff': ('useESSSwitchStore', 'setMachineOptionalConstantTempOff'),
+    'handleTrackTempControl': ('useMCStore', 'setTrackTempControl'),
+    'toggleAtsHandlerTempo': ('useESSSwitchStore', 'toggleAts'),
+
+    # System identification and settings
+    'handleLocationsSystemIdentification': ('useAdminStore', 'setLocationsSystemIdentification'),
+    'handleGasValuePosition': ('useAdminStore', 'setGasValuePosition'),
+    'handleGasType': ('useAdminStore', 'setGasType'),
+    'handleSettingsSpecificLocationSelect': ('useSettingsOptionsStore', 'selectSpecificLocation'),
+    'handleSettingsMultipleDisplaySelectBox': ('useSettingsOptionsStore', 'toggleMultipleDisplaySelectBox'),
+    'handleDisplayForceSelectionBox': ('useSettingsOptionsStore', 'toggleDisplayForceSelectionBox'),
+
+    # Command and timer actions
+    'handleCommandInfo': ('useMCCommandStore', 'setCommandInfo'),
+    'handleTimer': ('useMCStore', 'setTimer'),
+    'handleAttendButtonClick': ('useMCCommandStore', 'setAttendButtonClick'),
+
+    # Selection by location
+    'handleSelectedOneByLocation': ('useMasterControlSelectByLocationStore', 'setSelectedOne'),
+
     # Other
     'handleDisplaySelectBox': ('useMasterControlSelectStore', 'toggleDisplaySelectBox'),
     'handleCreateCommand': ('useMCCommandStore', 'createCommand'),
@@ -264,20 +293,23 @@ ACTION_TO_ZUSTAND = {
 }
 
 def extract_dispatch_calls(content):
-    """Extract all dispatch() calls from content"""
-    # Pattern 1: dispatch(actionName(args)) - properly formed with args
-    pattern1 = r'dispatch\((\w+)\(([^)]*)\)\)'
-    matches1 = re.findall(pattern1, content)
+    """Extract all dispatch() calls from content, including multiline patterns"""
+    # Use DOTALL flag to match across newlines
+    flags = re.DOTALL
 
-    # Pattern 2: dispatch(actionName({ args }); - malformed (missing dispatch closing paren) with object args
-    pattern2 = r'dispatch\((\w+)\((\{[^}]*\})\);'
-    matches2 = re.findall(pattern2, content)
+    # Pattern 1: dispatch(actionName({...})) - multiline object literal
+    pattern1 = r'dispatch\(\s*(\w+)\(\s*(\{[^}]*\})\s*\)\s*\);'
+    matches1 = re.findall(pattern1, content, flags)
 
-    # Pattern 3: dispatch(actionName(args); - malformed (missing dispatch closing paren) with args
-    pattern3 = r'dispatch\((\w+)\(([^);]+)\);'
+    # Pattern 2: dispatch(actionName({...}); - malformed multiline
+    pattern2 = r'dispatch\(\s*(\w+)\(\s*(\{[^}]*\})\s*\);'
+    matches2 = re.findall(pattern2, content, flags)
+
+    # Pattern 3: dispatch(actionName(args)) - single line with simple args
+    pattern3 = r'dispatch\((\w+)\(([^)]*)\)\)'
     matches3 = re.findall(pattern3, content)
 
-    # Pattern 4: dispatch(actionName(); - action with no args, malformed (missing dispatch closing paren)
+    # Pattern 4: dispatch(actionName(); - action with no args, malformed
     pattern4 = r'dispatch\((\w+)\(\);'
     matches4 = [(action, '') for action in re.findall(pattern4, content)]
 
@@ -286,7 +318,16 @@ def extract_dispatch_calls(content):
     matches5 = [(action, '') for action in re.findall(pattern5, content)]
 
     all_matches = matches1 + matches2 + matches3 + matches4 + matches5
-    return [(action, args) for action, args in all_matches]
+    # Remove duplicates
+    seen = set()
+    unique_matches = []
+    for action, args in all_matches:
+        key = (action, args.strip() if args else '')
+        if key not in seen:
+            seen.add(key)
+            unique_matches.append((action, args))
+
+    return unique_matches
 
 def get_import_path(filepath):
     """Get proper import path for zustand-stores"""
@@ -341,15 +382,23 @@ def migrate_file(filepath):
                 content = re.sub(old_pattern_no_args2, new_replacement_no_args, content)
             else:
                 # Replace both properly formed and malformed dispatch calls with args
-                # Pattern 1: dispatch(action(args)) - properly formed
-                old_pattern1 = rf'dispatch\({action}\({re.escape(args)}\)\)'
-                new_replacement = f'{store}().{method}({args})'
-                content = re.sub(old_pattern1, new_replacement, content)
+                # Use DOTALL flag for multiline matching
+                flags = re.DOTALL
+
+                # Pattern 1: dispatch(\n  action({\n    ...  \n  })\n); - multiline properly formed
+                old_pattern1 = rf'dispatch\(\s*{action}\(\s*{re.escape(args)}\s*\)\s*\);'
+                new_replacement1 = f'{store}().{method}({args});'
+                content = re.sub(old_pattern1, new_replacement1, content, flags=flags)
 
                 # Pattern 2: dispatch(action({ args }); - malformed (missing closing paren)
-                old_pattern2 = rf'dispatch\({action}\({re.escape(args)}\);'
+                old_pattern2 = rf'dispatch\(\s*{action}\(\s*{re.escape(args)}\s*\);'
                 new_replacement2 = f'{store}().{method}({args});'
-                content = re.sub(old_pattern2, new_replacement2, content)
+                content = re.sub(old_pattern2, new_replacement2, content, flags=flags)
+
+                # Pattern 3: dispatch(action(args)) - single line properly formed
+                old_pattern3 = rf'dispatch\({action}\({re.escape(args)}\)\)'
+                new_replacement3 = f'{store}().{method}({args})'
+                content = re.sub(old_pattern3, new_replacement3, content)
         else:
             unmapped_actions.append(action)
 
