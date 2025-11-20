@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useESSSwitchStore, useLocationsStore, useMCIsExpandedStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
+import { useMobileSelectProgramStore } from '../zustand-stores';
 
 
 
@@ -94,7 +95,7 @@ const IntegratedSwitchSpecificLocations = ({
   const MCIsExpanded = useMCIsExpandedStore();
   const { isSpecificLocationOpen } = MCIsExpanded[swtName];
 
-  const selectedProgramState = useSelector(selectedProgram);
+  const selectedProgramState = useMobileSelectProgramStore();
 
   // const unitsStatus = useUnitsStore();
   // const { isF } = unitsStatus;

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import SettingConfirmedMessage from '../../masterControl/userMessages/SettingConfirmedMessage';
 import {
+import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentSpaceAround,
@@ -36,7 +37,7 @@ const AddElementToBank = ({
   const [messageBoxForBankInputs, setMessageBoxForBankInput] = useState(false);
 
   // redux
-    const state = useSelector(selectEditCancelApplyButtons);
+    const state = useEditCancelApplyButtonsStore();
   const { isEdit } = state;
 
   const handleInput = (name, input) => {

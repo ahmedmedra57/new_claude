@@ -1,4 +1,5 @@
 import {
+import { useSelectedMachinesStore } from '../zustand-stores';
   handleCommandNumber,
   selectMCCommand,
 } from '../../store/slices/mCCommandSlice';
@@ -36,7 +37,7 @@ function ShareComponent({ selectedSwitches, setSelectedSwitches }) {
   ];
 
   // redux
-  const selectedMachines = useSelector(selectedMachinesState);
+  const selectedMachines = useSelectedMachinesStore();
   const mCCommandState = useMCCommandStore();
   const mCState = useMCStore();
   const UserState = useUserStore();

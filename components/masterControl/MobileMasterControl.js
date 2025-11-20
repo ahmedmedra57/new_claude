@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useESSSwitchStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+import { useMobileMasterControlStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -23,7 +24,7 @@ import { setInitialStateSelectBoxHandler } from '../../helpers/ess-tgs-tes-mc/se
 
 const MobileMasterControl = () => {
   // global states
-  const MCStatus = useSelector(selectMobileMC);
+  const MCStatus = useMobileMasterControlStore();
   const {
     selectedSwt,
     swtSrc,

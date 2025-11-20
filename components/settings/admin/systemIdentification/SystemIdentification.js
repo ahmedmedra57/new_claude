@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { getAllAdminHeatersService } from '../../../../services';
 import {
+import { useSSRDescriptionStore, useSysIdentificationStore } from '../../../zustand-stores';
   getSSRsRatingListService,
   getSSRsSwitchSizesService,
   getZonesInfoForSystemIdentificationService,
@@ -102,7 +103,7 @@ const SystemIdentification = ({
   const civicAddressRef = useRef();
 
   // redux
-    const SysIdentificationState = useSelector(selectSysIdentification);
+    const SysIdentificationState = useSysIdentificationStore();
   const {
     locations,
     heatingSysOptions,
@@ -110,7 +111,7 @@ const SystemIdentification = ({
     ssrRatingOptions,
     gasTypeOptions,
   } = SysIdentificationState;
-  const { elementsOptions } = useSelector(selectDescription);
+  const { elementsOptions } = useSSRDescriptionStore();
 
   // handles creating the list of array[] of number of UOS, number of SSR UTS drop down list
   const handleCreateUOSAndSSRList = useCallback(

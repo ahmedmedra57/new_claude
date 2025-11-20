@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
 import {
+import { useEditCancelApplyButtonsStore } from '../../zustand-stores';
   alignItemsFlexStart,
   borderABlue,
   flexBoxCenter,
@@ -86,7 +87,7 @@ const UserProfileMain = ({
   // redux
   const UserState = useUserStore();
   const { user } = UserState;
-  const buttonsState = useSelector(selectEditCancelApplyButtons);
+  const buttonsState = useEditCancelApplyButtonsStore();
   const { isEdit } = buttonsState;
 
   // changePassword, companyInfo, contactInfo, personalInfo

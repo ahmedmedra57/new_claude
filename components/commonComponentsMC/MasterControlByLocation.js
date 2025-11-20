@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useMobileSelectProgramStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -42,7 +43,7 @@ const MasterControlByLocation = ({
   } = useContext(EssTgsTesContext);
 
   // redux
-  const isSelected = useSelector(selectedProgram);
+  const isSelected = useMobileSelectProgramStore();
 
   // const [isInstantHeatActivated, setIsInstantHeatActivated] = useState(false);
   // const [isSnowSensorActivated, setIsSnowSensorActivated] = useState(false);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
+import { useSSRDescriptionStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -43,7 +44,7 @@ const AdminSSRItemDetails = ({
   const {
     partNumberSuggestions: partNumberSuggestionsStore,
     elementsOptions: elementsOptionsStore,
-  } = useSelector(selectDescription);
+  } = useSSRDescriptionStore();
   const [partNumberSuggestions, setPartNumberSuggestions] = useState(
     partNumberSuggestionsStore
   );

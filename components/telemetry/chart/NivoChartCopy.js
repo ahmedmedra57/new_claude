@@ -3,6 +3,7 @@
 import { ResponsiveBar } from '@nivo/bar';
 import styled, { css } from 'styled-components';
 import {
+import { useTelemetryChartDataStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   scrollbarX,
@@ -62,7 +63,7 @@ const NivoChartCopy = ({
   const { essDc, tgsTesDc, tesDc, hpDc, tgs, hpGc, ess, tes, hpEc } =
     selectionOfSystem.selectSystem;
 
-  const chartData = useSelector(selectTelemetryChartData);
+  const chartData = useTelemetryChartDataStore();
 
   const {
     essSwitchData,

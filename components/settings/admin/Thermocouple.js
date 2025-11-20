@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
   ButtonReady,
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -30,7 +31,7 @@ function Thermocouple({
   isActivate,
   isDeactivate,
 }) {
-  const { isApply } = useSelector(selectEditCancelApplyButtons);
+  const { isApply } = useEditCancelApplyButtonsStore();
 
   const messageBoxContent = {
     title: 'settings',

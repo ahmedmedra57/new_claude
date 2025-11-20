@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
+import { useForceCommandAndAdminSelectStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,
@@ -42,7 +43,7 @@ const SettingsSelectSwitchMachineOptions = ({
 
   const specificLocationsNameList = useGetSpecificLocationList(data);
 
-  const FCAndAdminSelectState = useSelector(selectForceCommandAndAdminSelect);
+  const FCAndAdminSelectState = useForceCommandAndAdminSelectStore();
   const {
     ess,
     tgs,

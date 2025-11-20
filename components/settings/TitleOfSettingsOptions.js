@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import {
+import { useSettingsOptionsStore } from '../../zustand-stores';
   layerADark,
   flexBoxCenter,
   justifyContentSpaceBetween,
@@ -13,7 +14,7 @@ function TitleOfAllSettings() {
   // const isMobile = useMediaQuery({ query: '(max-width:600px)' });
   const { t } = useTranslation();
 
-  const settingsOptionsState = useSelector(selectSettingsOptions);
+  const settingsOptionsState = useSettingsOptionsStore();
   const {
     isUserProfileSelected,
     isUnitsSelected,

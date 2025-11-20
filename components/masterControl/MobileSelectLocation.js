@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useESSSwitchStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
+import { useMobileMasterControlStore } from '../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentFlexStart,
@@ -18,7 +19,7 @@ import { useEffect } from 'react';
 
 const MobileSelectLocation = ({ setIsApply }) => {
   // Global states
-  const MCStatus = useSelector(selectMobileMC);
+  const MCStatus = useMobileMasterControlStore();
   const { selectedSwt, isOpenSelectLocation } = MCStatus;
 
   const { essSwitch: essSwt } = useESSSwitchStore();

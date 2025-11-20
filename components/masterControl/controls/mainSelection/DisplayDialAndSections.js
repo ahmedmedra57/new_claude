@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useMCCommandStore, useMCStore, useMasterControlSelectStore } from '../../../zustand-stores';
 import styled, { css } from 'styled-components';
+import { useSelectedMachinesStore } from '../zustand-stores';
 
 import { selectMasterControls } from '../../../store/slices/masterControlSelectSlice';
 import { selectMCCommand } from '../../../store/slices/mCCommandSlice';
@@ -40,7 +41,7 @@ const DisplayDialAndSections = ({
     ? selectsState.tgs
     : selectsState.hp;
 
-  const controllerState = useSelector(selectedMachinesState);
+  const controllerState = useSelectedMachinesStore();
   const { selectedController } = controllerState;
 
   // mcCommandSlice

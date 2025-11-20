@@ -1,4 +1,5 @@
 import { useState, createContext } from 'react';
+import { useMCCommandStore, useMCStore, useMasterControlSelectStore } from '../zustand-stores';
 
 export const MasterControlContext = createContext();
 
@@ -70,10 +71,10 @@ const MasterControlProvider = ({ children }) => {
   // ];
 
   // // import redux
-  // const { isNewCommandCreated } = useSelector(selectMCCommand);
-  // const selectedSwitch = useSelector(selectMC);
+  // const { isNewCommandCreated } = useMCCommandStore();
+  // const selectedSwitch = useMCStore();
   // const { ess, tgs, tes } = selectedSwitch.selectSystem;
-  // const selectsState = useSelector(selectMasterControls);
+  // const selectsState = useMasterControlSelectStore();
   // const { selectedOne } = ess
   //   ? selectsState.ess
   //   : tes

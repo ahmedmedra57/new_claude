@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import {
+import { useForceAndCommandsStore, useSettingsOptionsStore, useSnowSensorStore, useWindFactorStore } from '../../zustand-stores';
+import { useAdminStore, useSSRDescriptionStore } from '../../zustand-stores';
   alignItemsFlexStart,
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -216,7 +218,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
 
   //*********************** redux ************************
   
-  const settingsOptionsState = useSelector(selectSettingsOptions);
+  const settingsOptionsState = useSettingsOptionsStore();
   const {
     isUserProfileSelected,
     isUnitsSelected,
@@ -227,10 +229,10 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     isInterfaceModeSelected,
   } = settingsOptionsState.allSettingsOptions;
 
-  const selectForceAndCommandsState = useSelector(selectForceAndCommands);
+  const selectForceAndCommandsState = useForceAndCommandsStore();
 
-  const selectAdminState = useSelector(selectAdmin);
-  const { elementsOptions } = useSelector(selectDescription);
+  const selectAdminState = useAdminStore();
+  const { elementsOptions } = useSSRDescriptionStore();
 
   const { flatEssSwitch } = useESSSwitchStore();
   const { flatTgsSwitch } = useTGSSwitchStore();
@@ -242,13 +244,13 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     highWindTemp,
     extremeWindTemp,
     windFactorSavedUnitIsF,
-  } = useSelector(selectWindFactor);
+  } = useWindFactorStore();
   const {
     essSnowSensorTemp,
     tgsSnowSensorTemp,
     tesSnowSensorTemp,
     snowSensorSavedUnitIsF,
-  } = useSelector(selectSnowSensor);
+  } = useSnowSensorStore();
 
   const { isF } = useUnitsStore();
 

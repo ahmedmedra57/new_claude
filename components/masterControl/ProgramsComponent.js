@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+import { useMobileMasterControlStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 
@@ -28,7 +29,7 @@ const ProgramsComponent = ({
   const { isF } = unitsStatus;
   const unit = isF ? '°F' : '°C';
 
-  const MCStatus = useSelector(selectMobileMC);
+  const MCStatus = useMobileMasterControlStore();
   const { selectedSwt, isProgramSelected } = MCStatus;
 
   const { essSwitch } = useESSSwitchStore();

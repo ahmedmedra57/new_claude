@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useLocationsStore } from '../../../zustand-stores';
 import ValveConfirmButton from "./ValveConfirmButton";
 import {
+import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
+import { useAdminStore } from '../../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,
@@ -51,9 +53,9 @@ function ValveSettings({
     { title: "max position:" },
   ];
 
-    const ButtonsState = useSelector(selectEditCancelApplyButtons);
+    const ButtonsState = useEditCancelApplyButtonsStore();
   const { isEdit } = ButtonsState;
-  const adminState = useSelector(selectAdmin);
+  const adminState = useAdminStore();
   const tgsState = adminState.tgs;
   const locations = useLocationsStore();
 

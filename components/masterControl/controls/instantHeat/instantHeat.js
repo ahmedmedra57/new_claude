@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useUnitsStore } from '../../../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
+import { useSelectedMachinesStore } from '../zustand-stores';
   activeInput,
   activeLayer180Deg,
   flexBoxCenter,
@@ -37,7 +38,7 @@ const InstantHeat = ({
   isDialSysDisabled,
   setSubtitle,
 }) => {
-  const { instantHeat } = useSelector(selectedMachinesState);
+  const { instantHeat } = useSelectedMachinesStore();
 
   const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;

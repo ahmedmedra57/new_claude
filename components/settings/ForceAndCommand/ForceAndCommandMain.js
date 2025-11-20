@@ -4,6 +4,7 @@ import { useUserStore } from '../../zustand-stores';
 import SelectAts from "./selectArts/SelectAts";
 import SelectTc from "./selectTc/SelectTc";
 import {
+import { useEditCancelApplyButtonsStore, useForceAndCommandsStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,
@@ -76,10 +77,10 @@ function ForceAndCommandMain({
 
   // redux
   
-  const buttonState = useSelector(selectEditCancelApplyButtons);
+  const buttonState = useEditCancelApplyButtonsStore();
   const { isEdit } = buttonState;
 
-  const systemsState = useSelector(selectForceAndCommands);
+  const systemsState = useForceAndCommandsStore();
   const { ess, essSpec, tgs, tgsSpec, tes, tesSpec, sys,sysSpec, ate, hp } =
     systemsState;
 

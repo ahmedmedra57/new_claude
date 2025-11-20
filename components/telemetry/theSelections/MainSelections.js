@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { useTranslation } from 'react-i18next';
 import {
+import { useESSDataConsumptionStore, useHPDataConsumptionStore, useHPElectricSwitchStore, useHPGasSwitchStore, useTESDataConsumptionStore, useTGSDataConsumptionStore, useTelemetryChartDataStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceEvenly,
   layerA180Deg,
@@ -195,16 +196,16 @@ const MainSelections = ({
   const { essSwitch, flatEssSwitch } = useESSSwitchStore();
   const { tesSwitch, flatTesSwitch } = useTESSwitchStore();
   const { tgsSwitch, flatTgsSwitch } = useTGSSwitchStore();
-  const hpElectricSwitch = useSelector(selectHpElectricSwitch);
-  const hpGasSwitch = useSelector(selectHpGasSwitch);
+  const hpElectricSwitch = useHPElectricSwitchStore();
+  const hpGasSwitch = useHPGasSwitchStore();
   const { essDataConsumptionSwitch, essDataConsumptionSwitchSpecificLocation } =
-    useSelector(selectEssDataConsumption);
+    useESSDataConsumptionStore();
   const { tesDataConsumptionSwitch, tesDataConsumptionSwitchSpecificLocation } =
-    useSelector(selectTesDataConsumption);
+    useTESDataConsumptionStore();
   const { tgsDataConsumptionSwitch, tgsDataConsumptionSwitchSpecificLocation } =
-    useSelector(selectTgsDataConsumption);
-  const hpDataConsumptionSwitch = useSelector(selectHpDataConsumption);
-  const chartData = useSelector(selectTelemetryChartData);
+    useTGSDataConsumptionStore();
+  const hpDataConsumptionSwitch = useHPDataConsumptionStore();
+  const chartData = useTelemetryChartDataStore();
   const {
     // essDataConsumpData,
     // tesDataConsumpData,

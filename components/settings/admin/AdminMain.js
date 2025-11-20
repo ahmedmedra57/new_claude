@@ -6,6 +6,8 @@ import ForceGasElectricSystem from './ForceGasElectricSystem';
 import AddElementToBank from './AddElementToBank';
 import SystemIdentification from './systemIdentification/SystemIdentification';
 import {
+import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
+import { useAdminStore } from '../../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,
@@ -107,7 +109,7 @@ function AdminMain({
   const sysOpeningSelectBoxState =
     forceCommandAndAdminSelectState.displayMultipleSelectBox.admin;
 
-  const systemsState = useSelector(selectAdmin);
+  const systemsState = useAdminStore();
   const { ess, essSpec, tgs, tgsSpec, tes, tesSpec, sys, sysSpec, ate, hp } =
     systemsState;
 
@@ -151,7 +153,7 @@ function AdminMain({
   const headers = getSettingsHeaderData(isMobile);
 
   // redux
-  const buttonsState = useSelector(selectEditCancelApplyButtons);
+  const buttonsState = useEditCancelApplyButtonsStore();
   const { isEdit } = buttonsState;
 
   const UserInfoState = useUserStore();

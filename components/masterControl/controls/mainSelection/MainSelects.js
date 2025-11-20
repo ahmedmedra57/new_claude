@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../../../zustand-stores';
 import {
+import { useSelectedMachinesStore } from '../zustand-stores';
   essSpecificLocationUnselectMachinesHandler,
   handleUnSelectIndividualMachine,
   selectEssSwitch,
@@ -76,7 +77,7 @@ const MainSelects = ({
     ? masterControlSelects.tes
     : masterControlSelects.tgs;
 
-  const selectedMachineStates = useSelector(selectedMachinesState);
+  const selectedMachineStates = useSelectedMachinesStore();
   const { mCOff, atsState } = selectedMachineStates;
   const { selections } = atsState;
   

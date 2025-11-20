@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useSSRDescriptionStore } from '../../../zustand-stores';
   ItemBackground,
   alignItemsFlexStart,
   flexBoxCenter,
@@ -56,7 +57,7 @@ const SSRElements = ({
 
   // useRedux
   const { elementsOptions: elementsOptionsStore } =
-    useSelector(selectDescription);
+    useSSRDescriptionStore();
   const [elementsOptions, setElementsOptions] = useState(elementsOptionsStore);
 
   const inputPartNumberDebounced = useDebounce(inputPartNumber, 500);

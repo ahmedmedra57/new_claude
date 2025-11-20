@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useUnitsStore, useUserStore } from '../../zustand-stores';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
 import {
+import { useEditCancelApplyButtonsStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentSpaceAround,
@@ -50,7 +51,7 @@ const UnitsMain = ({
   // redux
     const unitState = useUnitsStore();
   const { selectedUnit, isF } = unitState;
-  const buttonsState = useSelector(selectEditCancelApplyButtons);
+  const buttonsState = useEditCancelApplyButtonsStore();
   const { isCancel, isEdit } = buttonsState;
   const userInfo = useUserStore();
   const { user } = userInfo;

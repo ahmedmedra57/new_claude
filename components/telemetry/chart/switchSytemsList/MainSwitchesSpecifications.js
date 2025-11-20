@@ -13,6 +13,7 @@ import { selectTesSwitch } from '../../../store/slices/tesSwitchSlice';
 import { selectTgsDataConsumption } from '../../../store/slices/tgsDataConsumptionSlice';
 import { selectTgsSwitch } from '../../../store/slices/tgsSwitchSlice';
 import {
+import { useESSDataConsumptionStore, useHPDataConsumptionStore, useHPElectricSwitchStore, useHPGasSwitchStore, useTESDataConsumptionStore, useTGSDataConsumptionStore } from '../zustand-stores';
   alignItemsFlexStart,
   flexBoxCenter,
   layerA90Deg,
@@ -72,12 +73,12 @@ const MainSwitchesSpecifications = ({
   const { flatTgsSwitch } = useTGSSwitchStore();
   const { flatTesSwitch } = useTESSwitchStore();
   const locations = useLocationsStore();
-  const hpElectricSwitch = useSelector(selectHpElectricSwitch);
-  const hpGasSwitch = useSelector(selectHpGasSwitch);
-  const { essDataConsumptionSwitch } = useSelector(selectEssDataConsumption);
-  const { tesDataConsumptionSwitch } = useSelector(selectTesDataConsumption);
-  const { tgsDataConsumptionSwitch } = useSelector(selectTgsDataConsumption);
-  const hpDataConsumptionSwitch = useSelector(selectHpDataConsumption);
+  const hpElectricSwitch = useHPElectricSwitchStore();
+  const hpGasSwitch = useHPGasSwitchStore();
+  const { essDataConsumptionSwitch } = useESSDataConsumptionStore();
+  const { tesDataConsumptionSwitch } = useTESDataConsumptionStore();
+  const { tgsDataConsumptionSwitch } = useTGSDataConsumptionStore();
+  const hpDataConsumptionSwitch = useHPDataConsumptionStore();
 
   const [switchIdx, setSwitchIdx] = useState(null);
   const [isExpand, setIsExpand] = useState([]);

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
+import { useForceCommandAndAdminSelectStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,
@@ -31,7 +32,7 @@ const SelectFCSwitchMachineOptions = ({
 
   // const trackArrowState = locations.map((el) => false);
   // const [isArrowDown, setIsArrowDown] = useState(trackArrowState);
-  const FCAndAdminSelectState = useSelector(selectForceCommandAndAdminSelect);
+  const FCAndAdminSelectState = useForceCommandAndAdminSelectStore();
   const swt = sysIndex === 0 ? 'ess' : sysIndex === 1 ? 'tgs' : 'tes';
 
   const {

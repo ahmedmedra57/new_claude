@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useUserStore } from '../../zustand-stores';
 import { useTranslation } from 'react-i18next';
 import {
+import { useEditCancelApplyButtonsStore, useInterfaceModeStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexStart,
   justifyContentSpaceEvenly,
@@ -64,9 +65,9 @@ function AllSettingsSelectOptions() {
 
   const [option, setOption] = useState(0);
 
-    const interfaceMode = useSelector(selectInterfaceMode);
+    const interfaceMode = useInterfaceModeStore();
   const mode = interfaceMode;
-  const buttonsState = useSelector(selectEditCancelApplyButtons);
+  const buttonsState = useEditCancelApplyButtonsStore();
   const { isEdit } = buttonsState;
 
   const handleSelect = (value) => {

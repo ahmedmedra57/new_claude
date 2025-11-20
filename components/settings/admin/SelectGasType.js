@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
   borderABlue,
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -32,7 +33,7 @@ function SelectGasType({
 
   const gasType = ['lp-propane', 'ng-natural gas'];
 
-  const editState = useSelector(selectEditCancelApplyButtons);
+  const editState = useEditCancelApplyButtonsStore();
   const { isEdit } = editState;
 
   return (

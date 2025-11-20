@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
 import {
+import { useEditCancelApplyButtonsStore, useWindFactorStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceAround,
   layerA,
@@ -65,9 +66,9 @@ function WindFactorMain({
   const [openPasswordBox, setOpenPasswordBox] = useState(true);
 
   
-  const buttonsState = useSelector(selectEditCancelApplyButtons);
+  const buttonsState = useEditCancelApplyButtonsStore();
   const { isEdit } = buttonsState;
-  const windFactorState = useSelector(selectWindFactor);
+  const windFactorState = useWindFactorStore();
   const { lowWindTemp, medWindTemp, highWindTemp, extremeWindTemp } =
     windFactorState;
   const selectUserInfoState = useUserStore();

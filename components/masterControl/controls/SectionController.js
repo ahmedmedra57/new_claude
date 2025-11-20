@@ -3,6 +3,7 @@ import { useMCCommandStore, useMCStore, useUnitsStore } from '../../zustand-stor
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectMC } from '../../store/slices/mCSlice';
 import selectedMachinesSlice, {
+import { useSelectedMachinesStore } from '../zustand-stores';
   AddScheduleHandlerTempo,
   constantHeatHandlerTempo,
   fanOnlyHandlerTempo,
@@ -37,11 +38,11 @@ const SectionControllers = ({
   const selectedSwitch = useMCStore();
   const { ess, tgs, tes, hp } = selectedSwitch.selectSystem;
 
-  const selectsState = useSelector(selectedMachinesState);
+  const selectsState = useSelectedMachinesStore();
 
   const { controllersStatus, isNewCommandCreated } =
     useMCCommandStore();
-  // const selectedMachineStates = useSelector(selectedMachinesState);
+  // const selectedMachineStates = useSelectedMachinesStore();
   // const { mCOff } = selectedMachineStates;
 
   const {

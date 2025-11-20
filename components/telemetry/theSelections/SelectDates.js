@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useMCStore } from '../../zustand-stores';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { useSelectedMachinesStore } from '../zustand-stores';
 // import ScheduleCalendar from '../../masterControl/controls/heatingScheduler/ScheduleCalendar';
 import { selectMC } from '../../store/slices/mCSlice';
 import { selectedMachinesState } from '../../store/slices/selectedMachinesSlice';
@@ -12,7 +13,7 @@ import ScheduleCalendar from '../../masterControl/controls/heatingScheduler/Sche
 const SelectDates = ({ scheduleData, setScheduleData }) => {
   const { t } = useTranslation();
   // redux
-  const selectsState = useSelector(selectedMachinesState);
+  const selectsState = useSelectedMachinesStore();
 
   const { ready, activated } = selectsState.heatingSchedule;
 

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../buttons/Button';
 import { useState } from 'react';
 import {
+import { useInterfaceModeStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentSpaceAround,
@@ -22,7 +23,7 @@ function Interface() {
   // states
   const [interfaceModeButton, setInterfaceModeButton] = useState(0);
   // redux
-    const interfaceMode = useSelector(selectInterfaceMode);
+    const interfaceMode = useInterfaceModeStore();
   const mode = interfaceMode;
   // functions
   const handleClick = (index) => {

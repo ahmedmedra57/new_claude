@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMCStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
+import { useMessageBoxesStore, useSelectedMachinesStore } from '../zustand-stores';
 
 import styled from 'styled-components';
 import {
@@ -38,8 +39,8 @@ const MasterControlContents = ({
   // redux
     const mCCommandState = useMCCommandStore();
   const number = mCCommandState.commandNumber;
-  const messageBoxesState = useSelector(selectMessageBoxes);
-  const selectedMachines = useSelector(selectedMachinesState);
+  const messageBoxesState = useMessageBoxesStore();
+  const selectedMachines = useSelectedMachinesStore();
   const { flatEssSwitch } = useESSSwitchStore();
   const { flatTesSwitch } = useTESSwitchStore();
   const { flatTgsSwitch } = useTGSSwitchStore();

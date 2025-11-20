@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceEvenly,
   layerA,
@@ -33,7 +34,7 @@ function ForceGasElectricSystem({
       'please select switches to continue force - gas & electric system simultaneously on for 15 minutes.',
   };
 
-  const buttonsState = useSelector(selectEditCancelApplyButtons);
+  const buttonsState = useEditCancelApplyButtonsStore();
   const { isEdit } = buttonsState;
 
   const enableSwitchImg = '/images/forceGasElectricSystem-enableSwitch.svg';

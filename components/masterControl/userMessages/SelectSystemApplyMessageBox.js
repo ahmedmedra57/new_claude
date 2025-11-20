@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import { selectMC } from '../../store/slices/mCSlice';
 import { selectedMachinesState } from '../../store/slices/selectedMachinesSlice';
 import {
+import { useSelectedMachinesStore } from '../zustand-stores';
   alignItemsFlexStart,
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -23,7 +24,7 @@ const SelectSystemApplyMessageBox = ({ handleButtons, title, message }) => {
   const { ess, tgs } = mCState.selectSystem;
   const locations = useLocationsStore();
 
-  const selectedMachines = useSelector(selectedMachinesState);
+  const selectedMachines = useSelectedMachinesStore();
   const { swt, selections } = selectedMachines.atsState;
 
   const [atsMessage, setAtsMessage] = useState('');

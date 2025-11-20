@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useUserStore } from '../../zustand-stores';
 import { useTranslation } from 'react-i18next';
 import {
+import { useEditCancelApplyButtonsStore, useSnowSensorStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexStart,
   justifyContentSpaceAround,
@@ -38,11 +39,11 @@ function SnowSensorMain({
   ];
 
   // redux
-  const snowSensorState = useSelector(selectSnowSensor);
+  const snowSensorState = useSnowSensorStore();
   const { essSnowSensorTemp, tgsSnowSensorTemp, tesSnowSensorTemp } =
     snowSensorState;
 
-  const buttonsState = useSelector(selectEditCancelApplyButtons);
+  const buttonsState = useEditCancelApplyButtonsStore();
   const { isEdit } = buttonsState;
 
   const UserInfoState = useUserStore();

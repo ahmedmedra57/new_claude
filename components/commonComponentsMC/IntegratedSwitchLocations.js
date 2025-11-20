@@ -4,6 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import useNavigationState from '../../hooks/useNavigationState';
 import LeftPanelNavigation from './LeftPanelNavigation';
 import SwitchDetailsPanel from './SwitchDetailsPanel';
+import { useMobileSelectProgramStore } from '../zustand-stores';
 
 
 
@@ -141,7 +142,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
     specificLocationMasterControl,
   } = MCIsExpanded[swtName];
 
-  const selectedProgramState = useSelector(selectedProgram);
+  const selectedProgramState = useMobileSelectProgramStore();
 
   const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
