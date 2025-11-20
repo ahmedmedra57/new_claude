@@ -11,3 +11,15 @@ export * from './useSelectSwitchesDispatches';
 export * from './useSelectSwitchesDisplay';
 export * from './useGetSpecificLocationList';
 export * from './useCheckControlPermsission';
+
+// New shared hooks for ESS/TGS/TES components
+export { default as useNavigationState } from './useNavigationState';
+export { default as useProgramIcons } from './useProgramIcons';
+export { default as useSwitchData } from './useSwitchData';
+export { default as useSwitchControls } from './useSwitchControls';
+export { default as useHeaderHat } from './useHeaderHat';
+
+// Shared hooks for ControlBox components
+export { default as useControlBoxTemperatures } from './useControlBoxTemperatures';
+export { default as useActivationStates } from './useActivationStates';
+export { default as useControlBoxMessages } from './useControlBoxMessages';

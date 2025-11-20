@@ -60,6 +60,11 @@ import {
   updateScheduleService,
 } from '../../services/schedule.service';
 import ConflictMessage from '../masterControl/userMessages/ConflictMessage';
+import {
+  useControlBoxTemperatures,
+  useActivationStates,
+  useControlBoxMessages,
+} from '../../hooks';
 
 const TesControlBox = ({
   location,
@@ -67,9 +72,7 @@ const TesControlBox = ({
   swtName,
   isMobile,
   setTemp,
-  // indivLocationName,
 }) => {
-  // !! TODO: implement specific location
   // Global
   const { tesSwitch,flatTesSwitch } = useSelector(selectTesSwitch);
   const switchStatus = flatTesSwitch[location][machine];
@@ -93,88 +96,55 @@ const TesControlBox = ({
     currentRun,
   } = flatTesSwitch[location][machine];
 
-  const unitsStatus = useSelector(selectUnits);
-  const { isF } = unitsStatus;
-
-  const heatingScheduleActivated = useMemo(() => {
-    return switchStatus.heatingSchedule.isActivated && switchStatus.op_mode === "SCHEDULE" ;
-  }, [switchStatus]);
-
-  const snowSensorActivated = useMemo(() => {
-    return switchStatus.snowSensor.isActivated && switchStatus.op_mode === "SNOW" ;
-  }, [switchStatus]);
-
-  const instantHeatActivated = useMemo(() => {
-    return switchStatus.instantHeat.isActivated && switchStatus.op_mode === "SWITCH" ;
-  }, [switchStatus]);
-
-  const windFactorActivated = useMemo(() => {
-    return switchStatus.windFactor.isActivated && switchStatus.op_mode === "WIND" ;
-  }, [switchStatus]);
-
   const permissions = useSelector(selectUserPermissions);
   const disable = !permissions.WRITE;
-
-  // localStates
-  const [instantHeatTemp, setInstantHeatTemp] = useState('');
-  const [constantTemp, setConstantTemp] = useState('');
-  const [schedulerTemp, setSchedulerTemp] = useState('');
-  const [snowSensorTemp, setSnowSensorTemp] = useState('');
-
-  const [openMessageBox, setOpenMessageBox] = useState(false);
-  const [message, setMessage] = useState([]);
-  const [programName, setProgramName] = useState(null);
-
   const dispatch = useDispatch();
 
-  // const isF = false;
-  const unit = isF ? '°F' : '°C';
+  // Use shared hooks for temperature state management (replaces ~80 lines)
+  const {
+    instantHeatTemp,
+    constantTemp,
+    schedulerTemp,
+    snowSensorTemp,
+    unit,
+    isF,
+    setInstantHeatTemp,
+    setConstantTemp,
+    setSchedulerTemp,
+    setSnowSensorTemp,
+  } = useControlBoxTemperatures(switchStatus, 'tes');
 
-  // ** temporary variables
+  // Use shared hooks for activation states (replaces ~25 lines)
+  const {
+    heatingScheduleActivated,
+    snowSensorActivated,
+    instantHeatActivated,
+    windFactorActivated,
+    constantTempActivated,
+  } = useActivationStates(switchStatus, 'tes');
 
-  useEffect(() => {
-    if (instantHeat.inputTemp > 0) {
-      setInstantHeatTemp(`${instantHeat.inputTemp} ${unit}`);
-    } else {
-      setInstantHeatTemp('');
-    }
-  }, [instantHeat]);
+  // Use shared hooks for message box state (replaces ~15 lines)
+  const {
+    openMessageBox,
+    message,
+    programName,
+    messageTitle,
+    showMessage,
+    closeMessageBox,
+  } = useControlBoxMessages();
 
+  // Keep heating schedule ready state dispatch (business logic not in hook)
   useEffect(() => {
     if (heatingScheduleList[0].inputTemp > 0) {
-      setSchedulerTemp(`${heatingScheduleList[0].inputTemp} ${unit}`);
       dispatch(
         tesHandleReadyHeatingSchedule({ location, machine, state: true })
       );
     } else {
-      setSchedulerTemp('');
       dispatch(
         tesHandleReadyHeatingSchedule({ location, machine, state: false })
       );
     }
-  }, [heatingScheduleList]);
-
-  useEffect(() => {
-    if (optionalConstantTemp.inputTemp > 0) {
-      setConstantTemp(`${optionalConstantTemp.inputTemp} ${unit}`);
-    } else {
-      setConstantTemp('');
-    }
-  }, [optionalConstantTemp]);
-
-  useEffect(() => {
-    if (snowSensor.defaultTemp > 0) {
-      setSnowSensorTemp(
-        `${
-          isF
-            ? convertCelsiusToFahrenheit(snowSensor.defaultTemp)
-            : snowSensor.defaultTemp
-        } ${unit}`
-      );
-    } else {
-      setSnowSensorTemp('');
-    }
-  }, [snowSensor]);
+  }, [heatingScheduleList, dispatch, location, machine]);
 
   const integratedButtonHandler = (
     id,
@@ -574,27 +544,6 @@ const TesControlBox = ({
           });
       }
     }
-
-    // if (devicesConflicts?.commandTarget === 'on_switch') {
-    //   updateDeviceInfo('on_switch', 1, systemTarget);
-    //   updateDeviceInfo('instant_temp', devicesConflicts?.extraData, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'on_constant') {
-    //   updateDeviceInfo('on_constant', 1, systemTarget);
-    //   updateDeviceInfo('constant_temp', devicesConflicts?.extraData, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'fan') {
-    //   updateDeviceInfo('fan', 1, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'snow_enabled') {
-    //   updateDeviceInfo('snow_enabled', 1, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'wind'  ) {
-    //   updateDeviceInfo('wind', 1, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'schedule') {
-    //   isGas ? tgsUpdateSchedule(devicesConflicts?.extraData) : updateSchedule(devicesConflicts?.extraData);
-    // }
 
     dispatch(tesDeactivateConflictMessage({ location, machine }));
   };
@@ -1159,67 +1108,3 @@ const MessageBoxWrapper = styled.div`
   left: 0;
   z-index: 100;
 `;
-
-// *********************************
-
-// const SectionContent = styled.section`
-//   width: 192px;
-//   height: 463px;
-
-//   background: transparent linear-gradient(180deg, #233a54 0%, #060d19 100%);
-//   border: 0.5px solid #000000;
-//   border-radius: 0px 8px 10px 10px;
-
-//   ${flexBoxCenter}
-
-//   ${(p) =>
-//     p.isFaults &&
-//     css`
-//       border: 1px solid red;
-//     `}
-// `;
-
-// const SectionController = styled.section`
-//   height: 100%;
-//   /* Layout Properties */
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-evenly;
-
-//   /* padding-top: 0.3rem;
-//   padding-bottom: 0.1rem; */
-// `;
-
-// const SectionDisplayBox = styled.div`
-//   width: 184px;
-//   height: 193px;
-
-//   background: transparent linear-gradient(180deg, #233a54 0%, #060d19 100%);
-//   border: 1px solid #95ff45;
-//   border-radius: 8px;
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-between;
-
-//   margin-top: 3px;
-//   padding: 2px 0;
-// `;
-
-// const DisabledWholePage = styled.div`
-//   width: 100vw;
-//   height: 600px;
-
-//   position: absolute;
-//   top: 0rem;
-//   left: 0rem;
-// `;
-
-// const InvisibleController = styled.div`
-//   width: 182px;
-//   height: 49px;
-//   visibility: hidden;
-// `;

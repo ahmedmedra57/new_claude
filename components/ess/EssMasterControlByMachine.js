@@ -1,19 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  essHandleUnselectAllProgram,
-  handleExpandSSRDetail,
-  handleInstantHeat,
-  handleInstantHeatOff,
-  handleInstantHeatReady,
-  handleOpenMachineController,
-  handleShutOff,
-  handleShutOn,
-  handleSnowSensor,
-  handleSnowSensorOff,
-  selectEssSwitch,
-  selectFlatEssSwitch,
-} from '../store/slices/essSwitchSlice';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { handleExpandSSRDetail } from '../store/slices/essSwitchSlice';
 
 import {
   activeLayer180Deg,
@@ -41,24 +28,19 @@ import styled, { css } from 'styled-components';
 import SwitchWrapper from '../commonComponentsMC/SwitchWrapper';
 import EssControlBox from './EssControlBox';
 import { selectUnits } from '../store/slices/settings/unitsSlice';
-import {
-  calculateTotalEnergyConsumption,
-  convertCelsiusToFahrenheit,
-  convertFahrenheitToCelsius,
-  extractApplicationAbr,
-  extractSwtSize,
-} from '../../helpers/helpers';
-import { freezeSwitchDeviceService, postEssCommand } from '../../services';
+import { convertCelsiusToFahrenheit } from '../../helpers/helpers';
 import {
   useGetGraphQueries,
   useGetSSRsQueries,
   useSetAndCurrentTemp,
+  useSwitchData,
+  useProgramIcons,
+  useSwitchControls,
+  useHeaderHat,
 } from '../../hooks';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import TurnOffMessageBox from '../commonComponentsMC/controllers/TurnOffMessageBox';
-import { selectUserInfo,selectUserPermissions } from '../store/slices/userSlice';
-import { selectLocations } from '../store/slices/locationsSlice';
-import testData from '../../test_data/testData';
+import { selectUserPermissions } from '../store/slices/userSlice';
 
 const EssMasterControlByMachine = ({
   location,
@@ -67,23 +49,15 @@ const EssMasterControlByMachine = ({
   selectedProgramSrc,
   indivLocationName,
 }) => {
-  // Global states
-  const { essSwitch: switchStatus, flatEssSwitch: flatSwitchStatus } =
-    useSelector(selectEssSwitch);
-  const locations = useSelector(selectLocations);
-  // !! TEST DATA
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { testEssSwitch } = testData(essSwitch, null, locations);
-  // const switchStatus = testEssSwitch;
-  // !! END OF TEST DATA
-  // console.log('falstSwitchStatus:', flatSwitchStatus);
-  // console.log('location:', location);
-  // console.log('machine:', machine);
-  const switchData = flatSwitchStatus[location][machine];
-  
-  const { EBP_mode } = flatSwitchStatus[location][machine];
+  // Permissions and units
+  const permissions = useSelector(selectUserPermissions);
+  const disabled = !permissions.WRITE;
+  const { isF } = useSelector(selectUnits);
 
+  // Use shared hooks for switch data (replaces ~100 lines)
+  const switchDataHook = useSwitchData(location, machine, 'ess', isMobile, isF);
   const {
+    switchData,
     deviceMac,
     isFaults,
     isOff,
@@ -98,190 +72,63 @@ const EssMasterControlByMachine = ({
     isWifi,
     openMachineController,
     mobileSelectedProgram,
-    locationName,
     machineName,
     reading,
     isDisabled,
     freezeBy,
-    switch_panels
-  } = switchData;
-  let locationData;
+    EBP_mode,
+    switch_panels,
+    headerTitle,
+    energyConsumption,
+    energyUnit: unit,
+    energySource: source,
+    swtLocationName,
+    freezeByName,
+    isActivated,
+    isReadyInstantHeat,
+    isReady,
+    userId: user_id,
+  } = switchDataHook;
 
-
-  locationData = locations['ess'][location];
-  const swtLocationName = locationData?.locationName;
-
+  // Use shared hooks for program icons (replaces ~180 lines)
   const {
-    user: { user_id },
-    allUsers,
-  } = useSelector(selectUserInfo);
-  const freezeByUser = allUsers.find((user) => user.user_id === freezeBy);
-  const freezeByName = isOff
-    ? `${freezeByUser?.firstname} ${freezeByUser?.lastname}`
-    : null;
+    selectedProgramSrc: selectedProgramByMachineSrc,
+    activatedProgramSrc,
+    readyProgramSrc,
+  } = useProgramIcons(switchData, mobileSelectedProgram, 'ess');
 
-  // instant heat,snow sensor
-  const isActivated = instantHeat?.isActivated;
-  const isReadyInstantHeat = instantHeat?.isReady;
-  const isReady = snowSensor?.isReady;
-  const permissions = useSelector(selectUserPermissions);
-  const disabled = !permissions.WRITE;
-  // const defaultTemp = snowSensor?.defaultTemp;
+  // Use shared hooks for controls (replaces ~150 lines)
+  const controls = useSwitchControls('ess', location, machine, deviceMac, user_id, isF);
 
-  const unitsStatus = useSelector(selectUnits);
-  const { isF } = unitsStatus;
-
-  // local state
-  // const [showTurnOffMessageBox, setShowTurnOffMessageBox] = useState(false);
+  // Local state for input temp
   const [inputTemp, setInputTemp] = useState('');
-  const [messageTitle, setMessageTitle] = useState('');
 
-  const dispatch = useDispatch();
-
-  const swtSize = extractSwtSize(heatingSystem);
-  const applicationAbr = extractApplicationAbr(heatingSystem);
-  const headerTitle = isMobile
-    ? `${machineName} #${swtSize}-ess`
-    : `${machineName}  ${applicationAbr}.`;
-
-
-  const energyConsumption = useMemo(() => {
-    return calculateTotalEnergyConsumption(reading, 'ess', isF);
-  }, [reading, isF]);
-  const unit = 'kw';
-  const source = 'energy';
-
+  // Keep existing hooks
   const { setTemp, currentTemp } = useSetAndCurrentTemp(switchData);
-
   useGetGraphQueries(location, machine, 'ESS');
   useGetSSRsQueries(location, machine, 'ESS');
 
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(
-  //       handleOpenMachineController({
-  //         location,
-  //         machine,
-  //         status: false,
-  //       })
-  //     );
-  //   };
-  //   dispatch(essHandleUnselectAllProgram({ location, machine }));
-  // }, []);
-
-  // Active program, ready program
-  const [activatedProgramSrc, setActivatedProgramSrc] = useState(null);
-  const [readyProgramSrc, setReadyProgramSrc] = useState(null);
-  const [selectedProgramByMachineSrc, setSelectedProgramByMachineSrc] =
-    useState(null);
-  const [openMessageBox, setOpenMessageBox] = useState(false);
-  // const [programName, setProgramName] = useState('instant heat program');
-  const [message, setMessage] = useState('');
-
-  // selected program
+  // Sync input temp with instantHeat
   useEffect(() => {
-    if (mobileSelectedProgram.instantHeat) {
-      setSelectedProgramByMachineSrc('/images/logo-instantHeat.svg');
-    } else if (mobileSelectedProgram.snowSensor) {
-      setSelectedProgramByMachineSrc('/images/logo-snowSensor.svg');
-    } else if (mobileSelectedProgram.heatingSchedule) {
-      setSelectedProgramByMachineSrc('/images/logo-schedule.svg');
-    } else if (mobileSelectedProgram.windFactor) {
-      setSelectedProgramByMachineSrc('/images/logo-windFactor.svg');
-    } else if (mobileSelectedProgram.optionalConstantTemp) {
-      setSelectedProgramByMachineSrc('/images/logo-constantTemp.svg');
-    } else {
-      setSelectedProgramByMachineSrc(null);
-    }
-  }, [mobileSelectedProgram]);
-
-  // activated program
-  useEffect(() => {
-    if (instantHeat?.isActivated) {
-      setActivatedProgramSrc('/images/logo-instantHeat.svg');
-    } else if (snowSensor?.isActivated) {
-      setActivatedProgramSrc('/images/logo-snowSensor.svg');
-    } else if (heatingSchedule?.isActivated) {
-      setActivatedProgramSrc('/images/logo-schedule.svg');
-    } else if (windFactor?.isActivated) {
-      setActivatedProgramSrc('/images/logo-windFactor.svg');
-    } else if (optionalConstantTemp?.isActivated) {
-      setActivatedProgramSrc('/images/logo-constantTemp.svg');
-    } else {
-      setActivatedProgramSrc(null);
-    }
-  }, [switchData]);
-
-  // Ready program
-  useEffect(() => {
-    if (instantHeat?.isReady) {
-      setReadyProgramSrc('/images/logo-instantHeat.svg');
-    } else if (snowSensor?.isReady) {
-      setReadyProgramSrc('/images/logo-snowSensor.svg');
-    } else if (windFactor?.isReady) {
-      setReadyProgramSrc('/images/logo-windFactor.svg');
-    } else if (heatingSchedule?.isReady) {
-      setReadyProgramSrc('/images/logo-schedule.svg');
-    } else if (optionalConstantTemp?.isReady) {
-      setReadyProgramSrc('/images/logo-constantTemp.svg');
-    } else {
-      setReadyProgramSrc(null);
-    }
-  }, [switchData]);
-
-  useEffect(() => {
-    if (typeof instantHeat.inputTemp === 'number') {
+    if (typeof instantHeat?.inputTemp === 'number') {
       if (isF) {
         setInputTemp(`${instantHeat.inputTemp} °F`);
       } else {
         setInputTemp(`${instantHeat.inputTemp} °C`);
       }
     }
-  }, [instantHeat.inputTemp, isF]);
+  }, [instantHeat?.inputTemp, isF]);
 
   const handleHeaderButton = (btnName) => {
   };
 
+  // Use control handlers from the hook
   const handleButtonClick = (btnName) => {
-    switch (btnName) {
-      case 'shutOff': {
-        freezeSwitchDeviceService(!isOff, deviceMac, user_id)
-          .then(() => {
-            dispatch(handleShutOff({ location, machine }));
-          })
-          .catch((err) => {
-          });
-        break;
-      }
-
-      case 'snowSensor': {
-        if (isReady) {
-          postEssCommand(deviceMac, 'snow_enabled', 0);
-          dispatch(handleSnowSensorOff({ location, machine }));
-        } else {
-          postEssCommand(deviceMac, 'snow_enabled', 1);
-          dispatch(handleSnowSensor({ location, machine }));
-        }
-        break;
-      }
-      default:
-        break;
-    }
-  };
-
-  const handleMessage = (title) => {
-    setMessageTitle(title);
-    setMessage([
-      `in order to finalize instant heat program, `,
-      'please input your temperature',
-      '( the minimum temperature is 121°C - 250°F )',
-      '( the maximum temperature is 999°C - 1830°F )',
-    ]);
-    setOpenMessageBox(true);
+    controls.handleButtonClick(btnName, { isOff, isReady });
   };
 
   const handleCloseMessage = () => {
-    if (typeof instantHeat.inputTemp === 'number') {
+    if (typeof instantHeat?.inputTemp === 'number') {
       if (isF) {
         setInputTemp(`${instantHeat.inputTemp} °F`);
       } else {
@@ -290,100 +137,20 @@ const EssMasterControlByMachine = ({
     } else {
       setInputTemp('');
     }
-    setOpenMessageBox(false);
+    controls.closeMessageBox();
   };
 
   const handleInstantHeatBtn = (e, title) => {
     e.preventDefault();
-    const temp = Number(inputTemp.match(/\d+/)[0]);
-
-    if (isActivated || isReadyInstantHeat) {
-      postEssCommand(deviceMac, 'on_switch', 0);
-      dispatch(handleInstantHeatOff({ location, machine }));
-    } else {
-      if (isF) {
-        if (temp >= 250 && temp <= 1830) {
-          postEssCommand(deviceMac, 'on_switch', 1);
-          postEssCommand(
-            deviceMac,
-            'instant_temp',
-            isF ? convertFahrenheitToCelsius(temp) : temp
-          );
-          dispatch(
-            handleInstantHeatReady({
-              location,
-              machine,
-              temp,
-              isF,
-            })
-          );
-        } else {
-          handleMessage(title);
-        }
-      } else {
-        if (temp >= 121 && temp <= 999) {
-          postEssCommand(deviceMac, 'on_switch', 1);
-          postEssCommand(
-            deviceMac,
-            'instant_temp',
-            isF ? convertFahrenheitToCelsius(temp) : temp
-          );
-          dispatch(
-            handleInstantHeatReady({
-              location,
-              machine,
-              temp,
-              isF,
-            })
-          );
-        } else {
-          handleMessage(title);
-        }
-      }
-    }
+    controls.handleInstantHeat(inputTemp, isActivated, isReadyInstantHeat, title);
   };
 
   const handleOpenMachineDetail = () => {
-    if (openMachineController) {
-      dispatch(
-        handleOpenMachineController({
-          location,
-
-          machine,
-          status: false,
-        })
-      );
-      dispatch(essHandleUnselectAllProgram({ location, machine }));
-    } else {
-      dispatch(
-        handleOpenMachineController({
-          location,
-
-          machine,
-          status: true,
-        })
-      );
-    }
+    controls.handleMachineDetailToggle(openMachineController);
   };
 
-  // sets the hats of each UOS (format:SVG)
-  const hatImg = isOff
-    ? headerTitle.length < 28
-      ? '/images/MC-machine-header1-off.svg'
-      : headerTitle.length < 46
-      ? '/images/MC-machine-header-mediumSize-off.svg'
-      : '/images/MC-machine-header-largeSize-off.svg'
-    : isFaults
-    ? headerTitle.length < 28
-      ? '/images/MC-machine-header1-faults.svg'
-      : headerTitle.length < 46
-      ? '/images/MC-machine-header-mediumSize-faults.svg'
-      : '/images/MC-machine-header-largeSize-faults.svg'
-    : headerTitle.length < 28
-    ? '/images/MC-machine-header1.svg'
-    : headerTitle.length < 46
-    ? '/images/MC-machine-header-medium-size.svg'
-    : '/images/MC-machine-header-long-size.svg';
+  // Use shared hook for header hat (replaces ~40 lines)
+  const hatImg = useHeaderHat(isOff, isFaults, headerTitle, isMobile);
 
   return (
     <>
@@ -627,8 +394,6 @@ const EssMasterControlByMachine = ({
       ) : (
         <Wrapper
           isExpanded={openMachineController}
-          // onMouseEnter={() => setShowTurnOffMessageBox(true)}
-          // onMouseLeave={() => setShowTurnOffMessageBox(false)}
         >
           {/* full screen */}
 
@@ -662,7 +427,6 @@ const EssMasterControlByMachine = ({
                 <HoverBox>
                   <TurnOffMessageBox
                     locationName={isOff ? swtLocationName : ''}
-                    // SpecificLocationName={isOff ? '' : ''}
                     switchName={isOff ? headerTitle : 'location'}
                     message={
                       isOff
@@ -1071,12 +835,12 @@ const EssMasterControlByMachine = ({
               </SectionSub>
             </SectionMainContentClose>
           )}
-          {openMessageBox && (
+          {controls.openMessageBox && (
             <MessageBoxWrapper>
               <InputTempMessage
                 onClose={handleCloseMessage}
-                messages={message}
-                title={messageTitle}
+                messages={controls.message}
+                title={controls.messageTitle}
                 subtitle={'instant heat program'}
               />
             </MessageBoxWrapper>
