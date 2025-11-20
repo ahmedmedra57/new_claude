@@ -409,8 +409,6 @@ const TgsMasterControlByMachine = ({
       ) : (
         <Wrapper
           isExpanded={openMachineController}
-          // onMouseEnter={() => setShowTurnOffMessageBox(true)}
-          // onMouseLeave={() => setShowTurnOffMessageBox(false)}
         >
           {/* full screen */}
 
@@ -435,7 +433,6 @@ const TgsMasterControlByMachine = ({
                 <HoverBox>
                   <TurnOffMessageBox
                     locationName={isOff ? swtLocationName : ''}
-                    // SpecificLocationName={isOff ? '' : ''}
                     switchName={isOff ? headerTitle : 'location'}
                     message={
                       isOff

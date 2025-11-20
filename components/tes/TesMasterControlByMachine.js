@@ -444,7 +444,6 @@ const TesMasterControlByMachine = ({
                 <HoverBox>
                   <TurnOffMessageBox
                     locationName={isOff ? swtLocationName : ''}
-                    // SpecificLocationName={isOff ? '' : ''}
                     switchName={isOff ? headerTitle : 'location'}
                     message={
                       isOff

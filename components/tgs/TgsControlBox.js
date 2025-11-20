@@ -6,8 +6,6 @@ import {
   tgsHandleInstantHeat,
   tgsHandleSnowSensorOff,
   tgsHandleSnowSensor,
-  // tgsHandleOptionalConstantTemp,
-  // tgsHandleOptionalConstantTempOff,
   tgsHandleWindFactor,
   tgsHandleWindFactorOff,
   tgsHandleAddHeatingSchedule,
@@ -330,22 +328,10 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
       );
       postTgsCommand(deviceMac, 'on_switch', 1);
       dispatch(tgsHandleInstantHeat({ location, machine, isF, temp }));
-      // dispatch(
-      //   tgsHandleInstantHeatIsReady({
-      //     location,
-      //     specificLocation,
-      //     machine,
-      //     isF,
-      //     temp,
-      //   })
-      // );
     } else if (state === 'off') {
       // turn off
       postTgsCommand(deviceMac, 'on_switch', 0);
       dispatch(tgsHandleInstantHeatOff({ location, machine }));
-      // dispatch(
-      //   tgsHandleInstantHeatOff({ location, specificLocation, machine })
-      // );
     } else {
       // state === 'message'
       setInstantHeatTemp('');
@@ -385,7 +371,6 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
       postTgsCommand(deviceMac, 'wind', 0);
       // !! TODO: add specificLocation
       dispatch(tgsHandleWindFactorOff({ location, machine }));
-      // dispatch(tgsHandleWindFactorOff({ location, machine }));
     } else {
       if (isAnotherSystemRunning(currentRun, 'electrical')) {
         dispatch(tgsActivateConflictMessage({ location, machine }));
@@ -1108,67 +1093,3 @@ const MessageBoxWrapper = styled.div`
   left: 0;
   z-index: 100;
 `;
-
-// *********************************
-
-// const SectionContent = styled.section`
-//   width: 192px;
-//   height: 463px;
-
-//   background: transparent linear-gradient(180deg, #233a54 0%, #060d19 100%);
-//   border: 0.5px solid #000000;
-//   border-radius: 0px 8px 10px 10px;
-
-//   ${flexBoxCenter}
-
-//   ${(p) =>
-//     p.isFaults &&
-//     css`
-//       border: 1px solid red;
-//     `}
-// `;
-
-// const SectionController = styled.section`
-//   height: 100%;
-//   /* Layout Properties */
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-evenly;
-
-//   /* padding-top: 0.3rem;
-//   padding-bottom: 0.1rem; */
-// `;
-
-// const SectionDisplayBox = styled.div`
-//   width: 184px;
-//   height: 193px;
-
-//   background: transparent linear-gradient(180deg, #233a54 0%, #060d19 100%);
-//   border: 1px solid #95ff45;
-//   border-radius: 8px;
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-between;
-
-//   margin-top: 3px;
-//   padding: 2px 0;
-// `;
-
-// const DisabledWholePage = styled.div`
-//   width: 100vw;
-//   height: 600px;
-
-//   position: absolute;
-//   top: 0rem;
-//   left: 0rem;
-// `;
-
-// const InvisibleController = styled.div`
-//   width: 182px;
-//   height: 49px;
-//   visibility: hidden;
-// `;

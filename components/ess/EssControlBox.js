@@ -1,11 +1,3 @@
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useEffect, useMemo, useState } from 'react';
-// import {
-//   activateTgsSwitchStatus,
-//   deactivateTgsConflictMessage,
-//   selectTgsSwitch,
-// } from '../../../store/slices/tgsSwitchSlice';
-
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 

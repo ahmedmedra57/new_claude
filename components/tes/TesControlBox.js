@@ -72,9 +72,7 @@ const TesControlBox = ({
   swtName,
   isMobile,
   setTemp,
-  // indivLocationName,
 }) => {
-  // !! TODO: implement specific location
   // Global
   const { tesSwitch,flatTesSwitch } = useSelector(selectTesSwitch);
   const switchStatus = flatTesSwitch[location][machine];
@@ -546,27 +544,6 @@ const TesControlBox = ({
           });
       }
     }
-
-    // if (devicesConflicts?.commandTarget === 'on_switch') {
-    //   updateDeviceInfo('on_switch', 1, systemTarget);
-    //   updateDeviceInfo('instant_temp', devicesConflicts?.extraData, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'on_constant') {
-    //   updateDeviceInfo('on_constant', 1, systemTarget);
-    //   updateDeviceInfo('constant_temp', devicesConflicts?.extraData, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'fan') {
-    //   updateDeviceInfo('fan', 1, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'snow_enabled') {
-    //   updateDeviceInfo('snow_enabled', 1, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'wind'  ) {
-    //   updateDeviceInfo('wind', 1, systemTarget);
-    // }
-    // if (devicesConflicts?.commandTarget === 'schedule') {
-    //   isGas ? tgsUpdateSchedule(devicesConflicts?.extraData) : updateSchedule(devicesConflicts?.extraData);
-    // }
 
     dispatch(tesDeactivateConflictMessage({ location, machine }));
   };
@@ -1131,67 +1108,3 @@ const MessageBoxWrapper = styled.div`
   left: 0;
   z-index: 100;
 `;
-
-// *********************************
-
-// const SectionContent = styled.section`
-//   width: 192px;
-//   height: 463px;
-
-//   background: transparent linear-gradient(180deg, #233a54 0%, #060d19 100%);
-//   border: 0.5px solid #000000;
-//   border-radius: 0px 8px 10px 10px;
-
-//   ${flexBoxCenter}
-
-//   ${(p) =>
-//     p.isFaults &&
-//     css`
-//       border: 1px solid red;
-//     `}
-// `;
-
-// const SectionController = styled.section`
-//   height: 100%;
-//   /* Layout Properties */
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-evenly;
-
-//   /* padding-top: 0.3rem;
-//   padding-bottom: 0.1rem; */
-// `;
-
-// const SectionDisplayBox = styled.div`
-//   width: 184px;
-//   height: 193px;
-
-//   background: transparent linear-gradient(180deg, #233a54 0%, #060d19 100%);
-//   border: 1px solid #95ff45;
-//   border-radius: 8px;
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-between;
-
-//   margin-top: 3px;
-//   padding: 2px 0;
-// `;
-
-// const DisabledWholePage = styled.div`
-//   width: 100vw;
-//   height: 600px;
-
-//   position: absolute;
-//   top: 0rem;
-//   left: 0rem;
-// `;
-
-// const InvisibleController = styled.div`
-//   width: 182px;
-//   height: 49px;
-//   visibility: hidden;
-// `;

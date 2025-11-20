@@ -394,8 +394,6 @@ const EssMasterControlByMachine = ({
       ) : (
         <Wrapper
           isExpanded={openMachineController}
-          // onMouseEnter={() => setShowTurnOffMessageBox(true)}
-          // onMouseLeave={() => setShowTurnOffMessageBox(false)}
         >
           {/* full screen */}
 
@@ -429,7 +427,6 @@ const EssMasterControlByMachine = ({
                 <HoverBox>
                   <TurnOffMessageBox
                     locationName={isOff ? swtLocationName : ''}
-                    // SpecificLocationName={isOff ? '' : ''}
                     switchName={isOff ? headerTitle : 'location'}
                     message={
                       isOff
