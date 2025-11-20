@@ -245,28 +245,16 @@ const MainSelections = ({
         } else if (swt === "tgs") {
           useTGSSwitchStore().tgsSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "essDc") {
-          dispatch(
-            essDataConsumptionSpecificLocationUnselectMachineHandler(
-              dispatchOjb
-            );
+          useESSDataConsumptionStore().unselectSpecificLocationMachine(dispatchOjb);
         } else if (swt === "tgsTesDc") {
-          dispatch(
-            tesDataConsumptionSpecificLocationUnselectMachineHandler(
-              dispatchOjb
-            );
-          dispatch(
-            tgsDataConsumptionSpecificLocationUnselectMachineHandler(
-              dispatchOjb
-            );
+          useTESDataConsumptionStore().unselectSpecificLocationMachine(dispatchOjb);
+          useTGSDataConsumptionStore().unselectSpecificLocationMachine(dispatchOjb);
         } else if (swt === "hpEc") {
           useHPElectricSwitchStore().hpEcSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "hpGc") {
           useHPGasSwitchStore().hpGcSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "hpDc") {
-          dispatch(
-            hpDataConsumptionSpecificLocationUnselectMachinesHandler(
-              dispatchOjb
-            );
+          useHPDataConsumptionStore().unselectSpecificLocationMachine(dispatchOjb);
         }
       });
     });
@@ -659,8 +647,7 @@ const MainSelections = ({
             },
           };
 
-          dispatch(
-            setTelemetryChartData({
+          useTelemetryChartDataStore().setTelemetryChartData({
               swtName: `${swtName}SwitchData`,
               data: {
                 monthlyData: intervalData,
@@ -777,8 +764,7 @@ const MainSelections = ({
               },
             };
 
-            dispatch(
-              setTelemetryChartData({
+            useTelemetryChartDataStore().setTelemetryChartData({
                 swtName: `${swtName}DataConsumpData`,
                 data: {
                   monthlyData: intervalData,
