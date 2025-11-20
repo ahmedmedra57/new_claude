@@ -46,61 +46,22 @@ const SSRInfoContainer = ({
       if (isAdministrator) {
         // check is admin? yes -> open the settings
         swtName === 'ess'
-          ? dispatch(
-              handleOpenSetting({
-                location,
-                machine,
-                id: `ssr${id}`,
-                status: true,
-              })
-            )
-          : dispatch(
-              tesHandleOpenSetting({
-                location,
-                machine,
-                id: `ssr${id}`,
-                status: true,
-              });
+          ? useESSSwitchStore().setOpenSetting(location, machine, `ssr${id}`)
+          : useTESSwitchStore().setOpenSetting(location, specificLocation, machine, `ssr${id}`);
       } else {
         // no admin ?
         if (openPasswordBox) {
           // 1. close password box
           swtName === 'ess'
-            ? dispatch(
-                handleOpenPasswordBox({
-                  location,
-                  machine,
-                  id: `ssr${id}`,
-                  status: false,
-                })
-              )
-            : dispatch(
-                tesHandleOpenPasswordBox({
-                  location,
-                  machine,
-                  id: `ssr${id}`,
-                  status: false,
-                });
+            ? useESSSwitchStore().setOpenPasswordBox(location, machine, `ssr${id}`)
+            : useTESSwitchStore().setOpenPasswordBox(location, specificLocation, machine, `ssr${id}`);
         } else {
           // 2. Login process => Display Password require box
 
           if (!isPasswordBoxOpen) {
             swtName === 'ess'
-              ? dispatch(
-                  handleOpenPasswordBox({
-                    location,
-                    machine,
-                    id: `ssr${id}`,
-                    status: true,
-                  })
-                )
-              : dispatch(
-                  tesHandleOpenPasswordBox({
-                    location,
-                    machine,
-                    id: `ssr${id}`,
-                    status: true,
-                  });
+              ? useESSSwitchStore().setOpenPasswordBox(location, machine, `ssr${id}`)
+              : useTESSwitchStore().setOpenPasswordBox(location, specificLocation, machine, `ssr${id}`);
             // true : update password box status
             useAdminStore().setPasswordPropagation(true);
           }
@@ -109,21 +70,8 @@ const SSRInfoContainer = ({
     } else {
       // id === 2  Close the setting and logout
       swtName === 'ess'
-        ? dispatch(
-            handleOpenSetting({
-              location,
-              machine,
-              id: `ssr${id}`,
-              status: false,
-            })
-          )
-        : dispatch(
-            tesHandleOpenSetting({
-              location,
-              machine,
-              id: `ssr${id}`,
-              status: false,
-            });
+        ? useESSSwitchStore().setOpenSetting(location, machine, `ssr${id}`)
+        : useTESSwitchStore().setOpenSetting(location, specificLocation, machine, `ssr${id}`);
 
       // log out admin
       useAdminStore().setAccessAdministrator(false);
@@ -132,21 +80,8 @@ const SSRInfoContainer = ({
 
   const handleClosePasswordBox = () => {
     swtName === 'ess'
-      ? dispatch(
-          handleOpenPasswordBox({
-            location,
-            machine,
-            id: `ssr${id}`,
-            status: false,
-          })
-        )
-      : dispatch(
-          tesHandleOpenPasswordBox({
-            location,
-            machine,
-            id: `ssr${id}`,
-            status: false,
-          });
+      ? useESSSwitchStore().setOpenPasswordBox(location, machine, `ssr${id}`)
+      : useTESSwitchStore().setOpenPasswordBox(location, specificLocation, machine, `ssr${id}`);
     useAdminStore().setPasswordPropagation(false);
   };
 
@@ -213,21 +148,8 @@ const SSRInfoContainer = ({
           <ContainerLogin
             setIsSettingOpen={() => {
               swtName === 'ess'
-                ? dispatch(
-                    handleOpenSetting({
-                      location,
-                      machine,
-                      id: `ssr${id}`,
-                      status: true,
-                    })
-                  )
-                : dispatch(
-                    tesHandleOpenSetting({
-                      location,
-                      machine,
-                      id: `ssr${id}`,
-                      status: true,
-                    });
+                ? useESSSwitchStore().setOpenSetting(location, machine, `ssr${id}`)
+                : useTESSwitchStore().setOpenSetting(location, specificLocation, machine, `ssr${id}`);
             }}
             handleClose={handleClosePasswordBox}
             isReadyToClose={true}

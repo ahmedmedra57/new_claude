@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import {
 import { useForceAndCommandsStore, useSettingsOptionsStore, useSnowSensorStore, useWindFactorStore } from '../../zustand-stores';
-import { useAdminStore, useSSRDescriptionStore } from '../../zustand-stores';
+import { useAdminStore, useSSRDescriptionStore, useSysIdentificationStore } from '../../zustand-stores';
 import { useEditCancelApplyButtonsStore, useSettingsOptionsStore, useUnitsStore, useUserStore } from '../../zustand-stores';
   alignItemsFlexStart,
   flexBoxCenter,
@@ -1898,8 +1898,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
 
                 createUOSZoneService(newSysIdentificationData(allSavedSwitches))
                   .then(() => {
-                    dispatch(
-                      handleCreateSysIdentification({
+                    useSysIdentificationStore().createSysIdentification({
                         specificLocationName: specificLocation,
                         address: civicAddress,
                         location: locationNameRef.current.value,
@@ -1935,8 +1934,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     newSysIdentificationData(sortedSwitchesArr)
                   )
                     .then(() => {
-                      dispatch(
-                        handleCreateSysIdentification({
+                      useSysIdentificationStore().createSysIdentification({
                           specificLocationName: specificLocation,
                           location: locationNameRef.current.value,
                           address: civicAddress,
@@ -1962,8 +1960,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                   // no need to change data structure and dispatch immediately
                   createUOSZoneService(newSysIdentificationData(switches))
                     .then(() => {
-                      dispatch(
-                        handleCreateSysIdentification({
+                      useSysIdentificationStore().createSysIdentification({
                           address: civicAddress,
                           location: locationNameRef.current.value,
                           specificLocationName: specificLocation,
@@ -1989,8 +1986,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               } else {
                 createUOSZoneService(newSysIdentificationData(switches))
                   .then(() => {
-                    dispatch(
-                      handleCreateSysIdentification({
+                    useSysIdentificationStore().createSysIdentification({
                         specificLocationName: specificLocation,
                         address: civicAddress,
                         location: locationNameRef.current.value,
@@ -2052,8 +2048,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               } else if (saveChanges.systemIdentification === 'someUOSSaved') {
                 isGroupedSwitchesSaved.forEach((el, idx) => {
                   if (el) {
-                    dispatch(
-                      handleEditSysIdentification({
+                    useSysIdentificationStore().editSysIdentification({
                         locationIdx: selectedLocation.locationIdx,
                         modifiedLocation: {
                           location: locationNameRef.current.value,
@@ -2117,8 +2112,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     essRefetch();
                     tgsRefetch(); 
                     tesRefetch();
-                    dispatch(
-                      handleEditSysIdentification({
+                    useSysIdentificationStore().editSysIdentification({
                         locationIdx: selectedLocation.locationIdx,
                         modifiedLocation: {
                           location: locationNameRef.current.value,
@@ -2187,8 +2181,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     essRefetch();
                     tgsRefetch(); 
                     tesRefetch();
-                    dispatch(
-                      handleEditSysIdentification({
+                    useSysIdentificationStore().editSysIdentification({
                         locationIdx: selectedLocation.locationIdx,
                         specificLocationName: specificLocation,
                         modifiedLocation: {
