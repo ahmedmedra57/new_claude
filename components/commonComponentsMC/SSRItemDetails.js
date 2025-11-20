@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useESSSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   ItemBackground,
   ItemBackgroundDisable,
@@ -21,7 +22,7 @@ const SSRItemDetails = ({
   const { permissions } = useUserStore();
   const disable = !permissions.WRITE;
 
-  // const unitsState = useSelector(selectSettingsOfEss);
+  // const unitsState = useESSSwitchStore();
   // const { unitsMeasurement } = unitsState.buttonsOfSettings;
 
   // ---- Temporary variables ----

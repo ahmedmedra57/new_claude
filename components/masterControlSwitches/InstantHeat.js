@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMasterControlBySwitchSelectStore, useMasterControlSelectByLocationStore } from '../zustand-stores';
 import { useUnitsStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
 
@@ -34,9 +35,9 @@ const InstantHeat = ({
 
   const type = scope === 'switch' ? 'locations' : 'switches';
 
-  const switchMiddleStatus = useSelector(
-    scope === 'switch' ? selectMCBySwitch : selectMCByLocation
-  );
+  const switchMiddleStatus = scope === 'switch'
+    ? useMasterControlBySwitchSelectStore()
+    : useMasterControlSelectByLocationStore();
   const { selectedOne } = switchMiddleStatus.instantHeat;
   const { fanOnly } = switchMiddleStatus;
 

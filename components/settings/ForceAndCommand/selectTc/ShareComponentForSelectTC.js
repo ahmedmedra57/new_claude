@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { selectForceCommandAndAdminSelect } from '../../../store/slices/settings/force&CommandAndAdminSelectSlice';
 import {
+import { useForceCommandAndAdminSelectStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceBetween,
   layerA,
@@ -27,9 +28,7 @@ const ShareComponentForSelectTC = ({
   isTCOpen,
   setIsTCOpen,
 }) => {
-  const forceCommandAndAdminSelectState = useSelector(
-    selectForceCommandAndAdminSelect
-  );
+  const forceCommandAndAdminSelectState = useForceCommandAndAdminSelectStore();
 
   const { selectedOne } =
     sysIndex === 'burningChamber'

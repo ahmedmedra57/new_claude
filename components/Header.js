@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import { NavLink } from 'react-router-dom';
 
 import {
+import { useUserStore } from '../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentSpaceBetween,

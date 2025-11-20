@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../../../zustand-stores';
 import {
 import { useSelectedMachinesStore } from '../zustand-stores';
+import { useMasterControlSelectStore } from '../zustand-stores';
   essSpecificLocationUnselectMachinesHandler,
   handleUnSelectIndividualMachine,
   selectEssSwitch,
@@ -639,7 +640,7 @@ const MainSelects = ({
               {displaySelectBox && (
                 <SelectMachineOptions
                   handleClose={() => handleButtonClick(0)}
-                  // handleClose={() => dispatch(handleDisplaySelectBox(false))}
+                  // handleClose={() => toggleDisplaySelectBox(false)}
                   data={switchStatus}
                   // !! TEST Purpose Only
                   // data={ess ? flatEssSwitch : tes ? flatTesSwitch : testTgsSwitch}

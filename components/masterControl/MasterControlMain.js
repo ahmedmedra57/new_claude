@@ -12,7 +12,9 @@ import { getAuditTrailService } from '../../services';
 import moment from 'moment';
 import SelectSystemMessage from './userMessages/SelectSystemMessage';
 
+import { useMCCommandStore, useMasterControlSelectStore } from '../zustand-stores';
 const MasterControlMain = () => {
+  const { resetAllSelect } = useMasterControlSelectStore();
   const { t } = useTranslation();
   // redux
   

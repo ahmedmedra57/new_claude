@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useMCStore } from '../zustand-stores';
   justifyContentSpaceEvenly,
   flexBoxCenter,
   layerB,
@@ -10,7 +11,6 @@ import {
   layerBDisabled,
   justifyContentSpaceBetween,
 } from '../../styles/commonStyles';
-import { useDispatch } from 'react-redux';
 import {
   handleSelectEss,
   handleSelectHp,
@@ -26,6 +26,7 @@ function SystemButton({
   isColor,
   setIsSystemSelectedMessage,
 }) {
+  const { selectEss } = useMCStore();
   const a = name.split(' ');
   const checkSystemPermission = useCheckControlPermsission();
 

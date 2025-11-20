@@ -80,9 +80,7 @@ const MasterControlProvider = ({ children }) => {
   //   : tes
   //   ? selectsState.tes
   //   : selectsState.tgs;
-  // const dispatch = useDispatch();
-
-  // // useState
+  //  // // useState
 
   // const [isShutOff, setIsShutOff] = useState(false);
   // const [src, setSrc] = useState(ready);

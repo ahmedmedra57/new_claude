@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import {
 import { useForceAndCommandsStore, useSettingsOptionsStore, useSnowSensorStore, useWindFactorStore } from '../../zustand-stores';
 import { useAdminStore, useSSRDescriptionStore } from '../../zustand-stores';
+import { useEditCancelApplyButtonsStore, useSettingsOptionsStore, useUnitsStore, useUserStore } from '../../zustand-stores';
   alignItemsFlexStart,
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -66,6 +67,8 @@ import { uploadS3File } from '../../services/uploadS3File.service';
 import { getLocationsSpecificLocationsMachines } from '../../helpers/setting';
 
 const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
+  const { setUserInfo } = useUserStore();
+  const { resetButtons } = useEditCancelApplyButtonsStore();
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
   // useState

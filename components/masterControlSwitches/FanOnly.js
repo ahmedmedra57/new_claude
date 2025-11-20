@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMasterControlBySwitchSelectStore, useMasterControlSelectByLocationStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
 
@@ -24,9 +25,9 @@ const FanOnly = ({ scope, handleOnClick, swtName, handleClose }) => {
   // Global
   const type = scope === 'switch' ? 'locations' : 'switches';
 
-  const switchStatus = useSelector(
-    scope === 'switch' ? selectMCBySwitch : selectMCByLocation
-  );
+  const switchStatus = scope === 'switch'
+    ? useMasterControlBySwitchSelectStore()
+    : useMasterControlSelectByLocationStore();
   const { selectedOne } = switchStatus.snowSensor;
 
   // Local

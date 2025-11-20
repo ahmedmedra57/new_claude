@@ -8,6 +8,7 @@ import SystemIdentification from './systemIdentification/SystemIdentification';
 import {
 import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
 import { useAdminStore } from '../../../zustand-stores';
+import { useForceCommandAndAdminSelectStore } from '../../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,
@@ -84,9 +85,7 @@ function AdminMain({
 
   // Redux
   
-  const forceCommandAndAdminSelectState = useSelector(
-    selectForceCommandAndAdminSelect
-  );
+  const forceCommandAndAdminSelectState = useForceCommandAndAdminSelectStore();
   const selectUserInfoState = useUserStore();
 
   const { isAdministrator } = selectUserInfoState;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useMasterControlBySwitchSelectStore, useMasterControlSelectByLocationStore } from '../zustand-stores';
 
 import {
   flexBoxCenter,
@@ -34,9 +35,9 @@ const ShutOff = ({
   // Global
   const type = scope === 'switch' ? 'locations' : 'switches';
 
-  const switchStatus = useSelector(
-    scope === 'switch' ? selectMCBySwitch : selectMCByLocation
-  );
+  const switchStatus = scope === 'switch'
+    ? useMasterControlBySwitchSelectStore()
+    : useMasterControlSelectByLocationStore();
   const { selectedOne } = switchStatus.shutOff;
 
   // local

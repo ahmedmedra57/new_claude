@@ -3,6 +3,7 @@ import { useESSSwitchStore, useMasterControlSelectStore, useTESSwitchStore, useT
 import styled, { css } from 'styled-components';
 import {
 import { useMobileMasterControlStore } from '../zustand-stores';
+import { useMasterControlSelectStore } from '../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentFlexStart,

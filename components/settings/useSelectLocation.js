@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { getAllSpecificLocationNames } from "../../helpers/helpers";
 
 const useSelectLocationBox = (

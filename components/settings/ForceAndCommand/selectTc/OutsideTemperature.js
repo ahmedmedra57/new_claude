@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useForceCommandAndAdminSelectStore } from '../../zustand-stores';
   borderABlue,
   flexBoxCenter,
   justifyContentSpaceAround,
@@ -30,9 +31,7 @@ function OutsideTemperature({
   const activeIndexButton = useRef(null);
   const tempMeasurementSelection = ['internet', 'thermocouple'];
 
-  const forceCommandAndAdminSelectState = useSelector(
-    selectForceCommandAndAdminSelect
-  );
+  const forceCommandAndAdminSelectState = useForceCommandAndAdminSelectStore();
 
   return (
     <BaseLayer>

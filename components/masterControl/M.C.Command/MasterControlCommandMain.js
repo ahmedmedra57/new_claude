@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useUserStore } from '../../zustand-stores';
 import styled, { css } from "styled-components";
 import {
+import { useMCCommandStore, useMCStore, useMasterControlSelectStore, useUnitsStore } from '../zustand-stores';
   handleAddLocations,
   handleAddMachines,
   handleAddSpecificLocations,
@@ -81,6 +82,8 @@ function MasterControlCommandMain({
   handleCreateNewCommandMessageBox,
   // commandConfirmed,
 }) {
+  const { setSelectSystem } = useMCStore();
+  const { setUnits } = useUnitsStore();
     const mCCommandState = useMCCommandStore();
   const selectSwitch = useMasterControlSelectStore();
   const viewCommandState = mCCommandState.viewCommand;

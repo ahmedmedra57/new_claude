@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import {
   addSSRsRatingService,

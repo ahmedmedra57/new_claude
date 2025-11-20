@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useMasterControlBySwitchSelectStore, useMasterControlSelectByLocationStore } from '../zustand-stores';
 
 
 
@@ -80,9 +81,9 @@ const SelectMachineItems = ({
       ? ["clear", "apply"]
       : ["clear", "select"]
     : ["clear", "select"];
-  const mCBySwitch = useSelector(
-    scope === "switch" ? selectMCBySwitch : selectMCByLocation
-  );
+  const mCBySwitch = scope === 'switch'
+    ? useMasterControlBySwitchSelectStore()
+    : useMasterControlSelectByLocationStore();
   const {
     // for styling
     isAllSelected,

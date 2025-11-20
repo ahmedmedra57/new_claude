@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useMasterControlBySwitchSelectStore, useMasterControlSelectByLocationStore } from '../zustand-stores';
 import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import { useMediaQuery } from "react-responsive";
 
@@ -91,9 +92,9 @@ const SelectLocations = ({
   //     : tesSwitch;
   // !!END OF TEST DATA
 
-  const mCBySwitch = useSelector(
-    scope === "switch" ? selectMCBySwitch : selectMCByLocation
-  );
+  const mCBySwitch = scope === 'switch'
+    ? useMasterControlBySwitchSelectStore()
+    : useMasterControlSelectByLocationStore();
 
   const { selectedOne } = mCBySwitch[name];
 

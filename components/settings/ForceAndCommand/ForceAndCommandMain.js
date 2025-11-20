@@ -5,6 +5,7 @@ import SelectAts from "./selectArts/SelectAts";
 import SelectTc from "./selectTc/SelectTc";
 import {
 import { useEditCancelApplyButtonsStore, useForceAndCommandsStore } from '../../zustand-stores';
+import { useForceCommandAndAdminSelectStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,
@@ -94,9 +95,7 @@ function ForceAndCommandMain({
 
   // !! END OF TEST DATA
 
-  const forceCommandAndAdminSelectState = useSelector(
-    selectForceCommandAndAdminSelect
-  );
+  const forceCommandAndAdminSelectState = useForceCommandAndAdminSelectStore();
 
   const { isAdministrator } = useUserStore();
 

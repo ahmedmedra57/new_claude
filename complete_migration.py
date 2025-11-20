@@ -63,6 +63,10 @@ MIGRATIONS = {
     # Admin
     'selectAdmin': {'store': 'useAdminStore'},
     'selectSysIdentification': {'store': 'useSysIdentificationStore'},
+    'selectSystemIdentification': {'store': 'useSysIdentificationStore'},
+    # Others
+    'selectUserState': {'store': 'useUserStore'},
+    'selectSettingsOfEss': {'store': 'useESSSwitchStore'},
 }
 
 def get_depth_adjusted_import(filepath, base_import):
@@ -87,9 +91,17 @@ def migrate_file(filepath):
     original = content
     stores_needed = set()
 
-    # Find all useSelector calls and extract selectors
-    selector_pattern = r'useSelector\((\w+)\)'
-    for match in re.finditer(selector_pattern, content):
+    # Find all useSelector calls and extract selectors (handle multiline)
+    # Pattern 1: Single line useSelector(selectXxx)
+    selector_pattern1 = r'useSelector\((\w+)\)'
+    for match in re.finditer(selector_pattern1, content):
+        selector = match.group(1)
+        if selector in MIGRATIONS:
+            stores_needed.add(selector)
+
+    # Pattern 2: Multiline useSelector(\n  selectXxx\n)
+    selector_pattern2 = r'useSelector\(\s*(\w+)\s*\)'
+    for match in re.finditer(selector_pattern2, content, re.MULTILINE | re.DOTALL):
         selector = match.group(1)
         if selector in MIGRATIONS:
             stores_needed.add(selector)
@@ -123,18 +135,24 @@ def migrate_file(filepath):
             lines.insert(insert_pos, zustand_import.strip())
             content = '\n'.join(lines)
 
-    # Replace useSelector calls
+    # Replace useSelector calls (handle both single and multiline)
     for selector in stores_needed:
         store = MIGRATIONS[selector]['store']
+
         # Replace const xxx = useSelector(selectXxx); with const xxx = useXxxStore();
-        pattern1 = rf'const\s+(\w+)\s*=\s*useSelector\({selector}\);'
+        pattern1 = rf'const\s+(\w+)\s*=\s*useSelector\(\s*{selector}\s*\);?'
         replacement1 = rf'const \1 = {store}();'
-        content = re.sub(pattern1, replacement1, content)
+        content = re.sub(pattern1, replacement1, content, flags=re.MULTILINE | re.DOTALL)
+
+        # Replace multiline: const xxx = useSelector(\n  selectXxx\n);
+        pattern2 = rf'const\s+(\w+)\s*=\s*useSelector\(\s*{selector}\s*\);?'
+        replacement2 = rf'const \1 = {store}();'
+        content = re.sub(pattern2, replacement2, content, flags=re.MULTILINE | re.DOTALL)
 
         # Replace useSelector(selectXxx) with useXxxStore()
-        pattern2 = rf'useSelector\({selector}\)'
-        replacement2 = f'{store}()'
-        content = re.sub(pattern2, replacement2, content)
+        pattern3 = rf'useSelector\(\s*{selector}\s*\)'
+        replacement3 = f'{store}()'
+        content = re.sub(pattern3, replacement3, content, flags=re.MULTILINE | re.DOTALL)
 
     # Write if changed
     if content != original:

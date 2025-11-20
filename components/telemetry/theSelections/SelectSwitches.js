@@ -1,7 +1,7 @@
-import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { handleDisplaySelectBox } from '../../store/slices/masterControlSelectSlice';
 import {
+import { useMasterControlSelectStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentFlexStart,
   justifyContentSpaceAround,
@@ -36,6 +36,7 @@ const SelectSwitches = ({
   tgsDataConsumptionSwitch,
   hpDataConsumptionSwitch,
 }) => {
+  const { toggleDisplaySelectBox } = useMasterControlSelectStore();
   
   const swt = ess
     ? 'ess'
@@ -66,7 +67,7 @@ const SelectSwitches = ({
           </SelectedOneAndArrowButtonWrapper>
           {displaySelectBox && (
             <SelectSwitchMachineOptions
-              handleClose={() => dispatch(handleDisplaySelectBox(false))}
+              handleClose={() => toggleDisplaySelectBox(false)}
               data={
                 ess
                   ? essSwitch

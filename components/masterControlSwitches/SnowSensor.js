@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMasterControlBySwitchSelectStore, useMasterControlSelectByLocationStore } from '../zustand-stores';
 import { useUnitsStore } from '../zustand-stores';
 
 import { useMediaQuery } from 'react-responsive';
@@ -35,9 +36,9 @@ const SnowSensor = ({
   // Global
   const type = scope === 'switch' ? 'locations' : 'switches';
 
-  const switchStatus = useSelector(
-    scope === 'switch' ? selectMCBySwitch : selectMCByLocation
-  );
+  const switchStatus = scope === 'switch'
+    ? useMasterControlBySwitchSelectStore()
+    : useMasterControlSelectByLocationStore();
   const { selectedOne } = switchStatus.snowSensor;
 
   const unitsStatus = useUnitsStore();

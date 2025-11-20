@@ -7,8 +7,6 @@ import {
   layerADark,
   layerB,
 } from '../styles/commonStyles';
-import { useDispatch } from 'react-redux';
-
 const MasterControlBySwitchTitle = ({
   isExpand,
   expandFC,

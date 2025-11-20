@@ -19,8 +19,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { uploadS3File } from '../../services/uploadS3File.service';
 import { uploadSiteMapService } from '../../services';
-import { useDispatch } from 'react-redux';
-
 const Upload = ({
   handleClose,
   locationId = '',

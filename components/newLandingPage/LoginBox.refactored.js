@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { loginService, resetPasswordService } from '../../services';
 import { NOT_ALLOWED_ROLES } from '../../constants';
 import { Button, Input, Modal } from '../ui';
 import {
+import { useUserStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceBetween,
 } from '../styles/commonStyles';
@@ -29,6 +29,7 @@ import {
  * AFTER: ~370 lines with i18n
  */
 const LoginBox = () => {
+  const { setUserInfo } = useUserStore();
   const { t } = useTranslation();
   const navigation = useNavigate();
     const isMobile = useMediaQuery({ query: '(max-width:600px)' });

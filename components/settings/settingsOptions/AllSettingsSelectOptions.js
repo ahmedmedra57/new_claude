@@ -4,6 +4,7 @@ import { useUserStore } from '../../zustand-stores';
 import { useTranslation } from 'react-i18next';
 import {
 import { useEditCancelApplyButtonsStore, useInterfaceModeStore } from '../../zustand-stores';
+import { useSettingsOptionsStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentFlexStart,
   justifyContentSpaceEvenly,
@@ -24,6 +25,7 @@ import { useMediaQuery } from "react-responsive";
 import { PERMISSIONS, SETTINGS_OPTIONS } from "../../../constants";
 import { useMemo } from "react";
 function AllSettingsSelectOptions() {
+  const { resetSettings } = useSettingsOptionsStore();
   const { t } = useTranslation();
   const isMobile = useMediaQuery({ query: "(max-width:600px)" });
   const { permissions } = useUserStore();

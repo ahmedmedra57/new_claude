@@ -1,4 +1,5 @@
 import {
+import { useSysIdentificationStore } from '../zustand-stores';
   ResponsiveContainer,
   LineChart,
   Line,
@@ -20,7 +21,7 @@ import {
 import { DUMMY_CHART_DATA } from './ChartDummyData';
 
 const Chart = ({ isReadyToRender }) => {
-  const sysIdState = useSelector(selectSystemIdentification);
+  const sysIdState = useSysIdentificationStore();
   const { sysIdentification } = sysIdState;
 
   // ---- temporary variables

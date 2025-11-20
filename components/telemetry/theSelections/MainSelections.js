@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { useTranslation } from 'react-i18next';
 import {
 import { useESSDataConsumptionStore, useHPDataConsumptionStore, useHPElectricSwitchStore, useHPGasSwitchStore, useTESDataConsumptionStore, useTGSDataConsumptionStore, useTelemetryChartDataStore } from '../zustand-stores';
+import { useMasterControlSelectStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceEvenly,
   layerA180Deg,

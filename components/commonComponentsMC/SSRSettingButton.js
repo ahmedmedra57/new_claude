@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { flexBoxCenter } from '../styles/commonStyles';
+import { useUserStore } from '../zustand-stores';
 
 import HoverMessageBox from './HoverMessageBox';
 
@@ -11,7 +12,7 @@ const SSRSettingButton = ({
   id,
   disable,
 }) => {
-  // const userState = useSelector(selectUserState);
+  // const userState = useUserStore();
   // const { isAdministrator } = userState;
 
   const isAdministrator = true;

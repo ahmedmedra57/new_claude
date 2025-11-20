@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import {
+import { useEditCancelApplyButtonsStore } from '../../zustand-stores';
   handleClickedButton,
   handleResetButtons,
 } from '../../store/slices/settings/editCancelApplyButtonsSlice';
@@ -9,6 +9,7 @@ import {
 import SettingClearOkMessage from './SettingClearOkMessage';
 
 function ApplyButtonInvisibleDiv() {
+  const { resetButtons } = useEditCancelApplyButtonsStore();
   // redux
   
   const [display, setDisplay] = useState(false);
