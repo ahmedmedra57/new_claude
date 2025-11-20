@@ -291,16 +291,14 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
           ).forEach((machine) => {
             machineIds.push(switchStatusE[subLocation][machine].deviceMac);
             if (checkOption === 'instantHeatOn') {
-              dispatch(
-                dispatchFC({
+              actionCallback({
                   location: subLocation,
                   machine,
                   temp: option,
                   isF,
                 });
             } else if (checkOption === 'fanOnly') {
-              dispatch(
-                dispatchFC({ location: subLocation, machine, state: option });
+              actionCallback({ location: subLocation, machine, state: option });
             } else {
               actionCallback({ location: subLocation, machine });
             }

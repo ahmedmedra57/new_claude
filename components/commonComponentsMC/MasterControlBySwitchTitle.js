@@ -36,13 +36,11 @@ const MasterControlBySwitchTitle = ({
       <ButtonWrapper
         isExpanded={isExpand}
         onClick={() =>
-          dispatch(
-            expandFC({
+          expandFC({
               swtName,
               locationIdx: index,
               status: !isExpand,
             })
-          )
         }
       >
         <ButtonHole isExpanded={isExpand}>

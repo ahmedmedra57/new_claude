@@ -65,12 +65,10 @@ const MasterControlBySwitch = ({ swtName, buttonHandler }) => {
                   <ButtonWrapper
                     isMobile={isMobile}
                     onClick={() =>
-                      dispatch(
-                        handleOpenMasterControl({
+                      useMCStore().setOpenMasterControl({
                           swtName,
                           status: !masterControl,
                         })
-                      )
                     }
                   >
                     <ButtonHole isMobile={isMobile}>
@@ -160,9 +158,7 @@ const MasterControlBySwitch = ({ swtName, buttonHandler }) => {
               <ButtonWrapper
                 isExpanded={masterControl}
                 onClick={() =>
-                  dispatch(
-                    handleOpenMasterControl({ swtName, status: !masterControl })
-                  )
+                  useMCStore().setOpenMasterControl({ swtName, status: !masterControl })
                 }
               >
                 <ButtonHole isExpanded={masterControl}>
