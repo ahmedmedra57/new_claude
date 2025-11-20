@@ -11,7 +11,6 @@ import SystemButton from './SystemButton';
 import {
   handleControlResetInit,
   selectMCCommand,
-} from '../../store/slices/mCCommandSlice';
 
 function ContainerSelectSystem({
   // handleSelectSystem,

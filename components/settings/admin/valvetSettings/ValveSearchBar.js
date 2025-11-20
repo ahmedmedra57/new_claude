@@ -15,7 +15,6 @@ import {
 } from "../../../styles/commonStyles";
 import DisplaySwitchSuggestion from "../../../telemetry/chart/switchSytemsList/DisplaySwitchSuggestion";
 import { useMediaQuery } from "react-responsive";
-import { selectLocations } from "../../../store/slices/locationsSlice";
 import {
   filteredSuggestionsHandler,
   getFormattedMachineName,

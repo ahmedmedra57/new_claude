@@ -10,7 +10,6 @@ import { useForceCommandAndAdminSelectStore } from '../../zustand-stores';
 } from '../../../styles/commonStyles';
 import SelectLocationsBox from '../../SelectLocationsBox';
 import TCSelectBox from './TCSelectBox';
-import { selectForceCommandAndAdminSelect } from '../../../store/slices/settings/force&CommandAndAdminSelectSlice';
 import { useRef } from 'react';
 
 function OutsideTemperature({

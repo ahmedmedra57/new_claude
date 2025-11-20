@@ -7,18 +7,14 @@ import { useESSSwitchStore, useMasterControlSelectStore } from '../../zustand-st
   essSpecificLocationUnselectMachinesHandler,
   handleUnSelectIndividualMachine,
   selectEssSwitch,
-} from '../../../store/slices/essSwitchSlice';
 import {
   selectTesSwitch,
   tesHandleUnSelectIndividualMachine,
   tesSpecificLocationUnselectMachinesHandler,
-} from '../../../store/slices/tesSwitchSlice';
 import {
   selectTgsSwitch,
   tgsHandleUnSelectIndividualMachine,
   tgsSpecificLocationUnselectMachinesHandler,
-} from '../../../store/slices/tgsSwitchSlice';
-import { selectMC } from '../../../store/slices/mCSlice';
 import {
   handleDisplaySelectBox,
   handleLocationSelect,
@@ -27,7 +23,6 @@ import {
   handleSelectAll,
   handleSpecificLocationSelect,
   selectMasterControls,
-} from '../../../store/slices/masterControlSelectSlice';
 
 import {
   flexBoxCenter,
@@ -52,16 +47,13 @@ import {
   handleResetAllDialControl,
   handleResetAll,
   fanOnlyHandlerTempo,
-} from '../../../store/slices/selectedMachinesSlice';
 import SelectAtsBox from './SelectAtsBox';
 import {
   handleControlResetInit,
   selectMCCommand,
-} from '../../../store/slices/mCCommandSlice';
 import { useContext } from 'react';
 import { MasterControlContext } from '../../MaterControlContext';
 import testData from '../../../../test_data/testData';
-import { selectLocations } from '../../../store/slices/locationsSlice';
 import { setInitialStateSelectBoxHandler } from '../../../../helpers/ess-tgs-tes-mc/setInitialStateSelectBoxHandler';
 
 const MainSelects = ({

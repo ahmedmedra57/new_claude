@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { useLocationsStore } from '../../../zustand-stores';
 import styled, { css } from 'styled-components';
-import { selectEssSwitch } from '../../../store/slices/essSwitchSlice';
 import {
   flexBoxCenter,
   justifyContentFlexStart,
   layerA,
 } from '../../../styles/commonStyles';
 import SelectSubOptions from './SelectSubOptions';
-import { selectLocations } from '../../../store/slices/locationsSlice';
 import SelectSpecificLocationOptions from './SelectSpecificLocationOptions';
 
 const SelectOptions = ({

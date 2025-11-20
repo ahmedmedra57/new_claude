@@ -12,7 +12,6 @@ import styled, { css } from "styled-components";
 import SelectButton from "./SelectButton";
 import SSRRadioBox from "./SSRRadioBox";
 
-// import { selectTgsSwitch } from '../../../store/slices/tgsSwitchSlice';
 // import { updateSettingsValue } from '../../../helpers/helpers';
 
 const select = [

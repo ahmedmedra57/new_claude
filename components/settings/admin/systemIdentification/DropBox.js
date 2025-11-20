@@ -8,7 +8,6 @@ import { useAdminStore } from '../../../zustand-stores';
 import {
   handleAddGasType,
   handleAddSwitchSizeSSRRating,
-} from '../../../store/slices/settings/admin/sysIdentificationSlice';
 import {
   borderADisabled,
   borderBBlue,

@@ -27,14 +27,6 @@ import { useRef } from 'react';
 import ForceAndCommandMain from './ForceAndCommand/ForceAndCommandMain';
 import { useEffect } from 'react';
 import AdminMain from './admin/AdminMain';
-import adminSlice, {
-  handleForceGasAndElectric,
-  handleGasType,
-  handleGasValuePosition,
-  handleSysConfiguration,
-  handleTrackTempControl,
-  selectAdmin,
-} from '../store/slices/settings/admin/adminSlice';
 import { useMediaQuery } from 'react-responsive';
 import AllSettingsSelectOptions from './settingsOptions/AllSettingsSelectOptions';
 import InvisibleDivForEditButton from './messageBoxes/InvisibleDivForEditButton';

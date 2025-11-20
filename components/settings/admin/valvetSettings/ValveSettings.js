@@ -16,7 +16,6 @@ import { useAdminStore } from '../../../zustand-stores';
   layerB,
   scrollbarY,
 } from "../../../styles/commonStyles";
-import { selectEditCancelApplyButtons } from "../../../store/slices/settings/editCancelApplyButtonsSlice";
 import InputValveSettingsMessage from "./InputValveSettingsMessage";
 import SelectLocationsBox from "../../SelectLocationsBox";
 import ValveSearchBar from "./ValveSearchBar";
@@ -25,9 +24,7 @@ import {
   handleGasValuePosition,
   handleResetUnApplyMachinesOfGasInputs,
   selectAdmin,
-} from "../../../store/slices/settings/admin/adminSlice";
 import { useMediaQuery } from "react-responsive";
-import { selectLocations } from "../../../store/slices/locationsSlice";
 
 function ValveSettings({
   selectedOne,

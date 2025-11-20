@@ -10,9 +10,6 @@ import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../z
   layerA90Deg,
 } from '../../styles/commonStyles';
 import DisplayBox from './DisplayBox';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
 import { useSetAndCurrentTemp } from '../../../hooks';
 
 const MCDisplayBoxWrapper = ({

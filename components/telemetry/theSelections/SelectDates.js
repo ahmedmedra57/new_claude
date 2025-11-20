@@ -4,8 +4,6 @@ import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useSelectedMachinesStore } from '../zustand-stores';
 // import ScheduleCalendar from '../../masterControl/controls/heatingScheduler/ScheduleCalendar';
-import { selectMC } from '../../store/slices/mCSlice';
-import { selectedMachinesState } from '../../store/slices/selectedMachinesSlice';
 import { flexBoxCenter, layerA180Deg } from '../../styles/commonStyles';
 import SchedulerDisplay from './SchedulerDisplay';
 import ScheduleCalendar from '../../masterControl/controls/heatingScheduler/ScheduleCalendar';

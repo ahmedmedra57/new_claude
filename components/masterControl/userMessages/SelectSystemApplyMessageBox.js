@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { useESSSwitchStore, useLocationsStore, useMCStore, useTGSSwitchStore } from '../../zustand-stores';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { selectMC } from '../../store/slices/mCSlice';
-import { selectedMachinesState } from '../../store/slices/selectedMachinesSlice';
 import {
 import { useSelectedMachinesStore } from '../zustand-stores';
   alignItemsFlexStart,
@@ -14,8 +12,6 @@ import { useSelectedMachinesStore } from '../zustand-stores';
 } from '../../styles/commonStyles';
 import MessageButton from './MessageButton';
 import testData from '../../../test_data/testData';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 
 const SelectSystemApplyMessageBox = ({ handleButtons, title, message }) => {
   const buttonNames = ['edit', 'confirm'];

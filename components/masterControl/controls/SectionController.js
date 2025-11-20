@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useMCCommandStore, useMCStore, useUnitsStore } from '../../zustand-stores';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectMC } from '../../store/slices/mCSlice';
 import selectedMachinesSlice, {
 import { useSelectedMachinesStore } from '../zustand-stores';
   AddScheduleHandlerTempo,
@@ -12,7 +10,6 @@ import { useSelectedMachinesStore } from '../zustand-stores';
   selectedMachinesState,
   snowSensorHandlerTempo,
   windFactorHandlerTempo,
-} from '../../store/slices/selectedMachinesSlice';
 import styled, { css } from 'styled-components';
 import { flexBoxCenter } from '../../styles/commonStyles';
 import InputTempMessage from '../../userMessages/inputTempMessage';
@@ -21,7 +18,6 @@ import InstantHeat from '../controls/instantHeat/instantHeat';
 import OptionalConstantTemp from '../controls/optionalConstantTemp/OptionalConstantTemp';
 import SnowSensor from '../controls/snowSensor/SnowSensor';
 import WindFactor from '../controls/windFactor/WindFactor';
-import { selectMCCommand } from '../../store/slices/mCCommandSlice';
 import SnowSensorAndWindFactor from './snowSensorAndWindFactor/SnowSensorAndWindFactor';
 
 const SectionControllers = ({

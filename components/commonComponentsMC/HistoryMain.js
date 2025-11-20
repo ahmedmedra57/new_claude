@@ -12,7 +12,6 @@ import {
   layerBDark,
 } from '../styles/commonStyles';
 import { getAuditTrailService } from '../../services';
-import { selectUserInfo } from './../../components/store/slices/userSlice';
 import { machineAuditTrailActionsFormat, machineAuditTrailFaultsFormat } from '../../helpers/helpers';
 const AUDIT_TRAIL_Action= [
   'MASTER_CONTROL',

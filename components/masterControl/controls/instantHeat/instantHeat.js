@@ -15,9 +15,7 @@ import { useSelectedMachinesStore } from '../zustand-stores';
   layerB,
   layerBDark,
 } from '../../../styles/commonStyles';
-import { selectUnits } from '../../../store/slices/settings/unitsSlice';
 import InputTempMessage from '../../../userMessages/inputTempMessage';
-import { selectedMachinesState } from '../../../store/slices/selectedMachinesSlice';
 
 const InstantHeat = ({
   isSelected,

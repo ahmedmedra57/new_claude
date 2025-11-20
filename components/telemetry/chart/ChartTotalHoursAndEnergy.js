@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useTelemetryStore, useUnitsStore } from '../../zustand-stores';
 import { useTranslation } from 'react-i18next';
 import styled, { css } from 'styled-components';
-import { selectTelemetry } from '../../store/slices/telemetrySlice';
 import {
   flexBoxCenter,
   justifyContentSpaceBetween,

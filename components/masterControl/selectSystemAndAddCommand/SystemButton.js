@@ -16,7 +16,6 @@ import {
   handleSelectHp,
   handleSelectTes,
   handleSelectTgs,
-} from '../../store/slices/mCSlice';
 import { useCheckControlPermsission } from '../../../hooks';
 
 function SystemButton({

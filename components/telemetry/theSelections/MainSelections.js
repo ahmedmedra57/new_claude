@@ -19,17 +19,14 @@ import {
   essSpecificLocationUnselectMachinesHandler,
   handleUnSelectIndividualMachine,
   selectEssSwitch,
-} from "../../store/slices/essSwitchSlice";
 import {
   selectTgsSwitch,
   tgsHandleUnSelectIndividualMachine,
   tgsSpecificLocationUnselectMachinesHandler,
-} from "../../store/slices/tgsSwitchSlice";
 import {
   selectTesSwitch,
   tesHandleUnSelectIndividualMachine,
   tesSpecificLocationUnselectMachinesHandler,
-} from "../../store/slices/tesSwitchSlice";
 import { useEffect } from "react";
 import {
   // handleSelectEss,
@@ -38,7 +35,6 @@ import {
   // handleSelectTgs,
   handleUnselectAllSystem,
   selectMC,
-} from "../../store/slices/mCSlice";
 import {
   handleDisplaySelectBox,
   handleLocationSelect,
@@ -47,53 +43,44 @@ import {
   handleSelectAll,
   handleSpecificLocationSelect,
   selectMasterControls,
-} from "../../store/slices/masterControlSelectSlice";
 import {
   handleAuditLogData,
   handleSearchTelemetrySystem,
   handleTotalConsumptionTelemetry,
   handleTotalHoursTelemetry,
-} from "../../store/slices/telemetrySlice";
 import {
   hpEcHandleUnSelectIndividualMachine,
   hpEcSpecificLocationUnselectMachinesHandler,
   selectHpElectricSwitch,
-} from "../../store/slices/hpElectricSwitchSlice";
 import {
   hpGcHandleUnSelectIndividualMachine,
   hpGcSpecificLocationUnselectMachinesHandler,
   selectHpGasSwitch,
-} from "../../store/slices/hpGasSwitchSlice";
 import {
   essDataConsumptionHandleUnSelectIndividualMachine,
   essDataConsumptionSpecificLocationUnselectMachineHandler,
   // essDcHandleUnSelectIndividualMachine,
   selectEssDataConsumption,
-} from "../../store/slices/essDataConsumptionSlice";
 import {
   selectTesDataConsumption,
   // selecttesDataConsumption,
   // tesDataConsumptionHandleSelectIndividualMachine,
   tesDataConsumptionHandleUnSelectIndividualMachine,
   tesDataConsumptionSpecificLocationUnselectMachineHandler,
-} from "../../store/slices/tesDataConsumptionSlice";
 import {
   selectTgsDataConsumption,
   // selecttgsDataConsumption,
   tgsDataConsumptionHandleUnSelectIndividualMachine,
   tgsDataConsumptionSpecificLocationUnselectMachineHandler,
-} from "../../store/slices/tgsDataConsumptionSlice";
 import {
   hpDataConsumptionHandleUnSelectIndividualMachine,
   hpDataConsumptionSpecificLocationUnselectMachinesHandler,
   selectHpDataConsumption,
   // selecthpDataConsumption,
-} from "../../store/slices/hpDataConsumptionSlice";
 import {
   selectTelemetryChartData,
   setTelemetryChartData,
   setTelemetryIntervalUnit,
-} from "../../store/slices/telemetryChartDataSlice";
 import {
   formatTelemetryChartData,
   formatTime,

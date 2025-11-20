@@ -1,13 +1,6 @@
 import essSwitchSlice, {
 import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
-import tgsSwitchSlice, {
-  selectTgsSwitch,
-} from '../store/slices/tgsSwitchSlice';
-import tesSwitchSlice, {
-  selectTesSwitch,
-} from '../store/slices/tesSwitchSlice';
 
 import styled, { css } from 'styled-components';
 import {

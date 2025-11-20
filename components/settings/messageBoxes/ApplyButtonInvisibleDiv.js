@@ -4,7 +4,6 @@ import {
 import { useEditCancelApplyButtonsStore } from '../../zustand-stores';
   handleClickedButton,
   handleResetButtons,
-} from '../../store/slices/settings/editCancelApplyButtonsSlice';
 
 import SettingClearOkMessage from './SettingClearOkMessage';
 

@@ -4,7 +4,6 @@ import ChartTotalHoursAndEnergy from './ChartTotalHoursAndEnergy';
 import NivoChartCopy from './NivoChartCopy';
 import MainSwitchesSpecifications from './switchSytemsList/MainSwitchesSpecifications';
 import TitleOfSelectedSystem from './TitleOfSelectedSystem';
-import { selectMC } from '../../store/slices/mCSlice';
 
 const MainChart = ({
   selectedSystemTitle,

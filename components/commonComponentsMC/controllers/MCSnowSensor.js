@@ -14,9 +14,6 @@ import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../z
   grayModeLayer,
   DisableButtonIndentTop,
 } from '../../styles/commonStyles';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 
 
 const MCSnowSensor = ({

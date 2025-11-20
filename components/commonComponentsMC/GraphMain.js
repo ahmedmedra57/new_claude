@@ -23,7 +23,6 @@ import DisplayLegend from './DisplayLegend';
 import ChartContainer from './ChartContainer';
 import { getDataConsumptionService, getTelemetryService } from '../../services';
 import { formatTime, getGraphTypeKey } from '../../helpers/helpers';
-import { selectLocations } from './../store/slices/locationsSlice';
 
 const GraphMain = ({
   swtName,

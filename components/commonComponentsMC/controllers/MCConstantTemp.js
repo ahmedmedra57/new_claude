@@ -13,9 +13,6 @@ import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../z
   DisableButtonIndentTop,
   readyTop180Deg,
 } from "../../styles/commonStyles";
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 
 const MCConstantTemp = ({
   isMobile,

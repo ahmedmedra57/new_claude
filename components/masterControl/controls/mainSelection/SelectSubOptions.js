@@ -1,13 +1,10 @@
 import styled, { css } from 'styled-components';
-import { selectLocations } from '../../../store/slices/locationsSlice';
 import {
   flexBoxCenter,
   justifyContentFlexStart,
   layerA,
 } from '../../../styles/commonStyles';
 import testData from '../../../../test_data/testData';
-import { selectEssSwitch } from '../../../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../../../store/slices/tgsSwitchSlice';
 
 const SelectSubOptions = ({
   location,

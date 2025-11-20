@@ -7,9 +7,6 @@ import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../z
   layerA180Deg,
   layerA90Deg,
 } from '../../styles/commonStyles';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 import { useMemo } from 'react';
 
 const DisplayFaultsBoxWrapper = ({ swtName, location, machine }) => {

@@ -26,8 +26,6 @@ import useSelectLocationBox from '../useSelectLocation';
 import {
   handleAdminSelectIndividualMachine,
   handleAdminUnSelectIndividualMachine,
-} from '../../store/slices/settings/admin/adminSlice';
-import { selectAdmin } from '../../store/slices/settings/admin/adminSlice';
 import ValveSettings from './valvetSettings/ValveSettings';
 import SelectGasType from './SelectGasType';
 import InvisibleDivForEditButton from '../messageBoxes/InvisibleDivForEditButton';

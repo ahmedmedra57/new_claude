@@ -1,40 +1,5 @@
-import {
-  handleInstantHeat,
-  handleInstantHeatOff,
-  handleInstantHeatReady,
-  handleOpenMachineController,
-  handleShutOff,
-  handleShutOn,
-  handleSnowSensor,
-  handleSnowSensorOff,
-  selectEssSwitch,
-  essHandleUnselectAllProgram,
-  handleExpandSSRDetail,
-} from '../store/slices/essSwitchSlice';
 
-import {
-  tgsHandleInstantHeatOff,
-  tgsHandleShutOff,
-  tgsHandleSnowSensor,
-  tgsHandleSnowSensorOff,
-  selectTgsSwitch,
-  tgsHandleOpenMachineController,
-  tgsHandleFanOnly,
-  tgsHandleUnselectAllProgram,
-  tgsHandleInstantHeatIsReady,
-} from '../store/slices/tgsSwitchSlice';
 
-import {
-  tesHandleInstantHeatOff,
-  tesHandleShutOff,
-  tesHandleSnowSensor,
-  tesHandleSnowSensorOff,
-  selectTesSwitch,
-  tesHandleOpenMachineController,
-  tesHandleExpandSSRDetail,
-  tesHandleUnselectAllProgram,
-  tesHandleInstantHeatIsReady,
-} from '../store/slices/tesSwitchSlice';
 
 import { freezeSwitchDeviceService, postEssCommand } from '../../services';
 import { freezeBlowerDeviceService, postTgsCommand, postTesCommand } from '../../services';

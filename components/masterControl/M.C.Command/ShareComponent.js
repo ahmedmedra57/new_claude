@@ -2,13 +2,10 @@ import {
 import { useSelectedMachinesStore } from '../zustand-stores';
   handleCommandNumber,
   selectMCCommand,
-} from '../../store/slices/mCCommandSlice';
 import AllSwitches from './AllSwitches';
 import SelectAutomaticTransferSys from './SelectAutomaticTransferSys';
 import SelectedSystem from './SelectedSystem';
 import UserProfile from './UserProfile';
-import { selectedMachinesState } from '../../store/slices/selectedMachinesSlice';
-import { selectMC } from '../../store/slices/mCSlice';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useMCCommandStore, useMCStore, useUnitsStore, useUserStore } from '../../zustand-stores';

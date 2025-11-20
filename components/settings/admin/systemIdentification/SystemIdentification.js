@@ -13,11 +13,9 @@ import {
   handleSSRRating,
   handleSwitchSize,
   selectSysIdentification,
-} from '../../../store/slices/settings/admin/sysIdentificationSlice';
 import {
   handleAddNewElements,
   selectDescription,
-} from '../../../store/slices/ssrDescriptionSlice';
 import {
   alignItemsFlexStart,
   flexBoxCenter,

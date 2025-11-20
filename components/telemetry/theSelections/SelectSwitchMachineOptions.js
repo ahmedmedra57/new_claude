@@ -20,21 +20,17 @@ import {
   handleSelectedOne,
   handleSpecificLocationSelect,
   selectMasterControls,
-} from '../../store/slices/masterControlSelectSlice';
 
-import { handleResetAll } from '../../store/slices/selectedMachinesSlice';
 import {
   tesHandleSelectIndividualMachine,
   tesHandleUnSelectIndividualMachine,
   tesSpecificLocationSelectMachinesHandler,
   tesSpecificLocationUnselectMachinesHandler,
-} from '../../store/slices/tesSwitchSlice';
 import {
   tgsHandleSelectIndividualMachine,
   tgsHandleUnSelectIndividualMachine,
   tgsSpecificLocationSelectMachinesHandler,
   tgsSpecificLocationUnselectMachinesHandler,
-} from '../../store/slices/tgsSwitchSlice';
 
 import {
   flexBoxCenter,
@@ -46,39 +42,32 @@ import {
   essSpecificLocationUnselectMachinesHandler,
   handleSelectIndividualMachine,
   handleUnSelectIndividualMachine,
-} from '../../store/slices/essSwitchSlice';
 import SelectIndividualOptions from './SelectIndividualOptions';
 import SelectionsButton from './SelectionsButton';
 import {
   hpEcHandleSelectIndividualMachine,
   hpEcHandleUnSelectIndividualMachine,
-} from '../../store/slices/hpElectricSwitchSlice';
 import {
   hpGcHandleSelectIndividualMachine,
   hpGcHandleUnSelectIndividualMachine,
-} from '../../store/slices/hpGasSwitchSlice';
 import {
   tgsDataConsumptionHandleSelectIndividualMachine,
   tgsDataConsumptionHandleUnSelectIndividualMachine,
   tgsDataConsumptionSpecificLocationSelectMachineHandler,
   tgsDataConsumptionSpecificLocationUnselectMachineHandler,
-} from '../../store/slices/tgsDataConsumptionSlice';
 import {
   tesDataConsumptionHandleSelectIndividualMachine,
   tesDataConsumptionHandleUnSelectIndividualMachine,
   tesDataConsumptionSpecificLocationSelectMachineHandler,
   tesDataConsumptionSpecificLocationUnselectMachineHandler,
-} from '../../store/slices/tesDataConsumptionSlice';
 import {
   essDataConsumptionHandleSelectIndividualMachine,
   essDataConsumptionHandleUnSelectIndividualMachine,
   essDataConsumptionSpecificLocationSelectMachineHandler,
   essDataConsumptionSpecificLocationUnselectMachineHandler,
-} from '../../store/slices/essDataConsumptionSlice';
 import {
   hpDataConsumptionHandleSelectIndividualMachine,
   hpDataConsumptionHandleUnSelectIndividualMachine,
-} from '../../store/slices/hpDataConsumptionSlice';
 import { useSelectSwitchDropBoxDispatches } from '../../../hooks/useSelectSwitchesDispatches';
 import { useSelectSwitchesDisplay } from '../../../hooks/useSelectSwitchesDisplay';
 import { useSelectBoxArrowsState } from '../../../hooks/useSelectBoxArrowsState';

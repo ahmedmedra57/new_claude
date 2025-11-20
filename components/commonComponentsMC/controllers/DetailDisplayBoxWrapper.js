@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 import {
 import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
   flexBoxCenter,

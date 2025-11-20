@@ -9,7 +9,6 @@ import {
   layerDegHPD,
   layerHPA,
 } from '../../../../styles/commonStyles';
-import { selectUnits } from '../../../../store/slices/settings/unitsSlice';
 
 const SetTempBox = ({ isWindFactor, title, windSpeed }) => {
   const tempRef = useRef('');

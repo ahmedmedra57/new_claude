@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 import DateAndWeather from './masterControl/DateAndWeather';
 import AutoCompleteBox from './searchBox/AutoCompleteBox';
 import SearchBox from './searchBox/SearchBox';
-import { handleAccessToken, selectUserInfo } from './store/slices/userSlice';
 import { useMediaQuery } from 'react-responsive';
 import { NavLink } from 'react-router-dom';
 
@@ -26,15 +25,12 @@ import { DUMMY_SWITCHES } from './DUMMY/DUMMY_LOCATION_INFO';
 import {
   handleOpenMachineController,
   selectEssSwitch,
-} from './store/slices/essSwitchSlice';
 import {
   selectTgsSwitch,
   tgsHandleOpenMachineController,
-} from './store/slices/tgsSwitchSlice';
 import {
   selectTesSwitch,
   tesHandleOpenMachineController,
-} from './store/slices/tesSwitchSlice';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -46,7 +42,6 @@ import {
   setOpenLocationInitialStateHandler,
   setOpenSpecificLocationInitialStateHandler,
   handleOpenLocation,
-} from './store/slices/MCIsExpandedSlice';
 
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useMutation } from 'react-query';
@@ -56,7 +51,6 @@ import {
   getFormattedMachineName,
   getTitle,
 } from '../helpers/helpers';
-import { selectLocations } from './store/slices/locationsSlice';
 import testData from '../test_data/testData';
 
 const Header = () => {

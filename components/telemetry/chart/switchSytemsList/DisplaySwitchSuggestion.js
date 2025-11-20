@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { ItemBackground } from '../../../styles/commonStyles';
 import { useMemo } from 'react';
 import { useLocationsStore } from '../../../zustand-stores';
-import { selectLocations } from '../../../store/slices/locationsSlice';
 
 const DisplaySwitchSuggestion = ({
   matchedSuggestion,

@@ -1,9 +1,6 @@
 import { sum } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { useTESSwitchStore } from '../../zustand-stores';
-import { selectEssSwitch } from "../../store/slices/essSwitchSlice";
-import { selectTgsSwitch } from "../../store/slices/tgsSwitchSlice";
-import { selectTesSwitch } from "../../store/slices/tesSwitchSlice";
 import styled, { css } from "styled-components";
 import {
 import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';

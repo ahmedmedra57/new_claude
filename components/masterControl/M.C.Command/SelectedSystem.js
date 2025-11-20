@@ -3,8 +3,6 @@ import {
   justifyContentSpaceBetween,
   layerADark,
 } from '../../styles/commonStyles';
-import { selectMasterControls } from '../../store/slices/masterControlSelectSlice';
-import { selectMC } from '../../store/slices/mCSlice';
 function SelectedSystem() {
   const selectedMachinesState = useMasterControlSelectStore();
   const { ess, tgs, tes, hp } = selectedMachinesState;

@@ -6,7 +6,6 @@ import {
 import { useMasterControlSelectStore } from '../../zustand-stores';
   handleSelectIndividualMachine,
   handleUnSelectIndividualMachine,
-} from '../../../store/slices/essSwitchSlice';
 
 import {
   handleAddLocations,
@@ -17,17 +16,13 @@ import {
   handleSelectAll,
   handleSelectedOne,
   selectMasterControls,
-} from '../../../store/slices/masterControlSelectSlice';
 
-import { handleResetAll } from '../../../store/slices/selectedMachinesSlice';
 import {
   tesHandleSelectIndividualMachine,
   tesHandleUnSelectIndividualMachine,
-} from '../../../store/slices/tesSwitchSlice';
 import {
   tgsHandleSelectIndividualMachine,
   tgsHandleUnSelectIndividualMachine,
-} from '../../../store/slices/tgsSwitchSlice';
 
 import {
   flexBoxCenter,

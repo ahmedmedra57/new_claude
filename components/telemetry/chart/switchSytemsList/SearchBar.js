@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { selectTelemetry } from "../../../store/slices/telemetrySlice";
 import Button from "./Button";
 import DisplaySwitchSuggestion from "./DisplaySwitchSuggestion";
 import {

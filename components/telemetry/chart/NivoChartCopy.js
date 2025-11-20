@@ -11,12 +11,9 @@ import { useTelemetryChartDataStore } from '../zustand-stores';
   layerADark,
   layerBDark,
 } from '../../styles/commonStyles';
-import { selectTelemetry } from '../../store/slices/telemetrySlice';
 import { useState, useEffect, useCallback } from 'react';
 import { useESSSwitchStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUnitsStore } from '../../zustand-stores';
 
-import { selectTelemetryChartData } from '../../store/slices/telemetryChartDataSlice';
-import { selectMC } from '../../store/slices/mCSlice';
 import moment from 'moment';
 import {
   formatDateTooltip,
@@ -25,10 +22,6 @@ import {
   getStartAndEndTimestamps,
 } from '../../../helpers/helpers';
 import { getTelemetryService } from '../../../services';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
-import { selectMasterControls } from '../../store/slices/masterControlSelectSlice';
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and

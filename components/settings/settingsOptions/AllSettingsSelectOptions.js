@@ -19,7 +19,6 @@ import { useSettingsOptionsStore } from '../../zustand-stores';
 import {
   handleSelectingSettings,
   setResetSettingsOptions,
-} from "../../store/slices/settings/settingsOptionsSlice";
 import ApplyButtonInvisibleDiv from "../messageBoxes/ApplyButtonInvisibleDiv";
 import { useMediaQuery } from "react-responsive";
 import { PERMISSIONS, SETTINGS_OPTIONS } from "../../../constants";

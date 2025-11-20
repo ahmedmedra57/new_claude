@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import DisplaySSR from '../../commonComponentsMC/DisplaySSR';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
 import {
 import { useESSSwitchStore, useTESSwitchStore } from '../../zustand-stores';
   flexBoxCenter,

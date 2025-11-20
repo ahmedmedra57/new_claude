@@ -1,17 +1,6 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUserStore } from '../../../zustand-stores';
 import styled, { css } from 'styled-components';
-import { selectEssDataConsumption } from '../../../store/slices/essDataConsumptionSlice';
-import { selectEssSwitch } from '../../../store/slices/essSwitchSlice';
-import { selectHpDataConsumption } from '../../../store/slices/hpDataConsumptionSlice';
-import { selectHpElectricSwitch } from '../../../store/slices/hpElectricSwitchSlice';
-import { selectHpGasSwitch } from '../../../store/slices/hpGasSwitchSlice';
-import { selectLocations } from '../../../store/slices/locationsSlice';
-import { selectTelemetry } from '../../../store/slices/telemetrySlice';
-import { selectTesDataConsumption } from '../../../store/slices/tesDataConsumptionSlice';
-import { selectTesSwitch } from '../../../store/slices/tesSwitchSlice';
-import { selectTgsDataConsumption } from '../../../store/slices/tgsDataConsumptionSlice';
-import { selectTgsSwitch } from '../../../store/slices/tgsSwitchSlice';
 import {
 import { useESSDataConsumptionStore, useHPDataConsumptionStore, useHPElectricSwitchStore, useHPGasSwitchStore, useTESDataConsumptionStore, useTGSDataConsumptionStore } from '../zustand-stores';
   alignItemsFlexStart,
@@ -24,7 +13,6 @@ import SwitchSpecification from './SwitchSpecification';
 import Title from './Title';
 import testData from '../../../../test_data/testData';
 import { filteredSuggestionsHandler } from '../../../../helpers/helpers';
-import { selectUserPermissions } from '../../../store/slices/userSlice';
 import { PERMISSIONS } from '../../../../constants';
 
 // for useReducer

@@ -2,8 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useLocationsStore, useTelemetryStore, useUnitsStore } from '../../../zustand-stores';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { selectUnits } from '../../../store/slices/settings/unitsSlice';
-import { selectTelemetry } from '../../../store/slices/telemetrySlice';
 import {
   borderBlue,
   flexBoxCenter,
@@ -13,7 +11,6 @@ import {
   layerBDark,
 } from '../../../styles/commonStyles';
 import SelectedSwitch from './SelectedSwitch';
-import { selectLocations } from '../../../store/slices/locationsSlice';
 import SelectedSpecificLocation from './SelectedSpecificLocation';
 
 const SwitchSpecification = ({

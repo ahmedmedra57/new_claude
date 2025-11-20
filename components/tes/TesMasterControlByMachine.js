@@ -45,10 +45,6 @@ import {
 } from '../../helpers/helpers';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import TurnOffMessageBox from '../commonComponentsMC/controllers/TurnOffMessageBox';
-import {
-  selectUserInfo,
-} from '../store/slices/userSlice';
-import { selectLocations } from '../store/slices/locationsSlice';
 import testData from '../../test_data/testData';
 
 const TesMasterControlByMachine = ({

@@ -6,7 +6,6 @@ import {
 import { useMCCommandStore } from '../zustand-stores';
   handleViewCommand,
   selectMCCommand,
-} from '../../store/slices/mCCommandSlice';
 import {
   alignItemsFlexStart,
   flexBoxCenter,

@@ -24,9 +24,6 @@ import { useState } from 'react';
 import { useUnitsStore } from '../../zustand-stores';
 import MessageBoxButton from '../../userMessages/MessageBoxButton';
 import InputTempMessage from '../../userMessages/inputTempMessage';
-import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 
 const MCInstantHeat = ({
   isMobile,

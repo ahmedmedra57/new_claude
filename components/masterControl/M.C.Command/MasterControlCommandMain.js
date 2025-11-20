@@ -13,7 +13,6 @@ import { useMCCommandStore, useMCStore, useMasterControlSelectStore, useUnitsSto
   handleSelectedOne,
   handleSpecificLocationSelect,
   selectMasterControls,
-} from "../../store/slices/masterControlSelectSlice";
 import {
   handleApplyCommand,
   handleControlResetInit,
@@ -22,8 +21,6 @@ import {
   handleViewCommand,
   handleViewPrevCommandAndCreateNewCommand,
   selectMCCommand,
-} from "../../store/slices/mCCommandSlice";
-import { handleApplyMessageBox } from "../../store/slices/messageBoxesSlice";
 import {
   flexBoxCenter,
   justifyContentSpaceAround,
@@ -32,25 +29,21 @@ import {
 } from "../../styles/commonStyles";
 import CommandSelectionsApplyButton from "./CommandSelectionsApplyButton";
 import ShareComponent from "./ShareComponent";
-import { handleSelectSystem } from "../../store/slices/mCSlice";
 import {
   essSpecificLocationSelectMachinesHandler,
   handleSelectIndividualMachine,
   handleUnSelectIndividualMachine,
   selectEssSwitch,
-} from "../../store/slices/essSwitchSlice";
 import {
   selectTgsSwitch,
   tgsHandleSelectIndividualMachine,
   tgsHandleUnSelectIndividualMachine,
   tgsSpecificLocationSelectMachinesHandler,
-} from "../../store/slices/tgsSwitchSlice";
 import {
   selectTesSwitch,
   tesHandleSelectIndividualMachine,
   tesHandleUnSelectIndividualMachine,
   tesSpecificLocationSelectMachinesHandler,
-} from "../../store/slices/tesSwitchSlice";
 import {
   AddScheduleHandlerTempo,
   constantHeatHandlerTempo,
@@ -61,10 +54,8 @@ import {
   snowSensorHandlerTempo,
   toggleAtsHandlerTempo,
   windFactorHandlerTempo,
-} from "../../store/slices/selectedMachinesSlice";
 import { useContext } from "react";
 import { MasterControlContext } from "../MaterControlContext";
-import { handleSetUnits } from "../../store/slices/settings/unitsSlice";
 import { readableTime } from "../../../helpers/helpers";
 import testData from "../../../test_data/testData";
 import {

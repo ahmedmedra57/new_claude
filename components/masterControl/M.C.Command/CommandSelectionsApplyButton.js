@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { selectMCCommand } from "../../store/slices/mCCommandSlice";
 import {
   borderBlue,
   flexBoxCenter,

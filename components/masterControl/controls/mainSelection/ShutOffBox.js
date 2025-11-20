@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useMCStore } from '../../../zustand-stores';
 import styled, { css } from 'styled-components';
-import { selectMC } from '../../../store/slices/mCSlice';
 import {
   flexBoxCenter,
   flexDirectionColumn,
