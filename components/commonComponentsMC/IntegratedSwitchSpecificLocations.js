@@ -8,6 +8,7 @@ import { useMobileSelectProgramStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentSpaceBetween,
@@ -59,13 +60,11 @@ const IntegratedSwitchSpecificLocations = ({
   } = useContext(EssTgsTesContext);
 
   // Global states
-  const { essSwitch, tgsSwitch, tesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const switchStatus =
     swtName === 'ess' ? essSwitch : swtName === 'tgs' ? tgsSwitch : tesSwitch;

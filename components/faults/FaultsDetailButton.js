@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useFaultsStore } from '../zustand-stores';
 
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   layerA180Deg,
   layerADisabled180Deg,
@@ -27,13 +28,11 @@ const FaultsDetailButton = ({
   faultId,
 }) => {
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
-  const { flatEssSwitch, flatTgsSwitch, flatTesSwitch } = useSelector(
-    name === 'ess'
-      ? selectEssSwitch
+  const { flatEssSwitch, flatTgsSwitch, flatTesSwitch } = name === 'ess'
+      ? useESSSwitchStore()
       : name === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
   const swtStatus =
     name === 'ess' ? flatEssSwitch : name === 'tgs' ? flatTgsSwitch : flatTesSwitch;
   const verifiedSwtStatus = specificLocation

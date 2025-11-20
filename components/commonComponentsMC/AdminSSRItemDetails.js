@@ -4,6 +4,7 @@ import { useSSRDescriptionStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   ItemBackground,
   ItemBackgroundDisable,
@@ -53,13 +54,11 @@ const AdminSSRItemDetails = ({
   const { specs } = data;
 
  
-  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
   const switchData =
     swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
   const switchStatus = switchData[location][machine];

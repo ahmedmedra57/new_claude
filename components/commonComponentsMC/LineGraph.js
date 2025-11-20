@@ -1,4 +1,5 @@
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   ResponsiveContainer,
   LineChart,
   Line,
@@ -17,13 +18,11 @@ import { useUnitsStore } from '../zustand-stores';
 import { convertCelsiusToFahrenheit, formatDateTooltip, formatDateXAxis } from '../../helpers/helpers';
 
 const LineGraph = ({ swtName, location, machine, realTime }) => {
-  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-        ? selectTgsSwitch
-        : selectTesSwitch
-  );
+        ? useTGSSwitchStore()
+        : useTESSwitchStore();
   const swtStatus = swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
   const {
     thermocouple,

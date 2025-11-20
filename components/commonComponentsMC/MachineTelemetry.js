@@ -1,4 +1,5 @@
 import essSwitchSlice, {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   selectEssSwitch,
 } from '../store/slices/essSwitchSlice';
 import tgsSwitchSlice, {
@@ -25,13 +26,11 @@ const MachineTelemetry = ({
   setTemp,
 }) => {
   // global state
-  const { essSwitch,flatEssSwitch, tgsSwitch,flatTgsSwitch, flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch,flatEssSwitch, tgsSwitch,flatTgsSwitch, flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const switchData =
     swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;

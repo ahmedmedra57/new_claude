@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
 
 import SSRInfoContainer from './SSRInfoContainer';
+import { useESSSwitchStore, useTESSwitchStore } from '../zustand-stores';
 // import SwitchNameSelector from './SwitchNameSelector';
 import SSRToggleSWitch from './SSRToggleSwitch';
 import SSRSelect from './SSRSelect';
@@ -42,9 +43,7 @@ const SSRDetail = ({
   const { permissions } = useUserStore();
   const disable = !permissions.WRITE;
   
-  const { essSwitch, tesSwitch,flatEssSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess' ? selectEssSwitch : selectTesSwitch
-  );
+  const { essSwitch, tesSwitch,flatEssSwitch,flatTesSwitch } = swtName === 'ess' ? useESSSwitchStore() : useTESSwitchStore();
   const switchData = swtName === 'ess' ? flatEssSwitch : flatTesSwitch;
   const switchStatus = switchData[location][machine];
 

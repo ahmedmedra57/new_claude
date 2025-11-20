@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
   flexBoxCenter,
   holeLighter,
   justifyContentSpaceBetween,
@@ -21,13 +22,11 @@ const MCDisplayBoxWrapper = ({
 }) => {
   const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
-  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const swtStatus =
     swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;

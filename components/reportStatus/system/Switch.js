@@ -5,6 +5,7 @@ import { selectTgsSwitch } from "../../store/slices/tgsSwitchSlice";
 import { selectTesSwitch } from "../../store/slices/tesSwitchSlice";
 import styled, { css } from "styled-components";
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
   alignItemsFlexStart,
   borderC,
   borderDisabled,
@@ -43,13 +44,11 @@ const Switch = ({
     tesSwitch,
     flatEssSwitch,
     flatTgsSwitch,
-  } = useSelector(
-    swtName === "ess"
-      ? selectEssSwitch
+  } = swtName === "ess"
+      ? useESSSwitchStore()
       : swtName === "tgs"
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
   const {flatTesSwitch} = useTESSwitchStore();
   
   const machineValues = Object.values(machine)[0];

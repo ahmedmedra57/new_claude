@@ -4,6 +4,7 @@ import DisplaySSR from '../../commonComponentsMC/DisplaySSR';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
 import {
+import { useESSSwitchStore, useTESSwitchStore } from '../../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentSpaceBetween,
@@ -28,9 +29,7 @@ const RSHeaterStatus = ({
 }) => {
   // global
   const { t } = useTranslation();
-  const { flatEssSwitch, flatTesSwitch } = useSelector(
-    swtName === 'ess' ? selectEssSwitch : selectTesSwitch
-  );
+  const { flatEssSwitch, flatTesSwitch } = swtName === 'ess' ? useESSSwitchStore() : useTESSwitchStore();
   const swtStatus = swtName === 'ess' ? flatEssSwitch : flatTesSwitch;
 
   const { ssrState, isFaults, isExpanded } =

@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceBetween,
   layerA0Deg,
@@ -11,13 +12,11 @@ import { useEffect } from 'react';
 import { countdownTimer } from '../../helpers/helpers';
 
 const DisplayFaultsTimer = ({ swtName, location, machine }) => {
-  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const swtStatus =
     swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;

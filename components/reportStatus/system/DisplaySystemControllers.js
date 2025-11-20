@@ -4,6 +4,7 @@ import { selectTgsSwitch } from "../../store/slices/tgsSwitchSlice";
 import { selectTesSwitch } from "../../store/slices/tesSwitchSlice";
 import styled, { css } from "styled-components";
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentSpaceBetween,
@@ -30,13 +31,11 @@ const DisplaySystemControllers = ({
     flatEssSwitch,
     flatTgsSwitch,
     flatTesSwitch,
-  } = useSelector(
-    swt === "ess"
-      ? selectEssSwitch
+  } = swt === "ess"
+      ? useESSSwitchStore()
       : swt === "tgs"
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   useEffect(() => {
     let instantHeatIsActive = 0;

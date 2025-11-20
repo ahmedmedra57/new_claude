@@ -6,6 +6,7 @@ import { selectTgsSwitch } from "../../store/slices/tgsSwitchSlice";
 import { selectTesSwitch } from "../../store/slices/tesSwitchSlice";
 import styled, { css } from "styled-components";
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
   justifyContentFlexStart,
   justifyContentSpaceBetween,
 } from "../../styles/commonStyles";
@@ -17,13 +18,11 @@ const DisplayControllersOverview = ({ machinesCount, machines, setFaults }) => {
     [machines]
   );
   const { essSwitch, tgsSwitch, tesSwitch, flatEssSwitch, flatTgsSwitch } =
-    useSelector(
-      swtName === "ess"
-        ? selectEssSwitch
+    swtName === "ess"
+        ? useESSSwitchStore()
         : swtName === "tgs"
-        ? selectTgsSwitch
-        : selectTesSwitch
-    );
+        ? useTGSSwitchStore()
+        : useTESSwitchStore();
   const { flatTesSwitch } = useTESSwitchStore();
 
   useEffect(() => {

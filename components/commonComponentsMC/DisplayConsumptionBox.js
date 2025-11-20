@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentSpaceBetween,
@@ -13,13 +14,11 @@ import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
 const DisplayConsumptionBox = ({ swtName, location, machine }) => {
   const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
-  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const swtStatus = swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
 

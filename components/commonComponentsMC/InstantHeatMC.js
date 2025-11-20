@@ -3,6 +3,7 @@ import { useUnitsStore } from '../zustand-stores';
 
 import styled, { css } from "styled-components";
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   activeInput,
   activeLayer180Deg,
   flexBoxCenter,
@@ -38,13 +39,11 @@ const InstantHeatMC = ({ location, buttonHandler, swtName, isMobile, disabled })
     flatEssSwitch,
     flatTesSwitch,
     flatTgsSwitch,
-  } = useSelector(
-    swtName === "ess"
-      ? selectEssSwitch
+  } = swtName === "ess"
+      ? useESSSwitchStore()
       : swtName === "tgs"
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const switchStatus =
     swtName === "ess"

@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
   activeInput,
   activeLayer180Deg,
   flexBoxCenter,
@@ -33,13 +34,11 @@ const MCSnowSensor = ({
   const { isF } = unitsStatus;
   // temporary variables
   // const isF = false;
-  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
-      swtName === 'ess'
-        ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = swtName === 'ess'
+        ? useESSSwitchStore()
         : swtName === 'tgs'
-        ? selectTgsSwitch
-        : selectTesSwitch
-    );
+        ? useTGSSwitchStore()
+        : useTESSwitchStore();
 const switchStatus =
     swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
     const { isEbp,EBP_mode } = switchStatus[location][machine];

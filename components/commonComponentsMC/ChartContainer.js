@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   layerA,
   layerA180Deg,
@@ -16,13 +17,11 @@ const ChartContainer = ({
   location,
   machine,
 }) => {
-  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-        ? selectTgsSwitch
-        : selectTesSwitch
-  );
+        ? useTGSSwitchStore()
+        : useTESSwitchStore();
   const swtStatus =
     swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
   const { isWifi } = swtStatus[location][machine];

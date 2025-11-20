@@ -3,6 +3,7 @@ import { useContext, useState, memo } from 'react';
 import { useLocationsStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   alignItemsFlexStart,
   flexBoxCenter,
   flexDirectionColumn,
@@ -29,13 +30,11 @@ const SearchBox = ({ handleClose, isMobile }) => {
   const [selectedSwitch, setSelectedSwitch] = useState(null);
 
   const locations = useLocationsStore();
-  const { flatEssSwitch, flatTgsSwitch, flatTesSwitch } = useSelector(
-    selectedSwitch && selectedSwitch === 'ess'
-      ? selectEssSwitch
+  const { flatEssSwitch, flatTgsSwitch, flatTesSwitch } = selectedSwitch && selectedSwitch === 'ess'
+      ? useESSSwitchStore()
       : selectedSwitch === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const switches =
     selectedSwitch && selectedSwitch === 'ess'

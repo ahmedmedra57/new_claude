@@ -5,6 +5,7 @@ import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useTESSwi
 import isNumber from 'lodash/isNumber';
 import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
 import testData from '../../test_data/testData';
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 
 const IndividualMachine = ({
   location,
@@ -19,13 +20,11 @@ const IndividualMachine = ({
 }) => {
   
   // !!TODO: put back the code below
-  const { essSwitch,flatEssSwitch, tgsSwitch,flatTgsSwitch, tesSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch,flatEssSwitch, tgsSwitch,flatTgsSwitch, tesSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
   const switchStatus =
     swtName === 'ess' ? essSwitch : swtName === 'tgs' ? tgsSwitch : tesSwitch;
   const flatSwitchStatus =

@@ -9,6 +9,7 @@ import styled, { css } from "styled-components";
 
 import SelectMachineItems from "./SelectMachineItems";
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentSpaceBetween,
@@ -39,13 +40,11 @@ const SelectLocations = ({
 
   // Global States
   // !! TODO: put the code below back after tests
-  const { essSwitch, tgsSwitch, tesSwitch, flatEssSwitch } = useSelector(
-    swtName === "ess"
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch, flatEssSwitch } = swtName === "ess"
+      ? useESSSwitchStore()
       : swtName === "tgs"
-        ? selectTgsSwitch
-        : selectTesSwitch
-  );
+        ? useTGSSwitchStore()
+        : useTESSwitchStore();
   const switchStatusE =
     swtName === "ess" ? essSwitch : swtName === "tgs" ? tgsSwitch : tesSwitch;
 

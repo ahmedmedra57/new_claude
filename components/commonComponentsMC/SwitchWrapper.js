@@ -6,6 +6,7 @@ import EssControlBox from "../ess/EssControlBox";
 import TesControlBox from "../tes/TesControlBox";
 import TgsControlBox from "../tgs/TgsControlBox";
 import SwitchDetailContainer from "./SwitchDetailContainer";
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 
 const SwitchWrapper = ({
   swtName,
@@ -17,13 +18,11 @@ const SwitchWrapper = ({
   deviceMac,
 }) => {
   // Global
-  const { essSwitch, tgsSwitch,flatTgsSwitch, tesSwitch,flatEssSwitch: flatSwitchStatus,flatTesSwitch } = useSelector(
-    swtName === "ess"
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch,flatTgsSwitch, tesSwitch,flatEssSwitch: flatSwitchStatus,flatTesSwitch } = swtName === "ess"
+      ? useESSSwitchStore()
       : swtName === "tgs"
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const switchStatus =
     swtName === "ess" ? flatSwitchStatus : swtName === "tgs" ? flatTgsSwitch : flatTesSwitch;

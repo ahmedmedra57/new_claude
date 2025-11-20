@@ -1,4 +1,5 @@
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
   ResponsiveContainer,
   BarChart,
   Bar,
@@ -23,13 +24,11 @@ const BarGraph = ({ swtName, graph, location, machine }) => {
   // true = data consumption || false = energy consumption
   const dataType = graph === 'data consumption vs time';
   
-  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-        ? selectTgsSwitch
-        : selectTesSwitch
-  );
+        ? useTGSSwitchStore()
+        : useTESSwitchStore();
   const swtStatus = swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
   const {
     graphDateData: { energyGasConsumptionGraphData, dataConsumptionGraphData, intervalUnit }

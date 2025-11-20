@@ -6,6 +6,7 @@ import SwitchNameButton from './SwitchNameButton';
 import SwitchNameRadioBox from './SwitchNameRadioBox';
 import { updateHeaterOfSSRService } from '../../services';
 import { useEffect } from 'react';
+import { useESSSwitchStore, useTESSwitchStore } from '../zustand-stores';
 
 const SwitchNameSelector = ({
   data,
@@ -16,9 +17,7 @@ const SwitchNameSelector = ({
   location,
   machine,
 }) => {
-  const { essSwitch, tesSwitch,flatEssSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess' ? selectEssSwitch : selectTesSwitch
-  );
+  const { essSwitch, tesSwitch,flatEssSwitch,flatTesSwitch } = swtName === 'ess' ? useESSSwitchStore() : useTESSwitchStore();
   const swtStatus = swtName === 'ess' ? flatEssSwitch : flatTesSwitch;
   const switchStatus = swtStatus[location][machine];
   const { switch_panels } = switchStatus;

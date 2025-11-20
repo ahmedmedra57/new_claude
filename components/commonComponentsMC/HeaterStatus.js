@@ -7,6 +7,7 @@ import ContainerLogin from '../adminPassword/ContainerLogin';
 
 
 import {
+import { useESSSwitchStore, useTESSwitchStore } from '../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentSpaceBetween,
@@ -30,9 +31,7 @@ const HeaterStatus = ({
   deviceMac,
 }) => {
   // global
-  const { essSwitch, flatTesSwitch,flatEssSwitch } = useSelector(
-    swtName === 'ess' ? selectEssSwitch : selectTesSwitch
-  );
+  const { essSwitch, flatTesSwitch,flatEssSwitch } = swtName === 'ess' ? useESSSwitchStore() : useTESSwitchStore();
   
   const switchData = swtName === 'ess' ? flatEssSwitch : flatTesSwitch;
  

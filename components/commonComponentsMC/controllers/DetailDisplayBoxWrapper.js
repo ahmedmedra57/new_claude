@@ -3,6 +3,7 @@ import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
 import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 import {
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceBetween,
   layerA180Deg,
@@ -18,13 +19,11 @@ import { convertCelsiusToFahrenheit } from '../../../helpers/helpers';
 const DetailDisplayBoxWrapper = ({ swtName, location, machine }) => {
   const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
-  const { essSwitch, tgsSwitch,flatTgsSwitch, tesSwitch,flatEssSwitch,flatTesSwitch } = useSelector(
-    swtName === 'ess'
-      ? selectEssSwitch
+  const { essSwitch, tgsSwitch,flatTgsSwitch, tesSwitch,flatEssSwitch,flatTesSwitch } = swtName === 'ess'
+      ? useESSSwitchStore()
       : swtName === 'tgs'
-      ? selectTgsSwitch
-      : selectTesSwitch
-  );
+      ? useTGSSwitchStore()
+      : useTESSwitchStore();
 
   const switchStatus = swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
 
