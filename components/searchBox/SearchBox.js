@@ -75,14 +75,12 @@ const SearchBox = ({ handleClose, isMobile }) => {
             dispatchOpenMachineFC({ location, machine: newEl, status: false });
         } else {
           Object.keys(switches[location][newEl]).forEach((newMachine) =>
-            dispatch(
-              dispatchOpenMachineFC({
+            // TODO: Call appropriate store.setOpenMachineController({
                 location,
                 specificLocation: newEl,
                 machine: newMachine,
                 status: false,
-              })
-            );
+              });
         }
       });
 

@@ -278,7 +278,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
     location,
     specificLocation,
     option,
-    dispatchFC,
+    actionCallback,
     swtSystem,
     btnState
   ) => {
@@ -302,7 +302,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
               dispatch(
                 dispatchFC({ location: subLocation, machine, state: option });
             } else {
-              dispatch(dispatchFC({ location: subLocation, machine });
+              actionCallback({ location: subLocation, machine });
             }
           });
         }
@@ -311,11 +311,11 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
       Object.keys(switchStatusE[location]).forEach((machine) => {
         machineIds.push(switchStatusE[location][machine].deviceMac);
         if (checkOption === 'instantHeatOn') {
-          dispatch(dispatchFC({ location, machine, temp: option, isF });
+          actionCallback({ location, machine, temp: option, isF });
         } else if (checkOption === 'fanOnly') {
-          dispatch(dispatchFC({ location, machine, state: option });
+          actionCallback({ location, machine, state: option });
         } else {
-          dispatch(dispatchFC({ location, machine });
+          actionCallback({ location, machine });
         }
       });
     }
@@ -368,8 +368,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             'instantHeatOn',
             location,
             specificLocation,
-            temp,
-            handleInstantHeatReady,
+            temp, (args) => useESSSwitchStore().setInstantHeatIsReady(args),
             swtName,
             true
           );
@@ -378,8 +377,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             'instantHeatOff',
             location,
             specificLocation,
-            null,
-            handleInstantHeatOff,
+            null, (args) => useESSSwitchStore().setInstantHeatOff(args),
             swtName
           );
         }
@@ -389,8 +387,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             'instantHeatOn',
             location,
             specificLocation,
-            temp,
-            tgsHandleInstantHeatIsReady,
+            temp, (args) => useTGSSwitchStore().setInstantHeatIsReady(args),
             swtName,
             true
           );
@@ -399,8 +396,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             'instantHeatOff',
             location,
             specificLocation,
-            null,
-            tgsHandleInstantHeatOff,
+            null, (args) => useTGSSwitchStore().setInstantHeatOff(args),
             swtName
           );
         }
@@ -410,8 +406,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             'instantHeatOn',
             location,
             specificLocation,
-            temp,
-            tesHandleInstantHeatIsReady,
+            temp, (args) => useTESSwitchStore().setInstantHeatIsReady(args),
             swtName,
             true
           );
@@ -420,8 +415,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             'instantHeatOff',
             location,
             specificLocation,
-            null,
-            tesHandleInstantHeatOff,
+            null, (args) => useTESSwitchStore().setInstantHeatOff(args),
             swtName
           );
         }
@@ -434,8 +428,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             false,
             location,
             specificLocation,
-            null,
-            handleSnowSensorOff,
+            null, (args) => useESSSwitchStore().setSnowSensorOff(args),
             swtName
           );
         } else {
@@ -455,8 +448,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             false,
             location,
             specificLocation,
-            null,
-            tgsHandleSnowSensorOff,
+            null, (args) => useTGSSwitchStore().setSnowSensorOff(args),
             swtName
           );
         } else {
@@ -476,8 +468,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
             false,
             location,
             specificLocation,
-            null,
-            tesHandleSnowSensorOff,
+            null, (args) => useTESSwitchStore().setSnowSensorOff(args),
             swtName
           );
         } else {
@@ -498,8 +489,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
           'fanOnly',
           location,
           specificLocation,
-          false,
-          tgsHandleFanOnly,
+          false, (args) => useTGSSwitchStore().setFanOnly(args),
           swtName
         );
       } else {
@@ -507,8 +497,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
           'fanOnly',
           location,
           specificLocation,
-          true,
-          tgsHandleFanOnly,
+          true, (args) => useTGSSwitchStore().setFanOnly(args),
           swtName,
           true
         );
