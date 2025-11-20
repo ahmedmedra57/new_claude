@@ -1,6 +1,5 @@
 import { useEffect, useState, memo } from 'react';
 import { useUnitsStore } from '../zustand-stores';
-import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
 

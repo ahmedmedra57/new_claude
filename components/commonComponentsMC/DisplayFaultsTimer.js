@@ -8,7 +8,6 @@ import {
 import { useState } from 'react';
 import { useFaultsStore } from '../zustand-stores';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { countdownTimer } from '../../helpers/helpers';
 
 const DisplayFaultsTimer = ({ swtName, location, machine }) => {

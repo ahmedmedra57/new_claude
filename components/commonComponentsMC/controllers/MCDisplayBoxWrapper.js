@@ -9,8 +9,6 @@ import {
   layerA90Deg,
 } from '../../styles/commonStyles';
 import DisplayBox from './DisplayBox';
-import { useSelector } from 'react-redux';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';

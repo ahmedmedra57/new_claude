@@ -14,7 +14,6 @@ import {
 } from '../../../styles/commonStyles';
 import { useState, useEffect, useCallback } from 'react';
 import SelectBox from './SelectBox';
-import { useSelector } from 'react-redux';
 import { selectDescription } from '../../../store/slices/ssrDescriptionSlice';
 import { matchSorter } from 'match-sorter';
 import { useDebounce } from '../../../../hooks';

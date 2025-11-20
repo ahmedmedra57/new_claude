@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { selectMC } from '../../store/slices/mCSlice';
 import { selectTelemetry } from '../../store/slices/telemetrySlice';

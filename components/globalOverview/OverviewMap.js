@@ -3,8 +3,6 @@ import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useTESSwi
 import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
 
 import { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
-
 import styled from 'styled-components';
 import { layerA180Deg } from '../styles/commonStyles';
 

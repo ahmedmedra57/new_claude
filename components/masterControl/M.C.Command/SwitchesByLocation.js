@@ -7,13 +7,11 @@ import {
   justifyContentSpaceBetween,
 } from '../../styles/commonStyles';
 import SingleSwitch from './SingleSwitch';
-import { useSelector } from 'react-redux';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
 import { selectMC } from '../../store/slices/mCSlice';
 import { selectMCCommand } from '../../store/slices/mCCommandSlice';
-import { selectLocations } from '../../store/slices/locationsSlice';
 import SpecificLocation from './SpecificLocation';
 import testData from '../../../test_data/testData';
 

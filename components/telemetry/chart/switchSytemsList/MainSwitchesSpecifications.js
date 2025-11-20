@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUserStore } from '../../../zustand-stores';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { selectEssDataConsumption } from '../../../store/slices/essDataConsumptionSlice';
 import { selectEssSwitch } from '../../../store/slices/essSwitchSlice';

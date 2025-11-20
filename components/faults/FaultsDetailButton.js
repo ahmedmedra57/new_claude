@@ -10,7 +10,6 @@ import {
   layerC,
 } from '../styles/commonStyles';
 import styled, { css } from 'styled-components';
-import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { useMemo } from 'react';
 import { countdownTimer } from '../../helpers/helpers';

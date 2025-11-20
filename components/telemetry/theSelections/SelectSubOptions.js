@@ -6,9 +6,6 @@ import {
   layerA,
 } from "../../styles/commonStyles";
 import { useMediaQuery } from "react-responsive";
-import { useSelector } from "react-redux";
-import { selectLocations } from "../../store/slices/locationsSlice";
-
 const SelectSubOptions = ({
   location,
   machine,

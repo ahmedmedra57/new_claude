@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { useState } from "react";
 import { useUserStore } from '../../zustand-stores';
 import { useTranslation } from 'react-i18next';
-import { selectInterfaceMode } from "../../store/slices/settings/interfaceModeSlice";
 import {
   flexBoxCenter,
   justifyContentFlexStart,
@@ -19,13 +18,10 @@ import {
   handleSelectingSettings,
   setResetSettingsOptions,
 } from "../../store/slices/settings/settingsOptionsSlice";
-import { selectEditCancelApplyButtons } from "../../store/slices/settings/editCancelApplyButtonsSlice";
 import ApplyButtonInvisibleDiv from "../messageBoxes/ApplyButtonInvisibleDiv";
 import { useMediaQuery } from "react-responsive";
 import { PERMISSIONS, SETTINGS_OPTIONS } from "../../../constants";
 import { useMemo } from "react";
-import { selectUserPermissions } from "../../store/slices/userSlice";
-
 function AllSettingsSelectOptions() {
   const { t } = useTranslation();
   const isMobile = useMediaQuery({ query: "(max-width:600px)" });

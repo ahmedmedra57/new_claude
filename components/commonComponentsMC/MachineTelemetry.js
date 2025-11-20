@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import essSwitchSlice, {
   selectEssSwitch,
 } from '../store/slices/essSwitchSlice';

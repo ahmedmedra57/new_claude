@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTelemetryStore, useUnitsStore } from '../../zustand-stores';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import styled, { css } from 'styled-components';
 import { selectTelemetry } from '../../store/slices/telemetrySlice';
@@ -13,7 +12,6 @@ import {
 } from '../../styles/commonStyles';
 import ViewPrintButton from './ViewPrintButton';
 import { exportChartToPdf } from '../../printPDF/exportChartToPdf';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { postAuditTrailLogService } from '../../../services';
 
 const ChartTotalHoursAndEnergy = ({ swtName, isDc }) => {

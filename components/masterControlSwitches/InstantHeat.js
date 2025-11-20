@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useUnitsStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';

@@ -24,7 +24,6 @@ import SelectByOption from "./SelectByOption";
 import SelectByLocation from "./SelectedByLocation";
 
 // import { DUMMY_SWITCHES, DUMMY_LOCATIONS } from '../DUMMY/DUMMY_LOCATION_INFO';
-import { useSelector } from "react-redux";
 import testData from "../../test_data/testData";
 
 const ATMainSelect = ({ handleSelection, setDisableSettings }) => {

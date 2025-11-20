@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
 import {
   borderABlue,
   flexBoxCenter,

@@ -1,5 +1,4 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useUserStore } from '../zustand-stores';
 

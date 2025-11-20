@@ -1,8 +1,6 @@
 import { createContext, useState } from 'react';
 import { useFaultsStore, useUserStore } from '../zustand-stores';
 import mainMessageBoxHandler from '../../helpers/ess-tgs-tes-mc/mainMessageBoxHandler';
-import { useSelector } from 'react-redux';
-
 export const EssTgsTesContext = createContext();
 
 const EssTgsTesProvider = ({ children }) => {

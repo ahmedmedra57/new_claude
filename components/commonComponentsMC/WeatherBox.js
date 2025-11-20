@@ -10,7 +10,6 @@ import {
   layerB,
 } from '../styles/commonStyles';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
 import { convertCelsiusToFahrenheit } from '../../helpers/helpers';
 
 const WeatherBox = ({

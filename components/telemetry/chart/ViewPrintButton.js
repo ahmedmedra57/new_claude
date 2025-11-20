@@ -5,10 +5,7 @@ import {
   layerB,
   layerDisabled180Deg,
 } from "../../styles/commonStyles";
-import { useSelector } from "react-redux";
 import { PERMISSIONS } from "../../../constants";
-import { selectUserPermissions } from "../../store/slices/userSlice";
-
 const ViewPrintButton = ({ onClickButton }) => {
   const { permissions } = useUserStore();
   const isDisabled = !permissions[PERMISSIONS.PRINT_TELEMETRY];

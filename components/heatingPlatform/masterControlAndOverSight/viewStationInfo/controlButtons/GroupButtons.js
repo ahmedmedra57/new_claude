@@ -9,7 +9,6 @@ import {
 } from '../../../../styles/commonStyles';
 
 import WeatherBox from '../../../../commonComponentsMC/WeatherBox';
-import { useSelector } from 'react-redux';
 import { selectLocations } from '../../../../store/slices/locationsSlice';
 import MessageBox from '../../../../userMessages/messageBox';
 import ContainerLogin from '../../../../adminPassword/ContainerLogin';

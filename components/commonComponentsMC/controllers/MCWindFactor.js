@@ -12,8 +12,6 @@ import {
   grayModeLayer,
   DisableButtonIndentTop,
 } from '../../styles/commonStyles';
-import { useSelector } from 'react-redux';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
 import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';

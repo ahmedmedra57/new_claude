@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { selectMCCommand } from "../../store/slices/mCCommandSlice";
 import {
@@ -17,8 +16,6 @@ import {
 import ApplyButton from "./ApplyButton";
 
 import ViewCommandsSelectBox from "./ViewCommandsSelectBox";
-import { selectUserInfo } from "../../store/slices/userSlice";
-
 function CommandSelectionsApplyButton({
   viewCommandTitle,
   buttonsTitle,

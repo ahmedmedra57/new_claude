@@ -16,22 +16,10 @@ import {
   layerC,
 } from "../../styles/commonStyles";
 import EditCancelApplyButtons from "../buttons/EditCancelApplyButtons";
-import {
-  handleSettingsDisplaySelectBox,
-  handleSettingsMultipleDisplaySelectBox,
-  selectForceCommandAndAdminSelect,
-} from "../../store/slices/settings/force&CommandAndAdminSelectSlice";
-import {
-  handleFCUnSelectIndividualMachine,
-  handleFCSelectIndividualMachine,
-  selectForceAndCommands,
-} from "../../store/slices/settings/forceAndCommandsSlice";
 import Header from "../Header";
 import useSelectLocationBox from "../useSelectLocation";
 import InvisibleDivForEditButton from "../messageBoxes/InvisibleDivForEditButton";
-import { selectEditCancelApplyButtons } from "../../store/slices/settings/editCancelApplyButtonsSlice";
 import SettingAppliedMessage from "../../masterControl/userMessages/SettingAppliedMessage";
-import { selectUserInfo } from "../../store/slices/userSlice";
 import { useMediaQuery } from "react-responsive";
 import TitleOfSelectedOption from "../TitleOfSelectedOption";
 import SelectFCSwitchMachineOptions from "./SelectFCSwitchMachineOptions";

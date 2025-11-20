@@ -9,8 +9,6 @@ import {
 } from "../../styles/commonStyles";
 import SelectSubOptions from "./SelectSubOptions";
 
-import { selectLocations } from "../../store/slices/locationsSlice";
-import { useSelector } from "react-redux";
 import SelectSpecificLocation from "./SelectSpecificLocation";
 
 const SelectIndividualOptions = ({

@@ -7,8 +7,6 @@ import {
   layerB,
 } from '../../styles/commonStyles';
 import SelectLocationsBox from '../SelectLocationsBox';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
-import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
 

@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { useSelector } from 'react-redux';
 import {
   borderABlue,
   borderC,
@@ -13,7 +12,7 @@ import {
   layerA180Deg,
   layerB,
 } from '../../styles/commonStyles';
-import { selectInterfaceMode } from '../../store/slices/settings/interfaceModeSlice';
+import { useInterfaceModeStore } from '../../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
 
 function ImperialMetricMeasurementReader({
@@ -27,8 +26,7 @@ function ImperialMetricMeasurementReader({
 
   const { title, temp, energy, measure, gas, backgroundColor } = value;
 
-  const interfaceModeState = useSelector(selectInterfaceMode);
-  const mode = interfaceModeState.InterfaceMode;
+  const { interfaceMode: mode } = useInterfaceModeStore();
 
   return (
     <>

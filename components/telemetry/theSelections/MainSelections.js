@@ -108,8 +108,6 @@ import {
   getTelemetryService,
 } from "../../../services";
 // import { sum } from 'lodash';
-import { selectUnits } from "../../store/slices/settings/unitsSlice";
-
 const MainSelections = ({
   selectedSystemTitle,
   setSelectedSystemTitle,

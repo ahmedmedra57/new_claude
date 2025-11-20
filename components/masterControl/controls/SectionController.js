@@ -20,7 +20,6 @@ import InstantHeat from '../controls/instantHeat/instantHeat';
 import OptionalConstantTemp from '../controls/optionalConstantTemp/OptionalConstantTemp';
 import SnowSensor from '../controls/snowSensor/SnowSensor';
 import WindFactor from '../controls/windFactor/WindFactor';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { selectMCCommand } from '../../store/slices/mCCommandSlice';
 import SnowSensorAndWindFactor from './snowSensorAndWindFactor/SnowSensorAndWindFactor';
 

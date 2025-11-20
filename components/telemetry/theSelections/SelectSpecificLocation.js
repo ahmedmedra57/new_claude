@@ -3,8 +3,6 @@ import { borderBlue, flexBoxCenter, layerA } from '../../styles/commonStyles';
 import { useState } from 'react';
 import { useLocationsStore } from '../../zustand-stores';
 import SelectSubOptions from './SelectSubOptions';
-import { useSelector } from 'react-redux';
-import { selectLocations } from '../../store/slices/locationsSlice';
 const SelectSpecificLocation = ({
   location,
   specificLocationIdx,

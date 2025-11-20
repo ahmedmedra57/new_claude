@@ -1,13 +1,11 @@
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
+import { useEditCancelApplyButtonsStore } from '../../zustand-stores';
 import Button from './Button';
 
 function EditCancelApplyButtons({ handleClick, sysIndex }) {
   const buttonsNames = ['edit', 'cancel', 'apply'];
 
-  const buttonsState = useSelector(selectEditCancelApplyButtons);
-  const { isEdit } = buttonsState;
+  const { isEdit } = useEditCancelApplyButtonsStore();
 
   return (
     <ContainerButtons>

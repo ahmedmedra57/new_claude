@@ -6,7 +6,6 @@ import {
   layerA180Deg,
   layerA90Deg,
 } from '../../styles/commonStyles';
-import { useSelector } from 'react-redux';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
 import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';

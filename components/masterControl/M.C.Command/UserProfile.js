@@ -8,8 +8,6 @@ import {
 } from "../../styles/commonStyles";
 import moment from "moment";
 import { useSelect } from "downshift";
-import { selectUserInfo } from "../../store/slices/userSlice";
-
 function UserProfile({
   nickName,
   honorificTitle,

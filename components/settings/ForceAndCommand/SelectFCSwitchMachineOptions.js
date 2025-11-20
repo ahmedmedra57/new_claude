@@ -9,7 +9,6 @@ import {
   layerBDark,
   scrollbarY,
 } from '../../styles/commonStyles';
-import { selectForceCommandAndAdminSelect } from '../../store/slices/settings/force&CommandAndAdminSelectSlice';
 import SelectIndividualOptions from '../../telemetry/theSelections/SelectIndividualOptions';
 import ClearApplyButton from './selectArts/ClearApplyButton';
 import { useMediaQuery } from 'react-responsive';

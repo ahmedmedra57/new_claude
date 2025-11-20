@@ -1,7 +1,6 @@
 import { sum } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { useTESSwitchStore } from '../../zustand-stores';
-import { useSelector } from "react-redux";
 import { selectEssSwitch } from "../../store/slices/essSwitchSlice";
 import { selectTgsSwitch } from "../../store/slices/tgsSwitchSlice";
 import { selectTesSwitch } from "../../store/slices/tesSwitchSlice";

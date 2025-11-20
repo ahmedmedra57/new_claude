@@ -11,10 +11,6 @@ import {
   layerA90Deg,
   layerB,
 } from '../../styles/commonStyles';
-import {
-  selectInterfaceMode,
-  setInterfaceMode,
-} from '../../store/slices/settings/interfaceModeSlice';
 import { useMediaQuery } from 'react-responsive';
 
 function Interface() {

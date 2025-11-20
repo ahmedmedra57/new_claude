@@ -1,6 +1,5 @@
 import { createContext, useState, useMemo } from 'react';
 import { useFaultsStore, useUserStore } from '../zustand-stores';
-import { useSelector } from 'react-redux';
 import { GROUPS_ACTIVE_TAPS, PERMISSIONS, tabsSrc } from '../../constants';
 
 export const GeneralContext = createContext();

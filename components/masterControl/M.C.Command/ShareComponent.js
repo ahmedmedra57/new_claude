@@ -8,14 +8,11 @@ import SelectedSystem from './SelectedSystem';
 import UserProfile from './UserProfile';
 import { selectedMachinesState } from '../../store/slices/selectedMachinesSlice';
 import { selectMC } from '../../store/slices/mCSlice';
-import { selectUserInfo } from '../../store/slices/userSlice';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useMCCommandStore, useMCStore, useUnitsStore, useUserStore } from '../../zustand-stores';
 import { getTitle } from '../../../helpers/helpers';
 import { getCommandNumberService } from '../../../services/auditTrail.service';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
-
 function ShareComponent({ selectedSwitches, setSelectedSwitches }) {
     // moment library
   const date = moment().format('DDMMYY');

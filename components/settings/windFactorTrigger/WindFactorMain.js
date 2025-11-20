@@ -3,8 +3,6 @@ import { useUserStore } from '../../zustand-stores';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
-import { selectWindFactor } from '../../store/slices/settings/windFactorSlice';
 import {
   flexBoxCenter,
   justifyContentSpaceAround,
@@ -17,10 +15,6 @@ import TitleOfSelectedOption from '../TitleOfSelectedOption';
 import WindFactor from './WindFactor';
 import { useMediaQuery } from 'react-responsive';
 import ContainerLogin from '../../adminPassword/ContainerLogin';
-import {
-  handleResetAccessAdministrator,
-  selectUserInfo,
-} from '../../store/slices/userSlice';
 import SettingConfirmCancelMessageBox from '../messageBoxes/SettingConfirmCancelMessageBox';
 
 function WindFactorMain({

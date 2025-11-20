@@ -17,7 +17,6 @@ import {
   messageBoxBackground,
 } from '../../styles/commonStyles';
 import moment from 'moment';
-import { selectUserInfo } from '../../store/slices/userSlice';
 import { getType } from '@reduxjs/toolkit';
 
 function ViewCommand() {

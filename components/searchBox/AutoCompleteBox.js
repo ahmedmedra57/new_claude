@@ -1,6 +1,5 @@
 import { useCallback, useMemo, memo } from 'react';
 import { useLocationsStore } from '../zustand-stores';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import {
   justifyContentFlexStart,

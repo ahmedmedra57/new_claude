@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import SettingConfirmedMessage from '../../masterControl/userMessages/SettingConfirmedMessage';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
 import {
   flexBoxCenter,
   justifyContentFlexEnd,

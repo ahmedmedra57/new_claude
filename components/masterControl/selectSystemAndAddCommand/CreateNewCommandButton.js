@@ -5,7 +5,6 @@ import {
   layerB,
   layerBDark,
 } from '../../styles/commonStyles';
-import { useSelector } from 'react-redux';
 import { selectMCCommand } from '../../store/slices/mCCommandSlice';
 
 function CreateNewCommandButton({ name, handleButton }) {

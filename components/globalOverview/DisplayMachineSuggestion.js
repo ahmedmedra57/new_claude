@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { ItemBackground } from '../styles/commonStyles';

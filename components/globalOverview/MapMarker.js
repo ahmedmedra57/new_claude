@@ -6,8 +6,6 @@ import {
   justifyContentSpaceBetween,
   layerA,
 } from '../styles/commonStyles';
-import { useSelector } from 'react-redux';
-
 const MapMarker = ({ location, handleZoom }) => {
   const locations = useLocationsStore();
   const { essSwitch } = useESSSwitchStore();

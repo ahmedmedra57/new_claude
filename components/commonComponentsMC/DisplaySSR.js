@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useUserStore } from '../zustand-stores';
-import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import {
   activeInput,

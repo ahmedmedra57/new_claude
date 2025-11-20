@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
 

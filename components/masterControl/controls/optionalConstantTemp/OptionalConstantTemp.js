@@ -16,7 +16,6 @@ import {
   layerBDisabled,
   readyTop180Deg,
 } from '../../../styles/commonStyles';
-import { useSelector } from 'react-redux';
 import { selectUnits } from '../../../store/slices/settings/unitsSlice';
 
 const OptionalConstantTemp = ({

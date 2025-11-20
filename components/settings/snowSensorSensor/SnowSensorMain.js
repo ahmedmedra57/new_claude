@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useEffect } from 'react';
 import { useUserStore } from '../../zustand-stores';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
   flexBoxCenter,
@@ -14,11 +13,8 @@ import {
 } from '../../styles/commonStyles';
 import TitleOfSelectedOption from '../TitleOfSelectedOption';
 import SnowSensor from './SnowSensor';
-import { selectSnowSensor } from '../../store/slices/settings/snowSensorSlice';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
 import InvisibleDivForEditButton from '../messageBoxes/InvisibleDivForEditButton';
-import { selectUserInfo } from '../../store/slices/userSlice';
 import { useMediaQuery } from 'react-responsive';
 import SettingConfirmCancelMessageBox from '../messageBoxes/SettingConfirmCancelMessageBox';
 

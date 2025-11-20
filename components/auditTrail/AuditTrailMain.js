@@ -15,7 +15,6 @@ import {
   getLocationAssignedUsersByDeviceIds,
 } from '../../helpers/helpers';
 import { getAuditTrailService } from '../../services/auditTrail.service';
-import { useSelector } from 'react-redux';
 import { useCheckControlPermsission } from '../../hooks';
 
 const AuditTrailMain = () => {

@@ -1,12 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useUserStore } from '../../zustand-stores';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
-import { selectUserInfo } from '../../store/slices/userSlice';
 import {
   alignItemsFlexStart,
   borderABlue,

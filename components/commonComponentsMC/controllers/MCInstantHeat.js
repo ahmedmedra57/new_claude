@@ -19,8 +19,6 @@ import {
   readyTop180Deg,
 } from '../../styles/commonStyles';
 import { leastIndex } from 'd3-array';
-import { useSelector } from 'react-redux';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { useState } from 'react';
 import { useUnitsStore } from '../../zustand-stores';
 import MessageBoxButton from '../../userMessages/MessageBoxButton';

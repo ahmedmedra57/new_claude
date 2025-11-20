@@ -1,5 +1,4 @@
 import moment from "moment";
-import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { getFaultsList } from "../../helpers/helpers";
 import {

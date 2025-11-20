@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useESSSwitchStore, useLocationsStore, useMCStore, useTGSSwitchStore } from '../../zustand-stores';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { selectMC } from '../../store/slices/mCSlice';
 import { selectedMachinesState } from '../../store/slices/selectedMachinesSlice';
@@ -12,7 +11,6 @@ import {
   justifyContentFlexStart,
   justifyContentSpaceBetween,
 } from '../../styles/commonStyles';
-import { selectLocations } from '../../store/slices/locationsSlice';
 import MessageButton from './MessageButton';
 import testData from '../../../test_data/testData';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';

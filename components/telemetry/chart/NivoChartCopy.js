@@ -10,7 +10,6 @@ import {
   layerADark,
   layerBDark,
 } from '../../styles/commonStyles';
-import { useSelector } from 'react-redux';
 import { selectTelemetry } from '../../store/slices/telemetrySlice';
 import { useState, useEffect, useCallback } from 'react';
 import { useESSSwitchStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUnitsStore } from '../../zustand-stores';
@@ -24,7 +23,6 @@ import {
   getSelectedDeviceIds,
   getStartAndEndTimestamps,
 } from '../../../helpers/helpers';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { getTelemetryService } from '../../../services';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';

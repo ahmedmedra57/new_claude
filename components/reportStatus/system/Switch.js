@@ -1,11 +1,9 @@
 import { memo } from "react";
 import { useTESSwitchStore, useUnitsStore } from '../../zustand-stores';
-import { useSelector } from "react-redux";
 import { selectEssSwitch } from "../../store/slices/essSwitchSlice";
 import { selectTgsSwitch } from "../../store/slices/tgsSwitchSlice";
 import { selectTesSwitch } from "../../store/slices/tesSwitchSlice";
 import styled, { css } from "styled-components";
-import { selectUnits } from "../../store/slices/settings/unitsSlice";
 import {
   alignItemsFlexStart,
   borderC,

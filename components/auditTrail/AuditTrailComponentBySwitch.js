@@ -31,7 +31,6 @@ import {
   getTESAuditTrailFaults,
   getTgsAuditTrailFaults,
 } from '../../helpers/helpers';
-import { useSelector } from 'react-redux';
 const AuditTrailComponentBySwitch = ({
   componentName,
   isReadyToRender,

@@ -14,15 +14,8 @@ import {
 } from '../../styles/commonStyles';
 import EditCancelApplyButtons from '../buttons/EditCancelApplyButtons';
 import TitleOfSelectedOption from '../TitleOfSelectedOption';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
-import {
-  handleResetButtons,
-  selectEditCancelApplyButtons,
-} from '../../store/slices/settings/editCancelApplyButtonsSlice';
 import InvisibleDivForEditButton from '../messageBoxes/InvisibleDivForEditButton';
 import { useMediaQuery } from 'react-responsive';
-import { selectUserInfo } from '../../store/slices/userSlice';
-
 const UnitsMain = ({
   handleClick,
   messageBoxContent,

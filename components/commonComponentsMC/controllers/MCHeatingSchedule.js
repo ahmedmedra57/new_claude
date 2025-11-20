@@ -18,8 +18,6 @@ import {
 
 import InputTempMessage from '../../userMessages/inputTempMessage';
 import MCScheduleCalender from './MCScheduleCalendar';
-import { useSelector } from 'react-redux';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { useMemo } from 'react';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';

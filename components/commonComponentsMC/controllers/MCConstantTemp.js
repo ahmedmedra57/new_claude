@@ -12,8 +12,6 @@ import {
   DisableButtonIndentTop,
   readyTop180Deg,
 } from "../../styles/commonStyles";
-import { selectUnits } from "../../store/slices/settings/unitsSlice";
-import { useSelector } from "react-redux";
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
 import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';

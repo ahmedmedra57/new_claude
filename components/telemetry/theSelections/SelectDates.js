@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useMCStore } from '../../zustand-stores';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 // import ScheduleCalendar from '../../masterControl/controls/heatingScheduler/ScheduleCalendar';

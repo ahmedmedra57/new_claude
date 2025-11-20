@@ -14,7 +14,6 @@ import {
 } from "../styles/commonStyles";
 
 import ButtonComponent from "./ButtonComponent";
-import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import {
   createCommandTitle,

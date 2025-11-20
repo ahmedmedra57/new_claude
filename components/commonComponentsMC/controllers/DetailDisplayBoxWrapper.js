@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectTesSwitch } from '../../store/slices/tesSwitchSlice';
@@ -12,7 +11,6 @@ import {
 } from '../../styles/commonStyles';
 
 import DisplayBox from './DisplayBox';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { useMemo } from 'react';
 import { useUnitsStore } from '../../zustand-stores';
 import { convertCelsiusToFahrenheit } from '../../../helpers/helpers';

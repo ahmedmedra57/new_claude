@@ -6,7 +6,6 @@ import {
   layerA,
 } from '../../../styles/commonStyles';
 import SelectSubOptions from './SelectSubOptions';
-import { useSelector } from 'react-redux';
 import { selectLocations } from '../../../store/slices/locationsSlice';
 
 const SelectSpecificLocationOptions = ({

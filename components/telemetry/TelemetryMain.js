@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTelemetryStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import TitleContainer from '../TitleContainer';

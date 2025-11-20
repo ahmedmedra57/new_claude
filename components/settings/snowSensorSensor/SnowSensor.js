@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import {
   borderABlue,
   borderADisabled,

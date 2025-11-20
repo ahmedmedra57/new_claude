@@ -12,7 +12,6 @@ import {
 } from "../styles/commonStyles";
 import { useMediaQuery } from "react-responsive";
 import { useViewport } from "use-viewport";
-import { useSelector } from "react-redux";
 import { useGetAllSSRsQueries, useGetThermocouplesQueries } from "../../hooks";
 import { useTranslation } from 'react-i18next';
 

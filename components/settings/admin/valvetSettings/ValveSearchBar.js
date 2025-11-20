@@ -15,7 +15,6 @@ import {
 } from "../../../styles/commonStyles";
 import DisplaySwitchSuggestion from "../../../telemetry/chart/switchSytemsList/DisplaySwitchSuggestion";
 import { useMediaQuery } from "react-responsive";
-import { useSelector } from "react-redux";
 import { selectLocations } from "../../../store/slices/locationsSlice";
 import {
   filteredSuggestionsHandler,

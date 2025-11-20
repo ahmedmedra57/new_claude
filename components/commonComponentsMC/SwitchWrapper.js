@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-
 import { flexBoxCenter } from "../styles/commonStyles";
 import styled, { css } from "styled-components";
 

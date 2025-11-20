@@ -14,7 +14,6 @@ import {
   layerB,
   layerBDark,
 } from '../../../styles/commonStyles';
-import { useSelector } from 'react-redux';
 import { selectUnits } from '../../../store/slices/settings/unitsSlice';
 import InputTempMessage from '../../../userMessages/inputTempMessage';
 import { selectedMachinesState } from '../../../store/slices/selectedMachinesSlice';

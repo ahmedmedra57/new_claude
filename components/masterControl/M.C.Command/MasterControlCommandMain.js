@@ -63,10 +63,8 @@ import {
 } from "../../store/slices/selectedMachinesSlice";
 import { useContext } from "react";
 import { MasterControlContext } from "../MaterControlContext";
-import { selectUserInfo } from "../../store/slices/userSlice";
 import { handleSetUnits } from "../../store/slices/settings/unitsSlice";
 import { readableTime } from "../../../helpers/helpers";
-import { selectLocations } from "../../store/slices/locationsSlice";
 import testData from "../../../test_data/testData";
 import {
   selectLocationsHandler,

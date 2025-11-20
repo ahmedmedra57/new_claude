@@ -12,8 +12,6 @@ import {
 import SaveButton from '../buttons/SaveButton';
 import SelectLocationsBox from '../SelectLocationsBox';
 import ActivateButton from '../buttons/ActivateButton';
-import { useSelector } from 'react-redux';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
 import { useState } from 'react';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
 

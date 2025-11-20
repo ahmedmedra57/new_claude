@@ -7,7 +7,6 @@ import {
   layerA,
 } from '../styles/commonStyles';
 import DisplayMachine from './DisplayMachine';
-import { useSelector } from 'react-redux';
 import testData from '../../test_data/testData';
 
 const DisplaySpecificLocation = ({

@@ -18,7 +18,6 @@ import {
 } from "../styles/commonStyles";
 import DisplayFaultsBoxWrapper from "./controllers/DisplayFaultsBoxWrapper";
 import DetailDisplayBoxWrapper from "./controllers/DetailDisplayBoxWrapper";
-import { useSelector } from "react-redux";
 import { postAuditTrailLogService } from "../../services";
 import InputTempMessage from "../userMessages/inputTempMessage";
 

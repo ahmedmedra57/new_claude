@@ -24,21 +24,11 @@ import {
   handleAdminSelectIndividualMachine,
   handleAdminUnSelectIndividualMachine,
 } from '../../store/slices/settings/admin/adminSlice';
-import {
-  handleSettingsDisplaySelectBox,
-  handleSettingsMultipleDisplaySelectBox,
-  selectForceCommandAndAdminSelect,
-} from '../../store/slices/settings/force&CommandAndAdminSelectSlice';
 import { selectAdmin } from '../../store/slices/settings/admin/adminSlice';
 import ValveSettings from './valvetSettings/ValveSettings';
 import SelectGasType from './SelectGasType';
 import InvisibleDivForEditButton from '../messageBoxes/InvisibleDivForEditButton';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
-import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
-import {
-  handleResetAccessAdministrator,
-  selectUserInfo,
-} from '../../store/slices/userSlice';
 import ContainerLogin from '../../adminPassword/ContainerLogin';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect } from 'react';

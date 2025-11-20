@@ -14,7 +14,6 @@ import {
 } from '../styles/commonStyles';
 
 import ButtonComponent from './ButtonComponent';
-import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { postAuditTrailLogService } from '../../services/auditTrail.service';
 const FaultHistoryComponent = ({ data,searchQuery,componentName }) => {

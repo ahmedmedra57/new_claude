@@ -13,7 +13,6 @@ import { useUnitsStore } from '../../../zustand-stores';
 
 import SchedulerContainer from './SchedulerContainer';
 import ScheduleCalendar from './ScheduleCalendar';
-import { useSelector } from 'react-redux';
 import { selectUnits } from '../../../store/slices/settings/unitsSlice';
 
 const HeatingScheduler = ({

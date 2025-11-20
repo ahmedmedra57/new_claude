@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useUnitsStore, useUserStore } from '../zustand-stores';
-import { useSelector } from 'react-redux';
-
 import {
   activeLayer180Deg,
   alignItemsFlexEnd,

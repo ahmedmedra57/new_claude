@@ -12,7 +12,6 @@ import {
   layerBDark,
   layerCLighter,
 } from "../styles/commonStyles";
-import { useSelector } from "react-redux";
 import DisplayMachine from "./DisplayMachine";
 import DisplaySpecificLocation from "./DisplaySpecificLocation";
 import { all } from "axios";

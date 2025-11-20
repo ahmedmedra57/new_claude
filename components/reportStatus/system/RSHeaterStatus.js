@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import DisplaySSR from '../../commonComponentsMC/DisplaySSR';
