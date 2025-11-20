@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components';
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useFaultsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
   flexBoxCenter,
   justifyContentSpaceBetween,
   layerA0Deg,
   layerA180Deg,
 } from '../styles/commonStyles';
 import { useState } from 'react';
-import { useFaultsStore } from '../zustand-stores';
+
 import { useEffect } from 'react';
 import { countdownTimer } from '../../helpers/helpers';
 

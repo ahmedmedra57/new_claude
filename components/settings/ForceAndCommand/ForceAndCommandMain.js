@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
-import { useUserStore } from '../../zustand-stores';
+import { import { useEditCancelApplyButtonsStore, useForceAndCommandsStore, useForceCommandAndAdminSelectStore, useSettingsOptionsStore, useUserStore } from '../zustand-stores';
+
 import SelectAts from "./selectArts/SelectAts";
 import SelectTc from "./selectTc/SelectTc";
-import {
-import { useEditCancelApplyButtonsStore, useForceAndCommandsStore } from '../../zustand-stores';
-import { useForceCommandAndAdminSelectStore } from '../../zustand-stores';
+
+
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,

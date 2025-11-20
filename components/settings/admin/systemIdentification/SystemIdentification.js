@@ -2,8 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { getAllAdminHeatersService } from '../../../../services';
-import {
-import { useSSRDescriptionStore, useSysIdentificationStore } from '../../../zustand-stores';
+import { import { useSSRDescriptionStore, useAdminStore, useMCStore, useSysIdentificationStore } from '../zustand-stores';
   getSSRsRatingListService,
   getSSRsSwitchSizesService,
   getZonesInfoForSystemIdentificationService,

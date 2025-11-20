@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useUserStore } from '../../zustand-stores';
+import { import { useEditCancelApplyButtonsStore, useAdminStore, useUserStore, useWindFactorStore } from '../zustand-stores';
+
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
-import {
-import { useEditCancelApplyButtonsStore, useWindFactorStore } from '../../zustand-stores';
+
   flexBoxCenter,
   justifyContentSpaceAround,
   layerA,

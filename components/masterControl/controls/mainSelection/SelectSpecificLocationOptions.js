@@ -1,3 +1,4 @@
+import { useLocationsStore } from '../zustand-stores';
 import styled from 'styled-components';
 import {
   borderABlue,

@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { useUserStore } from '../../zustand-stores';
+import { import { useEditCancelApplyButtonsStore, useUserStore } from '../../zustand-stores';
+
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
-import {
-import { useEditCancelApplyButtonsStore } from '../../zustand-stores';
+
   alignItemsFlexStart,
   borderABlue,
   flexBoxCenter,

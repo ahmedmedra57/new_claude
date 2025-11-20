@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import { useEffect } from 'react';
-import { useUserStore } from '../../zustand-stores';
+import { import { useEditCancelApplyButtonsStore, useSnowSensorStore, useUserStore } from '../../zustand-stores';
+
 import { useTranslation } from 'react-i18next';
-import {
-import { useEditCancelApplyButtonsStore, useSnowSensorStore } from '../../zustand-stores';
+
   flexBoxCenter,
   justifyContentFlexStart,
   justifyContentSpaceAround,

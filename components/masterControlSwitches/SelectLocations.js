@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useMasterControlBySwitchSelectStore, useMasterControlSelectByLocationStore } from '../zustand-stores';
-import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useESSSwitchStore, useLocationsStore, useMasterControlBySwitchSelectStore, useMasterControlSelectByLocationStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
+
 import { useMediaQuery } from "react-responsive";
 
 
@@ -8,8 +9,7 @@ import { useMediaQuery } from "react-responsive";
 import styled, { css } from "styled-components";
 
 import SelectMachineItems from "./SelectMachineItems";
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentSpaceBetween,

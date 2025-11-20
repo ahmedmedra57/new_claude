@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useMCCommandStore, useMCStore, useUnitsStore } from '../../zustand-stores';
+import { useESSSwitchStore, useMCCommandStore, useMCStore, useSelectedMachinesStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+
 import selectedMachinesSlice, {
-import { useSelectedMachinesStore } from '../zustand-stores';
+
   AddScheduleHandlerTempo,
   constantHeatHandlerTempo,
   fanOnlyHandlerTempo,

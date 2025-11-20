@@ -2,8 +2,7 @@ import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Button from '../buttons/Button';
 import { useState } from 'react';
-import {
-import { useInterfaceModeStore } from '../../zustand-stores';
+import { import { useInterfaceModeStore, useAppStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentSpaceAround,

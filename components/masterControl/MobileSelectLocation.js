@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useESSSwitchStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+import { import { useMobileMasterControlStore, useESSSwitchStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
 import styled, { css } from 'styled-components';
-import {
-import { useMobileMasterControlStore } from '../zustand-stores';
-import { useMasterControlSelectStore } from '../zustand-stores';
+
+
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentFlexStart,

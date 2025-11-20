@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocationsStore, useMCIsExpandedStore, useUnitsStore, useUserStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useLocationsStore, useMCIsExpandedStore, useMCStore, useMobileSelectProgramStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
+
 import { useMediaQuery } from 'react-responsive';
 import useNavigationState from '../../hooks/useNavigationState';
 import LeftPanelNavigation from './LeftPanelNavigation';
 import SwitchDetailsPanel from './SwitchDetailsPanel';
-import { useMobileSelectProgramStore } from '../zustand-stores';
+
 
 
 
 
 import styled, { css } from 'styled-components';
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentSpaceBetween,

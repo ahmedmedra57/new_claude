@@ -1,8 +1,8 @@
 import { memo } from "react";
-import { useTESSwitchStore, useUnitsStore } from '../../zustand-stores';
+import { import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../../zustand-stores';
+
 import styled, { css } from "styled-components";
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
+
   alignItemsFlexStart,
   borderC,
   borderDisabled,

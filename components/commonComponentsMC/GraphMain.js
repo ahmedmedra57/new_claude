@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocationsStore } from '../zustand-stores';
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {

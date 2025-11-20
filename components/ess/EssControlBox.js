@@ -21,7 +21,7 @@ import MCInstantHeat from '../commonComponentsMC/controllers/MCInstantHeat';
 import MCSnowSensor from '../commonComponentsMC/controllers/MCSnowSensor';
 import MCWindFactor from '../commonComponentsMC/controllers/MCWindFactor';
 import { useEffect, useState, useMemo } from 'react';
-import { useESSSwitchStore, useUserStore } from '../zustand-stores';
+import { useESSSwitchStore, useMCStore, useUserStore } from '../zustand-stores';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import MachineTelemetry from '../commonComponentsMC/MachineTelemetry';
 import HeaterStatus from '../commonComponentsMC/HeaterStatus';

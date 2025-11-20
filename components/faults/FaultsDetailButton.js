@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useFaultsStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useFaultsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
+
   flexBoxCenter,
   layerA180Deg,
   layerADisabled180Deg,

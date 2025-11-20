@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useFaultsStore } from '../zustand-stores';
+import { useFaultsStore, useMCCommandStore, useSettingsOptionsStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 import {

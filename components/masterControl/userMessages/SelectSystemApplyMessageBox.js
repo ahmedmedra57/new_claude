@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useESSSwitchStore, useLocationsStore, useMCStore, useTGSSwitchStore } from '../../zustand-stores';
+import { import { useSelectedMachinesStore, useESSSwitchStore, useLocationsStore, useMCStore, useTGSSwitchStore } from '../../zustand-stores';
+
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import {
-import { useSelectedMachinesStore } from '../zustand-stores';
+
   alignItemsFlexStart,
   flexBoxCenter,
   justifyContentFlexEnd,

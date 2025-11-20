@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { useTranslation } from 'react-i18next';
-import {
-import { useESSDataConsumptionStore, useHPDataConsumptionStore, useHPElectricSwitchStore, useHPGasSwitchStore, useTESDataConsumptionStore, useTGSDataConsumptionStore, useTelemetryChartDataStore } from '../zustand-stores';
-import { useMasterControlSelectStore } from '../zustand-stores';
+import { import { useESSDataConsumptionStore, useESSSwitchStore, useHPDataConsumptionStore, useHPElectricSwitchStore, useHPGasSwitchStore, useMCStore, useMasterControlSelectStore, useTESDataConsumptionStore, useTESSwitchStore, useTGSDataConsumptionStore, useTGSSwitchStore, useTelemetryChartDataStore, useTelemetryStore, useUnitsStore } from '../zustand-stores';
+
+
   flexBoxCenter,
   justifyContentSpaceEvenly,
   layerA180Deg,
@@ -14,7 +14,7 @@ import SelectSystem from "./SelectSystem";
 import SelectDates from "./SelectDates";
 import SelectSwitches from "./SelectSwitches";
 import { useCallback, useState } from "react";
-import { useESSSwitchStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../../zustand-stores';
+
 import {
   essSpecificLocationUnselectMachinesHandler,
   handleUnSelectIndividualMachine,

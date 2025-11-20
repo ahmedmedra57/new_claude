@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { useMCCommandStore, useMCStore, useMasterControlSelectStore } from '../../../zustand-stores';
-import styled, { css } from 'styled-components';
-import { useSelectedMachinesStore } from '../zustand-stores';
+import { import { useMCStore, useMCCommandStore, useMCStore, useMasterControlSelectStore, useSelectedMachinesStore } from '../../../zustand-stores';
 
-import {
-import { useMCStore } from '../../zustand-stores';
+import styled, { css } from 'styled-components';
+
+
+
   handleSelectAController,
   selectedMachinesState,
 

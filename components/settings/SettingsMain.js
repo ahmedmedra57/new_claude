@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
-import {
-import { useForceAndCommandsStore, useSettingsOptionsStore, useSnowSensorStore, useWindFactorStore } from '../../zustand-stores';
-import { useAdminStore, useSSRDescriptionStore, useSysIdentificationStore } from '../../zustand-stores';
-import { useEditCancelApplyButtonsStore, useSettingsOptionsStore, useUnitsStore, useUserStore } from '../../zustand-stores';
+import { import { useForceAndCommandsStore, useAdminStore, useESSSwitchStore, useEditCancelApplyButtonsStore, useMCStore, useSSRDescriptionStore, useSettingsOptionsStore, useSnowSensorStore, useSysIdentificationStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore, useUserStore, useWindFactorStore } from '../zustand-stores';
+
+
+
   alignItemsFlexStart,
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -20,7 +20,7 @@ import UnitsMain from './units/UnitsMain';
 import WindFactorMain from './windFactorTrigger/WindFactorMain';
 import SnowSensorMain from './snowSensorSensor/SnowSensorMain';
 import { useState } from 'react';
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+
 import { useFileUpload } from 'react-use-file-upload/dist/lib/useFileUpload';
 import axios from 'axios';
 import { useRef } from 'react';

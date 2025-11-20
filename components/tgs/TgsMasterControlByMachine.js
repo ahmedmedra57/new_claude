@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useTGSSwitchStore } from '../zustand-stores';
+import { useTGSSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
+
 
 import styled, { css } from 'styled-components';
 
@@ -27,7 +28,7 @@ import {
 
 import SwitchWrapper from '../commonComponentsMC/SwitchWrapper';
 import TgsControlBox from './TgsControlBox';
-import { useUnitsStore, useUserStore } from '../zustand-stores';
+
 import { convertCelsiusToFahrenheit } from '../../helpers/helpers';
 import {
   useGetGraphQueries,

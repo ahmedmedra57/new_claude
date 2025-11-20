@@ -1,5 +1,6 @@
 import { useEffect, useState , useMemo} from 'react';
-import { useTGSSwitchStore } from '../zustand-stores';
+import { useTGSSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
+
 
 import styled, { css } from 'styled-components';
 import {
@@ -23,7 +24,7 @@ import MCWindFactor from '../commonComponentsMC/controllers/MCWindFactor';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import MCFanOnly from '../commonComponentsMC/controllers/MCFanOnly';
 import MachineTelemetry from '../commonComponentsMC/MachineTelemetry';
-import { useUnitsStore, useUserStore } from '../zustand-stores';
+
 
 import {
   convertCelsiusToFahrenheit,

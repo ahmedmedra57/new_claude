@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import {
-import { useMCStore } from '../../zustand-stores';
+import { import { useMCStore, useUnitsStore } from '../../zustand-stores';
+
   MC_SELECTED_READY,
   flexBoxCenter,
   justifyContentSpaceBetween,
@@ -10,7 +10,7 @@ import { useMCStore } from '../../zustand-stores';
 } from '../../../styles/commonStyles';
 
 import { useEffect, useState } from 'react';
-import { useUnitsStore } from '../../../zustand-stores';
+
 
 import SchedulerContainer from './SchedulerContainer';
 import ScheduleCalendar from './ScheduleCalendar';

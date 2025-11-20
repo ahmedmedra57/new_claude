@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
-import { useUserStore } from '../../zustand-stores';
+import { import { useEditCancelApplyButtonsStore, useInterfaceModeStore, useSettingsOptionsStore, useUserStore } from '../../zustand-stores';
+
 import { useTranslation } from 'react-i18next';
-import {
-import { useEditCancelApplyButtonsStore, useInterfaceModeStore } from '../../zustand-stores';
-import { useSettingsOptionsStore } from '../../zustand-stores';
+
+
   flexBoxCenter,
   justifyContentFlexStart,
   justifyContentSpaceEvenly,

@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
-import { useLocationsStore } from '../../../zustand-stores';
+import { import { useEditCancelApplyButtonsStore, useAdminStore, useLocationsStore, useSettingsOptionsStore } from '../zustand-stores';
+
 import ValveConfirmButton from "./ValveConfirmButton";
-import {
-import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
-import { useAdminStore } from '../../../zustand-stores';
+
+
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,

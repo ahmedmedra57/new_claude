@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useFaultsStore } from '../zustand-stores';
+import { useFaultsStore, useSettingsOptionsStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   flexBoxCenter,

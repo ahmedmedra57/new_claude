@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useUnitsStore } from '../../../zustand-stores';
+import { import { useSelectedMachinesStore, useUnitsStore } from '../../../zustand-stores';
+
 import styled, { css } from 'styled-components';
-import {
-import { useSelectedMachinesStore } from '../zustand-stores';
+
   activeInput,
   activeLayer180Deg,
   flexBoxCenter,

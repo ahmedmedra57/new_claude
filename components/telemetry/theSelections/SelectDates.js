@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useMCStore } from '../../zustand-stores';
+import { useMCStore, useSelectedMachinesStore } from '../../zustand-stores';
+
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { useSelectedMachinesStore } from '../zustand-stores';
+
 // import ScheduleCalendar from '../../masterControl/controls/heatingScheduler/ScheduleCalendar';
 import { flexBoxCenter, layerA180Deg } from '../../styles/commonStyles';
 import SchedulerDisplay from './SchedulerDisplay';

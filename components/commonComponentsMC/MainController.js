@@ -1,10 +1,10 @@
 import { useEffect, useState, memo } from 'react';
-import { useUnitsStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
 
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentFlexStart,

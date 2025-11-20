@@ -1,3 +1,4 @@
+import { useTelemetryStore } from '../zustand-stores';
 import styled, { css } from "styled-components";
 import Button from "./Button";
 import DisplaySwitchSuggestion from "./DisplaySwitchSuggestion";

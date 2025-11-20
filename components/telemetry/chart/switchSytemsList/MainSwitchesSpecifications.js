@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
-import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUserStore } from '../../../zustand-stores';
+import { import { useESSDataConsumptionStore, useESSSwitchStore, useHPDataConsumptionStore, useHPElectricSwitchStore, useHPGasSwitchStore, useLocationsStore, useTESDataConsumptionStore, useTESSwitchStore, useTGSDataConsumptionStore, useTGSSwitchStore, useTelemetryStore, useUserStore } from '../../../zustand-stores';
+
 import styled, { css } from 'styled-components';
-import {
-import { useESSDataConsumptionStore, useHPDataConsumptionStore, useHPElectricSwitchStore, useHPGasSwitchStore, useTESDataConsumptionStore, useTGSDataConsumptionStore } from '../zustand-stores';
+
   alignItemsFlexStart,
   flexBoxCenter,
   layerA90Deg,

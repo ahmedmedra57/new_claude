@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
+import { import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../../zustand-stores';
+
   flexBoxCenter,
   justifyContentSpaceBetween,
   layerA180Deg,
@@ -10,7 +10,7 @@ import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../z
 
 import DisplayBox from './DisplayBox';
 import { useMemo } from 'react';
-import { useUnitsStore } from '../../zustand-stores';
+
 import { convertCelsiusToFahrenheit } from '../../../helpers/helpers';
 
 const DetailDisplayBoxWrapper = ({ swtName, location, machine }) => {

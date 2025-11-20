@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useGlobalOverviewStore } from '../zustand-stores';
+import { useGlobalOverviewStore, useMasterControlSelectStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 

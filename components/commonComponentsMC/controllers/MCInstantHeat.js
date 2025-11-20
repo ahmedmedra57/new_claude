@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
+import { import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../../zustand-stores';
+
   activeInput,
   activeLayer180Deg,
   flexBoxCenter,
@@ -21,7 +21,7 @@ import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../../z
 } from '../../styles/commonStyles';
 import { leastIndex } from 'd3-array';
 import { useState } from 'react';
-import { useUnitsStore } from '../../zustand-stores';
+
 import MessageBoxButton from '../../userMessages/MessageBoxButton';
 import InputTempMessage from '../../userMessages/inputTempMessage';
 

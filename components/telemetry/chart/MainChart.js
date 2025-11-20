@@ -1,3 +1,4 @@
+import { useMCStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import { flexBoxCenter, layerA180Deg } from '../../styles/commonStyles';
 import ChartTotalHoursAndEnergy from './ChartTotalHoursAndEnergy';

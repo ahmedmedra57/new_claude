@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import { useContext, useState, memo } from 'react';
-import { useLocationsStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
 import styled, { css } from 'styled-components';
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
   alignItemsFlexStart,
   flexBoxCenter,
   flexDirectionColumn,

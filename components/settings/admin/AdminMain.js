@@ -1,14 +1,14 @@
 import styled, { css } from 'styled-components';
 import { useState } from 'react';
-import { useUserStore } from '../../zustand-stores';
+import { import { useEditCancelApplyButtonsStore, useAdminStore, useForceCommandAndAdminSelectStore, useSettingsOptionsStore, useUserStore } from '../zustand-stores';
+
 import Thermocouple from './Thermocouple';
 import ForceGasElectricSystem from './ForceGasElectricSystem';
 import AddElementToBank from './AddElementToBank';
 import SystemIdentification from './systemIdentification/SystemIdentification';
-import {
-import { useEditCancelApplyButtonsStore } from '../../../zustand-stores';
-import { useAdminStore } from '../../../zustand-stores';
-import { useForceCommandAndAdminSelectStore } from '../../../zustand-stores';
+
+
+
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,

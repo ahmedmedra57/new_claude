@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useESSSwitchStore, useMCCommandStore, useMCStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
+import { useESSSwitchStore, useMCCommandStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
+
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { flexDirectionColumn, layerADark } from '../styles/commonStyles';
@@ -12,7 +13,7 @@ import { getAuditTrailService } from '../../services';
 import moment from 'moment';
 import SelectSystemMessage from './userMessages/SelectSystemMessage';
 
-import { useMCCommandStore, useMasterControlSelectStore } from '../zustand-stores';
+
 const MasterControlMain = () => {
   const { resetAllSelect } = useMasterControlSelectStore();
   const { t } = useTranslation();

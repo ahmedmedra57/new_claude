@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useFaultsStore } from '../zustand-stores';
+import { useFaultsStore, useMCStore, useSettingsOptionsStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import { updateDeviceThermocoupleService } from '../../services/faults.service';
 

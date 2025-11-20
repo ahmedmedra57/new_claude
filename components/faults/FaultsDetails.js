@@ -1,8 +1,7 @@
 import moment from 'moment';
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
-import {
-import { useMCCommandStore, useSettingsOptionsStore } from '../zustand-stores';
+import { import { useMCCommandStore, useFaultsStore, useLocationsStore, useSettingsOptionsStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentSpaceBetween,
 } from '../styles/commonStyles';

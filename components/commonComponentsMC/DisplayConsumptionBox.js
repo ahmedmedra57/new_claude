@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentSpaceBetween,
@@ -8,7 +8,7 @@ import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zust
   layerA180Deg,
 } from '../styles/commonStyles';
 import { useMemo } from 'react';
-import { useUnitsStore } from '../zustand-stores';
+
 import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
 
 const DisplayConsumptionBox = ({ swtName, location, machine }) => {

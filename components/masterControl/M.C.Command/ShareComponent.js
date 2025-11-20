@@ -1,5 +1,5 @@
-import {
-import { useSelectedMachinesStore } from '../zustand-stores';
+import { import { useSelectedMachinesStore, useMCCommandStore, useMCStore, useUnitsStore, useUserStore } from '../zustand-stores';
+
   handleCommandNumber,
   selectMCCommand,
 import AllSwitches from './AllSwitches';
@@ -8,7 +8,7 @@ import SelectedSystem from './SelectedSystem';
 import UserProfile from './UserProfile';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useMCCommandStore, useMCStore, useUnitsStore, useUserStore } from '../../zustand-stores';
+
 import { getTitle } from '../../../helpers/helpers';
 import { getCommandNumberService } from '../../../services/auditTrail.service';
 function ShareComponent({ selectedSwitches, setSelectedSwitches }) {

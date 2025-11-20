@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import {
-import { useForceCommandAndAdminSelectStore } from '../../zustand-stores';
+import { import { useForceCommandAndAdminSelectStore, useSettingsOptionsStore } from '../zustand-stores';
   flexBoxCenter,
   justifyContentFlexEnd,
   justifyContentFlexStart,

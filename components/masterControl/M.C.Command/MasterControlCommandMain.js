@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useUserStore } from '../../zustand-stores';
+import { import { useMCCommandStore, useESSSwitchStore, useLocationsStore, useMCCommandStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore, useUserStore } from '../../zustand-stores';
+
 import styled, { css } from "styled-components";
-import {
-import { useMCCommandStore, useMCStore, useMasterControlSelectStore, useUnitsStore } from '../zustand-stores';
+
   handleAddLocations,
   handleAddMachines,
   handleAddSpecificLocations,

@@ -1,5 +1,5 @@
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+
   ResponsiveContainer,
   LineChart,
   Line,
@@ -14,7 +14,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { flexBoxCenter } from '../styles/commonStyles';
 import { useMemo } from 'react';
-import { useUnitsStore } from '../zustand-stores';
+
 import { convertCelsiusToFahrenheit, formatDateTooltip, formatDateXAxis } from '../../helpers/helpers';
 
 const LineGraph = ({ swtName, location, machine, realTime }) => {

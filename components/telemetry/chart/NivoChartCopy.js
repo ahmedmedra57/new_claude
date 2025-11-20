@@ -2,8 +2,8 @@
 // install (please make sure versions match peerDependencies)
 import { ResponsiveBar } from '@nivo/bar';
 import styled, { css } from 'styled-components';
-import {
-import { useTelemetryChartDataStore } from '../zustand-stores';
+import { import { useTelemetryChartDataStore, useESSSwitchStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUnitsStore } from '../zustand-stores';
+
   flexBoxCenter,
   justifyContentFlexEnd,
   scrollbarX,
@@ -12,7 +12,7 @@ import { useTelemetryChartDataStore } from '../zustand-stores';
   layerBDark,
 } from '../../styles/commonStyles';
 import { useState, useEffect, useCallback } from 'react';
-import { useESSSwitchStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUnitsStore } from '../../zustand-stores';
+
 
 import moment from 'moment';
 import {

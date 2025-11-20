@@ -5,7 +5,8 @@ import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
 
 import SSRInfoContainer from './SSRInfoContainer';
-import { useESSSwitchStore, useTESSwitchStore } from '../zustand-stores';
+import { useESSSwitchStore, useTESSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
+
 // import SwitchNameSelector from './SwitchNameSelector';
 import SSRToggleSWitch from './SSRToggleSwitch';
 import SSRSelect from './SSRSelect';
@@ -18,7 +19,7 @@ import {
 } from '../styles/commonStyles';
 import SSRInfoCommonContainer from './SSRInfoCommonCopntainer';
 import { useState } from 'react';
-import { useUnitsStore, useUserStore } from '../zustand-stores';
+
 import { useEffect } from 'react';
 import {
   updateBlowerSettingService,

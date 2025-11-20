@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { justifyContentSpaceBetween, layerA } from '../styles/commonStyles';
 import { useMemo } from 'react';
-import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useMCStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+
 import isNumber from 'lodash/isNumber';
 import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
 import testData from '../../test_data/testData';
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+
 
 const IndividualMachine = ({
   location,

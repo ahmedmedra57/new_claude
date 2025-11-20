@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useMCIsExpandedStore, useTESSwitchStore, useTGSSwitchStore, useUserStore } from '../zustand-stores';
+import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useMCIsExpandedStore, useMCStore, useTESSwitchStore, useTGSSwitchStore, useUserStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {

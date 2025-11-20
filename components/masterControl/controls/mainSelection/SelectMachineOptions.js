@@ -1,9 +1,9 @@
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
-import { useESSSwitchStore, useMasterControlSelectStore } from '../../../zustand-stores';
+import { import { useMasterControlSelectStore, useESSSwitchStore, useMasterControlSelectStore } from '../../../zustand-stores';
+
 import styled, { css } from 'styled-components';
-import {
-import { useMasterControlSelectStore } from '../../zustand-stores';
+
   handleSelectIndividualMachine,
   handleUnSelectIndividualMachine,
 

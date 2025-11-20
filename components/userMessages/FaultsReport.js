@@ -1,3 +1,4 @@
+import { useFaultsStore, useLocationsStore } from '../zustand-stores';
 import moment from "moment";
 import styled, { css } from "styled-components";
 import { getFaultsList } from "../../helpers/helpers";

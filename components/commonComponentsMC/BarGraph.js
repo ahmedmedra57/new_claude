@@ -1,5 +1,5 @@
-import {
-import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
+import { import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+
   ResponsiveContainer,
   BarChart,
   Bar,
@@ -13,7 +13,7 @@ import moment from 'moment';
 import { flexBoxCenter } from '../styles/commonStyles';
 import styled from 'styled-components';
 import { useMemo } from 'react';
-import { useUnitsStore } from '../zustand-stores';
+
 import {
   formatDateTooltip,
   formatDateXAxis,

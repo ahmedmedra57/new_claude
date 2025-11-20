@@ -4,8 +4,9 @@ import TitleContainer from '../TitleContainer';
 import EachLocationReportStatus from './EachLocationReportStatus';
 import { useEffect } from 'react';
 import { useESSSwitchStore, useReportStatusStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
+
 import { useGetAllSSRsQueries, useGetThermocouplesQueries } from '../../hooks';
-import { useReportStatusStore } from '../../zustand-stores';
+
 
 const ReportStatusMain = () => {
   // const [isHover, setIsHover] = useState([]);
