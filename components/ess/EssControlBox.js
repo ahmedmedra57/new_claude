@@ -130,6 +130,10 @@ const EssControlBox = ({
     messageTitle,
     showMessage,
     closeMessageBox,
+    setOpenMessageBox,
+    setMessage,
+    setProgramName,
+    setMessageTitle,
   } = useControlBoxMessages();
   // Keep heating schedule ready state dispatch (business logic not in hook)
   useEffect(() => {

@@ -120,6 +120,10 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
     messageTitle,
     showMessage,
     closeMessageBox,
+    setOpenMessageBox,
+    setMessage,
+    setProgramName,
+    setMessageTitle,
   } = useControlBoxMessages();
 
   // Keep local state for ready (used in component logic)

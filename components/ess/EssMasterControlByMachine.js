@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { handleExpandSSRDetail } from '../store/slices/essSwitchSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  handleExpandSSRDetail,
+  handleOpenMachineController,
+} from '../store/slices/essSwitchSlice';
 
 import {
   activeLayer180Deg,
@@ -50,6 +53,7 @@ const EssMasterControlByMachine = ({
   indivLocationName,
 }) => {
   // Permissions and units
+  const dispatch = useDispatch();
   const permissions = useSelector(selectUserPermissions);
   const disabled = !permissions.WRITE;
   const { isF } = useSelector(selectUnits);

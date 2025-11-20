@@ -33,6 +33,11 @@ const useControlBoxMessages = () => {
     messageTitle,
     showMessage,
     closeMessageBox,
+    // Expose setters for backward compatibility with existing code
+    setOpenMessageBox,
+    setMessage,
+    setProgramName,
+    setMessageTitle,
   };
 };
 

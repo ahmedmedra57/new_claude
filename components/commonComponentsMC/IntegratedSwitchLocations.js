@@ -54,6 +54,9 @@ import {
 import ButtonGroup from './ButtonGroup';
 import MainController from './MainController';
 import MasterControlByLocation from './MasterControlByLocation';
+import EssMasterControlByMachine from '../ess/EssMasterControlByMachine';
+import TgsMasterControlByMachine from '../tgs/TgsMasterControlByMachine';
+import TesMasterControlByMachine from '../tes/TesMasterControlByMachine';
 import {
   handleEssInitialState,
   handleOpenLocation,
