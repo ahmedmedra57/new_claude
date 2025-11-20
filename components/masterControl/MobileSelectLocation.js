@@ -53,7 +53,7 @@ const MobileSelectLocation = ({ setIsApply }) => {
 
   useEffect(() => {
     if (!selectedSwt) {
-      dispatch(handleOpenSelectLocation(false);
+      useMasterControlSelectStore().openSelectLocation(false);
     }
   }, [selectedSwt]);
 

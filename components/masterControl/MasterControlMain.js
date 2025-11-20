@@ -110,7 +110,7 @@ const MasterControlMain = () => {
     }
 
     return () => {
-      dispatch(handleApplyCommand(false);
+      useMCCommandStore().applyCommand(false);
       setToggleButtonColor(false);
     };
   }, [essSelectSystem, tgsSelectSystem, tesSelectSystem, hpSelectSystem]);
@@ -122,7 +122,7 @@ const MasterControlMain = () => {
     dispatch(handleCreateCommand();
     dispatch(handleResetAllSelect();
     dispatch(handleResetAll();
-    dispatch(handleApplyCommand(false);
+    useMCCommandStore().applyCommand(false);
     dispatch(handleUnselectAllSystem();
     dispatch(handleControlResetInit(false);
     handleCreateNewCommandMessageBox(1);

@@ -97,9 +97,9 @@ else {
 
   const handleExpand = () => {
     if (isExpanded) {
-      dispatch(handleOpenLocation({ swtName: id, index, status: false });
+      useLocationsStore().openLocation({ swtName: id, index, status: false });
     } else {
-      dispatch(handleOpenLocation({ swtName: id, index, status: true });
+      useLocationsStore().openLocation({ swtName: id, index, status: true });
     }
   };
 

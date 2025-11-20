@@ -643,7 +643,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
         messageBoxContent = 'settings have been applied';
       }
       // setUpdateProfileError(null);
-      dispatch(addUserInfo(profileInputsData);
+      useUserStore().setUserInfo(profileInputsData);
       handleUploadImage();
     }
     // messages and dispatch for settings options => units. check in store folder a folder call settings => unitsSlice.js

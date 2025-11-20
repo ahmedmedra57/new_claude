@@ -224,7 +224,7 @@ const TesControlBox = ({
         threshold,
       };
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine });
+        useTESSwitchStore().activateConflictMessage({ location, machine });
         setDevicesConflicts({
             location,
             machine,
@@ -282,7 +282,7 @@ const TesControlBox = ({
     if (state === 'on') {
       // turn on
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine });
+        useTESSwitchStore().activateConflictMessage({ location, machine });
         setDevicesConflicts({
             location,
             machine,
@@ -317,7 +317,7 @@ const TesControlBox = ({
     if (state === 'on') {
       // turn on
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine });
+        useTESSwitchStore().activateConflictMessage({ location, machine });
         setDevicesConflicts({
             location,
             machine,
@@ -351,10 +351,10 @@ const TesControlBox = ({
   const snowSensorHandler = (state) => {
     if (state === 'off') {
       postTesCommand(deviceMac, 'snow_enabled', 0);
-      dispatch(tesHandleSnowSensorOff({ location, machine });
+      useTESSwitchStore().setSnowSensorOff({ location, machine });
     } else if (state === 'on') {
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine });
+        useTESSwitchStore().activateConflictMessage({ location, machine });
         setDevicesConflicts({
             location,
             machine,
@@ -375,10 +375,10 @@ const TesControlBox = ({
   const windFactorHandler = (state) => {
     if (state === 'off') {
       postTesCommand(deviceMac, 'wind', 0);
-      dispatch(tesHandleWindFactorOff({ location, machine });
+      useTESSwitchStore().setWindFactorOff({ location, machine });
     } else {
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine });
+        useTESSwitchStore().activateConflictMessage({ location, machine });
         setDevicesConflicts({
             location,
             machine,
@@ -430,12 +430,12 @@ const TesControlBox = ({
 
   const handleSwitchController = (program) => {
     if (program === 'unselect') {
-      dispatch(tesHandleUnselectAllProgram({ location, machine });
+      useTESSwitchStore().unselectAllProgram({ location, machine });
     } else {
       if (mobileSelectedProgram[program]) {
-        dispatch(tesHandleUnselectAllProgram({ location, machine });
+        useTESSwitchStore().unselectAllProgram({ location, machine });
       } else {
-        dispatch(tesHandleUnselectAllProgram({ location, machine });
+        useTESSwitchStore().unselectAllProgram({ location, machine });
         setSelectProgram({ location, machine, program });
       }
     }

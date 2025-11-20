@@ -302,11 +302,11 @@ const SelectMachineItems = ({
           handleSelectedOneBySwitch({ controller: name, selectedOne: null });
 
         // 2. Empty selected location names
-        dispatch(handleAddLocationsBySwitch(resetObj);
+        useMasterControlBySwitchSelectStore().addLocations(resetObj);
         // 2.1. Empty selected specific location names and machine names
-        dispatch(handleAddSpecificLocationsBySwitch(resetObj);
+        useMasterControlBySwitchSelectStore().addSpecificLocations(resetObj);
         // 2.2. Empty selected  machine names
-        dispatch(handleAddMachinesBySwitch(resetObj);
+        useMasterControlBySwitchSelectStore().addMachines(resetObj);
 
         // 3. reset isLocationSelected to an array of false
         dispatch(handleLocationSelectBySwitch(locationResetObj);
@@ -325,11 +325,11 @@ const SelectMachineItems = ({
           handleSelectedOneByLocation({ controller: name, selectedOne: null });
 
         // 2. Empty selected location names
-        dispatch(handleAddLocationsByLocation(resetObj);
+        useMasterControlSelectByLocationStore().addLocations(resetObj);
         // 2.2. Empty selected  specific location names
-        dispatch(handleAddSpecificLocationsByLocation(resetObj);
+        useMasterControlSelectByLocationStore().addSpecificLocations(resetObj);
         // 2.2. Empty selected  machine names
-        dispatch(handleAddMachinesByLocation(resetObj);
+        useMasterControlSelectByLocationStore().addMachines(resetObj);
 
         // 3. reset isLocationSelected to an array of false
         dispatch(handleLocationSelectByLocation(locationResetObj);

@@ -304,17 +304,17 @@ const SelectSwitchMachineOptions = ({
   //   } else {
   //     // reset all selections
   //     // 1.reset all local states
-  //     dispatch(handleSelectAll({ switch: swt, status: false });
+  //     useMasterControlSelectStore().selectAll({ switch: swt, status: false });
   //     dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
 
   //     // 1.1.reset state for dispatch
-  //     dispatch(handleAddLocations({ switch: swt, arr: [] });
-  //     dispatch(handleAddSpecificLocations({ switch: swt, arr: [] });
-  //     dispatch(handleAddMachines({ switch: swt, arr: [] });
+  //     useMasterControlSelectStore().addLocations({ switch: swt, arr: [] });
+  //     useMasterControlSelectStore().addSpecificLocations({ switch: swt, arr: [] });
+  //     useMasterControlSelectStore().addMachines({ switch: swt, arr: [] });
 
   //     // 2. reset location
   //     const arr = locations.map((location) => false);
-  //     dispatch(handleLocationSelect({ switch: swt, arr });
+  //     useMasterControlSelectStore().selectLocation({ switch: swt, arr });
 
   //     // 2.1 reset specific location
   //     const specificLocationArr = [];
@@ -712,11 +712,11 @@ const SelectSwitchMachineOptions = ({
 
   //   if (option === 'all') {
   //     // 1. select all
-  //     dispatch(handleSelectAll({ switch: swt, status: true });
+  //     useMasterControlSelectStore().selectAll({ switch: swt, status: true });
 
   //     // update all locations
   //     const locationArr = isLocationSelected.map((location) => true);
-  //     dispatch(handleLocationSelect({ switch: swt, arr: locationArr });
+  //     useMasterControlSelectStore().selectLocation({ switch: swt, arr: locationArr });
 
   //     // update all specific locations
   //     const specificLocationArr = isSpecificLocationSelected.map((el) => true);
@@ -743,7 +743,7 @@ const SelectSwitchMachineOptions = ({
   //     const index = locations.indexOf(option);
   //     const arr = [...isLocationSelected];
   //     arr[index] = true;
-  //     dispatch(handleLocationSelect({ switch: swt, arr });
+  //     useMasterControlSelectStore().selectLocation({ switch: swt, arr });
 
   //     // update specific locations
   //     const exitingSpecLocationsValue = Object.values(data).filter(
@@ -783,7 +783,7 @@ const SelectSwitchMachineOptions = ({
   //     // for dispatch selected locations
   //     const newSelect = [...selectedLocations];
   //     newSelect.push(option);
-  //     dispatch(handleAddLocations({ switch: swt, arr: newSelect });
+  //     useMasterControlSelectStore().addLocations({ switch: swt, arr: newSelect });
   //   } else if (option !== 'all' && machine === 'isSpecificLocation') {
   //     // 3. select specific location
   //     // location index
@@ -808,7 +808,7 @@ const SelectSwitchMachineOptions = ({
   //     // for dispatch selected locations
   //     const newSelect = [...selectedSpecificLocations];
   //     newSelect.push(extraOption);
-  //     dispatch(handleAddSpecificLocations({ switch: swt, arr: newSelect });
+  //     useMasterControlSelectStore().addSpecificLocations({ switch: swt, arr: newSelect });
   //   } else {
   //     // 4. select individually
   //     const locationIdx = Object.keys(data).indexOf(option);
@@ -843,7 +843,7 @@ const SelectSwitchMachineOptions = ({
 
   //     // for dispatch selected machines
 
-  //     dispatch(handleAddMachines({ switch: swt, arr: newSelectedMachineArr });
+  //     useMasterControlSelectStore().addMachines({ switch: swt, arr: newSelectedMachineArr });
   //   }
   // };
 

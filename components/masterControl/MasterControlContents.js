@@ -133,7 +133,7 @@ const MasterControlContents = ({
       }
     } else if (instantHeatState.ready) {
       // else if the instant heat is selected, the code below will be executed
-      dispatch(handleControllersStatus(0);
+      useMCStore().setControllersStatus(0);
 
       switch (system) {
         case 'ess':
@@ -198,11 +198,11 @@ const MasterControlContents = ({
       }
     } else if (ready) {
       // else if the snow sensor is selected, the code below will be executed
-      dispatch(handleControllersStatus(1);
+      useMCStore().setControllersStatus(1);
 
       switch (system) {
         case 'ess':
-          dispatch(handleSnowSensor({ location, specificLocation, machine });
+          useMCStore().setSnowSensor({ location, specificLocation, machine });
           break;
         case 'tgs':
           setSnowSensor({ location, specificLocation, machine });
@@ -226,7 +226,7 @@ const MasterControlContents = ({
           });
       } else if (isFanOnlyState) {
         // else if the fan only is selected, the code below will be executed
-        dispatch(handleControllersStatus(2);
+        useMCStore().setControllersStatus(2);
         setFanOnly({
             location,
             machine,
@@ -256,7 +256,7 @@ const MasterControlContents = ({
         }
       } else if (constantTempState.ready) {
         // else if optional constant temperature is selected, the code below will be executed
-        dispatch(handleControllersStatus(2);
+        useMCStore().setControllersStatus(2);
         if (system === 'ess') {
           dispatch(
             handleOptionalConstantTempReady({
@@ -312,7 +312,7 @@ const MasterControlContents = ({
       }
     } else if (heatingScheduleState) {
       // else if heating schedule is selected, the code below will be executed
-      dispatch(handleControllersStatus(3);
+      useMCStore().setControllersStatus(3);
 
       switch (system) {
         case 'ess':
@@ -399,11 +399,11 @@ const MasterControlContents = ({
       }
     } else if (isWindFactorState) {
       // else if wind factor is selected, the code below will be executed
-      dispatch(handleControllersStatus(4);
+      useMCStore().setControllersStatus(4);
 
       switch (system) {
         case 'ess':
-          dispatch(handleWindFactor({ location, specificLocation, machine });
+          useMCStore().setWindFactor({ location, specificLocation, machine });
           break;
         case 'tgs':
           setWindFactor({ location, specificLocation, machine });
@@ -898,9 +898,9 @@ const MasterControlContents = ({
   ]);
 
   const handleDispatchAfterClickApplyButton = () => {
-    dispatch(handleApplyMessageBox(false);
+    useMCCommandStore().setApplyMessageBox(false);
     setCommandConfirmed(true);
-    dispatch(handleApplyCommand(true);
+    useMCCommandStore().applyCommand(true);
   };
 
   // 2 buttons of message box (edit and confirm) that appears after clicking on apply button
@@ -908,7 +908,7 @@ const MasterControlContents = ({
     switch (index) {
       // *****Edit button. it closes the message box
       case 0: {
-        dispatch(handleApplyMessageBox(false);
+        useMCCommandStore().setApplyMessageBox(false);
         break;
       }
       // *****Confirm button. it closes the message box, creates a new command and sends the changes to backend.
@@ -1171,10 +1171,10 @@ export default MasterControlContents;
 //     //     if (flatTgsSwitch[location][machine].isSelected) {
 //     //       // instant heat
 //     //       if (instantHeat) {
-//     //         dispatch(tgsHandleInstantHeatReset({ location, machine });
+//     //         useTGSSwitchStore().resetInstantHeat({ location, machine });
 //     //       } else if (instantHeatState.ready) {
 //     //         // else if the instant heat is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(0);
+//     //         useMCStore().setControllersStatus(0);
 //     //         dispatch(
 //     //           tgsHandleInstantHeatIsReady({
 //     //             location,
@@ -1196,7 +1196,7 @@ export default MasterControlContents;
 //     //         );
 //     //       } else if (isFanOnlyState) {
 //     //         // else if the fan only is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(0);
+//     //         useMCStore().setControllersStatus(0);
 //     //         dispatch(
 //     //           tgsHandleFanOnly({
 //     //             location,
@@ -1208,20 +1208,20 @@ export default MasterControlContents;
 //     //       // snowSensor
 //     //       if (snowSensor) {
 //     //         // **if Deactivate for snow sensor is TRUE, then the code below will be executed
-//     //         dispatch(tgsHandleSnowSensorReset({ location, machine });
+//     //         useTGSSwitchStore().resetSnowSensor({ location, machine });
 //     //       } else if (ready) {
 //     //         // else if the snow sensor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(1);
+//     //         useMCStore().setControllersStatus(1);
 //     //         setSnowSensor({ location, machine });
 //     //       }
 //     //     }
 //     //     // heating scheduler
 //     //     if (heatingSchedule) {
 //     //       // **if Deactivate for heating scheduler is TRUE, then the code below will be executed
-//     //       dispatch(tgsHandleHeatingScheduleReset({ location, machine });
+//     //       useTGSSwitchStore().resetHeatingSchedule({ location, machine });
 //     //     } else if (heatingScheduleState) {
 //     //       // else if the heating scheduler is selected, the code below will be executed
-//     //       dispatch(handleControllersStatus(3);
+//     //       useMCStore().setControllersStatus(3);
 //     //       dispatch(
 //     //         tgsHandleReadyHeatingSchedule({ location, machine, state: true })
 //     //       );
@@ -1240,10 +1240,10 @@ export default MasterControlContents;
 //     //     //  wind factor
 //     //     if (windFactor) {
 //     //       // **if Deactivate for wind factor is TRUE, then the code below will be executed
-//     //       dispatch(tgsHandleWindFactorReset({ location, machine });
+//     //       useTGSSwitchStore().resetWindFactor({ location, machine });
 //     //     } else if (isWindFactorState) {
 //     //       // else if the wind factor is selected, the code below will be executed
-//     //       dispatch(handleControllersStatus(4);
+//     //       useMCStore().setControllersStatus(4);
 //     //       setWindFactor({ location, machine });
 //     //     }
 //     //     // select ATS
@@ -1414,10 +1414,10 @@ export default MasterControlContents;
 //     //       // instant heat
 //     //       if (instantHeat) {
 //     //         // **if Deactivate for instant heat is TRUE, then the code below will be executed
-//     //         dispatch(tesHandleInstantHeatReset({ location, machine });
+//     //         useTESSwitchStore().resetInstantHeat({ location, machine });
 //     //       } else if (instantHeatState.ready) {
 //     //         // else if the instant heat is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(0);
+//     //         useMCStore().setControllersStatus(0);
 //     //         dispatch(
 //     //           tesHandleInstantHeatIsReady({
 //     //             location,
@@ -1430,10 +1430,10 @@ export default MasterControlContents;
 //     //       // snow sensor
 //     //       if (snowSensor) {
 //     //         // **if Deactivate for snow sensor is TRUE, then the code below will be executed
-//     //         dispatch(tesHandleSnowSensorReset({ location, machine });
+//     //         useTESSwitchStore().resetSnowSensor({ location, machine });
 //     //       } else if (ready) {
 //     //         // else if the snow sensor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(1);
+//     //         useMCStore().setControllersStatus(1);
 //     //         setSnowSensor({ location, machine });
 //     //       }
 //     //       // optional constant temperature
@@ -1444,7 +1444,7 @@ export default MasterControlContents;
 //     //         );
 //     //       } else if (constantTempState.ready) {
 //     //         // else if the optional constant temp is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(2);
+//     //         useMCStore().setControllersStatus(2);
 //     //         dispatch(
 //     //           tesHandleOptionalConstantTempIsReady({
 //     //             location,
@@ -1457,10 +1457,10 @@ export default MasterControlContents;
 //     //       // heating scheduler
 //     //       if (heatingSchedule) {
 //     //         // **if Deactivate for heating scheduler is TRUE, then the code below will be executed
-//     //         dispatch(tesHandleHeatingScheduleReset({ location, machine });
+//     //         useTESSwitchStore().resetHeatingSchedule({ location, machine });
 //     //       } else if (heatingScheduleState) {
 //     //         // else if the heating scheduler is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(3);
+//     //         useMCStore().setControllersStatus(3);
 //     //         dispatch(
 //     //           tesHandleReadyHeatingSchedule({
 //     //             location,
@@ -1483,10 +1483,10 @@ export default MasterControlContents;
 //     //       // wind factor
 //     //       if (windFactor) {
 //     //         // **if Deactivate for wind factor is TRUE, then the code below will be executed
-//     //         dispatch(tesHandleWindFactorReset({ location, machine });
+//     //         useTESSwitchStore().resetWindFactor({ location, machine });
 //     //       } else if (isWindFactorState) {
 //     //         // else if the wind factor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(4);
+//     //         useMCStore().setControllersStatus(4);
 //     //         setWindFactor({ location, machine });
 //     //       }
 //     //       // select ATS
@@ -1680,11 +1680,11 @@ export default MasterControlContents;
 //     //       // instant Heat
 //     //       if (instantHeat) {
 //     //         // **if Deactivate for instant heat is TRUE, then the code below will be executed
-//     //         // dispatch(handleInstantHeatOff({ location, machine });
-//     //         dispatch(handleInstantHeatReset({ location, machine });
+//     //         // useESSSwitchStore().setInstantHeatOff({ location, machine });
+//     //         useESSSwitchStore().resetInstantHeat({ location, machine });
 //     //       } else if (instantHeatState.ready) {
 //     //         // else if the instant heat is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(0);
+//     //         useMCStore().setControllersStatus(0);
 //     //         dispatch(
 //     //           handleInstantHeatReady({
 //     //             location,
@@ -1697,7 +1697,7 @@ export default MasterControlContents;
 //     //       // snow sensor
 //     //       if (snowSensor) {
 //     //         // **if Deactivate for snow sensor is TRUE, then the code below will be executed
-//     //         // dispatch(handleSnowSensorOff({ location, machine });
+//     //         // useESSSwitchStore().setSnowSensorOff({ location, machine });
 //     //         // dispatch(
 //     //         //   handleSnowSensorIsActivatedOff({
 //     //         //     location,
@@ -1712,20 +1712,20 @@ export default MasterControlContents;
 //     //         );
 //     //       } else if (ready) {
 //     //         // else if the snow sensor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(1);
-//     //         dispatch(handleSnowSensor({ location, machine });
+//     //         useMCStore().setControllersStatus(1);
+//     //         useMCStore().setSnowSensor({ location, machine });
 //     //       }
 //     //       // optional constant temperature
 //     //       if (optionalConstantTemp) {
 //     //         // **if Deactivate for optional constant temperature is TRUE, then the code below will be executed
-//     //         // dispatch(handleOptionalConstantTempOff({ location, machine });
+//     //         // useESSSwitchStore().setMachineOptionalConstantTempOff({ location, machine });
 //     //         // dispatch(
 //     //         //   handleOptionalConstantTempReadyOff({ location, machine })
 //     //         // );
-//     //         dispatch(handleOptionalConstantTempReset({ location, machine });
+//     //         useESSSwitchStore().resetOptionalConstantTemp({ location, machine });
 //     //       } else if (constantTempState.ready) {
 //     //         // else if optional constant temperature is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(2);
+//     //         useMCStore().setControllersStatus(2);
 //     //         dispatch(
 //     //           handleOptionalConstantTempReady({
 //     //             location,
@@ -1756,11 +1756,11 @@ export default MasterControlContents;
 //     //         //     isF: null,
 //     //         //   },
 //     //         // ];
-//     //         // dispatch(handleClearHeatingSchedule({ location, machine, data });
-//     //         dispatch(handleHeatingScheduleReset({ location, machine });
+//     //         // useESSSwitchStore().clearHeatingSchedule({ location, machine, data });
+//     //         useESSSwitchStore().resetHeatingSchedule({ location, machine });
 //     //       } else if (heatingScheduleState) {
 //     //         // else if heating schedule is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(3);
+//     //         useMCStore().setControllersStatus(3);
 //     //         dispatch(
 //     //           handleAddHeatingSchedule({
 //     //             location,
@@ -1791,11 +1791,11 @@ export default MasterControlContents;
 //     //         //     machine,
 //     //         //   })
 //     //         // );
-//     //         dispatch(handleWindFactorReset({ location, machine });
+//     //         useESSSwitchStore().resetWindFactor({ location, machine });
 //     //       } else if (isWindFactorState) {
 //     //         // else if wind factor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(4);
-//     //         dispatch(handleWindFactor({ location, machine });
+//     //         useMCStore().setControllersStatus(4);
+//     //         useMCStore().setWindFactor({ location, machine });
 //     //       }
 //     //       // select ATS
 //     //       if (swt) {

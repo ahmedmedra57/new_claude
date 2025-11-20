@@ -233,7 +233,7 @@ function ViewCommand() {
             <WrapperButton>
               <Button
                 onClick={() => {
-                  dispatch(handleViewCommand(false);
+                  useMCCommandStore().setViewCommand(false);
                 }}
               >
                 <ButtonIndent>

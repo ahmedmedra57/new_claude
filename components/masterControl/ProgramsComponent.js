@@ -87,9 +87,9 @@ const ProgramsComponent = ({
 
   //   if (selectedSwt === 'ess') {
   //     const essLocations = Object.keys(essSwitch);
-  //     dispatch(handleSelectAll({ switch: 'ess', status: false });
+  //     useMasterControlSelectStore().selectAll({ switch: 'ess', status: false });
   //     const locationArr = essLocations.map((location) => false);
-  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' });
+  //     useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'ess' });
 
   //     const machineArr = Object.values(essSwitch).map((location) =>
   //       Object.keys(location).map((machine) => false)
@@ -99,9 +99,9 @@ const ProgramsComponent = ({
   //     // setAtsSrc('/images/select-ats-disabled.svg');
   //   } else if (selectedSwt === 'tes') {
   //     const tesLocations = Object.keys(tesSwitch);
-  //     dispatch(handleSelectAll({ status: false, switch: 'tss' });
+  //     useMasterControlSelectStore().selectAll({ status: false, switch: 'tss' });
   //     const locationArr = tesLocations.map((location) => false);
-  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' });
+  //     useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'tes' });
 
   //     const machineArr = Object.values(tesSwitch).map((location) =>
   //       Object.keys(location).map((machine) => false)
@@ -112,9 +112,9 @@ const ProgramsComponent = ({
   //   } else if (selectedSwt === 'tgs') {
   //     // setAtsSrc('/images/select-ats-active.svg');
   //     const tgsLocations = Object.keys(tgsSwitch);
-  //     dispatch(handleSelectAll({ status: false, switch: 'ess' });
+  //     useMasterControlSelectStore().selectAll({ status: false, switch: 'ess' });
   //     const locationArr = tgsLocations.map((location) => false);
-  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' });
+  //     useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'tgs' });
 
   //     const machineArr = Object.values(tgsSwitch).map((location) =>
   //       Object.keys(location).map((machine) => false)
@@ -188,7 +188,7 @@ const ProgramsComponent = ({
     const dispatchObj = { location, specificLocation, machine };
     switch (swt) {
       case 'ess':
-        dispatch(handleSnowSensor(dispatchObj);
+        useMCStore().setSnowSensor(dispatchObj);
         break;
       case 'tes':
         dispatch(tesHandleSnowSensor(dispatchObj);
@@ -210,7 +210,7 @@ const ProgramsComponent = ({
     const dispatchObj = { location, specificLocation, machine };
     switch (swt) {
       case 'ess':
-        dispatch(handleWindFactor(dispatchObj);
+        useMCStore().setWindFactor(dispatchObj);
         break;
       case 'tes':
         dispatch(tesHandleWindFactor(dispatchObj);
@@ -1242,7 +1242,7 @@ const ScheduleCalendarWrapper = styled.div`
 //           //         dispatch(
 //           //           handleInstantHeatReady({ location, machine: el, isF, temp })
 //           //         );
-//           //         //   dispatch(handleInstantHeat({ location, machine, isF, temp });
+//           //         //   useMCStore().setInstantHeat({ location, machine, isF, temp });
 //           //         // }
 //           //       }
 //           //     } else {
@@ -1331,7 +1331,7 @@ const ScheduleCalendarWrapper = styled.div`
 //           //       dispatch(
 //           //         handleUnSelectIndividualMachine({ location, machine })
 //           //       );
-//           //       // dispatch(handleInstantHeat({ location, machine, isF, temp });
+//           //       // useMCStore().setInstantHeat({ location, machine, isF, temp });
 //           //       dispatch(
 //           //         handleInstantHeatReady({ location, machine, isF, temp })
 //           //       );
@@ -1406,7 +1406,7 @@ const ScheduleCalendarWrapper = styled.div`
 //       //     if (essSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
 //       //       dispatch(handleUnSelectIndividualMachine({ location, machine });
-//       //       dispatch(handleSnowSensor({ location, machine });
+//       //       useMCStore().setSnowSensor({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -1452,7 +1452,7 @@ const ScheduleCalendarWrapper = styled.div`
 //       //     if (essSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
 //       //       dispatch(handleUnSelectIndividualMachine({ location, machine });
-//       //       dispatch(handleWindFactor({ location, machine });
+//       //       useMCStore().setWindFactor({ location, machine });
 //       //     }
 //       //   })
 //       // );

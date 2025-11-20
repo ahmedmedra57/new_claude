@@ -126,7 +126,7 @@ const SSRInfoContainer = ({
             });
 
       // log out admin
-      dispatch(handleAccessAdministrator(false);
+      useAdminStore().setAccessAdministrator(false);
     }
   };
 

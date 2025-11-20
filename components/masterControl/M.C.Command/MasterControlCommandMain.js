@@ -147,9 +147,9 @@ function MasterControlCommandMain({
       selectSwitch.tes.selectedOne ||
       selectSwitch.tgs.selectedOne
     ) {
-      dispatch(handleApplyMessageBox(true);
+      useMCCommandStore().setApplyMessageBox(true);
       handleMessageBox();
-      dispatch(handleViewCommand(false);
+      useMCCommandStore().setViewCommand(false);
       dispatch(handleControlResetInit(false);
     }
   };
@@ -158,7 +158,7 @@ function MasterControlCommandMain({
     // ***this will create new command which will set everything to default and increase the command# by 1
     // dispatch(handleViewPrevCommandAndCreateNewCommand();
     dispatch(handleCreateCommand();
-    dispatch(handleApplyCommand(false);
+    useMCCommandStore().applyCommand(false);
   };
 
   const handleCommandResetSystem = () => {
@@ -772,7 +772,7 @@ function MasterControlCommandMain({
     //           (selectedLocation) => selectedLocation === location
     //         )
     //       );
-    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' });
+    //       useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'ess' });
 
     //       // push all the names of the locations that were saved in the selected command to be ready for dispatch
     //       const newSelect = [];
@@ -849,7 +849,7 @@ function MasterControlCommandMain({
     //           (selectedLocation) => selectedLocation === location
     //         )
     //       );
-    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' });
+    //       useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'tgs' });
 
     //       // push all the names of the locations that were saved in the selected command to be ready for dispatch
     //       const newSelect = [];
@@ -924,7 +924,7 @@ function MasterControlCommandMain({
     //           (selectedLocation) => selectedLocation === location
     //         )
     //       );
-    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' });
+    //       useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'tes' });
 
     //       // push all the names of the locations that were saved in the selected command to be ready for dispatch
     //       const newSelect = [];
@@ -1098,7 +1098,7 @@ function MasterControlCommandMain({
       searchedCommand[0][selectCommand.command].system.split("-")[0];
 
     // dispatch to select the system of the selected command. eg: ess, tgs or tes
-    dispatch(handleSelectSystem(selectedSystem);
+    useMCStore().setSelectSystem(selectedSystem);
 
     const commandInfo = Object.values(searchedCommand[0])[0];
     // ***set all the previous command's locations and machines

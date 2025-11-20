@@ -193,7 +193,7 @@ const IntegratedSwitchSpecificLocations = ({
         // const locationArr = Object.keys(essSwitch).map(
         //   (location) => location === locationId
         // );
-        // dispatch(handleEssInitialState(locationArr);
+        // useESSSwitchStore().resetMachinesState(locationArr);
         // Object.keys(essSwitch).map((location) =>
         //   Object.keys(essSwitch[location]).map((machine) =>
         //     dispatch(

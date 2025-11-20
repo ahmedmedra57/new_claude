@@ -239,7 +239,7 @@ const MainSelections = ({
           machine: machineKey,
         };
         if (swt === "ess") {
-          dispatch(essSpecificLocationUnselectMachinesHandler(dispatchOjb);
+          useESSSwitchStore().essSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "tes") {
           dispatch(tesSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === "tgs") {
@@ -391,10 +391,10 @@ const MainSelections = ({
   const presetSelectBoxArr = (swt, swtData) => {
     // isAllSelected
     const essLocations = Object.keys(swtData);
-    dispatch(handleSelectAll({ switch: swt, status: false });
+    useMasterControlSelectStore().selectAll({ switch: swt, status: false });
     // isLocationSelected
     const locationArr = essLocations.map((location) => false);
-    dispatch(handleLocationSelect({ arr: locationArr, switch: swt });
+    useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: swt });
     // isMachineSelected
     const specificLocationArr = [];
     const machineArr = Object.values(swtData).map((location) => {

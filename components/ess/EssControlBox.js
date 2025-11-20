@@ -274,7 +274,7 @@ const EssControlBox = ({
     } else if (state === 'off') {
       // turn off
       postEssCommand(deviceMac, 'on_switch', 0);
-      dispatch(handleInstantHeatOff({ location, machine });
+      useESSSwitchStore().setInstantHeatOff({ location, machine });
     } else {
       // state === 'message'
       // setInstantHeatTemp('');
@@ -318,11 +318,11 @@ const EssControlBox = ({
   const snowSensorHandler = (state) => {
     if (state === 'off') {
       postEssCommand(deviceMac, 'snow_enabled', 0);
-      dispatch(handleSnowSensorOff({ location, machine });
+      useESSSwitchStore().setSnowSensorOff({ location, machine });
     } else if (state === 'on') {
       // state === 'on'
       postEssCommand(deviceMac, 'snow_enabled', 1);
-      dispatch(handleSnowSensor({ location, machine });
+      useMCStore().setSnowSensor({ location, machine });
     } else {
       setProgramName('snow sensor program');
       handleMessageBox(state, 'snow sensor program');
@@ -332,11 +332,11 @@ const EssControlBox = ({
   const windFactorHandler = (state) => {
     if (state === 'off') {
       postEssCommand(deviceMac, 'wind', 0);
-      dispatch(handleWindFactorOff({ location, machine });
+      useESSSwitchStore().setWindFactorOff({ location, machine });
     } else {
       // state === 'on'
       postEssCommand(deviceMac, 'wind', 1);
-      dispatch(handleWindFactor({ location, machine });
+      useMCStore().setWindFactor({ location, machine });
     }
   };
 

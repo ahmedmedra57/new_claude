@@ -49,7 +49,7 @@ function ContainerLogin({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passwordInput.toLowerCase() === adminPassword.toLowerCase()) {
-      dispatch(handleAccessAdministrator(true);
+      useAdminStore().setAccessAdministrator(true);
       setShowErrorMessage(false);
       isReadyToClose && setIsSettingOpen();
       handleClose();

@@ -53,7 +53,7 @@ const MobileMasterControl = () => {
 
   useEffect(() => {
     dispatch(handleUnSelectSwitch();
-    dispatch(handleOpenSelectLocation(false);
+    useMasterControlSelectStore().openSelectLocation(false);
   }, []);
 
   useEffect(() => {
@@ -70,8 +70,8 @@ const MobileMasterControl = () => {
       setInitialStateSelectBoxHandler(swtData);
 
     // dispatches
-    dispatch(handleSelectAll({ switch: swt, status: false });
-    dispatch(handleLocationSelect({ arr: locationArr, switch: swt });
+    useMasterControlSelectStore().selectAll({ switch: swt, status: false });
+    useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: swt });
     dispatch(
       handleSpecificLocationSelect({
         arr: specificLocationArr,
@@ -99,11 +99,11 @@ const MobileMasterControl = () => {
   // useEffect(() => {
   //   if (selectedSwt === 'ess') {
   //     if (!ess.selectedOne) {
-  //       dispatch(handleSelectAll({ switch: 'ess', status: false });
+  //       useMasterControlSelectStore().selectAll({ switch: 'ess', status: false });
 
   //       const essLocations = Object.keys(essSwt);
   //       const locationArr = essLocations.map((location) => false);
-  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' });
+  //       useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'ess' });
 
   //       const machineArr = Object.values(essSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
@@ -114,9 +114,9 @@ const MobileMasterControl = () => {
   //   } else if (selectedSwt === 'tes') {
   //     if (!tes.selectedOne) {
   //       const tesLocations = Object.keys(tesSwt);
-  //       dispatch(handleSelectAll({ status: false, switch: 'tes' });
+  //       useMasterControlSelectStore().selectAll({ status: false, switch: 'tes' });
   //       const locationArr = tesLocations.map((location) => false);
-  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' });
+  //       useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'tes' });
 
   //       const machineArr = Object.values(tesSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
@@ -128,9 +128,9 @@ const MobileMasterControl = () => {
   //     if (!tgs.selectedOne) {
   //       // setAtsSrc('/images/select-ats-active.svg');
   //       const tgsLocations = Object.keys(tgsSwt);
-  //       dispatch(handleSelectAll({ status: false, switch: 'ess' });
+  //       useMasterControlSelectStore().selectAll({ status: false, switch: 'ess' });
   //       const locationArr = tgsLocations.map((location) => false);
-  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' });
+  //       useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: 'tgs' });
 
   //       const machineArr = Object.values(tgsSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
@@ -149,7 +149,7 @@ const MobileMasterControl = () => {
   const handleSelectSwt = (switchName, idx) => {
     setIsApply(false);
     if (switchName === 'hp') {
-      dispatch(handleOpenSelectLocation(false);
+      useMasterControlSelectStore().openSelectLocation(false);
       dispatch(handleUnSelectSwitch();
     } else {
       dispatch(handleSelectSwitch({ switchName, idx });

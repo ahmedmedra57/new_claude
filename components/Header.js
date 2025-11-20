@@ -97,7 +97,7 @@ const Header = () => {
   const { mutate: mutateLogout } = useMutation(logoutService, {
     onSuccess: () => {
       localStorage.removeItem('access_token');
-      dispatch(handleAccessToken(null);
+      useUserStore().setAccessToken(null);
     },
   });
 

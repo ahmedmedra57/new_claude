@@ -58,8 +58,8 @@ const LoginBox = () => {
           navigation('/');
           localStorage.setItem('access_token', data.token);
           localStorage.setItem('loginTime', new Date();
-          dispatch(handleAccessToken(data.token);
-          dispatch(addUserInfo(data.user);
+          useUserStore().setAccessToken(data.token);
+          useUserStore().setUserInfo(data.user);
         }
       },
       onError: () => {

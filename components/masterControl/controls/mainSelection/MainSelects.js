@@ -3,6 +3,7 @@ import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMCStore, us
 import {
 import { useSelectedMachinesStore } from '../zustand-stores';
 import { useMasterControlSelectStore } from '../zustand-stores';
+import { useESSSwitchStore, useMasterControlSelectStore } from '../../zustand-stores';
   essSpecificLocationUnselectMachinesHandler,
   handleUnSelectIndividualMachine,
   selectEssSwitch,
@@ -202,7 +203,7 @@ const MainSelects = ({
           machine: machineKey,
         };
         if (swt === 'ess') {
-          dispatch(essSpecificLocationUnselectMachinesHandler(dispatchOjb);
+          useESSSwitchStore().essSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === 'tes') {
           dispatch(tesSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === 'tgs') {
@@ -315,10 +316,10 @@ const MainSelects = ({
   // const presetSelectBoxArr = (swt, swtData) => {
   //   // isAllSelected
   //   const locations = Object.keys(swtData);
-  //   dispatch(handleSelectAll({ switch: swt, status: false });
+  //   useMasterControlSelectStore().selectAll({ switch: swt, status: false });
   //   // isLocationSelected
   //   const locationArr = locations.map((_) => false);
-  //   dispatch(handleLocationSelect({ arr: locationArr, switch: swt });
+  //   useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: swt });
 
   //   const specificLocationArr = [];
   //   const machineArr = Object.values(swtData).map((location) =>
@@ -350,8 +351,8 @@ const MainSelects = ({
     specificLocationArr,
     machineArr
   ) => {
-    dispatch(handleSelectAll({ switch: swt, status: false });
-    dispatch(handleLocationSelect({ arr: locationArr, switch: swt });
+    useMasterControlSelectStore().selectAll({ switch: swt, status: false });
+    useMasterControlSelectStore().selectLocation({ arr: locationArr, switch: swt });
     dispatch(
       handleSpecificLocationSelect({
         arr: specificLocationArr,

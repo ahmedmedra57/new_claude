@@ -71,7 +71,7 @@ function ShareComponent({ selectedSwitches, setSelectedSwitches }) {
 
   useEffect(() => {
     getCommandNumberService('GLOBAL_MASTER_CONTROL').then((res) => {
-      dispatch(handleCommandNumber(res);
+      useMCCommandStore().setCommandNumber(res);
     });
   }, [swt, mCState.selectSystem]);
 
