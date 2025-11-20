@@ -321,10 +321,10 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     dispatch(handleResetButtons();
     switch (buttonsIndex) {
       case 0:
-        dispatch(handleClickedButton('isEdit');
+        useEditCancelApplyButtonsStore().setButtonClicked('isEdit');
         break;
       case 1:
-        dispatch(handleClickedButton('isCancel');
+        useEditCancelApplyButtonsStore().setButtonClicked('isCancel');
         handleCancelButtonsFunctions(sysIndex);
         break;
       case 2:
@@ -333,7 +333,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
         } else if (isUnitsSelected) {
           handleSaveUnit(sysIndex);
         }
-        dispatch(handleClickedButton('isApply');
+        useEditCancelApplyButtonsStore().setButtonClicked('isApply');
         handleMessageBox(sysIndex);
         setOpenMessageBox(true);
         break;
@@ -401,7 +401,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     try {
       const response = await updateUserProfileService(updatedData);
       dispatch(getUserProfileDataService();
-      dispatch(handleClickedButton('isApply');
+      useEditCancelApplyButtonsStore().setButtonClicked('isApply');
       handleMessageBox(sysIndex);
       // setUpdateProfileError(null);
     } catch (error) {
@@ -427,7 +427,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     try {
       const response = await updateUserProfileService(dataObject);
       dispatch(getUserProfileDataService();
-      dispatch(handleClickedButton('isApply');
+      useEditCancelApplyButtonsStore().setButtonClicked('isApply');
       handleMessageBox(sysIndex);
       // setUpdateProfileError(null);
     } catch (error) {
@@ -660,7 +660,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
         messageBoxContent = updateProfileError;
       }
 
-      dispatch(handleUnitSelection(metricImperialToggle);
+      useSettingsOptionsStore().setUnitSelection(metricImperialToggle);
     }
     // messages and dispatch for settings options => wind factor trigger. check in store folder a folder call settings => windFactorSlice.js
     else if (isWindFactorSelected) {
@@ -1596,7 +1596,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               messageBoxContent =
                 'add element to bank settings have been applied';
 
-              dispatch(handleAddElementToBank(saveInputElement);
+              useMCStore().addElementToBank(saveInputElement);
               setSaveChanges(SaveChangesInitialState);
             } catch (error) {
               messageBoxContent = `Failed to apply changes: ${
@@ -1870,14 +1870,14 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
             messageBoxTitle = 'change options';
             messageBoxContent =
               'add element to bank settings have been applied';
-            dispatch(handleAddElementToBank(saveInputElement);
+            useMCStore().addElementToBank(saveInputElement);
             try {
               await addAdminHeatersService(
                 mapValues(saveInputElement, (value) => value.toString());
               messageBoxContent =
                 'add element to bank settings have been applied';
 
-              dispatch(handleAddElementToBank(saveInputElement);
+              useMCStore().addElementToBank(saveInputElement);
               setSaveChanges(SaveChangesInitialState);
             } catch (error) {
               messageBoxContent = `Failed to apply changes: ${

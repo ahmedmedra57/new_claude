@@ -77,7 +77,7 @@ const MobileMasterControl = () => {
         arr: specificLocationArr,
         switch: swt,
       });
-    dispatch(handleMachineSelect({ arr: machineArr, switch: swt });
+    useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: swt });
   };
 
   useEffect(() => {
@@ -108,7 +108,7 @@ const MobileMasterControl = () => {
   //       const machineArr = Object.values(essSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
   //       );
-  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'ess' });
+  //       useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: 'ess' });
   //     }
   //     // setAtsSrc('/images/select-ats-disabled.svg');
   //   } else if (selectedSwt === 'tes') {
@@ -121,7 +121,7 @@ const MobileMasterControl = () => {
   //       const machineArr = Object.values(tesSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
   //       );
-  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tes' });
+  //       useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: 'tes' });
   //     }
   //     // setAtsSrc('/images/select-ats-disabled.svg');
   //   } else if (selectedSwt === 'tgs') {
@@ -135,7 +135,7 @@ const MobileMasterControl = () => {
   //       const machineArr = Object.values(tgsSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
   //       );
-  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tgs' });
+  //       useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: 'tgs' });
   //     }
   //   }
   // }, [selectedSwt]);
@@ -152,14 +152,14 @@ const MobileMasterControl = () => {
       useMasterControlSelectStore().openSelectLocation(false);
       dispatch(handleUnSelectSwitch();
     } else {
-      dispatch(handleSelectSwitch({ switchName, idx });
+      useMCStore().selectSwitch({ switchName, idx });
     }
   };
 
   // select program
   const handleClickSelectProgram = (index) => {
     setIsApply(false);
-    dispatch(handleSelectMobileProgram(index);
+    useESSSwitchStore().selectMobileProgram(index);
     if (index === 1 || index === 3) {
       setHeight(true);
     } else {

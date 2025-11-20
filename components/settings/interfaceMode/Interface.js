@@ -32,9 +32,9 @@ function Interface() {
 
   const handleMode = () => {
     if (interfaceModeButton === 0) {
-      return dispatch(setInterfaceMode(true);
+      return useAppStore().setInterfaceMode(true);
     } else {
-      return dispatch(setInterfaceMode(false);
+      return useAppStore().setInterfaceMode(false);
     }
   };
 

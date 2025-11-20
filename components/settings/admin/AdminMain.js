@@ -161,7 +161,7 @@ function AdminMain({
 
   // ******************************
   const handleOpenSelectLocations = (sysIndex) => {
-    dispatch(handleSettingsDisplaySelectBox(sysIndex);
+    useSettingsOptionsStore().toggleDisplaySelectBox(sysIndex);
   };
 
   const handleOpenMultipleSelectLocations = (sysOptions, swt, contentTitle) => {

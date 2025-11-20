@@ -78,31 +78,31 @@ function AllSettingsSelectOptions() {
       dispatch(setResetSettingsOptions();
       switch (value) {
         case 0: {
-          dispatch(handleSelectingSettings("isUserProfileSelected");
+          useSettingsOptionsStore().selectSetting("isUserProfileSelected");
           break;
         }
         case 1: {
-          dispatch(handleSelectingSettings("isUnitsSelected");
+          useSettingsOptionsStore().selectSetting("isUnitsSelected");
           break;
         }
         case 2: {
-          dispatch(handleSelectingSettings("isWindFactorSelected");
+          useSettingsOptionsStore().selectSetting("isWindFactorSelected");
           break;
         }
         case 3: {
-          dispatch(handleSelectingSettings("isSnowSensorSelected");
+          useSettingsOptionsStore().selectSetting("isSnowSensorSelected");
           break;
         }
         case 4: {
-          dispatch(handleSelectingSettings("isForceAndCommandsSelected");
+          useSettingsOptionsStore().selectSetting("isForceAndCommandsSelected");
           break;
         }
         case 5: {
-          dispatch(handleSelectingSettings("isAdminSelected");
+          useSettingsOptionsStore().selectSetting("isAdminSelected");
           break;
         }
         case 6: {
-          dispatch(handleSelectingSettings("isInterfaceModeSelected");
+          useSettingsOptionsStore().selectSetting("isInterfaceModeSelected");
           break;
         }
         default:

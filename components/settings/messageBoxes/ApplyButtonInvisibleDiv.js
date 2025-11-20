@@ -28,7 +28,7 @@ function ApplyButtonInvisibleDiv() {
     event.stopPropagation();
 
     dispatch(handleResetButtons();
-    dispatch(handleClickedButton('isCancel');
+    useEditCancelApplyButtonsStore().setButtonClicked('isCancel');
 
     setDisplay(false);
   };

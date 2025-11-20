@@ -765,7 +765,7 @@ const SelectedOne2 = styled.span`
 //       );
 //       // const locations = Object.keys(switchStatus);
 //       // // unSelect all
-//       // dispatch(handleSelectAllBySwitch({ controller: name, status: false });
+//       // useMasterControlBySwitchSelectStore().selectAll({ controller: name, status: false });
 //       // // unSelect all the locations
 //       // const locationArr = locations.map((location) => false);
 //       // dispatch(

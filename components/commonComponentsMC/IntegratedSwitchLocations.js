@@ -228,7 +228,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
   useEffect(() => {
     if (isLocationOpen.length > 1) {
       const checker = isLocationOpen?.some((el) => el === true);
-      dispatch(handleOpenMasterControl({ swtName, status: !checker });
+      useMCStore().setOpenMasterControl({ swtName, status: !checker });
     }
   }, [isLocationOpen]);
 

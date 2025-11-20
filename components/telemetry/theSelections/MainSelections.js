@@ -241,9 +241,9 @@ const MainSelections = ({
         if (swt === "ess") {
           useESSSwitchStore().essSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "tes") {
-          dispatch(tesSpecificLocationUnselectMachinesHandler(dispatchOjb);
+          useTESSwitchStore().tesSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "tgs") {
-          dispatch(tgsSpecificLocationUnselectMachinesHandler(dispatchOjb);
+          useTGSSwitchStore().tgsSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "essDc") {
           dispatch(
             essDataConsumptionSpecificLocationUnselectMachineHandler(
@@ -259,9 +259,9 @@ const MainSelections = ({
               dispatchOjb
             );
         } else if (swt === "hpEc") {
-          dispatch(hpEcSpecificLocationUnselectMachinesHandler(dispatchOjb);
+          useHPElectricSwitchStore().hpEcSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "hpGc") {
-          dispatch(hpGcSpecificLocationUnselectMachinesHandler(dispatchOjb);
+          useHPGasSwitchStore().hpGcSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === "hpDc") {
           dispatch(
             hpDataConsumptionSpecificLocationUnselectMachinesHandler(
@@ -279,15 +279,15 @@ const MainSelections = ({
     if (elValue[0]?.machineType) {
       el.forEach((machine) => {
         if (swt === "ess") {
-          dispatch(handleUnSelectIndividualMachine({ location, machine });
+          useMasterControlSelectStore().unselectMachine({ location, machine });
         } else if (swt === "tes") {
           setUnSelectIndividualMachine({ location, machine });
         } else if (swt === "tgs") {
           setUnSelectIndividualMachine({ location, machine });
         } else if (swt === "hpEc") {
-          dispatch(hpEcHandleUnSelectIndividualMachine({ location, machine });
+          useHPElectricSwitchStore().unselectIndividualMachine({ location, machine });
         } else if (swt === "hpGc") {
-          dispatch(hpEcHandleUnSelectIndividualMachine({ location, machine });
+          useHPElectricSwitchStore().unselectIndividualMachine({ location, machine });
         } else if (swt === "essDc") {
           dispatch(
             essDataConsumptionHandleUnSelectIndividualMachine({
@@ -380,7 +380,7 @@ const MainSelections = ({
     }
     // this is to reset the chart when system is changed
     return () => {
-      dispatch(handleSearchTelemetrySystem(false);
+      useTelemetryStore().setSearchSystem(false);
     };
   }, [ess, tes, tgs, essDc, tgsTesDc, hpDc, hpGc, hpEc]);
 
@@ -421,7 +421,7 @@ const MainSelections = ({
       });
 
     // isMachineSelected
-    dispatch(handleMachineSelect({ arr: machineArr, switch: swt });
+    useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: swt });
   };
 
   useEffect(() => {
@@ -597,7 +597,7 @@ const MainSelections = ({
           dispatch(handleUnselectAllSystem();
           break;
         case 1:
-          dispatch(handleSelectTelemetrySystem(abrSelectedSystemTitle);
+          useTelemetryStore().selectSystem(abrSelectedSystemTitle);
           setOpenSelections(false);
           break;
         default:
@@ -672,15 +672,15 @@ const MainSelections = ({
                 monthlyKeys: intervalKeys,
               },
             });
-          dispatch(setTelemetryIntervalUnit(unit);
-          dispatch(handleTotalHoursTelemetry(totalHours);
-          dispatch(handleTotalConsumptionTelemetry(totalConsumption);
+          useTelemetryStore().setIntervalUnit(unit);
+          useTelemetryStore().setTotalHours(totalHours);
+          useTelemetryStore().setTotalConsumption(totalConsumption);
           setTelemetryData(intervalData);
           setCopyTelemetryState(intervalData);
           setCopyTelemetryDailyState(essSwitchData.dailyData);
           setTelemetryDataKeys(intervalKeys);
           setCopyTelemetryStateKeys(intervalKeys);
-          dispatch(handleAuditLogData(auditLogData);
+          useTelemetryStore().setAuditLogData(auditLogData);
         }
       ).catch((error) => {
       });
@@ -790,17 +790,17 @@ const MainSelections = ({
                   monthlyKeys: intervalKeys,
                 },
               });
-            dispatch(setTelemetryIntervalUnit("months");
-            dispatch(handleTotalHoursTelemetry(totalHours);
-            dispatch(handleTotalConsumptionTelemetry(totalConsumption);
+            useTelemetryStore().setIntervalUnit("months");
+            useTelemetryStore().setTotalHours(totalHours);
+            useTelemetryStore().setTotalConsumption(totalConsumption);
             setTelemetryData(intervalData);
             setTelemetryDataKeys(intervalKeys);
-            dispatch(handleAuditLogData(auditLogData);
+            useTelemetryStore().setAuditLogData(auditLogData);
           }
         );
       } else {
-        dispatch(handleTotalHoursTelemetry(0);
-        dispatch(handleTotalConsumptionTelemetry(0);
+        useTelemetryStore().setTotalHours(0);
+        useTelemetryStore().setTotalConsumption(0);
         setTelemetryData([]);
         setTelemetryDataKeys([]);
       }
@@ -812,7 +812,7 @@ const MainSelections = ({
       (ess || tgs || tes || essDc || tgsTesDc || hpDc || hpGc || hpEc) &&
       selectedSwitches
     ) {
-      dispatch(handleSearchTelemetrySystem(true);
+      useTelemetryStore().setSearchSystem(true);
       setControlSelectionDisplay(true);
       if (ess) {
         getTelemetryData("ess", false, "energy");

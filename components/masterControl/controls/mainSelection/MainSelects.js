@@ -205,9 +205,9 @@ const MainSelects = ({
         if (swt === 'ess') {
           useESSSwitchStore().essSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === 'tes') {
-          dispatch(tesSpecificLocationUnselectMachinesHandler(dispatchOjb);
+          useTESSwitchStore().tesSpecificLocationUnselectMachine(dispatchOjb);
         } else if (swt === 'tgs') {
-          dispatch(tgsSpecificLocationUnselectMachinesHandler(dispatchOjb);
+          useTGSSwitchStore().tgsSpecificLocationUnselectMachine(dispatchOjb);
         }
       });
     });
@@ -217,7 +217,7 @@ const MainSelects = ({
     // if (swt === 'ess') {
     //   const machines = Object.keys(switchData[location]);
     //   machines.forEach((machine) =>
-    //     dispatch(handleUnSelectIndividualMachine({ location, machine }))
+    //     useMasterControlSelectStore().unselectMachine({ location, machine })
     //   );
     // } else if (swt === 'tes') {
     //   const machines = Object.keys(switchData[location]);
@@ -237,7 +237,7 @@ const MainSelects = ({
     if (elValue[0]?.machineType) {
       el.forEach((machine) => {
         if (swt === 'ess') {
-          dispatch(handleUnSelectIndividualMachine({ location, machine });
+          useMasterControlSelectStore().unselectMachine({ location, machine });
         } else if (swt === 'tes') {
           setUnSelectIndividualMachine({ location, machine });
         } else if (swt === 'tgs') {
@@ -343,7 +343,7 @@ const MainSelects = ({
   //   );
 
   //   // isMachineSelected
-  //   dispatch(handleMachineSelect({ arr: machineArr, switch: swt });
+  //   useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: swt });
   // };
   const selectionDispatchHandler = (
     swt,
@@ -358,7 +358,7 @@ const MainSelects = ({
         arr: specificLocationArr,
         switch: swt,
       });
-    dispatch(handleMachineSelect({ arr: machineArr, switch: swt });
+    useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: swt });
   };
 
   useEffect(() => {
@@ -431,27 +431,27 @@ const MainSelects = ({
       dispatch(handleResetAllDialControl();
       if (el.instantHeat === true) {
         setDisplayOffBox(value);
-        dispatch(handleDeactivatePrograms('instantHeat');
-        dispatch(fanOnlyHandlerTempo(false);
+        useMCStore().deactivatePrograms('instantHeat');
+        useTGSSwitchStore().setFanOnly(false);
       }
       if (el.isFanOnly === true) {
-        dispatch(handleDeactivatePrograms('isFanOnly');
+        useMCStore().deactivatePrograms('isFanOnly');
         setDisplayOffBox(value);
       }
       if (el.snowSensor === true) {
-        dispatch(handleDeactivatePrograms('snowSensor');
+        useMCStore().deactivatePrograms('snowSensor');
         setDisplayOffBox(value);
       }
       if (el.optionalConstantTemp === true) {
-        dispatch(handleDeactivatePrograms('optionalConstantTemp');
+        useMCStore().deactivatePrograms('optionalConstantTemp');
         setDisplayOffBox(value);
       }
       if (el.heatingSchedule === true) {
-        dispatch(handleDeactivatePrograms('heatingSchedule');
+        useMCStore().deactivatePrograms('heatingSchedule');
         setDisplayOffBox(value);
       }
       if (el.windFactor === true) {
-        dispatch(handleDeactivatePrograms('windFactor');
+        useMCStore().deactivatePrograms('windFactor');
         setDisplayOffBox(value);
       } else {
         setDisplayOffBox(value);

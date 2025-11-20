@@ -98,7 +98,7 @@ const SelectForce = ({
       case options[2]: {
         // turn off all electric heater and show the message
         if (swtName === 'ess') {
-          dispatch(handleShutOff({ location, specificLocation, machine });
+          useMCStore().setShutOff({ location, specificLocation, machine });
         } else {
           setShutOff({ location, specificLocation, machine });
         }

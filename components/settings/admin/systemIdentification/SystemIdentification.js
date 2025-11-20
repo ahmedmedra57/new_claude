@@ -156,14 +156,14 @@ const SystemIdentification = ({
   useEffect(() => {
     getAllAdminHeatersService().then((res) => {
       if (res) {
-        dispatch(handleAddNewElements(res);
+        useMCStore().addNewElements(res);
       }
     });
     getSSRsSwitchSizesService().then((res) => {
-      dispatch(handleSwitchSize(res);
+      useAdminStore().setSwitchSize(res);
     });
     getSSRsRatingListService().then((res) => {
-      dispatch(handleSSRRating(res);
+      useAdminStore().setSSRRating(res);
     });
     return () => {
       setSaveGasTypeTemporary({});

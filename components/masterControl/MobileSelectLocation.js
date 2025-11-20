@@ -38,9 +38,9 @@ const MobileSelectLocation = ({ setIsApply }) => {
 
   useEffect(() => {
     if (selectedOne) {
-      dispatch(handleIsReadyToSelectProgram(true);
+      useMCStore().setReadyToSelectProgram(true);
     } else {
-      dispatch(handleIsReadyToSelectProgram(false);
+      useMCStore().setReadyToSelectProgram(false);
       // dispatch(handleUnselectProgram();
     }
   }, [selectedOne]);

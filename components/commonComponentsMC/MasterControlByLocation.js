@@ -62,7 +62,7 @@ const MasterControlByLocation = ({
         dispatch(handleUnselectAllProgram();
       } else {
         dispatch(handleUnselectAllProgram();
-        dispatch(handleSelectProgram(program);
+        useMCStore().selectProgram(program);
       }
     }
   };

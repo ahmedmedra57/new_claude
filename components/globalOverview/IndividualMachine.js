@@ -53,7 +53,7 @@ const IndividualMachine = ({
   //     : testTesSwitch;
 
   // const handleOnClick = () => {
-  //   dispatch(handleSelectDisplaySystem(selectedSystem || 'all');
+  //   useMCStore().selectDisplaySystem(selectedSystem || 'all');
   //   if (specificLocation) {
   //     setCenter(testAllLocations[swtName][location][specificLocation]?.address);
   //   } else {
@@ -77,7 +77,7 @@ const IndividualMachine = ({
   const { locationName, specificLocationName, machineName } = data;
 
   const handleOnClick = () => {
-    dispatch(handleSelectDisplaySystem(selectedSystem || 'all');
+    useMCStore().selectDisplaySystem(selectedSystem || 'all');
     if (specificLocation) {
       setCenter(locations[swtName][location][specificLocation]?.address);
     } else {

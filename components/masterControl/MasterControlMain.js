@@ -91,21 +91,21 @@ const MasterControlMain = () => {
   useEffect(() => {
     if (isNewCommandCreated) {
       if (essSelectSystem) {
-        dispatch(handleDisplaySelectBoxWithAction(false);
+        useMasterControlSelectStore().displaySelectBoxWithAction(false);
         setToggleButtonColor(0);
-        dispatch(handleControlResetInit(false);
+        useMCStore().resetControlInit(false);
       } else if (tgsSelectSystem) {
-        dispatch(handleDisplaySelectBoxWithAction(false);
+        useMasterControlSelectStore().displaySelectBoxWithAction(false);
         setToggleButtonColor(1);
-        dispatch(handleControlResetInit(false);
+        useMCStore().resetControlInit(false);
       } else if (tesSelectSystem) {
-        dispatch(handleDisplaySelectBoxWithAction(false);
+        useMasterControlSelectStore().displaySelectBoxWithAction(false);
         setToggleButtonColor(2);
-        dispatch(handleControlResetInit(false);
+        useMCStore().resetControlInit(false);
       } else if (hpSelectSystem) {
-        dispatch(handleDisplaySelectBoxWithAction(false);
+        useMasterControlSelectStore().displaySelectBoxWithAction(false);
         setToggleButtonColor(3);
-        dispatch(handleControlResetInit(false);
+        useMCStore().resetControlInit(false);
       }
     }
 
@@ -124,13 +124,13 @@ const MasterControlMain = () => {
     dispatch(handleResetAll();
     useMCCommandStore().applyCommand(false);
     dispatch(handleUnselectAllSystem();
-    dispatch(handleControlResetInit(false);
+    useMCStore().resetControlInit(false);
     handleCreateNewCommandMessageBox(1);
 
     if (essSelectSystem) {
       return Object.keys(flatEssSwitch).forEach((location) =>
         Object.keys(flatEssSwitch[location]).forEach((machine) => {
-          dispatch(handleUnSelectIndividualMachine({ location, machine });
+          useMasterControlSelectStore().unselectMachine({ location, machine });
         });
     } else if (tgsSelectSystem) {
       return Object.keys(flatTgsSwitch).forEach((location) =>

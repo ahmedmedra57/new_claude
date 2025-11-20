@@ -161,7 +161,7 @@ const IntegratedSwitchSpecificLocations = ({
   useEffect(() => {
     if (isSpecificLocationOpen.length > 1) {
       const checker = isSpecificLocationOpen?.some((el) => el === true);
-      dispatch(handleOpenMasterControl({ swtName, status: !checker });
+      useMCStore().setOpenMasterControl({ swtName, status: !checker });
     }
   }, [isSpecificLocationOpen]);
 
@@ -231,7 +231,7 @@ const IntegratedSwitchSpecificLocations = ({
         // const locationArr = Object.keys(tgsSwitch).map(
         //   (location) => location === locationId
         // );
-        // dispatch(handleTgsInitialState(locationArr);
+        // useTGSSwitchStore().resetMachinesState(locationArr);
         // Object.keys(tgsSwitch).map((location) =>
         //   Object.keys(tgsSwitch[location]).map((machine) =>
         //     dispatch(
@@ -273,7 +273,7 @@ const IntegratedSwitchSpecificLocations = ({
         // const locationArr = Object.keys(tesSwitch).map(
         //   (location) => location === locationId
         // );
-        // dispatch(handleTesInitialState(locationArr);
+        // useTESSwitchStore().resetMachinesState(locationArr);
         // Object.keys(tesSwitch).map((location) =>
         //   Object.keys(tesSwitch[location]).map((machine) =>
         //     dispatch(

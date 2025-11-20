@@ -107,11 +107,98 @@ ACTION_TO_ZUSTAND = {
     # HP actions
     'hpEcHandleUnSelectIndividualMachine': ('useHPElectricSwitchStore', 'unselectIndividualMachine'),
     'hpGsHandleUnSelectIndividualMachine': ('useHPGasSwitchStore', 'unselectIndividualMachine'),
+    'hpEcSpecificLocationUnselectMachinesHandler': ('useHPElectricSwitchStore', 'hpEcSpecificLocationUnselectMachine'),
+    'hpGcSpecificLocationUnselectMachinesHandler': ('useHPGasSwitchStore', 'hpGcSpecificLocationUnselectMachine'),
 
     # Temp handlers (these might need review)
     'fanOnlyHandlerTempo': ('useTGSSwitchStore', 'setFanOnly'),
     'constantHeatHandlerTempo': ('useESSSwitchStore', 'setConstantTemp'),
     'AddScheduleHandlerTempo': ('useESSSwitchStore', 'addHeatingSchedule'),
+    'snowSensorHandlerTempo': ('useESSSwitchStore', 'setSnowSensor'),
+    'windFactorHandlerTempo': ('useESSSwitchStore', 'setWindFactor'),
+    'instantHeatHandlerTempo': ('useESSSwitchStore', 'setInstantHeat'),
+
+    # Settings selection actions
+    'handleSettingsMachineSelect': ('useSettingsOptionsStore', 'selectMachine'),
+    'handleSettingsSelectedOne': ('useSettingsOptionsStore', 'setSelectedOne'),
+    'handleSettingsAddLocations': ('useSettingsOptionsStore', 'addLocations'),
+    'handleSettingsAddMachines': ('useSettingsOptionsStore', 'addMachines'),
+    'handleSettingsAddSpecificLocations': ('useSettingsOptionsStore', 'addSpecificLocations'),
+
+    # ATS selection actions
+    'handleAtsSelection': ('useESSSwitchStore', 'setAtsSelection'),
+    'tesHandleAtsSelection': ('useTESSwitchStore', 'setAtsSelection'),
+    'tgsHandleAtsSelection': ('useTGSSwitchStore', 'setAtsSelection'),
+
+    # TGS/TES specific actions
+    'tgsHandleShutOff': ('useTGSSwitchStore', 'setShutOff'),
+    'tesHandleShutOff': ('useTESSwitchStore', 'setShutOff'),
+    'tgsSpecificLocationUnselectMachinesHandler': ('useTGSSwitchStore', 'tgsSpecificLocationUnselectMachine'),
+    'tesSpecificLocationUnselectMachinesHandler': ('useTESSwitchStore', 'tesSpecificLocationUnselectMachine'),
+    'tgsHandleUnSelectIndividualMachine': ('useTGSSwitchStore', 'unselectIndividualMachine'),
+    'tesHandleUnSelectIndividualMachine': ('useTESSwitchStore', 'unselectIndividualMachine'),
+    'tesHandleInstantHeat': ('useTESSwitchStore', 'setInstantHeat'),
+    'tgsHandleInstantHeat': ('useTGSSwitchStore', 'setInstantHeat'),
+    'tesHandleSnowSensor': ('useTESSwitchStore', 'setSnowSensor'),
+    'tgsHandleSnowSensor': ('useTGSSwitchStore', 'setSnowSensor'),
+    'tesHandleWindFactor': ('useTESSwitchStore', 'setWindFactor'),
+    'tgsHandleWindFactor': ('useTGSSwitchStore', 'setWindFactor'),
+    'tesHandleOptionalConstantTemp': ('useTESSwitchStore', 'setOptionalConstantTempReady'),
+    'tesHandleAddHeatingSchedule': ('useTESSwitchStore', 'addHeatingSchedule'),
+    'tesHandleReadyHeatingSchedule': ('useTESSwitchStore', 'setReadyHeatingSchedule'),
+    'tgsHandleAddHeatingSchedule': ('useTGSSwitchStore', 'addHeatingSchedule'),
+    'tgsHandleReadyHeatingSchedule': ('useTGSSwitchStore', 'setReadyHeatingSchedule'),
+    'handleTesInitialState': ('useTESSwitchStore', 'resetMachinesState'),
+
+    # Telemetry actions
+    'handleTotalHoursTelemetry': ('useTelemetryStore', 'setTotalHours'),
+    'handleTotalConsumptionTelemetry': ('useTelemetryStore', 'setTotalConsumption'),
+    'handleEssGraphDate': ('useESSSwitchStore', 'setTesGraphDate'),
+    'handleTgsGraphDate': ('useTGSSwitchStore', 'setTesGraphDate'),
+    'handleTesGraphDate': ('useTESSwitchStore', 'setTesGraphDate'),
+
+    # ESS heating and program actions
+    'handleOptionalConstantTempReady': ('useESSSwitchStore', 'setOptionalConstantTempReady'),
+    'handleAddHeatingSchedule': ('useESSSwitchStore', 'addHeatingSchedule'),
+    'handleReadyHeatingSchedule': ('useESSSwitchStore', 'setReadyHeatingSchedule'),
+    'handleSelectMobileProgram': ('useESSSwitchStore', 'selectMobileProgram'),
+    'handleSelectIndividualMachine': ('useESSSwitchStore', 'selectIndividualMachine'),
+    'handleAllDeactivatePrograms': ('useMCStore', 'deactivateAllPrograms'),
+    'handleSetUnits': ('useUnitsStore', 'setUnits'),
+
+    # By Switch/Location selection actions
+    'handleLocationSelectBySwitch': ('useMasterControlBySwitchSelectStore', 'selectLocation'),
+    'handleMachineSelectBySwitch': ('useMasterControlBySwitchSelectStore', 'selectMachine'),
+    'handleLocationSelectByLocation': ('useMasterControlSelectByLocationStore', 'selectLocation'),
+    'handleMachineSelectByLocation': ('useMasterControlSelectByLocationStore', 'selectMachine'),
+
+    # Initial state handlers
+    'handleTgsInitialState': ('useTGSSwitchStore', 'resetMachinesState'),
+    'handleTesSpecificLocationInitialState': ('useTESSwitchStore', 'resetSpecificLocationState'),
+
+    # Settings & Admin actions
+    'handleUnitSelection': ('useSettingsOptionsStore', 'setUnitSelection'),
+    'handleSwitchSize': ('useAdminStore', 'setSwitchSize'),
+    'handleSSRRating': ('useAdminStore', 'setSSRRating'),
+    'handleAddGasType': ('useAdminStore', 'addGasType'),
+
+    # Other actions
+    'handleAddElementToBank': ('useMCStore', 'addElementToBank'),
+    'handleIsReadyToSelectProgram': ('useMCStore', 'setReadyToSelectProgram'),
+    'handleSelectSwitch': ('useMCStore', 'selectSwitch'),
+    'handleSelectProgram': ('useMCStore', 'selectProgram'),
+    'handleAddNewElements': ('useMCStore', 'addNewElements'),
+    'handleInstantHeatReady': ('useESSSwitchStore', 'setInstantHeatIsReady'),
+    'handleSettingsDisplaySelectBox': ('useSettingsOptionsStore', 'toggleDisplaySelectBox'),
+    'setInterfaceMode': ('useAppStore', 'setInterfaceMode'),
+    'handleReportStatus': ('useReportStatusStore', 'setReportStatus'),
+    'handleSearchTelemetrySystem': ('useTelemetryStore', 'setSearchSystem'),
+    'handleSelectTelemetrySystem': ('useTelemetryStore', 'selectSystem'),
+    'handleSearchCommand': ('useMCCommandStore', 'setSearchCommand'),
+    'setTelemetryIntervalUnit': ('useTelemetryStore', 'setIntervalUnit'),
+    'handleAuditLogData': ('useTelemetryStore', 'setAuditLogData'),
+    'handleDisplaySystemDetails': ('useMCStore', 'setDisplaySystemDetails'),
+    'handleDisplayForceMessageBox': ('useSettingsOptionsStore', 'setDisplayForceMessageBox'),
 
     # User actions
     'addUserInfo': ('useUserStore', 'setUserInfo'),

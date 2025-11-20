@@ -79,39 +79,39 @@ const SwitchSelect = ({ isSelected, setIsSelected }) => {
       const arr = [...isSelected];
       arr[id] = true;
       setIsSelected(arr);
-      dispatch(handleDisplaySystemDetails(arr);
+      useMCStore().setDisplaySystemDetails(arr);
     }
   };
 
   const handleButtonClick = (button) => {
     if (button === 'clear') {
       setIsSelected([false, false, false, false, false, false]);
-      dispatch(handleSelectDisplaySystem(null);
+      useMCStore().selectDisplaySystem(null);
     } else {
       // apply button logic
       // send selected systems to the map component for displaying
       if (isSelected[0]) {
-        dispatch(handleSelectDisplaySystem('all');
+        useMCStore().selectDisplaySystem('all');
       } else if (isSelected[1] && isSelected[2]) {
         // ess & tgs
-        dispatch(handleSelectDisplaySystem('ess, tgs');
+        useMCStore().selectDisplaySystem('ess, tgs');
       } else if (isSelected[1] && isSelected[3]) {
         // ess & tes
-        dispatch(handleSelectDisplaySystem('ess, tes');
+        useMCStore().selectDisplaySystem('ess, tes');
       } else if (isSelected[2] && isSelected[3]) {
         // tgs & tes
-        dispatch(handleSelectDisplaySystem('tgs, tes');
+        useMCStore().selectDisplaySystem('tgs, tes');
       } else if (isSelected[1]) {
         // ess
-        dispatch(handleSelectDisplaySystem('ess');
+        useMCStore().selectDisplaySystem('ess');
       } else if (isSelected[2]) {
         // tgs
-        dispatch(handleSelectDisplaySystem('tgs');
+        useMCStore().selectDisplaySystem('tgs');
       } else if (isSelected[3]) {
         // tes
-        dispatch(handleSelectDisplaySystem('tes');
+        useMCStore().selectDisplaySystem('tes');
       } else {
-        dispatch(handleSelectDisplaySystem(null);
+        useMCStore().selectDisplaySystem(null);
       }
       setIsExpanded(false);
     }

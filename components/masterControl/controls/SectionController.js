@@ -130,7 +130,7 @@ const SectionControllers = ({
         instantHeatHandlerTempo({ temp: instantHeatTemp, isF, state: true });
     } else if (state === 'off') {
       // turn off
-      dispatch(instantHeatHandlerTempo({ temp: 0, isF, state: false });
+      useESSSwitchStore().setInstantHeat({ temp: 0, isF, state: false });
     } else {
       // message
       handleMessageBox('instant heat program', [
@@ -148,7 +148,7 @@ const SectionControllers = ({
         constantHeatHandlerTempo({ temp: optionalTemp, isF, state: true });
     } else if (state === 'off') {
       // turn off
-      dispatch(constantHeatHandlerTempo({ temp: 0, isF, state: false });
+      useESSSwitchStore().setConstantTemp({ temp: 0, isF, state: false });
     } else {
       // message
       handleMessageBox('optional constant temp.', [
@@ -163,7 +163,7 @@ const SectionControllers = ({
   const heatingScheduleHandler = (state, data = null) => {
     if (state === 'on') {
       // turn on
-      dispatch(AddScheduleHandlerTempo(data);
+      useESSSwitchStore().addHeatingSchedule(data);
     } else if (state === 'off') {
       dispatch(handleClearScheduler();
     } else {
@@ -179,16 +179,16 @@ const SectionControllers = ({
 
   const fanOnlyHandler = (state) => {
     if (state === 'on') {
-      dispatch(fanOnlyHandlerTempo(true);
+      useTGSSwitchStore().setFanOnly(true);
     } else {
-      dispatch(fanOnlyHandlerTempo(false);
+      useTGSSwitchStore().setFanOnly(false);
     }
   };
   const snowSensorHandler = (state) => {
     if (state === 'on') {
-      dispatch(snowSensorHandlerTempo(true);
+      useESSSwitchStore().setSnowSensor(true);
     } else if (state === 'off') {
-      dispatch(snowSensorHandlerTempo(false);
+      useESSSwitchStore().setSnowSensor(false);
     } else {
       handleMessageBox('snow sensor program', []);
     }
@@ -196,10 +196,10 @@ const SectionControllers = ({
   const windFactorHandler = (state) => {
     if (state === 'on') {
       // turn on
-      dispatch(windFactorHandlerTempo(true);
+      useESSSwitchStore().setWindFactor(true);
     } else if (state === 'off') {
       // turn off
-      dispatch(windFactorHandlerTempo(false);
+      useESSSwitchStore().setWindFactor(false);
     } else {
       // message
       handleMessageBox('wind factor program', []);

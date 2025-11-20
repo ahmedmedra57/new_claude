@@ -125,11 +125,11 @@ const GraphMain = ({
         unit,
       };
       if (swtName === 'ess') {
-        dispatch(handleEssGraphDate(newData);
+        useESSSwitchStore().setTesGraphDate(newData);
       } else if (swtName === 'tgs') {
-        dispatch(handleTgsGraphDate(newData);
+        useTGSSwitchStore().setTesGraphDate(newData);
       } else if (swtName === 'tes') {
-        dispatch(handleTesGraphDate(newData);
+        useTESSwitchStore().setTesGraphDate(newData);
       }
     };
 
@@ -219,11 +219,11 @@ const GraphMain = ({
                   }),
               };
               if (swtName === 'ess') {
-                dispatch(handleEssGraphDate(newData);
+                useESSSwitchStore().setTesGraphDate(newData);
               } else if (swtName === 'tgs') {
-                dispatch(handleTgsGraphDate(newData);
+                useTGSSwitchStore().setTesGraphDate(newData);
               } else if (swtName === 'tes') {
-                dispatch(handleTesGraphDate(newData);
+                useTESSwitchStore().setTesGraphDate(newData);
               }
 
               setAuditLogData(getAuditLogData(Object.values(res)[0], true);

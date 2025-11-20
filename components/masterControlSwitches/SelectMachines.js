@@ -22,7 +22,7 @@ const SelectMachines = ({ size, name, disabled }) => {
     if (!selectedOne) {
       const essLocations = Object.keys(essSwitch);
       // unSelect all
-      dispatch(handleSelectAllBySwitch({ controller: name, status: false });
+      useMasterControlBySwitchSelectStore().selectAll({ controller: name, status: false });
 
       // unSelect all the locations
       const locationArr = essLocations.map((location) => false);

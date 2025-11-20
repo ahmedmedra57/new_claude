@@ -5,6 +5,7 @@ import EachLocationReportStatus from './EachLocationReportStatus';
 import { useEffect } from 'react';
 import { useESSSwitchStore, useReportStatusStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
 import { useGetAllSSRsQueries, useGetThermocouplesQueries } from '../../hooks';
+import { useReportStatusStore } from '../../zustand-stores';
 
 const ReportStatusMain = () => {
   // const [isHover, setIsHover] = useState([]);
@@ -51,7 +52,7 @@ const ReportStatusMain = () => {
   useGetThermocouplesQueries(flatTesSwitch, 'tes');
 
   useEffect(() => {
-    dispatch(handleReportStatus({ essSwitch, tgsSwitch, tesSwitch, isF });
+    useReportStatusStore().setReportStatus({ essSwitch, tgsSwitch, tesSwitch, isF });
   }, [essSwitch, tgsSwitch, tesSwitch]);
 
   // useEffect(() => {

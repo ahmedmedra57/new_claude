@@ -184,22 +184,22 @@ const SelectFCSwitchMachineOptions = ({
   //         );
   //       }
   //     } else if (!isSelected) {
-  //       dispatch(handleSettingsSelectedOne({ switch: swt, selectedOne: null });
+  //       useSettingsOptionsStore().setSelectedOne({ switch: swt, selectedOne: null });
   //     }
   //     handleClose();
   //   } else {
   //     // reset all selections
   //     // 1.reset all local states
-  //     dispatch(handleSettingsSelectAll({ switch: swt, status: false });
-  //     dispatch(handleSettingsSelectedOne({ switch: swt, selectedOne: null });
+  //     useSettingsOptionsStore().selectAll({ switch: swt, status: false });
+  //     useSettingsOptionsStore().setSelectedOne({ switch: swt, selectedOne: null });
 
   //     // reset state for dispatch
-  //     dispatch(handleSettingsAddLocations({ switch: swt, arr: [] });
-  //     dispatch(handleSettingsAddMachines({ switch: swt, arr: [] });
+  //     useSettingsOptionsStore().addLocations({ switch: swt, arr: [] });
+  //     useSettingsOptionsStore().addMachines({ switch: swt, arr: [] });
 
   //     // 2. reset location
   //     const arr = locations.map((location) => false);
-  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr });
+  //     useSettingsOptionsStore().selectLocation({ switch: swt, arr });
 
   //     // reset selected machines
   //     const individualArr = Object.values(data).map((location) =>
@@ -418,12 +418,12 @@ const SelectFCSwitchMachineOptions = ({
 
   //   if (option === 'all') {
   //     // 1. select all
-  //     dispatch(handleSettingsSelectAll({ switch: swt, status: true });
+  //     useSettingsOptionsStore().selectAll({ switch: swt, status: true });
 
   //     // update all locations
   //     const locationArr = isLocationSelected.map((location) => true);
 
-  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr: locationArr });
+  //     useSettingsOptionsStore().selectLocation({ switch: swt, arr: locationArr });
 
   //     // update all machines global and local
   //     const individualArr = Object.values(data).map((location) =>
@@ -439,18 +439,18 @@ const SelectFCSwitchMachineOptions = ({
   //     const index = locations.indexOf(option);
   //     const arr = [...isLocationSelected];
   //     arr[index] = true;
-  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr });
+  //     useSettingsOptionsStore().selectLocation({ switch: swt, arr });
 
   //     // update machines in the location
   //     const machineNewArr = isMachineSelected[index]?.map((machine) => true);
   //     const copyArr = [...isMachineSelected];
   //     copyArr[index] = machineNewArr;
-  //     dispatch(handleSettingsMachineSelect({ switch: swt, arr: copyArr });
+  //     useSettingsOptionsStore().selectMachine({ switch: swt, arr: copyArr });
 
   //     // for dispatch selected locations
   //     const newSelect = [...selectedLocations];
   //     newSelect.push(option);
-  //     dispatch(handleSettingsAddLocations({ switch: swt, arr: newSelect });
+  //     useSettingsOptionsStore().addLocations({ switch: swt, arr: newSelect });
   //   } else {
   //     // 3. select individually
   //     const locationIdx = Object.keys(data).indexOf(option);

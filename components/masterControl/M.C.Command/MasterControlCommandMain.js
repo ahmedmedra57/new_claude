@@ -127,11 +127,11 @@ function MasterControlCommandMain({
     e.stopPropagation();
     switch (idx) {
       case 0:
-        dispatch(handleControlResetInit(true);
+        useMCStore().resetControlInit(true);
         break;
       case 1:
         setResetDialControl(false);
-        dispatch(handleControlResetInit(false);
+        useMCStore().resetControlInit(false);
         break;
       default:
         break;
@@ -150,7 +150,7 @@ function MasterControlCommandMain({
       useMCCommandStore().setApplyMessageBox(true);
       handleMessageBox();
       useMCCommandStore().setViewCommand(false);
-      dispatch(handleControlResetInit(false);
+      useMCStore().resetControlInit(false);
     }
   };
 
@@ -288,7 +288,7 @@ function MasterControlCommandMain({
   //   if (isAllSelected) {
   //     // 1. selected All
   //     // dispatch
-  //     dispatch(handleSelectedOne({ switch: swt, selectedOne: 'all' });
+  //     useMasterControlSelectStore().setSelectedOne({ switch: swt, selectedOne: 'all' });
   //     switch (swt) {
   //       case 'ess':
   //         selectLocationHandler(essSwitch, swt);
@@ -443,7 +443,7 @@ function MasterControlCommandMain({
   //   );
   //   // **if no machines were selected then dispatch the code below
   //   // else if (!isSelected) {
-  //   //   dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
+  //   //   useMasterControlSelectStore().setSelectedOne({ switch: swt, selectedOne: null });
   //   // }
   // };
 
@@ -466,7 +466,7 @@ function MasterControlCommandMain({
     if (isAllSelected) {
       // 1. selected All
       // dispatch
-      dispatch(handleSelectedOne({ switch: swt, selectedOne: "all" });
+      useMasterControlSelectStore().setSelectedOne({ switch: swt, selectedOne: "all" });
       // #1.1. select locations
       selectLocationsHandler(locations, swt, data, dispatch);
     } else if (isLocationSelected.indexOf(true) !== -1) {
@@ -513,7 +513,7 @@ function MasterControlCommandMain({
       // #4.1.switches/machines count
       // switchCountHandler(isMachineSelected);
     } else if (!isSelected) {
-      dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
+      useMasterControlSelectStore().setSelectedOne({ switch: swt, selectedOne: null });
     }
   };
 
@@ -798,7 +798,7 @@ function MasterControlCommandMain({
     //           );
     //         });
     //       });
-    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'ess' });
+    //       useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: 'ess' });
 
     //       // push all the names of the machines that were saved in the selected command to be ready for dispatch
     //       const newSelectedMachineArr = [];
@@ -874,7 +874,7 @@ function MasterControlCommandMain({
     //           );
     //         });
     //       });
-    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tgs' });
+    //       useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: 'tgs' });
 
     //       // push all the names of the machines that were saved in the selected command to be ready for dispatch
     //       const newSelectedMachineArr = [];
@@ -949,7 +949,7 @@ function MasterControlCommandMain({
     //           );
     //         });
     //       });
-    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tes' });
+    //       useMasterControlSelectStore().selectMachine({ arr: machineArr, switch: 'tes' });
 
     //       // push all the names of the machines that were saved in the selected command to be ready for dispatch
     //       const newSelectedMachineArr = [];
@@ -1009,7 +1009,7 @@ function MasterControlCommandMain({
   };
 
   const handleSetPrevCommandSelectedDeactivate = (commandInfo) => {
-    dispatch(handleAllDeactivatePrograms(commandInfo.deactivate);
+    useMCStore().deactivateAllPrograms(commandInfo.deactivate);
 
     // for styling
     // sets the circle to solid green of selected program
@@ -1044,7 +1044,7 @@ function MasterControlCommandMain({
     } = commandInfo.parameters;
     // sets the unit measure to the previous selected command unit
     const { isF } = commandInfo;
-    dispatch(handleSetUnits(isF);
+    useUnitsStore().setUnits(isF);
     // sets the dial control style and the input temp fields
     if (instantHeat) {
       // select(1, true);
@@ -1059,7 +1059,7 @@ function MasterControlCommandMain({
         });
     }
     if (snowSensor) {
-      dispatch(snowSensorHandlerTempo(true);
+      useESSSwitchStore().setSnowSensor(true);
     }
     if (optionalConstantTemp) {
       const optionalConstantTempNumbers = optionalConstantTemp.match(/\d+/)[0];
@@ -1079,10 +1079,10 @@ function MasterControlCommandMain({
         });
     }
     if (windFactor) {
-      dispatch(windFactorHandlerTempo(true);
+      useESSSwitchStore().setWindFactor(true);
     }
     if (fanOnly) {
-      dispatch(fanOnlyHandlerTempo(true);
+      useTGSSwitchStore().setFanOnly(true);
     }
     setResetDialControl(false);
   };
@@ -1123,7 +1123,7 @@ function MasterControlCommandMain({
       // set previous command's system
       handleSetPrevCommandSelectedSys();
 
-      dispatch(handleSearchCommand(selectCommand);
+      useMCCommandStore().setSearchCommand(selectCommand);
       setOpeningSelectionBox(false);
     }
   };

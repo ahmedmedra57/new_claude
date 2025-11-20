@@ -57,7 +57,7 @@ const SnowSensor = ({
   //   // Logic for access selected machine
   //   Object.keys(essSwitch).forEach((location) =>
   //     Object.keys(essSwitch[location]).forEach((machine) => {
-  //       dispatch(handleUnSelectIndividualMachine({ location, machine });
+  //       useMasterControlSelectStore().unselectMachine({ location, machine });
   //     })
   //   );
   // }, []);

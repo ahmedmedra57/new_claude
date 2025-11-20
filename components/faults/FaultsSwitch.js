@@ -238,7 +238,7 @@ const FaultSwitch = ({ title, name, message, comments, disabled }) => {
 
       {/*       {displayForceMessageBox && (
         <SettingConfirmedMessage
-          onClose={() => dispatch(handleDisplayForceMessageBox(false))}
+          onClose={() => useSettingsOptionsStore().setDisplayForceMessageBox(false)}
           title='thermocouple failure'
           alert={true}
           src={'/static/images/heater-off-alert.svg'}

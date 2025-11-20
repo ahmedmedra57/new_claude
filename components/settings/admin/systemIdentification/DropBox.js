@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
+import { useAdminStore } from '../../../zustand-stores';
   addSSRsRatingService,
   addSSRsSwitchSizesService,
 } from '../../../../services/systemIdentification.service';
@@ -201,7 +202,7 @@ const DropBox = ({
                 addSSRsRatingService(inputValue);
               }
               if (buttonTitle === 'add gas type') {
-                dispatch(handleAddGasType(inputValue);
+                useAdminStore().addGasType(inputValue);
               } else {
                 dispatch(
                   handleAddSwitchSizeSSRRating({

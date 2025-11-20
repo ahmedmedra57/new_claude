@@ -297,7 +297,7 @@ const SelectMachineItems = ({
       // Clear button
       if (scope === "switch") {
         // 1.reset all and title (selected one)
-        dispatch(handleSelectAllBySwitch({ controller: name, status: false });
+        useMasterControlBySwitchSelectStore().selectAll({ controller: name, status: false });
         dispatch(
           handleSelectedOneBySwitch({ controller: name, selectedOne: null });
 
@@ -309,14 +309,14 @@ const SelectMachineItems = ({
         useMasterControlBySwitchSelectStore().addMachines(resetObj);
 
         // 3. reset isLocationSelected to an array of false
-        dispatch(handleLocationSelectBySwitch(locationResetObj);
+        useMasterControlBySwitchSelectStore().selectLocation(locationResetObj);
         // 3.1. reset isSpecificLocationSelected to an array of false
         if (specificLocationList.length > 0) {
           dispatch(
             handleSpecificLocationSelectBySwitch(specificLocationResetObj);
         }
         // 3.2. reset isMachineSelected to an array of false
-        dispatch(handleMachineSelectBySwitch(machineResetObj);
+        useMasterControlBySwitchSelectStore().selectMachine(machineResetObj);
       } else {
         // 1.reset all and title (selected one)
         dispatch(
@@ -332,7 +332,7 @@ const SelectMachineItems = ({
         useMasterControlSelectByLocationStore().addMachines(resetObj);
 
         // 3. reset isLocationSelected to an array of false
-        dispatch(handleLocationSelectByLocation(locationResetObj);
+        useMasterControlSelectByLocationStore().selectLocation(locationResetObj);
 
         // 3.1. reset isSpecificLocationSelected to an array of false
         if (specificLocationList.length > 0) {
@@ -341,7 +341,7 @@ const SelectMachineItems = ({
         }
 
         // 3.2. reset isMachineSelected to an array of false
-        dispatch(handleMachineSelectByLocation(machineResetObj);
+        useMasterControlSelectByLocationStore().selectMachine(machineResetObj);
       }
       // unSelect all machines of ESS,TGS or TES slice
       unselectAllMachinesHandler(locations, swtName, data, dispatch);

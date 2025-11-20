@@ -248,18 +248,18 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
   //     if (isEssSwitch) {
   //       setOpeningStatesHandler('ess', essSwitch);
   //     } else {
-  //       dispatch(handleOpenMasterControl({ swtName: 'ess', status: false });
+  //       useMCStore().setOpenMasterControl({ swtName: 'ess', status: false });
   //     }
   //     if (isTgsSwitch) {
   //       setOpeningStatesHandler('tgs', tgsSwitch);
   //     } else {
-  //       dispatch(handleOpenMasterControl({ swtName: 'tgs', status: false });
+  //       useMCStore().setOpenMasterControl({ swtName: 'tgs', status: false });
   //     }
 
   //     if (isTesSwitch) {
   //       setOpeningStatesHandler('tes', tesSwitch);
   //       // const locationTes = Object.keys(tesSwitch).map((location) => false);
-  //       // dispatch(handleTesInitialState(locationTes);
+  //       // useTESSwitchStore().resetMachinesState(locationTes);
 
   //       // searchSpecificLocationHandler(tesSwitch).forEach((checkEl, idx) => {
   //       //   if (!checkEl) {
@@ -271,11 +271,11 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
   //       //       false
   //       //     );
 
-  //       //     dispatch(handleTesSpecificLocationInitialState(booleanArray);
+  //       //     useTESSwitchStore().resetSpecificLocationState(booleanArray);
   //       //   }
   //       // });
   //     } else {
-  //       dispatch(handleOpenMasterControl({ swtName: 'tes', status: false });
+  //       useMCStore().setOpenMasterControl({ swtName: 'tes', status: false });
   //     }
   //   };
   // }, []);
@@ -430,10 +430,10 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
 
       const swtName = index === 0 ? 'ess' : index === 1 ? 'tgs' : 'tes';
       if (suggestion.length >= 2) {
-        dispatch(handleOpenMasterControl({ swtName, status: false });
+        useMCStore().setOpenMasterControl({ swtName, status: false });
       }
       if (suggestion) {
-        dispatch(handleOpenMasterControl({ swtName, status: false });
+        useMCStore().setOpenMasterControl({ swtName, status: false });
         // show selected machine
         const tempArr = [...displaySelectedMachine];
         tempArr[index] = true;

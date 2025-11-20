@@ -165,7 +165,7 @@ const hoursOfUsage = useMemo(() => {
   }, [system, location, isMachineAvailable, isF, id]);
 
   const handleOnClick = () => {
-    dispatch(handleSelectDisplaySystem(selectedSystem || "all");
+    useMCStore().selectDisplaySystem(selectedSystem || "all");
     setCenter(locations[id][location]?.address);
     setZoomNum(17);
     setSelectedLocation(location);

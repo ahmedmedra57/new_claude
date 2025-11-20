@@ -102,7 +102,7 @@ const SSRInfoContainer = ({
                     status: true,
                   });
             // true : update password box status
-            dispatch(handlePasswordPropagation(true);
+            useAdminStore().setPasswordPropagation(true);
           }
         }
       }
@@ -147,7 +147,7 @@ const SSRInfoContainer = ({
             id: `ssr${id}`,
             status: false,
           });
-    dispatch(handlePasswordPropagation(false);
+    useAdminStore().setPasswordPropagation(false);
   };
 
   return (

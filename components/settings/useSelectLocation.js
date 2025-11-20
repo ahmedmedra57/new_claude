@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { getAllSpecificLocationNames } from "../../helpers/helpers";
+import { useSettingsOptionsStore } from '../../zustand-stores';
 
 const useSelectLocationBox = (
   openHeaders,
@@ -178,7 +179,7 @@ const useSelectLocationBox = (
 
 
   const dispatchAllHandler = (program) => {
-    dispatch(handleSettingsSelectAll({ switch: program, status: false });
+    useSettingsOptionsStore().selectAll({ switch: program, status: false });
   };
   const dispatchLocationsHandler = (programData, program) => {
     const locations = Object.keys(programData);
@@ -226,7 +227,7 @@ const useSelectLocationBox = (
         });
       }
     });
-    dispatch(handleSettingsMachineSelect({ arr: machineArr, switch: program });
+    useSettingsOptionsStore().selectMachine({ arr: machineArr, switch: program });
   };
 
   useEffect(() => {

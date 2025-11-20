@@ -97,7 +97,7 @@ const MasterControlProvider = ({ children }) => {
   //         // 2. change select effect panel
   //         setSelectSrc('/images/section-image-1.svg');
   //         // change selected controller as true
-  //         dispatch(handleSelectAController([true, false, false, false, false]);
+  //         useMCStore().selectController([true, false, false, false, false]);
   //         // turn dial dgree
   //         setDialDeg(1);
   //         break;
@@ -108,7 +108,7 @@ const MasterControlProvider = ({ children }) => {
   //         // 2. change select effect panel
   //         setSelectSrc('/images/section-image-2.svg');
   //         // change selected controller as true
-  //         dispatch(handleSelectAController([false, true, false, false, false]);
+  //         useMCStore().selectController([false, true, false, false, false]);
   //         // turn dial degree
   //         setDialDeg(2);
   //         break;
@@ -119,7 +119,7 @@ const MasterControlProvider = ({ children }) => {
   //         // 2. change select effect panel
   //         setSelectSrc('/images/section-image-3.svg');
   //         // change selected controller as true
-  //         dispatch(handleSelectAController([false, false, true, false, false]);
+  //         useMCStore().selectController([false, false, true, false, false]);
   //         // turn dial degree
   //         setDialDeg(3);
   //         break;
@@ -130,7 +130,7 @@ const MasterControlProvider = ({ children }) => {
   //         // 2. change select effect panel
   //         setSelectSrc('/images/section-image-4.svg');
   //         // change selected controller as true
-  //         dispatch(handleSelectAController([false, false, false, true, false]);
+  //         useMCStore().selectController([false, false, false, true, false]);
   //         // turn dial degree
   //         setDialDeg(4);
   //         break;
@@ -141,7 +141,7 @@ const MasterControlProvider = ({ children }) => {
   //         // 2. change select effect panel
   //         setSelectSrc('/images/section-image-5.svg');
   //         // change selected controller as true
-  //         dispatch(handleSelectAController([false, false, false, false, true]);
+  //         useMCStore().selectController([false, false, false, false, true]);
   //         // turn dial degree
   //         setDialDeg(5);
   //         break;

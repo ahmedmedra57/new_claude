@@ -57,7 +57,7 @@ const [isUpdating, setIsUpdating] = useState(false);
     getAllAdminHeatersService().then((res) => {
       if (res) {    
        
-        dispatch(handleAddNewElements(res);
+        useMCStore().addNewElements(res);
       }
     });
   }, []);
@@ -96,8 +96,8 @@ const [isUpdating, setIsUpdating] = useState(false);
 
   // useEffect(() => {
   //   openPasswordBox
-  //     ? dispatch(handlePasswordPropagation(true))
-  //     : dispatch(handlePasswordPropagation(false);
+  //     ? useAdminStore().setPasswordPropagation(true)
+  //     : useAdminStore().setPasswordPropagation(false);
   // }, [openPasswordBox]);
 
   const handlePasswordBox = (status) => {
