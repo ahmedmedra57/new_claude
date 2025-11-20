@@ -91,8 +91,7 @@ const FaultsDetails = ({ faultContents, column, name }) => {
   };
 
   const handleAddActions = (data) => {
-    dispatch(
-      handleAddActionTaken({
+    useFaultsStore().addActionTaken({
         swtName: name,
         location,
         specificLocation,

@@ -477,7 +477,7 @@ const MainSwitchesSpecifications = ({
       }
     });
 
-    dispatch({ type: actionType, payload: locations });
+    // TODO: Fix // TODO: Fix dispatch({ type: actionType, payload: locations   })
   };
 
   useEffect(() => {
