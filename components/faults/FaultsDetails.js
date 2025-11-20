@@ -155,26 +155,6 @@ const FaultsDetails = ({ faultContents, column, name }) => {
               </PopUpBoxWrapper>
             )}
 
-          {/* this is for the confirm turn off selection  */}
-          {/* {displaySystemTurnOffMessageBox && (
-        <PopUpBoxWrapper>
-          <SystemOffMessageBox
-            onClose={() =>
-              dispatch(
-                handleDisplaySystemTurnOffMessageBox({
-                  swtName: name,
-                  location,
-                  machine,
-                  state: false,
-                })
-              )
-            }
-            title='system off'
-            alert={true}
-            message='SYSTEM OFF UNTIL RELEASE FAULT OR BY forcing the SYSTEM.'
-          />
-        </PopUpBoxWrapper>
-      )} */}
         </Wrapper>
       ) : (
         <Wrapper isMobile={isMobile}>
@@ -227,26 +207,6 @@ const FaultsDetails = ({ faultContents, column, name }) => {
               </PopUpBoxWrapper>
             )}
 
-          {/* this is for the confirm turn off selection  */}
-          {/* {displaySystemTurnOffMessageBox && (
-        <PopUpBoxWrapper>
-          <SystemOffMessageBox
-            onClose={() =>
-              dispatch(
-                handleDisplaySystemTurnOffMessageBox({
-                  swtName: name,
-                  location,
-                  machine,
-                  state: false,
-                })
-              )
-            }
-            title='system off'
-            alert={true}
-            message='SYSTEM OFF UNTIL RELEASE FAULT OR BY forcing the SYSTEM.'
-          />
-        </PopUpBoxWrapper>
-      )} */}
         </Wrapper>
       )}
     </>

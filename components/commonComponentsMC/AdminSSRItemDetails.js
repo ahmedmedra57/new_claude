@@ -168,15 +168,10 @@ const AdminSSRItemDetails = ({
       const elementData = elementSpec.filter(
         (el) => Object.keys(el).length !== 0
       );
-      
-      dispatch(
-        changeSSRDetail({
-          location,
-          machine,
-          data: elementData,
-          id: `ssr${id}`,
-          unit: unitsMeasurement,
-        });
+
+      swtName === 'ess'
+        ? useESSSwitchStore().changeSSRDetail(location, machine, `ssr${id}`, { data: elementData, unit: unitsMeasurement })
+        : useTESSwitchStore().changeSSRDetail(location, null, machine, `ssr${id}`, { data: elementData, unit: unitsMeasurement });
           elementData.forEach((el, index) => {
           const oldEl = initialInputState[index];
 
@@ -210,14 +205,9 @@ const AdminSSRItemDetails = ({
     } 
     else {
       if (initialInputState.filter((el) => el.partNumber !== '').length !== 0) {
-        dispatch(
-          changeSSRDetail({
-            location,
-            machine,
-            data: [{}],
-            id: `ssr${id}`,
-            unit: unitsMeasurement,
-          });
+        swtName === 'ess'
+          ? useESSSwitchStore().changeSSRDetail(location, machine, `ssr${id}`, { data: [{}], unit: unitsMeasurement })
+          : useTESSwitchStore().changeSSRDetail(location, null, machine, `ssr${id}`, { data: [{}], unit: unitsMeasurement });
         initialInputState
           .filter((element) => element.partNumber !== '')
           .map((el) => {

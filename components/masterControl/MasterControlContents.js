@@ -549,8 +549,7 @@ const MasterControlContents = ({
     const keyValue = Object.entries(option)[0];
     const keyValueAts = Object.entries(option2)[0];
     // to create a new command
-    dispatch(
-      handleSaveCommand({
+    useMCCommandStore().saveCommand({
         user: userId,
         commandData: {
           [`${commandKey}`]: {

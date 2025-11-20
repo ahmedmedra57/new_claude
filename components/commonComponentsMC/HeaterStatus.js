@@ -65,32 +65,12 @@ const [isUpdating, setIsUpdating] = useState(false);
   const handleExpandDetail = () => {
     if (isExpanded) {
       swtName === 'ess'
-        ? dispatch(
-            handleExpandSSRDetail({
-              location,
-              machine,
-              status: false,
-            })
-          )
-        : setExpandSSRDetail({
-              location,
-              machine,
-              status: false,
-            });
+        ? useESSSwitchStore().expandSSRDetail(location, machine)
+        : useTESSwitchStore().expandSSRDetail(location, specificLocation, machine);
     } else {
       swtName === 'ess'
-        ? dispatch(
-            handleExpandSSRDetail({
-              location,
-              machine,
-              status: true,
-            })
-          )
-        : setExpandSSRDetail({
-              location,
-              machine,
-              status: true,
-            });
+        ? useESSSwitchStore().expandSSRDetail(location, machine)
+        : useTESSwitchStore().expandSSRDetail(location, specificLocation, machine);
     }
   };
 

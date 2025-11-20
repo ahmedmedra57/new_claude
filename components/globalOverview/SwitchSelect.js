@@ -69,8 +69,7 @@ const SwitchSelect = ({ isSelected, setIsSelected }) => {
   const handleSelectAll = () => {
     const selectedOptions=switches.map(({enabled})=>enabled);
     setIsSelected(selectedOptions);
-    dispatch(
-      handleDisplaySystemDetails(selectedOptions);
+    useMCStore().setDisplaySystemDetails(selectedOptions);
   }
   const handleSelect = (id) => {
     if (id === 0) {
