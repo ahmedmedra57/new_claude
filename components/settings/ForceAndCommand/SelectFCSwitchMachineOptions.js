@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import {
   flexBoxCenter,
@@ -66,8 +65,7 @@ const SelectFCSwitchMachineOptions = ({
   const [isSpecLocationArrowDown, setIsSpecLocationArrowDown] = useState(
     trackSpecLocationArrowState
   );
-  const dispatch = useDispatch();
-
+  
   // useEffect(() => {
   //   const specificLocationArr = Object.keys(data).map((location) =>
   //     Object.entries(data[location]).flatMap(([key, el]) => {
@@ -115,7 +113,7 @@ const SelectFCSwitchMachineOptions = ({
   //       dispatch(
   //         handleSettingsSelectedOne({ switch: swt, selectedOne: 'all' })
   //       );
-  //       locations.map((location) => handleSelectLocation(location, true));
+  //       locations.map((location) => handleSelectLocation(location, true);
   //     } else if (isLocationSelected.indexOf(true) !== -1) {
   //       // 2. selected locations
   //       selectedLocations.map((location) =>
@@ -186,22 +184,22 @@ const SelectFCSwitchMachineOptions = ({
   //         );
   //       }
   //     } else if (!isSelected) {
-  //       dispatch(handleSettingsSelectedOne({ switch: swt, selectedOne: null }));
+  //       dispatch(handleSettingsSelectedOne({ switch: swt, selectedOne: null });
   //     }
   //     handleClose();
   //   } else {
   //     // reset all selections
   //     // 1.reset all local states
-  //     dispatch(handleSettingsSelectAll({ switch: swt, status: false }));
-  //     dispatch(handleSettingsSelectedOne({ switch: swt, selectedOne: null }));
+  //     dispatch(handleSettingsSelectAll({ switch: swt, status: false });
+  //     dispatch(handleSettingsSelectedOne({ switch: swt, selectedOne: null });
 
   //     // reset state for dispatch
-  //     dispatch(handleSettingsAddLocations({ switch: swt, arr: [] }));
-  //     dispatch(handleSettingsAddMachines({ switch: swt, arr: [] }));
+  //     dispatch(handleSettingsAddLocations({ switch: swt, arr: [] });
+  //     dispatch(handleSettingsAddMachines({ switch: swt, arr: [] });
 
   //     // 2. reset location
   //     const arr = locations.map((location) => false);
-  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr }));
+  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr });
 
   //     // reset selected machines
   //     const individualArr = Object.values(data).map((location) =>
@@ -212,7 +210,7 @@ const SelectFCSwitchMachineOptions = ({
   //     );
 
   //     // dispatch
-  //     locations.map((location) => handleSelectLocation(location));
+  //     locations.map((location) => handleSelectLocation(location);
   //   }
   // };
 
@@ -338,7 +336,7 @@ const SelectFCSwitchMachineOptions = ({
   //       locationList,
   //       specificLocationList,
   //       machineList,
-  //     ].map((list) => changeObjKeysHandler(list));
+  //     ].map((list) => changeObjKeysHandler(list);
 
   //     selectAllIndicatorDispatcherHandler(
   //       dispatch,
@@ -420,12 +418,12 @@ const SelectFCSwitchMachineOptions = ({
 
   //   if (option === 'all') {
   //     // 1. select all
-  //     dispatch(handleSettingsSelectAll({ switch: swt, status: true }));
+  //     dispatch(handleSettingsSelectAll({ switch: swt, status: true });
 
   //     // update all locations
   //     const locationArr = isLocationSelected.map((location) => true);
 
-  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr: locationArr }));
+  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr: locationArr });
 
   //     // update all machines global and local
   //     const individualArr = Object.values(data).map((location) =>
@@ -441,18 +439,18 @@ const SelectFCSwitchMachineOptions = ({
   //     const index = locations.indexOf(option);
   //     const arr = [...isLocationSelected];
   //     arr[index] = true;
-  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr }));
+  //     dispatch(handleSettingsLocationSelect({ switch: swt, arr });
 
   //     // update machines in the location
   //     const machineNewArr = isMachineSelected[index]?.map((machine) => true);
   //     const copyArr = [...isMachineSelected];
   //     copyArr[index] = machineNewArr;
-  //     dispatch(handleSettingsMachineSelect({ switch: swt, arr: copyArr }));
+  //     dispatch(handleSettingsMachineSelect({ switch: swt, arr: copyArr });
 
   //     // for dispatch selected locations
   //     const newSelect = [...selectedLocations];
   //     newSelect.push(option);
-  //     dispatch(handleSettingsAddLocations({ switch: swt, arr: newSelect }));
+  //     dispatch(handleSettingsAddLocations({ switch: swt, arr: newSelect });
   //   } else {
   //     // 3. select individually
   //     const locationIdx = Object.keys(data).indexOf(option);

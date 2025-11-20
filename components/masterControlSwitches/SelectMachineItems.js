@@ -1,29 +1,6 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
-import {
-  handleAddLocationsBySwitch,
-  handleAddMachinesBySwitch,
-  handleAddSpecificLocationsBySwitch,
-  handleLocationSelectBySwitch,
-  handleMachineSelectBySwitch,
-  handleSelectAllBySwitch,
-  handleSelectedOneBySwitch,
-  handleSpecificLocationSelectBySwitch,
-  selectMCBySwitch,
-} from "../store/slices/masterControlBySwitchSelectSlice";
 
-import {
-  handleAddLocationsByLocation,
-  handleAddMachinesByLocation,
-  handleAddSpecificLocationsByLocation,
-  handleLocationSelectByLocation,
-  handleMachineSelectByLocation,
-  handleSelectAllByLocation,
-  handleSelectedOneByLocation,
-  handleSpecificLocationSelectByLocation,
-  selectMCByLocation,
-} from "../store/slices/masterControlSelectByLocationSlice";
 
 import styled, { css } from "styled-components";
 import {
@@ -81,8 +58,7 @@ const SelectMachineItems = ({
     []
   );
   const [isSelected, setIsSelected] = useState(false);
-  const dispatch = useDispatch();
-
+  
   let locations = Object.keys(data);
   // scope has location name
   let machinesArr;
@@ -152,14 +128,12 @@ const SelectMachineItems = ({
             selectedSwtNumber += 1;
           }
         }
-      })
-    );
+      });
     dispatch(
       selectOneFC({
         controller: name,
         selectedOne: `${selectedSwtNumber} switches`,
-      })
-    );
+      });
   };
 
   // Clear and Apply Button handler
@@ -194,8 +168,7 @@ const SelectMachineItems = ({
               handleSelectedOneByLocation({
                 controller: name,
                 selectedOne: "all",
-              })
-            );
+              });
         if (specificLocation) {
           // 1.1 when selected all, dispatch all machines in selected specific location
           const allMachines = Object.keys(
@@ -278,8 +251,7 @@ const SelectMachineItems = ({
               handleSelectedOneByLocation({
                 controller: name,
                 selectedOne: null,
-              })
-            );
+              });
       }
 
       handleClose();
@@ -324,56 +296,51 @@ const SelectMachineItems = ({
       // Clear button
       if (scope === "switch") {
         // 1.reset all and title (selected one)
-        dispatch(handleSelectAllBySwitch({ controller: name, status: false }));
+        dispatch(handleSelectAllBySwitch({ controller: name, status: false });
         dispatch(
-          handleSelectedOneBySwitch({ controller: name, selectedOne: null })
-        );
+          handleSelectedOneBySwitch({ controller: name, selectedOne: null });
 
         // 2. Empty selected location names
-        dispatch(handleAddLocationsBySwitch(resetObj));
+        dispatch(handleAddLocationsBySwitch(resetObj);
         // 2.1. Empty selected specific location names and machine names
-        dispatch(handleAddSpecificLocationsBySwitch(resetObj));
+        dispatch(handleAddSpecificLocationsBySwitch(resetObj);
         // 2.2. Empty selected  machine names
-        dispatch(handleAddMachinesBySwitch(resetObj));
+        dispatch(handleAddMachinesBySwitch(resetObj);
 
         // 3. reset isLocationSelected to an array of false
-        dispatch(handleLocationSelectBySwitch(locationResetObj));
+        dispatch(handleLocationSelectBySwitch(locationResetObj);
         // 3.1. reset isSpecificLocationSelected to an array of false
         if (specificLocationList.length > 0) {
           dispatch(
-            handleSpecificLocationSelectBySwitch(specificLocationResetObj)
-          );
+            handleSpecificLocationSelectBySwitch(specificLocationResetObj);
         }
         // 3.2. reset isMachineSelected to an array of false
-        dispatch(handleMachineSelectBySwitch(machineResetObj));
+        dispatch(handleMachineSelectBySwitch(machineResetObj);
       } else {
         // 1.reset all and title (selected one)
         dispatch(
-          handleSelectAllByLocation({ controller: name, status: false })
-        );
+          handleSelectAllByLocation({ controller: name, status: false });
         dispatch(
-          handleSelectedOneByLocation({ controller: name, selectedOne: null })
-        );
+          handleSelectedOneByLocation({ controller: name, selectedOne: null });
 
         // 2. Empty selected location names
-        dispatch(handleAddLocationsByLocation(resetObj));
+        dispatch(handleAddLocationsByLocation(resetObj);
         // 2.2. Empty selected  specific location names
-        dispatch(handleAddSpecificLocationsByLocation(resetObj));
+        dispatch(handleAddSpecificLocationsByLocation(resetObj);
         // 2.2. Empty selected  machine names
-        dispatch(handleAddMachinesByLocation(resetObj));
+        dispatch(handleAddMachinesByLocation(resetObj);
 
         // 3. reset isLocationSelected to an array of false
-        dispatch(handleLocationSelectByLocation(locationResetObj));
+        dispatch(handleLocationSelectByLocation(locationResetObj);
 
         // 3.1. reset isSpecificLocationSelected to an array of false
         if (specificLocationList.length > 0) {
           dispatch(
-            handleSpecificLocationSelectByLocation(specificLocationResetObj)
-          );
+            handleSpecificLocationSelectByLocation(specificLocationResetObj);
         }
 
         // 3.2. reset isMachineSelected to an array of false
-        dispatch(handleMachineSelectByLocation(machineResetObj));
+        dispatch(handleMachineSelectByLocation(machineResetObj);
       }
       // unSelect all machines of ESS,TGS or TES slice
       unselectAllMachinesHandler(locations, swtName, data, dispatch);

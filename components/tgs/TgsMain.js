@@ -1,29 +1,23 @@
 import { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectTgsSwitch,
-  tgsHandleOpenMachineController,
-  tgsHandleUnSelectIndividualMachine,
-  tgsSpecificLocationUnselectMachinesHandler,
-} from '../store/slices/tgsSwitchSlice';
+  useTGSSwitchStore,
+  useMCIsExpandedStore,
+  useUnitsStore,
+  useMasterControlBySwitchSelectStore,
+  useMasterControlSelectByLocationStore,
+  useUserStore,
+} from '../zustand-stores';
 
 import { useMediaQuery } from 'react-responsive';
 
 import styled from 'styled-components';
 import MasterControlBySwitch from '../commonComponentsMC/MasterControlBySwitch';
 import IntegratedSwitchLocations from '../commonComponentsMC/IntegratedSwitchLocations';
-import {
-  selectMCIsExpanded,
-} from '../store/slices/MCIsExpandedSlice';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { handleResetAllSelectBySwitch } from '../store/slices/masterControlBySwitchSelectSlice';
-import { handleResetAllSelectByLocation } from '../store/slices/masterControlSelectByLocationSlice';
 import { useGetScheduleQueries, useSetZoneOpeningsState } from '../../hooks';
 import {
   getTgsZones,
 } from '../../services';
 import { useQuery } from 'react-query';
-import { handleAccessToken } from '../store/slices/userSlice';
 import {
   EssTgsTesContext,
 } from '../context/contextOfEssTgsTes';
@@ -33,16 +27,19 @@ import { useSetOpenMasterControl } from '../../hooks/ess_tgs_tes_hooks/useSetOpe
 const TgsMain = ({ isMasterControl }) => {
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
-  const { tgsSwitch,flatTgsSwitch } = useSelector(selectTgsSwitch);
-  const MCIsExpanded = useSelector(selectMCIsExpanded);
+  const { tgsSwitch, flatTgsSwitch } = useTGSSwitchStore();
+  const MCIsExpanded = useMCIsExpandedStore();
   const { masterControl } = MCIsExpanded.tgs;
 
-  const unitsStatus = useSelector(selectUnits);
-  const { isF } = unitsStatus;
+  const { isF } = useUnitsStore();
+  const { accessToken } = useUserStore();
 
   const { messageBoxHandler } = useContext(EssTgsTesContext);
 
-  const dispatch = useDispatch();
+  // Zustand actions
+  const { setOpenMachineController, setUnSelectIndividualMachine, setSpecificLocationUnselectMachines } = useTGSSwitchStore();
+  const { setResetAllSelectBySwitch } = useMasterControlBySwitchSelectStore();
+  const { setResetAllSelectByLocation } = useMasterControlSelectByLocationStore();
 
   useGetScheduleQueries(flatTgsSwitch, 'TGS');
 
@@ -51,12 +48,12 @@ const TgsMain = ({ isMasterControl }) => {
   useSetZoneOpeningsState(
     flatTgsSwitch,
     masterControl,
-    tgsHandleOpenMachineController,
+    setOpenMachineController,
     'tgs'
   );
 
   const { data: tgsZones } = useQuery(['tgsZones','structured'], ()=>getTgsZones({structured:true}), {
-    enabled: !!handleAccessToken,
+    enabled: !!accessToken,
     staleTime: Infinity,
   });
 
@@ -80,11 +77,11 @@ const TgsMain = ({ isMasterControl }) => {
       tgsZones,
       'TGS',
       flatTgsSwitch,
-      dispatch,
-      tgsHandleUnSelectIndividualMachine,
-      tgsSpecificLocationUnselectMachinesHandler,
-      handleResetAllSelectBySwitch,
-      handleResetAllSelectByLocation,
+      null, // No dispatch needed for Zustand
+      setUnSelectIndividualMachine,
+      setSpecificLocationUnselectMachines,
+      setResetAllSelectBySwitch,
+      setResetAllSelectByLocation,
       messageBoxHandler,
       tgsSwitch
     );

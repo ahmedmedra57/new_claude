@@ -1,24 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
-import {
-  handleInstantHeatOff,
-  selectEssSwitch,
-  handleInstantHeat,
-  handleSnowSensorOff,
-  handleSnowSensor,
-  handleWindFactor,
-  handleWindFactorOff,
-  handleAddHeatingSchedule,
-  handleReadyHeatingSchedule,
-  handleClearHeatingSchedule,
-  essHandleUnselectAllProgram,
-  essHandleSelectProgram,
-  handleMachineOptionalConstantTempOff,
-  handleOptionalConstantTempReady,
-  handleInstantHeatReady,
-  selectFlatEssSwitch,
-} from '../store/slices/essSwitchSlice';
 import {
   flexBoxCenter,
   layerA,
@@ -40,16 +21,10 @@ import MCInstantHeat from '../commonComponentsMC/controllers/MCInstantHeat';
 import MCSnowSensor from '../commonComponentsMC/controllers/MCSnowSensor';
 import MCWindFactor from '../commonComponentsMC/controllers/MCWindFactor';
 import { useEffect, useState, useMemo } from 'react';
+import { useESSSwitchStore, useUserStore } from '../zustand-stores';
 import InputTempMessage from '../userMessages/inputTempMessage';
-import {
-  handleSelectProgram,
-  handleUnselectAllProgram,
-  selectedProgram,
-} from '../store/slices/mobileSelectProgramSlice';
 import MachineTelemetry from '../commonComponentsMC/MachineTelemetry';
 import HeaterStatus from '../commonComponentsMC/HeaterStatus';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { selectUserPermissions } from '../store/slices/userSlice';
 import {
   convertCelsiusToFahrenheit,
   convertFahrenheitToCelsius,
@@ -76,7 +51,7 @@ const EssControlBox = ({
   indivLocationName,
 }) => {
   // Global
-  const { essSwitch,flatEssSwitch: flatSwitchStatus } = useSelector(selectEssSwitch);
+  const { essSwitch,flatEssSwitch: flatSwitchStatus } = useESSSwitchStore();
 
   const switchStatus =  flatSwitchStatus[location][machine];
   const {
@@ -95,10 +70,9 @@ const EssControlBox = ({
     deviceStatus,
   } = switchStatus;
 
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const disable = !permissions.WRITE;
-  const dispatch = useDispatch();
-
+  
   // Use shared hooks for temperature state management (replaces ~80 lines)
   const {
     instantHeatTemp,
@@ -139,16 +113,14 @@ const EssControlBox = ({
           location,
           machine,
           state: true,
-        })
-      );
+        });
     } else {
       dispatch(
         handleReadyHeatingSchedule({
           location,
           machine,
           state: false,
-        })
-      );
+        });
     }
   }, [heatingScheduleList, dispatch, location, machine]);
 
@@ -190,8 +162,7 @@ const EssControlBox = ({
           location,
           machine,
           data,
-        })
-      );
+        });
     } else if (state === 'clear') {
       // delete
       let data;
@@ -212,8 +183,7 @@ const EssControlBox = ({
                 location,
                 machine,
                 data,
-              })
-            );
+              });
           })
           .catch((err) => {
           });
@@ -229,8 +199,7 @@ const EssControlBox = ({
                 location,
                 machine,
                 data,
-              })
-            );
+              });
           })
           .catch((err) => {
           });
@@ -261,8 +230,7 @@ const EssControlBox = ({
                 inputTemp: temp,
                 isF,
                 id: res.id,
-              })
-            );
+              });
           })
           .catch((e) => {
           });
@@ -279,8 +247,7 @@ const EssControlBox = ({
                 inputTemp: temp,
                 isF,
                 id: res.id,
-              })
-            );
+              });
           })
           .catch((e) => {
           });
@@ -303,12 +270,11 @@ const EssControlBox = ({
           machine,
           isF,
           temp,
-        })
-      );
+        });
     } else if (state === 'off') {
       // turn off
       postEssCommand(deviceMac, 'on_switch', 0);
-      dispatch(handleInstantHeatOff({ location, machine }));
+      dispatch(handleInstantHeatOff({ location, machine });
     } else {
       // state === 'message'
       // setInstantHeatTemp('');
@@ -332,8 +298,7 @@ const EssControlBox = ({
           machine,
           isF,
           temp,
-        })
-      );
+        });
     } else if (state === 'off') {
       // turn off
       postEssCommand(deviceMac, 'on_constant', 0);
@@ -341,8 +306,7 @@ const EssControlBox = ({
         handleMachineOptionalConstantTempOff({
           location,
           machine,
-        })
-      );
+        });
     } else {
       // state === 'message'
       // setInstantHeatTemp('');
@@ -354,11 +318,11 @@ const EssControlBox = ({
   const snowSensorHandler = (state) => {
     if (state === 'off') {
       postEssCommand(deviceMac, 'snow_enabled', 0);
-      dispatch(handleSnowSensorOff({ location, machine }));
+      dispatch(handleSnowSensorOff({ location, machine });
     } else if (state === 'on') {
       // state === 'on'
       postEssCommand(deviceMac, 'snow_enabled', 1);
-      dispatch(handleSnowSensor({ location, machine }));
+      dispatch(handleSnowSensor({ location, machine });
     } else {
       setProgramName('snow sensor program');
       handleMessageBox(state, 'snow sensor program');
@@ -368,11 +332,11 @@ const EssControlBox = ({
   const windFactorHandler = (state) => {
     if (state === 'off') {
       postEssCommand(deviceMac, 'wind', 0);
-      dispatch(handleWindFactorOff({ location, machine }));
+      dispatch(handleWindFactorOff({ location, machine });
     } else {
       // state === 'on'
       postEssCommand(deviceMac, 'wind', 1);
-      dispatch(handleWindFactor({ location, machine }));
+      dispatch(handleWindFactor({ location, machine });
     }
   };
 
@@ -414,25 +378,17 @@ const EssControlBox = ({
   // for mobile
   const handleSwitchController = (program) => {
     if (program === 'unselect') {
-      dispatch(
-        essHandleUnselectAllProgram({ location, machine })
-      );
+      setUnselectAllProgram({ location, machine });
     } else {
       if (mobileSelectedProgram[program]) {
-        dispatch(
-          essHandleUnselectAllProgram({ location, machine })
-        );
+        setUnselectAllProgram({ location, machine });
       } else {
-        dispatch(
-          essHandleUnselectAllProgram({ location, machine })
-        );
-        dispatch(
-          essHandleSelectProgram({
+        setUnselectAllProgram({ location, machine });
+        setSelectProgram({
             location,
             machine,
             program,
-          })
-        );
+          });
       }
     }
   };

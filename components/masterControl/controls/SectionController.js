@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMCCommandStore, useMCStore, useUnitsStore } from '../../zustand-stores';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
 import { selectMC } from '../../store/slices/mCSlice';
 import selectedMachinesSlice, {
@@ -35,13 +35,13 @@ const SectionControllers = ({
   isDialSysDisabled,
 }) => {
   // Global States
-  const selectedSwitch = useSelector(selectMC);
+  const selectedSwitch = useMCStore();
   const { ess, tgs, tes, hp } = selectedSwitch.selectSystem;
 
   const selectsState = useSelector(selectedMachinesState);
 
   const { controllersStatus, isNewCommandCreated } =
-    useSelector(selectMCCommand);
+    useMCCommandStore();
   // const selectedMachineStates = useSelector(selectedMachinesState);
   // const { mCOff } = selectedMachineStates;
 
@@ -56,7 +56,7 @@ const SectionControllers = ({
     mCOff,
   } = selectsState;
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   // Local States
@@ -71,8 +71,7 @@ const SectionControllers = ({
 
   const [isShutOff, setIsShutOff] = useState(false);
 
-  const dispatch = useDispatch();
-
+  
   useEffect(() => {
     const willShutOff = Object.values(mCOff).some((state) => state === true);
     willShutOff ? setIsShutOff(true) : setIsShutOff(false);
@@ -128,11 +127,10 @@ const SectionControllers = ({
     if (state === 'on') {
       // turn on
       dispatch(
-        instantHeatHandlerTempo({ temp: instantHeatTemp, isF, state: true })
-      );
+        instantHeatHandlerTempo({ temp: instantHeatTemp, isF, state: true });
     } else if (state === 'off') {
       // turn off
-      dispatch(instantHeatHandlerTempo({ temp: 0, isF, state: false }));
+      dispatch(instantHeatHandlerTempo({ temp: 0, isF, state: false });
     } else {
       // message
       handleMessageBox('instant heat program', [
@@ -147,11 +145,10 @@ const SectionControllers = ({
   const constantTempHandler = (state) => {
     if (state === 'on') {
       dispatch(
-        constantHeatHandlerTempo({ temp: optionalTemp, isF, state: true })
-      );
+        constantHeatHandlerTempo({ temp: optionalTemp, isF, state: true });
     } else if (state === 'off') {
       // turn off
-      dispatch(constantHeatHandlerTempo({ temp: 0, isF, state: false }));
+      dispatch(constantHeatHandlerTempo({ temp: 0, isF, state: false });
     } else {
       // message
       handleMessageBox('optional constant temp.', [
@@ -166,9 +163,9 @@ const SectionControllers = ({
   const heatingScheduleHandler = (state, data = null) => {
     if (state === 'on') {
       // turn on
-      dispatch(AddScheduleHandlerTempo(data));
+      dispatch(AddScheduleHandlerTempo(data);
     } else if (state === 'off') {
-      dispatch(handleClearScheduler());
+      dispatch(handleClearScheduler();
     } else {
       // message
       handleMessageBox('heating schedule program', [
@@ -182,16 +179,16 @@ const SectionControllers = ({
 
   const fanOnlyHandler = (state) => {
     if (state === 'on') {
-      dispatch(fanOnlyHandlerTempo(true));
+      dispatch(fanOnlyHandlerTempo(true);
     } else {
-      dispatch(fanOnlyHandlerTempo(false));
+      dispatch(fanOnlyHandlerTempo(false);
     }
   };
   const snowSensorHandler = (state) => {
     if (state === 'on') {
-      dispatch(snowSensorHandlerTempo(true));
+      dispatch(snowSensorHandlerTempo(true);
     } else if (state === 'off') {
-      dispatch(snowSensorHandlerTempo(false));
+      dispatch(snowSensorHandlerTempo(false);
     } else {
       handleMessageBox('snow sensor program', []);
     }
@@ -199,10 +196,10 @@ const SectionControllers = ({
   const windFactorHandler = (state) => {
     if (state === 'on') {
       // turn on
-      dispatch(windFactorHandlerTempo(true));
+      dispatch(windFactorHandlerTempo(true);
     } else if (state === 'off') {
       // turn off
-      dispatch(windFactorHandlerTempo(false));
+      dispatch(windFactorHandlerTempo(false);
     } else {
       // message
       handleMessageBox('wind factor program', []);

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { justifyContentSpaceBetween, layerA } from '../styles/commonStyles';
 
 import IndividualMachine from './IndividualMachine';
-import { handleOpenSpecificLocation } from '../store/slices/MCIsExpandedSlice';
 import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
 
 const SwitchSpecificLocation = ({
@@ -26,8 +25,7 @@ const SwitchSpecificLocation = ({
   isF,
 }) => {
   const [src, setSrc] = useState('/images/IS-arrow.svg');
-  const dispatch = useDispatch();
-
+  
   useEffect(() => {
     isExpanded
       ? setSrc('/images/IS-arrow-expanded.svg')
@@ -42,8 +40,7 @@ const SwitchSpecificLocation = ({
           openLocationIdx,
           openSpecificLocationIdx,
           status: false,
-        })
-      );
+        });
     } else {
       dispatch(
         handleOpenSpecificLocation({
@@ -51,8 +48,7 @@ const SwitchSpecificLocation = ({
           openLocationIdx,
           openSpecificLocationIdx,
           status: true,
-        })
-      );
+        });
     }
   };
   const hoursOfUsage = useMemo(() => {

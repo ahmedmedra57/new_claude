@@ -1,12 +1,9 @@
 import { useMemo } from 'react';
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { selectLocations } from '../store/slices/locationsSlice';
 
 import { ItemBackground } from '../styles/commonStyles';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
 import testData from '../../test_data/testData';
 
 const DisplayMachineSuggestion = ({
@@ -16,12 +13,12 @@ const DisplayMachineSuggestion = ({
   column,
   handleClose,
 }) => {
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   // !! TEST
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
-  // const { tesSwitch } = useSelector(selectTesSwitch);
+  // const { essSwitch } = useESSSwitchStore();
+  // const { tgsSwitch } = useTGSSwitchStore();
+  // const { tesSwitch } = useTESSwitchStore();
   // const { testAllLocations } = testData(
   //   essSwitch,
   //   tgsSwitch,

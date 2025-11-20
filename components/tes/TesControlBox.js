@@ -1,25 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState , useMemo} from 'react';
-
-import {
-  tesHandleInstantHeatOff,
-  selectTesSwitch,
-  tesHandleInstantHeat,
-  tesHandleSnowSensorOff,
-  tesHandleSnowSensor,
-  tesHandleOptionalConstantTempOff,
-  tesHandleWindFactor,
-  tesHandleWindFactorOff,
-  tesHandleAddHeatingSchedule,
-  tesHandleReadyHeatingSchedule,
-  tesHandleClearHeatingSchedule,
-  tesHandleUnselectAllProgram,
-  tesHandleSelectProgram,
-  tesDeactivateConflictMessage,
-  tesActivateConflictMessage,
-  tesSetDevicesConflicts,
-  tesHandleOptionalConstantTempIsReady,
-} from '../store/slices/tesSwitchSlice';
+import { useTESSwitchStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -44,8 +24,7 @@ import MCWindFactor from '../commonComponentsMC/controllers/MCWindFactor';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import MachineTelemetry from '../commonComponentsMC/MachineTelemetry';
 import HeaterStatus from '../commonComponentsMC/HeaterStatus';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { selectUserPermissions } from '../store/slices/userSlice';
+import { useUnitsStore, useUserStore } from '../zustand-stores';
 
 import {
   convertCelsiusToFahrenheit,
@@ -74,7 +53,7 @@ const TesControlBox = ({
   setTemp,
 }) => {
   // Global
-  const { tesSwitch,flatTesSwitch } = useSelector(selectTesSwitch);
+  const { tesSwitch, flatTesSwitch } = useTESSwitchStore();
   const switchStatus = flatTesSwitch[location][machine];
   const {
     deviceMac,
@@ -96,9 +75,28 @@ const TesControlBox = ({
     currentRun,
   } = flatTesSwitch[location][machine];
 
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const disable = !permissions.WRITE;
-  const dispatch = useDispatch();
+
+  // Zustand actions
+  const {
+    setInstantHeatOff,
+    setInstantHeat,
+    setSnowSensorOff,
+    setSnowSensor,
+    setOptionalConstantTempOff,
+    setWindFactor,
+    setWindFactorOff,
+    setAddHeatingSchedule,
+    setReadyHeatingSchedule,
+    setClearHeatingSchedule,
+    setUnselectAllProgram,
+    setSelectProgram,
+    setDeactivateConflictMessage,
+    setActivateConflictMessage,
+    setDevicesConflicts,
+    setOptionalConstantTempIsReady,
+  } = useTESSwitchStore();
 
   // Use shared hooks for temperature state management (replaces ~80 lines)
   const {
@@ -136,15 +134,11 @@ const TesControlBox = ({
   // Keep heating schedule ready state dispatch (business logic not in hook)
   useEffect(() => {
     if (heatingScheduleList[0].inputTemp > 0) {
-      dispatch(
-        tesHandleReadyHeatingSchedule({ location, machine, state: true })
-      );
+      setReadyHeatingSchedule({ location, machine, state: true });
     } else {
-      dispatch(
-        tesHandleReadyHeatingSchedule({ location, machine, state: false })
-      );
+      setReadyHeatingSchedule({ location, machine, state: false });
     }
-  }, [heatingScheduleList, dispatch, location, machine]);
+  }, [heatingScheduleList, setReadyHeatingSchedule, location, machine]);
 
   const integratedButtonHandler = (
     id,
@@ -183,7 +177,7 @@ const TesControlBox = ({
           isF: null,
         },
       ];
-      dispatch(tesHandleClearHeatingSchedule({ location, machine, data }));
+      setClearHeatingSchedule({ location, machine, data });
     } else if (state === 'clear') {
       // delete
       let data;
@@ -199,9 +193,7 @@ const TesControlBox = ({
         ];
         deleteScheduleService(heatingScheduleList[index]?.id)
           .then(() => {
-            dispatch(
-              tesHandleClearHeatingSchedule({ location, machine, data })
-            );
+            setClearHeatingSchedule({ location, machine, data });
           })
           .catch((err) => {
           });
@@ -212,9 +204,7 @@ const TesControlBox = ({
         );
         deleteScheduleService(heatingScheduleList[index]?.id)
           .then(() => {
-            dispatch(
-              tesHandleClearHeatingSchedule({ location, machine, data })
-            );
+            setClearHeatingSchedule({ location, machine, data });
           })
           .catch((err) => {
           });
@@ -234,9 +224,8 @@ const TesControlBox = ({
         threshold,
       };
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine }));
-        dispatch(
-          tesSetDevicesConflicts({
+        dispatch(tesActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
             location,
             machine,
             currentSwitch: 'tgs-typhoon gas system',
@@ -249,15 +238,13 @@ const TesControlBox = ({
               temp,
               index,
             },
-          })
-        );
+        });
         return;
       }
       if (heatingScheduleList[index]?.id) {
         updateScheduleService(heatingScheduleList[index]?.id, scheduleData)
           .then((res) => {
-            dispatch(
-              tesHandleAddHeatingSchedule({
+            setAddHeatingSchedule({
                 location,
                 machine,
                 start: data.start,
@@ -266,16 +253,14 @@ const TesControlBox = ({
                 inputTemp: temp,
                 isF,
                 id: res.id,
-              })
-            );
+              });
           })
           .catch((e) => {
           });
       } else {
         createScheduleService(scheduleData)
           .then((res) => {
-            dispatch(
-              tesHandleAddHeatingSchedule({
+            setAddHeatingSchedule({
                 location,
                 machine,
                 start: data.start,
@@ -284,8 +269,7 @@ const TesControlBox = ({
                 inputTemp: temp,
                 isF,
                 id: res.id,
-              })
-            );
+              });
           })
           .catch((e) => {
           });
@@ -298,9 +282,8 @@ const TesControlBox = ({
     if (state === 'on') {
       // turn on
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine }));
-        dispatch(
-          tesSetDevicesConflicts({
+        dispatch(tesActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
             location,
             machine,
             currentSwitch: 'tgs-typhoon gas system',
@@ -308,8 +291,7 @@ const TesControlBox = ({
             systemTarget: 'electric',
             commandTarget: 'on_switch',
             extraData: isF ? convertFahrenheitToCelsius(temp) : temp,
-          })
-        );
+        });
         return;
       }
       postTesCommand(
@@ -318,11 +300,11 @@ const TesControlBox = ({
         isF ? convertFahrenheitToCelsius(temp) : temp
       );
       postTesCommand(deviceMac, 'on_switch', 1);
-      dispatch(tesHandleInstantHeat({ location, machine, isF, temp }));
+      setInstantHeat({ location, machine, isF, temp });
     } else if (state === 'off') {
       // turn off
       postTesCommand(deviceMac, 'on_switch', 0);
-      dispatch(tesHandleInstantHeatOff({ location, machine }));
+      setInstantHeatOff({ location, machine });
     } else {
       // state === 'message'
       setInstantHeatTemp('');
@@ -335,9 +317,8 @@ const TesControlBox = ({
     if (state === 'on') {
       // turn on
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine }));
-        dispatch(
-          tesSetDevicesConflicts({
+        dispatch(tesActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
             location,
             machine,
             currentSwitch: 'tgs-typhoon gas system',
@@ -345,8 +326,7 @@ const TesControlBox = ({
             systemTarget: 'electric',
             commandTarget: 'on_constant',
             extraData: isF ? convertFahrenheitToCelsius(temp) : temp,
-          })
-        );
+        });
         return;
       }
       postTesCommand(
@@ -355,13 +335,11 @@ const TesControlBox = ({
         isF ? convertFahrenheitToCelsius(temp) : temp
       );
       postTesCommand(deviceMac, 'on_constant', 1);
-      dispatch(
-        tesHandleOptionalConstantTempIsReady({ location, machine, isF, temp })
-      );
+      setOptionalConstantTempIsReady({ location, machine, isF, temp });
     } else if (state === 'off') {
       // turn off
       postTesCommand(deviceMac, 'on_constant', 0);
-      dispatch(tesHandleOptionalConstantTempOff({ location, machine }));
+      setOptionalConstantTempOff({ location, machine });
     } else {
       // state === 'message'
       setInstantHeatTemp('');
@@ -373,24 +351,22 @@ const TesControlBox = ({
   const snowSensorHandler = (state) => {
     if (state === 'off') {
       postTesCommand(deviceMac, 'snow_enabled', 0);
-      dispatch(tesHandleSnowSensorOff({ location, machine }));
+      dispatch(tesHandleSnowSensorOff({ location, machine });
     } else if (state === 'on') {
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine }));
-        dispatch(
-          tesSetDevicesConflicts({
+        dispatch(tesActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
             location,
             machine,
             currentSwitch: 'tgs-typhoon gas system',
             desiredSwitch: 'tgs-typhoon electric system',
             systemTarget: 'electric',
             commandTarget: 'snow_enabled',
-          })
-        );
+        });
         return;
       }
       postTesCommand(deviceMac, 'snow_enabled', 1);
-      dispatch(tesHandleSnowSensor({ location, machine }));
+      setSnowSensor({ location, machine });
     } else {
       setProgramName('snow sensor program');
       handleMessageBox(state, 'snow sensor program');
@@ -399,24 +375,22 @@ const TesControlBox = ({
   const windFactorHandler = (state) => {
     if (state === 'off') {
       postTesCommand(deviceMac, 'wind', 0);
-      dispatch(tesHandleWindFactorOff({ location, machine }));
+      dispatch(tesHandleWindFactorOff({ location, machine });
     } else {
       if (isAnotherSystemRunning(currentRun, 'gas')) {
-        dispatch(tesActivateConflictMessage({ location, machine }));
-        dispatch(
-          tesSetDevicesConflicts({
+        dispatch(tesActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
             location,
             machine,
             currentSwitch: 'tgs-typhoon gas system',
             desiredSwitch: 'tgs-typhoon electric system',
             systemTarget: 'electric',
             commandTarget: 'wind',
-          })
-        );
+        });
         return;
       }
       postTesCommand(deviceMac, 'wind', 1);
-      dispatch(tesHandleWindFactor({ location, machine }));
+      setWindFactor({ location, machine });
     }
   };
 
@@ -456,19 +430,19 @@ const TesControlBox = ({
 
   const handleSwitchController = (program) => {
     if (program === 'unselect') {
-      dispatch(tesHandleUnselectAllProgram({ location, machine }));
+      dispatch(tesHandleUnselectAllProgram({ location, machine });
     } else {
       if (mobileSelectedProgram[program]) {
-        dispatch(tesHandleUnselectAllProgram({ location, machine }));
+        dispatch(tesHandleUnselectAllProgram({ location, machine });
       } else {
-        dispatch(tesHandleUnselectAllProgram({ location, machine }));
-        dispatch(tesHandleSelectProgram({ location, machine, program }));
+        dispatch(tesHandleUnselectAllProgram({ location, machine });
+        setSelectProgram({ location, machine, program });
       }
     }
   };
 
   const handleCancelConflictMessage = () => {
-    dispatch(tesDeactivateConflictMessage({ location, machine }));
+    setDeactivateConflictMessage({ location, machine });
   };
 
   // !! TODO: implement specific location
@@ -476,34 +450,30 @@ const TesControlBox = ({
     if (devicesConflicts.commandTarget === 'on_switch') {
       postTesCommand(deviceMac, 'instant_temp', devicesConflicts.extraData);
       postTesCommand(deviceMac, 'on_switch', 1);
-      dispatch(
-        tesHandleInstantHeat({
+      setInstantHeat({
           location,
           machine,
           isF,
           temp: devicesConflicts.extraData,
-        })
-      );
+        });
     }
     if (devicesConflicts?.commandTarget === 'on_constant') {
       postTesCommand(deviceMac, 'constant_temp', devicesConflicts.extraData);
       postTesCommand(deviceMac, 'on_constant', 1);
-      dispatch(
-        tesHandleOptionalConstantTempIsReady({
+      setOptionalConstantTempIsReady({
           location,
           machine,
           isF,
           temp: devicesConflicts.extraData,
-        })
-      );
+        });
     }
     if (devicesConflicts.commandTarget === 'snow_enabled') {
       postTesCommand(deviceMac, 'snow_enabled', 1);
-      dispatch(tesHandleSnowSensor({ location, machine }));
+      setSnowSensor({ location, machine });
     }
     if (devicesConflicts.commandTarget === 'wind') {
       postTesCommand(deviceMac, 'wind', 1);
-      dispatch(tesHandleWindFactor({ location, machine }));
+      setWindFactor({ location, machine });
     }
     if (devicesConflicts.commandTarget === 'schedule') {
       const startDate = formatTime({ ...devicesConflicts.extraData.start });
@@ -527,8 +497,7 @@ const TesControlBox = ({
             inputTemp: devicesConflicts.extraData.temp,
             isF,
             id: res.id,
-          })
-        );
+        });
       if (heatingScheduleList[devicesConflicts.extraData.index]?.id) {
         updateScheduleService(
           heatingScheduleList[devicesConflicts.extraData.index]?.id,
@@ -545,7 +514,7 @@ const TesControlBox = ({
       }
     }
 
-    dispatch(tesDeactivateConflictMessage({ location, machine }));
+    setDeactivateConflictMessage({ location, machine });
   };
 
   return (

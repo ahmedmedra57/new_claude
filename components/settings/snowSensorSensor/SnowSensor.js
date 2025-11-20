@@ -14,12 +14,13 @@ import {
 } from '../../styles/commonStyles';
 import { useMediaQuery } from 'react-responsive';
 import { useState } from 'react';
+import { useUnitsStore } from '../../zustand-stores';
 
 function SnowSensor({ title, inputRef, isActive, index }) {
   // media query
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
-  const unitsState = useSelector(selectUnits);
+  const unitsState = useUnitsStore();
   const { isF } = unitsState;
 
   const [width, setWidth] = useState([false, false, false]);

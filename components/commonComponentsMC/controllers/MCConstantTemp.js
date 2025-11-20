@@ -30,7 +30,7 @@ const MCConstantTemp = ({
     location,
     machine
 }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
       swtName === 'ess'

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMCCommandStore, useMCStore, useMasterControlSelectStore } from '../../../zustand-stores';
 import styled, { css } from 'styled-components';
 
 import { selectMasterControls } from '../../../store/slices/masterControlSelectSlice';
@@ -28,10 +28,10 @@ const DisplayDialAndSections = ({
   handleCreateNewCommandMessageBox,
   messageBoxOfCreateNewCommand,
 }) => {
-  const selectedSwitch = useSelector(selectMC);
+  const selectedSwitch = useMCStore();
   const { ess, tgs, tes, hp } = selectedSwitch.selectSystem;
 
-  const selectsState = useSelector(selectMasterControls);
+  const selectsState = useMasterControlSelectStore();
   const { selectedOne } = ess
     ? selectsState.ess
     : tes
@@ -44,7 +44,7 @@ const DisplayDialAndSections = ({
   const { selectedController } = controllerState;
 
   // mcCommandSlice
-  const { controlResetInitialState } = useSelector(selectMCCommand);
+  const { controlResetInitialState } = useMCCommandStore();
 
   const {
     isFanOnly,
@@ -55,8 +55,7 @@ const DisplayDialAndSections = ({
     windFactor,
   } = controllerState.mCOff;
 
-  const dispatch = useDispatch();
-
+  
   // useState
   const [isReady, setIsReady] = useState(false);
   const [displayMessageBox, setDisplayMessageBox] = useState(false);
@@ -167,7 +166,7 @@ const DisplayDialAndSections = ({
           // 2. change select effect panel
           setSelectSrc('/images/section-image-1.svg');
           // change selected controller as true
-          dispatch(handleSelectAController([true, false, false, false, false]));
+          dispatch(handleSelectAController([true, false, false, false, false]);
           // turn dial dgree
           setDialDeg(1);
           break;
@@ -178,7 +177,7 @@ const DisplayDialAndSections = ({
           // 2. change select effect panel
           setSelectSrc('/images/section-image-2.svg');
           // change selected controller as true
-          dispatch(handleSelectAController([false, true, false, false, false]));
+          dispatch(handleSelectAController([false, true, false, false, false]);
           // turn dial degree
           setDialDeg(2);
           break;
@@ -189,7 +188,7 @@ const DisplayDialAndSections = ({
           // 2. change select effect panel
           setSelectSrc('/images/section-image-3.svg');
           // change selected controller as true
-          dispatch(handleSelectAController([false, false, true, false, false]));
+          dispatch(handleSelectAController([false, false, true, false, false]);
           // turn dial degree
           setDialDeg(3);
           break;
@@ -200,7 +199,7 @@ const DisplayDialAndSections = ({
           // 2. change select effect panel
           setSelectSrc('/images/section-image-4.svg');
           // change selected controller as true
-          dispatch(handleSelectAController([false, false, false, true, false]));
+          dispatch(handleSelectAController([false, false, false, true, false]);
           // turn dial degree
           setDialDeg(4);
           break;
@@ -211,7 +210,7 @@ const DisplayDialAndSections = ({
           // 2. change select effect panel
           setSelectSrc('/images/section-image-5.svg');
           // change selected controller as true
-          dispatch(handleSelectAController([false, false, false, false, true]));
+          dispatch(handleSelectAController([false, false, false, false, true]);
           // turn dial degree
           setDialDeg(5);
           break;

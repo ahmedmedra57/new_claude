@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { useTESSwitchStore, useUnitsStore } from '../../zustand-stores';
 import { useSelector } from "react-redux";
 import { selectEssSwitch } from "../../store/slices/essSwitchSlice";
 import { selectTgsSwitch } from "../../store/slices/tgsSwitchSlice";
@@ -51,7 +52,7 @@ const Switch = ({
       ? selectTgsSwitch
       : selectTesSwitch
   );
-  const {flatTesSwitch} = useSelector(selectTesSwitch);
+  const {flatTesSwitch} = useTESSwitchStore();
   
   const machineValues = Object.values(machine)[0];
   const switchData =
@@ -180,7 +181,7 @@ const Switch = ({
   const [switchExpand, setSwitchExpand] = useState(false);
   const buttonName = switchExpand ? "close" : "expand";
 
-  const unitsState = useSelector(selectUnits);
+  const unitsState = useUnitsStore();
   const { isF } = unitsState;
 
   const handleExpandButton = () => {

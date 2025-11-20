@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useUserStore } from '../../zustand-stores';
 import Thermocouple from './Thermocouple';
 import ForceGasElectricSystem from './ForceGasElectricSystem';
 import AddElementToBank from './AddElementToBank';
@@ -91,12 +91,11 @@ function AdminMain({
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
   // Redux
-  const dispatch = useDispatch();
-
+  
   const forceCommandAndAdminSelectState = useSelector(
     selectForceCommandAndAdminSelect
   );
-  const selectUserInfoState = useSelector(selectUserInfo);
+  const selectUserInfoState = useUserStore();
 
   const { isAdministrator } = selectUserInfoState;
   const { displaySelectBox, displayMultipleSelectBox } =
@@ -124,7 +123,7 @@ function AdminMain({
 
   useEffect(() => {
     return () => {
-      dispatch(handleResetAccessAdministrator());
+      dispatch(handleResetAccessAdministrator();
       setSaveChanges({
         addElementToBank: false,
         trackTempControl: false,
@@ -165,19 +164,18 @@ function AdminMain({
   const buttonsState = useSelector(selectEditCancelApplyButtons);
   const { isEdit } = buttonsState;
 
-  const UserInfoState = useSelector(selectUserInfo);
+  const UserInfoState = useUserStore();
   const { isEssSwitch, isTesSwitch, isTgsSwitch, isHpSwitch, isAteSwitch } =
     UserInfoState;
 
   // ******************************
   const handleOpenSelectLocations = (sysIndex) => {
-    dispatch(handleSettingsDisplaySelectBox(sysIndex));
+    dispatch(handleSettingsDisplaySelectBox(sysIndex);
   };
 
   const handleOpenMultipleSelectLocations = (sysOptions, swt, contentTitle) => {
     dispatch(
-      handleSettingsMultipleDisplaySelectBox({ sysOptions, swt, contentTitle })
-    );
+      handleSettingsMultipleDisplaySelectBox({ sysOptions, swt, contentTitle });
   };
 
   const handleConfirmOrSave = (idx, str) => {

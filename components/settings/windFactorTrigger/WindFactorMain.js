@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useUserStore } from '../../zustand-stores';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
@@ -70,14 +70,13 @@ function WindFactorMain({
 
   const [openPasswordBox, setOpenPasswordBox] = useState(true);
 
-  const dispatch = useDispatch();
-
+  
   const buttonsState = useSelector(selectEditCancelApplyButtons);
   const { isEdit } = buttonsState;
   const windFactorState = useSelector(selectWindFactor);
   const { lowWindTemp, medWindTemp, highWindTemp, extremeWindTemp } =
     windFactorState;
-  const selectUserInfoState = useSelector(selectUserInfo);
+  const selectUserInfoState = useUserStore();
   const { isAdministrator } = selectUserInfoState;
 
   // sets the input fields to previously entered values
@@ -98,7 +97,7 @@ function WindFactorMain({
 
   useEffect(() => {
     return () => {
-      dispatch(handleResetAccessAdministrator());
+      dispatch(handleResetAccessAdministrator();
     };
   }, []);
 

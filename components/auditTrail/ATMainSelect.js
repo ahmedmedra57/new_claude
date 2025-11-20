@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore, useUserStore } from '../zustand-stores';
 import { useTranslation } from 'react-i18next';
 
 import ScheduleCalendar from "../masterControl/controls/heatingScheduler/ScheduleCalendar";
@@ -24,12 +25,7 @@ import SelectByLocation from "./SelectedByLocation";
 
 // import { DUMMY_SWITCHES, DUMMY_LOCATIONS } from '../DUMMY/DUMMY_LOCATION_INFO';
 import { useSelector } from "react-redux";
-import { selectLocations } from "../store/slices/locationsSlice";
-import { selectUserInfo } from "../store/slices/userSlice";
 import testData from "../../test_data/testData";
-import { selectEssSwitch } from "../store/slices/essSwitchSlice";
-import { selectTesSwitch } from "../store/slices/tesSwitchSlice";
-import { selectTgsSwitch } from "../store/slices/tgsSwitchSlice";
 
 const ATMainSelect = ({ handleSelection, setDisableSettings }) => {
   const { t } = useTranslation();
@@ -37,17 +33,17 @@ const ATMainSelect = ({ handleSelection, setDisableSettings }) => {
   const [openDateSelect, setOpenDateSelect] = useState(false);
 
   //redux
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const { specific: allLocations } = locations;
   // console.log(allLocations, "ATMainSelect");
 
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { allUsers } = userInfo;
 
   // !!TEST DATA
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { tesSwitch } = useSelector(selectTesSwitch);
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
+  // const { essSwitch } = useESSSwitchStore();
+  // const { tesSwitch } = useTESSwitchStore();
+  // const { tgsSwitch } = useTGSSwitchStore();
   // const { testAllLocations } = testData(
   //   essSwitch,
   //   tgsSwitch,

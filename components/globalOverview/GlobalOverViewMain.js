@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useGlobalOverviewStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import {
-  handleResetMapSelection,
-  selectGlobalOverview,
-} from '../store/slices/globalOverviewSlice';
 
 import {
   flexBoxCenter,
@@ -22,8 +18,7 @@ import SwitchSelect from './SwitchSelect';
 
 const GlobalOverviewMain = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const OverViewState = useSelector(selectGlobalOverview);
+    const OverViewState = useGlobalOverviewStore();
   const { selectedSystem } = OverViewState;
 
   const [mapCenter, setMapCenter] = useState({
@@ -59,7 +54,7 @@ const GlobalOverviewMain = () => {
   }, [selectedSystem]);
 
   useEffect(() => {
-    dispatch(handleResetMapSelection());
+    dispatch(handleResetMapSelection();
   }, []);
 
   return (

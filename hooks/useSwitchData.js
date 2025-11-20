@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUserInfo } from '../components/store/slices/userSlice';
-import { selectLocations } from '../components/store/slices/locationsSlice';
+import { useUserStore, useLocationsStore, useESSSwitchStore, useTGSSwitchStore, useTESSwitchStore } from '../components/zustand-stores';
 import { systemConfigs } from '../components/commonComponentsMC/systemConfigs';
 import {
   calculateTotalEnergyConsumption,
@@ -23,13 +21,20 @@ import {
 const useSwitchData = (location, machine, systemName, isMobile = false, isF = true) => {
   const config = systemConfigs[systemName];
 
-  // Get switch data from Redux
-  const { [systemName + 'Switch']: switchStatus, ['flat' + systemName.charAt(0).toUpperCase() + systemName.slice(1) + 'Switch']: flatSwitchStatus } =
-    useSelector(config.selectSwitch);
+  // Get switch data from Zustand
+  const storeMap = {
+    ess: useESSSwitchStore,
+    tgs: useTGSSwitchStore,
+    tes: useTESSwitchStore,
+  };
+
+  const switchStore = storeMap[systemName]();
+  const switchStatus = switchStore[systemName + 'Switch'];
+  const flatSwitchStatus = switchStore['flat' + systemName.charAt(0).toUpperCase() + systemName.slice(1) + 'Switch'];
 
   const switchData = flatSwitchStatus?.[location]?.[machine] || {};
-  const locations = useSelector(selectLocations);
-  const { user, allUsers } = useSelector(selectUserInfo);
+  const { [systemName]: locations } = useLocationsStore();
+  const { user, allUsers } = useUserStore();
 
   // Extract common data
   const {

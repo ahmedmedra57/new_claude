@@ -29,24 +29,23 @@ function SystemButton({
   const a = name.split(' ');
   const checkSystemPermission = useCheckControlPermsission();
 
-  const dispatch = useDispatch();
-
+  
   const handleSelectSystem = () => {
     switch (shortName) {
       case 'ess':
-        dispatch(handleSelectEss());
+        dispatch(handleSelectEss();
         setIsSystemSelectedMessage(false);
         break;
       case 'tgs':
-        dispatch(handleSelectTgs());
+        dispatch(handleSelectTgs();
         setIsSystemSelectedMessage(false);
         break;
       case 'tes':
-        dispatch(handleSelectTes());
+        dispatch(handleSelectTes();
         setIsSystemSelectedMessage(false);
         break;
       case 'hp':
-        dispatch(handleSelectHp());
+        dispatch(handleSelectHp();
         setIsSystemSelectedMessage(false);
         break;
       default:

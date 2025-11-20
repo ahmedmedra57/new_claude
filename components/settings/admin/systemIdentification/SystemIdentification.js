@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { getAllAdminHeatersService } from '../../../../services';
@@ -103,8 +102,7 @@ const SystemIdentification = ({
   const civicAddressRef = useRef();
 
   // redux
-  const dispatch = useDispatch();
-  const SysIdentificationState = useSelector(selectSysIdentification);
+    const SysIdentificationState = useSelector(selectSysIdentification);
   const {
     locations,
     heatingSysOptions,
@@ -157,14 +155,14 @@ const SystemIdentification = ({
   useEffect(() => {
     getAllAdminHeatersService().then((res) => {
       if (res) {
-        dispatch(handleAddNewElements(res));
+        dispatch(handleAddNewElements(res);
       }
     });
     getSSRsSwitchSizesService().then((res) => {
-      dispatch(handleSwitchSize(res));
+      dispatch(handleSwitchSize(res);
     });
     getSSRsRatingListService().then((res) => {
-      dispatch(handleSSRRating(res));
+      dispatch(handleSSRRating(res);
     });
     return () => {
       setSaveGasTypeTemporary({});
@@ -182,8 +180,7 @@ const SystemIdentification = ({
         handleLocationsSystemIdentification({
           data: res,
           heaterSpecs: elementsOptions,
-        })
-      );
+        });
     });
   }, [elementsOptions]);
 
@@ -265,13 +262,12 @@ const SystemIdentification = ({
           JSON.stringify(
             location.specificLocation[selectedLocation.specificLocation]
               .switchInfo
-          )
-        );
+          );
         // // !!TEST
-        // copyLocations = JSON.parse(JSON.stringify(location.switchInfo));
+        // copyLocations = JSON.parse(JSON.stringify(location.switchInfo);
         // // !!END
       } else {
-        copyLocations = JSON.parse(JSON.stringify(location.switchInfo));
+        copyLocations = JSON.parse(JSON.stringify(location.switchInfo);
       }
       setSwitches(copyLocations);
     }
@@ -347,7 +343,7 @@ const SystemIdentification = ({
               displaySelectBox: [false, false, false, false, false, false],
             });
           } else {
-            copySwitches = JSON.parse(JSON.stringify(switchInfoArr));
+            copySwitches = JSON.parse(JSON.stringify(switchInfoArr);
           }
         } else {
           if (
@@ -373,8 +369,7 @@ const SystemIdentification = ({
             });
           } else {
             copySwitches = JSON.parse(
-              JSON.stringify(locations[selectedLocation.locationIdx].switchInfo)
-            );
+              JSON.stringify(locations[selectedLocation.locationIdx].switchInfo);
           }
         }
 
@@ -813,7 +808,7 @@ const SystemIdentification = ({
       }
     });
 
-    return listOfSelectedSSR.filter(ssr => !usedSSRs.has(ssr));
+    return listOfSelectedSSR.filter(ssr => !usedSSRs.has(ssr);
   };
 
   return (

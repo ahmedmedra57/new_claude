@@ -19,7 +19,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { uploadS3File } from '../../services/uploadS3File.service';
 import { uploadSiteMapService } from '../../services';
-import { handleSitePlanURL } from '../store/slices/locationsSlice';
 import { useDispatch } from 'react-redux';
 
 const Upload = ({
@@ -28,8 +27,7 @@ const Upload = ({
   specificLocationId = '',
   swtName,
 }) => {
-  const dispatch = useDispatch();
-  const {
+    const {
     files,
     fileNames,
     fileTypes,
@@ -56,8 +54,7 @@ const Upload = ({
         const uploadedFilesURLs = await Promise.all(
           files.map(async (file) => {
             return await uploadS3File(file, file.type);
-          })
-        );
+          });
         await uploadSiteMapService(
           locationId,
           swtName,
@@ -73,8 +70,7 @@ const Upload = ({
               location: locationId,
               specificLocation: specificLocationId,
               url: sitePlanURL,
-            })
-          );
+            });
         });
         handleClose();
       } else {

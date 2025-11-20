@@ -32,7 +32,7 @@ const SearchBar = ({
   inputSearch,
   disabled,
 }) => {
-  const telemetryState = useSelector(selectTelemetry);
+  const telemetryState = useTelemetryStore();
   const isSearch = telemetryState.isSearch;
 
   const inputHandler = (e) => {

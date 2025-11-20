@@ -14,10 +14,11 @@ import {
 import DisplayBox from './DisplayBox';
 import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { useMemo } from 'react';
+import { useUnitsStore } from '../../zustand-stores';
 import { convertCelsiusToFahrenheit } from '../../../helpers/helpers';
 
 const DetailDisplayBoxWrapper = ({ swtName, location, machine }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const { essSwitch, tgsSwitch,flatTgsSwitch, tesSwitch,flatEssSwitch,flatTesSwitch } = useSelector(
     swtName === 'ess'

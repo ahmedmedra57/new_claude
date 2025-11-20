@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import {
   handleCommandNumber,
   selectMCCommand,
@@ -12,13 +11,13 @@ import { selectMC } from '../../store/slices/mCSlice';
 import { selectUserInfo } from '../../store/slices/userSlice';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
+import { useMCCommandStore, useMCStore, useUnitsStore, useUserStore } from '../../zustand-stores';
 import { getTitle } from '../../../helpers/helpers';
 import { getCommandNumberService } from '../../../services/auditTrail.service';
 import { selectUnits } from '../../store/slices/settings/unitsSlice';
 
 function ShareComponent({ selectedSwitches, setSelectedSwitches }) {
-  const dispatch = useDispatch();
-  // moment library
+    // moment library
   const date = moment().format('DDMMYY');
 
   // !backend: find the user by filtering the userId and grab the index of the obj in the array
@@ -41,10 +40,10 @@ function ShareComponent({ selectedSwitches, setSelectedSwitches }) {
 
   // redux
   const selectedMachines = useSelector(selectedMachinesState);
-  const mCCommandState = useSelector(selectMCCommand);
-  const mCState = useSelector(selectMC);
-  const UserState = useSelector(selectUserInfo);
-  const { isF } = useSelector(selectUnits);
+  const mCCommandState = useMCCommandStore();
+  const mCState = useMCStore();
+  const UserState = useUserStore();
+  const { isF } = useUnitsStore();
   const { tgs, hp } = mCState.selectSystem;
   const number = mCCommandState.commandNumber;
   const { commandDate, commandsInfo } = mCCommandState;
@@ -74,7 +73,7 @@ function ShareComponent({ selectedSwitches, setSelectedSwitches }) {
 
   useEffect(() => {
     getCommandNumberService('GLOBAL_MASTER_CONTROL').then((res) => {
-      dispatch(handleCommandNumber(res));
+      dispatch(handleCommandNumber(res);
     });
   }, [swt, mCState.selectSystem]);
 

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
+import { useLocationsStore } from '../../../zustand-stores';
 import ValveConfirmButton from "./ValveConfirmButton";
-import { useDispatch, useSelector } from "react-redux";
 import {
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -51,12 +51,11 @@ function ValveSettings({
     { title: "max position:" },
   ];
 
-  const dispatch = useDispatch();
-  const ButtonsState = useSelector(selectEditCancelApplyButtons);
+    const ButtonsState = useSelector(selectEditCancelApplyButtons);
   const { isEdit } = ButtonsState;
   const adminState = useSelector(selectAdmin);
   const tgsState = adminState.tgs;
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   const [warningMessage, setWarningMessage] = useState(false);
   const [inputSearch, setInputSearch] = useState([""]);
@@ -75,8 +74,7 @@ function ValveSettings({
               machine,
               position: "startPosition",
               value,
-            })
-          );
+            });
           break;
         case 1:
           dispatch(
@@ -85,8 +83,7 @@ function ValveSettings({
               machine,
               position: "minPosition",
               value,
-            })
-          );
+            });
           break;
         case 2:
           dispatch(
@@ -95,8 +92,7 @@ function ValveSettings({
               machine,
               position: "maxPosition",
               value,
-            })
-          );
+            });
           break;
         default:
           break;
@@ -123,8 +119,7 @@ function ValveSettings({
           position: ConfirmOrApplyKey,
           value: false,
         })
-      )
-    );
+      );
   };
 
   const handleRemoveUnApplyMachinesInputs = (location) => {
@@ -136,8 +131,7 @@ function ValveSettings({
           location,
           machine: machine[0],
           isApplyState: machine[1].gasValue.isApply,
-        })
-      );
+        });
     });
   };
 
@@ -146,11 +140,10 @@ function ValveSettings({
     const locations = tgs && Object.keys(tgs);
 
     locations.map((location) =>
-      handleResetUnConfirmUnApplyMachinesStates(location, "isConfirm")
-    );
+      handleResetUnConfirmUnApplyMachinesStates(location, "isConfirm");
 
     return () =>
-      locations.map((location) => handleRemoveUnApplyMachinesInputs(location));
+      locations.map((location) => handleRemoveUnApplyMachinesInputs(location);
   }, []);
 
   useEffect(() => {
@@ -255,8 +248,7 @@ function ValveSettings({
           machine,
           position: "isConfirm",
           value: true,
-        })
-      );
+        });
     }
     return;
   };

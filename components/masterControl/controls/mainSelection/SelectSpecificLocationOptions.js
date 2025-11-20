@@ -33,7 +33,7 @@ const SelectSpecificLocationOptions = ({
     setIsSpecLocationArrowDown(copyIsSpecLocationArrowDown);
   };
 
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const display = isSpecLocationArrowDown[specificLocationIdx][idx];
   return (
     <>

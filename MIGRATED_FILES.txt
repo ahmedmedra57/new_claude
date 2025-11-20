@@ -1,0 +1,241 @@
+COMPLETE LIST OF MIGRATED FILES (173 Total)
+==============================================
+
+TGS COMPONENTS (3):
+-------------------
+1. /home/user/new_claude/components/tgs/TgsControlBox.js
+2. /home/user/new_claude/components/tgs/TgsMasterControlByMachine.js
+3. /home/user/new_claude/components/tgs/TgsMain.js
+
+TES COMPONENTS (3):
+-------------------
+4. /home/user/new_claude/components/tes/TesControlBox.js
+5. /home/user/new_claude/components/tes/TesMasterControlByMachine.js
+6. /home/user/new_claude/components/tes/TesMain.js
+
+ESS COMPONENTS (3):
+-------------------
+7. /home/user/new_claude/components/ess/EssControlBox.js
+8. /home/user/new_claude/components/ess/EssMasterControlByMachine.js
+9. /home/user/new_claude/components/ess/EssMain.js
+
+COMMON COMPONENTS MC (34):
+--------------------------
+10. /home/user/new_claude/components/commonComponentsMC/IntegratedSwitchLocations.js
+11. /home/user/new_claude/components/commonComponentsMC/AdminSSRItemDetails.js
+12. /home/user/new_claude/components/commonComponentsMC/BarGraph.js
+13. /home/user/new_claude/components/commonComponentsMC/ButtonGroup.js
+14. /home/user/new_claude/components/commonComponentsMC/Chart.js
+15. /home/user/new_claude/components/commonComponentsMC/ChartContainer.js
+16. /home/user/new_claude/components/commonComponentsMC/DisplayConsumptionBox.js
+17. /home/user/new_claude/components/commonComponentsMC/DisplayFaultsTimer.js
+18. /home/user/new_claude/components/commonComponentsMC/DisplaySSR.js
+19. /home/user/new_claude/components/commonComponentsMC/GraphMain.js
+20. /home/user/new_claude/components/commonComponentsMC/HeaterStatus.js
+21. /home/user/new_claude/components/commonComponentsMC/HistoryMain.js
+22. /home/user/new_claude/components/commonComponentsMC/InstantHeatMC.js
+23. /home/user/new_claude/components/commonComponentsMC/IntegratedSwitchSpecificLocations.js
+24. /home/user/new_claude/components/commonComponentsMC/LineGraph.js
+25. /home/user/new_claude/components/commonComponentsMC/MachineTelemetry.js
+26. /home/user/new_claude/components/commonComponentsMC/MainController.js
+27. /home/user/new_claude/components/commonComponentsMC/MasterControlByLocation.js
+28. /home/user/new_claude/components/commonComponentsMC/MasterControlBySwitch.js
+29. /home/user/new_claude/components/commonComponentsMC/MasterControlBySwitchTitle.js
+30. /home/user/new_claude/components/commonComponentsMC/SnowSensorMC.js
+31. /home/user/new_claude/components/commonComponentsMC/SSRDetail.js
+32. /home/user/new_claude/components/commonComponentsMC/SSRInfoContainer.js
+33. /home/user/new_claude/components/commonComponentsMC/SSRItemDetails.js
+34. /home/user/new_claude/components/commonComponentsMC/SSRSettingButton.js
+35. /home/user/new_claude/components/commonComponentsMC/SwitchDetailContainer.js
+36. /home/user/new_claude/components/commonComponentsMC/SwitchNameSelector.js
+37. /home/user/new_claude/components/commonComponentsMC/SwitchStatusContainer.js
+38. /home/user/new_claude/components/commonComponentsMC/SwitchWrapper.js
+39. /home/user/new_claude/components/commonComponentsMC/UploadBox.js
+40. /home/user/new_claude/components/commonComponentsMC/WeatherBox.js
+41. /home/user/new_claude/components/commonComponentsMC/controllers/DetailDisplayBoxWrapper.js
+42. /home/user/new_claude/components/commonComponentsMC/controllers/DisplayFaultsBoxWrapper.js
+43. /home/user/new_claude/components/commonComponentsMC/controllers/MCConstantTemp.js
+44. /home/user/new_claude/components/commonComponentsMC/controllers/MCDisplayBoxWrapper.js
+45. /home/user/new_claude/components/commonComponentsMC/controllers/MCHeatingSchedule.js
+46. /home/user/new_claude/components/commonComponentsMC/controllers/MCInstantHeat.js
+47. /home/user/new_claude/components/commonComponentsMC/controllers/MCSnowSensor.js
+48. /home/user/new_claude/components/commonComponentsMC/controllers/MCWindFactor.js
+
+ADMIN PASSWORD (1):
+-------------------
+49. /home/user/new_claude/components/adminPassword/ContainerLogin.js
+
+AUDIT TRAIL COMPONENTS (7):
+---------------------------
+50. /home/user/new_claude/components/auditTrail/ActionHistoryComponent.js
+51. /home/user/new_claude/components/auditTrail/ATMainSelect.js
+52. /home/user/new_claude/components/auditTrail/AuditTrailComponentBySwitch.js
+53. /home/user/new_claude/components/auditTrail/AuditTrailMain.js
+54. /home/user/new_claude/components/auditTrail/DisplaySpecificLocation.js
+55. /home/user/new_claude/components/auditTrail/FaultHistoryComponent.js
+56. /home/user/new_claude/components/auditTrail/SelectedByLocation.js
+
+FAULTS COMPONENTS (7):
+----------------------
+57. /home/user/new_claude/components/faults/FaultsDetailButton.js
+58. /home/user/new_claude/components/faults/FaultsDetailButtoncontainer.js
+59. /home/user/new_claude/components/faults/FaultsDetails.js
+60. /home/user/new_claude/components/faults/FaultsMain.js
+61. /home/user/new_claude/components/faults/FaultsReportHoverBox.js
+62. /home/user/new_claude/components/faults/FaultsSwitch.js
+63. /home/user/new_claude/components/faults/SelectForce.js
+
+GLOBAL OVERVIEW COMPONENTS (10):
+--------------------------------
+64. /home/user/new_claude/components/globalOverview/DisplayMachineSuggestion.js
+65. /home/user/new_claude/components/globalOverview/GlobalOverViewMain.js
+66. /home/user/new_claude/components/globalOverview/IndividualMachine.js
+67. /home/user/new_claude/components/globalOverview/IntegratedSystem.js
+68. /home/user/new_claude/components/globalOverview/MapMarker.js
+69. /home/user/new_claude/components/globalOverview/OverviewMap.js
+70. /home/user/new_claude/components/globalOverview/SwitchLocation.js
+71. /home/user/new_claude/components/globalOverview/SwitchSelect.js
+72. /home/user/new_claude/components/globalOverview/SwitchSpecificLocation.js
+
+HEATING PLATFORM (1):
+--------------------
+73. /home/user/new_claude/components/heatingPlatform/masterControlAndOverSight/viewStationInfo/controlButtons/GroupButtons.js
+
+MASTER CONTROL COMPONENTS (23):
+-------------------------------
+74. /home/user/new_claude/components/masterControl/controls/heatingScheduler/HeatingScheduler.js
+75. /home/user/new_claude/components/masterControl/controls/instantHeat/instantHeat.js
+76. /home/user/new_claude/components/masterControl/controls/mainSelection/DisplayDialAndSections.js
+77. /home/user/new_claude/components/masterControl/controls/mainSelection/MainSelects.js
+78. /home/user/new_claude/components/masterControl/controls/mainSelection/SelectMachineOptions.js
+79. /home/user/new_claude/components/masterControl/controls/mainSelection/SelectOptions.js
+80. /home/user/new_claude/components/masterControl/controls/mainSelection/SelectSpecificLocationOptions.js
+81. /home/user/new_claude/components/masterControl/controls/mainSelection/SelectSubOptions.js
+82. /home/user/new_claude/components/masterControl/controls/mainSelection/ShutOffBox.js
+83. /home/user/new_claude/components/masterControl/controls/optionalConstantTemp/OptionalConstantTemp.js
+84. /home/user/new_claude/components/masterControl/controls/SectionController.js
+85. /home/user/new_claude/components/masterControl/M.C.Command/CommandSelectionsApplyButton.js
+86. /home/user/new_claude/components/masterControl/M.C.Command/MasterControlCommandMain.js
+87. /home/user/new_claude/components/masterControl/M.C.Command/SelectedSystem.js
+88. /home/user/new_claude/components/masterControl/M.C.Command/ShareComponent.js
+89. /home/user/new_claude/components/masterControl/M.C.Command/SwitchesByLocation.js
+90. /home/user/new_claude/components/masterControl/MasterControlContents.js
+91. /home/user/new_claude/components/masterControl/MasterControlMain.js
+92. /home/user/new_claude/components/masterControl/MobileMasterControl.js
+93. /home/user/new_claude/components/masterControl/MobileSelectLocation.js
+94. /home/user/new_claude/components/masterControl/ProgramsComponent.js
+95. /home/user/new_claude/components/masterControl/selectSystemAndAddCommand/ContainerSelectSystem.js
+96. /home/user/new_claude/components/masterControl/selectSystemAndAddCommand/CreateNewCommandButton.js
+97. /home/user/new_claude/components/masterControl/selectSystemAndAddCommand/SystemButton.js
+98. /home/user/new_claude/components/masterControl/userMessages/SelectSystemApplyMessageBox.js
+99. /home/user/new_claude/components/masterControl/userMessages/ViewCommand.js
+
+MASTER CONTROL SWITCHES (11):
+-----------------------------
+100. /home/user/new_claude/components/masterControlSwitches/Ats.js
+101. /home/user/new_claude/components/masterControlSwitches/FanOnly.js
+102. /home/user/new_claude/components/masterControlSwitches/HeatingSchedule.js
+103. /home/user/new_claude/components/masterControlSwitches/InstantHeat.js
+104. /home/user/new_claude/components/masterControlSwitches/OptionalConstant.js
+105. /home/user/new_claude/components/masterControlSwitches/SelectLocations.js
+106. /home/user/new_claude/components/masterControlSwitches/SelectMachineItems.js
+107. /home/user/new_claude/components/masterControlSwitches/SelectMachines.js
+108. /home/user/new_claude/components/masterControlSwitches/ShutOff.js
+109. /home/user/new_claude/components/masterControlSwitches/SnowSensor.js
+110. /home/user/new_claude/components/masterControlSwitches/WindFactor.js
+
+MOBILE MAIN (1):
+---------------
+111. /home/user/new_claude/components/mobileMain/MobileMain.js
+
+LANDING PAGE (2):
+----------------
+112. /home/user/new_claude/components/newLandingPage/LoginBox.js
+113. /home/user/new_claude/components/newLandingPage/LoginBox.refactored.js
+
+REPORT STATUS COMPONENTS (6):
+-----------------------------
+114. /home/user/new_claude/components/reportStatus/ReportStatusMain.js
+115. /home/user/new_claude/components/reportStatus/system/DisplayControllersOverview.js
+116. /home/user/new_claude/components/reportStatus/system/DisplaySystemControllers.js
+117. /home/user/new_claude/components/reportStatus/system/RSHeaterStatus.js
+118. /home/user/new_claude/components/reportStatus/system/Switch.js
+119. /home/user/new_claude/components/reportStatus/TitleBar.js
+
+SEARCH BOX (2):
+--------------
+120. /home/user/new_claude/components/searchBox/AutoCompleteBox.js
+121. /home/user/new_claude/components/searchBox/SearchBox.js
+
+SETTINGS COMPONENTS (29):
+-------------------------
+122. /home/user/new_claude/components/settings/admin/AddElementToBank.js
+123. /home/user/new_claude/components/settings/admin/AdminMain.js
+124. /home/user/new_claude/components/settings/admin/ForceGasElectricSystem.js
+125. /home/user/new_claude/components/settings/admin/hp/temperatureBox/SetTempBox.js
+126. /home/user/new_claude/components/settings/admin/SelectGasType.js
+127. /home/user/new_claude/components/settings/admin/systemIdentification/DropBox.js
+128. /home/user/new_claude/components/settings/admin/systemIdentification/SSRElements.js
+129. /home/user/new_claude/components/settings/admin/systemIdentification/SystemIdentification.js
+130. /home/user/new_claude/components/settings/admin/Thermocouple.js
+131. /home/user/new_claude/components/settings/admin/valvetSettings/ValveSearchBar.js
+132. /home/user/new_claude/components/settings/admin/valvetSettings/ValveSettings.js
+133. /home/user/new_claude/components/settings/buttons/EditCancelApplyButtons.js
+134. /home/user/new_claude/components/settings/ForceAndCommand/ForceAndCommandMain.js
+135. /home/user/new_claude/components/settings/ForceAndCommand/SelectFCSwitchMachineOptions.js
+136. /home/user/new_claude/components/settings/ForceAndCommand/selectTc/OutsideTemperature.js
+137. /home/user/new_claude/components/settings/ForceAndCommand/selectTc/ShareComponentForSelectTC.js
+138. /home/user/new_claude/components/settings/interfaceMode/Interface.js
+139. /home/user/new_claude/components/settings/messageBoxes/ApplyButtonInvisibleDiv.js
+140. /home/user/new_claude/components/settings/SettingsMain.js
+141. /home/user/new_claude/components/settings/settingsOptions/AllSettingsSelectOptions.js
+142. /home/user/new_claude/components/settings/SettingsSelectSwitchMachineOptions.js
+143. /home/user/new_claude/components/settings/snowSensorSensor/SnowSensor.js
+144. /home/user/new_claude/components/settings/snowSensorSensor/SnowSensorMain.js
+145. /home/user/new_claude/components/settings/TitleOfSettingsOptions.js
+146. /home/user/new_claude/components/settings/units/ImperialMetricMeasurementReader.js
+147. /home/user/new_claude/components/settings/units/UnitsMain.js
+148. /home/user/new_claude/components/settings/userProfile/UserProfileMain.js
+149. /home/user/new_claude/components/settings/useSelectLocation.js
+150. /home/user/new_claude/components/settings/windFactorTrigger/WindFactor.js
+151. /home/user/new_claude/components/settings/windFactorTrigger/WindFactorMain.js
+
+SIDEBAR (1):
+-----------
+152. /home/user/new_claude/components/sidebar/Sidebar.js
+
+TELEMETRY COMPONENTS (16):
+--------------------------
+153. /home/user/new_claude/components/telemetry/chart/ChartTotalHoursAndEnergy.js
+154. /home/user/new_claude/components/telemetry/chart/MainChart.js
+155. /home/user/new_claude/components/telemetry/chart/NivoChartCopy.js
+156. /home/user/new_claude/components/telemetry/chart/switchSytemsList/DisplaySwitchSuggestion.js
+157. /home/user/new_claude/components/telemetry/chart/switchSytemsList/MainSwitchesSpecifications.js
+158. /home/user/new_claude/components/telemetry/chart/switchSytemsList/SearchBar.js
+159. /home/user/new_claude/components/telemetry/chart/switchSytemsList/SwitchSpecification.js
+160. /home/user/new_claude/components/telemetry/chart/TitleOfSelectedSystem.js
+161. /home/user/new_claude/components/telemetry/chart/ViewPrintButton.js
+162. /home/user/new_claude/components/telemetry/TelemetryMain.js
+163. /home/user/new_claude/components/telemetry/theSelections/MainSelections.js
+164. /home/user/new_claude/components/telemetry/theSelections/SelectDates.js
+165. /home/user/new_claude/components/telemetry/theSelections/SelectIndividualOptions.js
+166. /home/user/new_claude/components/telemetry/theSelections/SelectSpecificLocation.js
+167. /home/user/new_claude/components/telemetry/theSelections/SelectSubOptions.js
+168. /home/user/new_claude/components/telemetry/theSelections/SelectSwitches.js
+169. /home/user/new_claude/components/telemetry/theSelections/SelectSwitchMachineOptions.js
+
+USER MESSAGES (1):
+-----------------
+170. /home/user/new_claude/components/userMessages/FaultsReport.js
+
+CONTEXT COMPONENTS (2):
+-----------------------
+171. /home/user/new_claude/components/context/contextOfEssTgsTes.js
+172. /home/user/new_claude/components/context/contextOfGeneral.js
+
+HEADER (1):
+----------
+173. /home/user/new_claude/components/Header.js
+
+==============================================
+TOTAL FILES MIGRATED: 173

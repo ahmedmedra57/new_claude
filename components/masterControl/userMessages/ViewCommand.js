@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { useMCCommandStore, useUserStore } from '../../zustand-stores';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import {
   handleViewCommand,
@@ -25,9 +25,8 @@ function ViewCommand() {
   const date = moment().format('MMMM. DD-YYYY');
 
   // redux
-  const dispatch = useDispatch();
-
-  const mCCommandState = useSelector(selectMCCommand);
+  
+  const mCCommandState = useMCCommandStore();
   const number = mCCommandState.commandNumber;
   const { command, userId } = mCCommandState.searchedCommand;
   const user = mCCommandState.commandsInfo[userId];
@@ -48,7 +47,7 @@ function ViewCommand() {
 
   
 
-  const UserState = useSelector(selectUserInfo);
+  const UserState = useUserStore();
   const { user:currentUserData } = UserState;
 
   // ****************
@@ -234,7 +233,7 @@ function ViewCommand() {
             <WrapperButton>
               <Button
                 onClick={() => {
-                  dispatch(handleViewCommand(false));
+                  dispatch(handleViewCommand(false);
                 }}
               >
                 <ButtonIndent>

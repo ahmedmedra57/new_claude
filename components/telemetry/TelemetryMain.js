@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { useTelemetryStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { selectTelemetry } from '../store/slices/telemetrySlice';
 
 import TitleContainer from '../TitleContainer';
 import MainChart from './chart/MainChart';
@@ -26,7 +26,7 @@ const TelemetryMain = () => {
   });
   const [popUpBox, setPopUpBox] = useState(false);
 
-  const { isSearch } = useSelector(selectTelemetry);
+  const { isSearch } = useTelemetryStore();
 
   const handleMessageBoxForSelectBoxes = () => {
     if (isSearch) return;

@@ -9,6 +9,7 @@ import {
 } from '../../../styles/commonStyles';
 
 import { useEffect, useState } from 'react';
+import { useUnitsStore } from '../../../zustand-stores';
 
 import SchedulerContainer from './SchedulerContainer';
 import ScheduleCalendar from './ScheduleCalendar';
@@ -33,7 +34,7 @@ const HeatingScheduler = ({
   isDialSysDisabled,
   setSubtitle,
 }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const unit = isF ? `°F` : `°C`;
 
@@ -72,7 +73,7 @@ const HeatingScheduler = ({
   };
 
   const handleClear = () => {
-    // dispatch(handleClearScheduler());
+    // dispatch(handleClearScheduler();
   };
   const handleClose = () => {
     setDisplayScheduler(false);

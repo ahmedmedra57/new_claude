@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTelemetryStore, useUnitsStore } from '../../zustand-stores';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import styled, { css } from 'styled-components';
@@ -17,7 +18,7 @@ import { postAuditTrailLogService } from '../../../services';
 
 const ChartTotalHoursAndEnergy = ({ swtName, isDc }) => {
   const { t } = useTranslation();
-  const { isF } = useSelector(selectUnits);
+  const { isF } = useUnitsStore();
   const gasUnit = isF ? 'FT³' : 'M³';
   const unit = isDc ? 'mb' : swtName === 'tgs' ? gasUnit : 'kw';
   const noData = ['---hrs', `---${unit}`];
@@ -30,7 +31,7 @@ const ChartTotalHoursAndEnergy = ({ swtName, isDc }) => {
   const dataHours = text.split(' ');
   const dataEnergy = text1.split(' ');
 
-  const telemetryState = useSelector(selectTelemetry);
+  const telemetryState = useTelemetryStore();
 
   const { isSearch, totalHours, totalConsumption, auditLogData } = telemetryState;
 

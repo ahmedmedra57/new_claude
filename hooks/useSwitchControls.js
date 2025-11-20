@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { systemConfigs } from '../components/commonComponentsMC/systemConfigs';
 import { convertFahrenheitToCelsius } from '../helpers/helpers';
+import { useESSSwitchStore, useTGSSwitchStore, useTESSwitchStore } from '../components/zustand-stores';
 
 /**
  * Custom hook for switch control actions
@@ -24,8 +24,15 @@ const useSwitchControls = (
   userId,
   isF = true
 ) => {
-  const dispatch = useDispatch();
   const config = systemConfigs[systemName];
+
+  // Get the appropriate store based on system name
+  const storeMap = {
+    ess: useESSSwitchStore,
+    tgs: useTGSSwitchStore,
+    tes: useTESSwitchStore,
+  };
+  const switchStore = storeMap[systemName]();
 
   const [openMessageBox, setOpenMessageBox] = useState(false);
   const [messageTitle, setMessageTitle] = useState('');
@@ -38,13 +45,13 @@ const useSwitchControls = (
     (isCurrentlyOff) => {
       config.freezeDeviceService(!isCurrentlyOff, deviceMac, userId)
         .then(() => {
-          dispatch(config.actions.handleShutOff({ location, machine }));
+          switchStore.setShutOff(location, machine);
         })
         .catch((err) => {
           console.error('Error toggling shut off:', err);
         });
     },
-    [config, deviceMac, userId, dispatch, location, machine]
+    [config, deviceMac, userId, switchStore, location, machine]
   );
 
   /**
@@ -54,13 +61,13 @@ const useSwitchControls = (
     (isCurrentlyReady) => {
       if (isCurrentlyReady) {
         config.postCommand(deviceMac, 'snow_enabled', 0);
-        dispatch(config.actions.handleSnowSensorOff({ location, machine }));
+        switchStore.setSnowSensorOff(location, machine);
       } else {
         config.postCommand(deviceMac, 'snow_enabled', 1);
-        dispatch(config.actions.handleSnowSensor({ location, machine }));
+        switchStore.setSnowSensor(location, machine);
       }
     },
-    [config, deviceMac, dispatch, location, machine]
+    [config, deviceMac, switchStore, location, machine]
   );
 
   /**
@@ -69,16 +76,10 @@ const useSwitchControls = (
   const handleFanOnly = useCallback(
     (isCurrentlyOn) => {
       if (config.hasFanOnly) {
-        dispatch(
-          config.actions.handleFanOnly({
-            location,
-            machine,
-            state: !isCurrentlyOn,
-          })
-        );
+        switchStore.setFanOnly(location, machine, !isCurrentlyOn);
       }
     },
-    [config, dispatch, location, machine]
+    [config, switchStore, location, machine]
   );
 
   /**
@@ -112,7 +113,7 @@ const useSwitchControls = (
       if (isCurrentlyActivated || isCurrentlyReady) {
         // Turn off instant heat
         config.postCommand(deviceMac, 'on_switch', 0);
-        dispatch(config.actions.handleInstantHeatOff({ location, machine }));
+        switchStore.setInstantHeatOff(location, machine);
       } else {
         // Validate temperature
         const minTemp = isF ? 250 : 121;
@@ -125,20 +126,13 @@ const useSwitchControls = (
             'instant_temp',
             isF ? convertFahrenheitToCelsius(temp) : temp
           );
-          dispatch(
-            config.actions.handleInstantHeatReady({
-              location,
-              machine,
-              temp,
-              isF,
-            })
-          );
+          switchStore.setInstantHeatReady(location, machine, temp, isF);
         } else {
           showTemperatureMessage(title);
         }
       }
     },
-    [config, deviceMac, isF, dispatch, location, machine, showTemperatureMessage]
+    [config, deviceMac, isF, switchStore, location, machine, showTemperatureMessage]
   );
 
   /**
@@ -146,19 +140,13 @@ const useSwitchControls = (
    */
   const handleMachineDetailToggle = useCallback(
     (isCurrentlyOpen) => {
-      dispatch(
-        config.actions.handleOpenMachineController({
-          location,
-          machine,
-          status: !isCurrentlyOpen,
-        })
-      );
+      switchStore.setOpenMachineController(location, machine, !isCurrentlyOpen);
 
       if (isCurrentlyOpen) {
-        dispatch(config.actions.handleUnselectAllProgram({ location, machine }));
+        switchStore.setUnselectAllProgram(location, machine);
       }
     },
-    [config, dispatch, location, machine]
+    [switchStore, location, machine]
   );
 
   /**

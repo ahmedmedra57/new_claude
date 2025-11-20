@@ -1,11 +1,10 @@
 import { useState } from 'react';
+import { useUnitsStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
 import { useMessageBox } from '../../hooks/useMessageBox';
 import { validateTemperatureInput } from '../../utils/temperatureValidation';
-import { selectMCBySwitch } from '../store/slices/masterControlBySwitchSelectSlice';
-import { selectMCByLocation } from '../store/slices/masterControlSelectByLocationSlice';
 
 import {
   flexBoxCenter,
@@ -26,7 +25,6 @@ import styled, { css } from 'styled-components';
 import SchedulerContainer2 from './SchedulerContainer2';
 import SelectLocations from './SelectLocations';
 import ScheduleCalendar from '../masterControl/controls/heatingScheduler/ScheduleCalendar';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import InputTempMessage from '../userMessages/inputTempMessage';
 
 const HeatingSchedule = ({
@@ -47,7 +45,7 @@ const HeatingSchedule = ({
     scope === 'switch' ? selectMCBySwitch : selectMCByLocation
   );
   const { selectedOne } = switchStatus.heatingSchedule;
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   // Local
@@ -66,7 +64,7 @@ const HeatingSchedule = ({
   const handleClear = () => {};
 
   const handleClose = () => {
-    // dispatch(handleCloseCalendar());
+    // dispatch(handleCloseCalendar();
     setOpenScheduler(false);
   };
 
@@ -94,7 +92,7 @@ const HeatingSchedule = ({
     const validation = validateTemperatureInput(tempInput, isF, 'HEATING_SCHEDULE');
 
     if (!validation.isValid) {
-      showMessage(validation.errorKeys.map(key => t(key)));
+      showMessage(validation.errorKeys.map(key => t(key);
       handleOnClick('heatingSchedule', 'tempA', scope, null, null, null, specificLocation);
       setTempInput('');
       return;

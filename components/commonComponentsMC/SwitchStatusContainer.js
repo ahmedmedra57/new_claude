@@ -1,9 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
 
 const SwitchStatusContainer = ({ swtName, location, machine }) => {
   // global

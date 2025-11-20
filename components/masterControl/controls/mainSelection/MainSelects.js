@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../../../zustand-stores';
 import {
   essSpecificLocationUnselectMachinesHandler,
   handleUnSelectIndividualMachine,
@@ -66,9 +66,9 @@ const MainSelects = ({
   handleCreateNewCommandMessageBox,
 }) => {
   // global states
-  const selectedSwitch = useSelector(selectMC);
+  const selectedSwitch = useMCStore();
   const { ess, tgs, tes, hp } = selectedSwitch.selectSystem;
-  const masterControlSelects = useSelector(selectMasterControls);
+  const masterControlSelects = useMasterControlSelectStore();
   const { displaySelectBox } = masterControlSelects;
   const { selectedOne } = ess
     ? masterControlSelects.ess
@@ -79,13 +79,12 @@ const MainSelects = ({
   const selectedMachineStates = useSelector(selectedMachinesState);
   const { mCOff, atsState } = selectedMachineStates;
   const { selections } = atsState;
-  const dispatch = useDispatch();
-
+  
   // ess || tes || teg || hp
-  const { flatEssSwitch, essSwitch } = useSelector(selectEssSwitch);
-  const { flatTesSwitch, tesSwitch } = useSelector(selectTesSwitch);
-  const { flatTgsSwitch, tgsSwitch } = useSelector(selectTgsSwitch);
-  // const { flatHpSwitch, hpSwitch } = useSelector(selectTgsSwitch);
+  const { flatEssSwitch, essSwitch } = useESSSwitchStore();
+  const { flatTesSwitch, tesSwitch } = useTESSwitchStore();
+  const { flatTgsSwitch, tgsSwitch } = useTGSSwitchStore();
+  // const { flatHpSwitch, hpSwitch } = useTGSSwitchStore();
   // !! dummy data
   const hpStation = {
     'blue-hill': { isSpecificLocation: true, subLocations: {} },
@@ -142,7 +141,7 @@ const MainSelects = ({
 
   // mcCommandSlice
   const { isNewCommandCreated, commandApplied, controlResetInitialState } =
-    useSelector(selectMCCommand);
+    useMCCommandStore();
 
   const titles = ['select switch location', 'select ats', 'deactivate'];
   // const [displaySelectBox, setDisplaySelectBox] = useState(false);
@@ -178,7 +177,7 @@ const MainSelects = ({
   // const [isSelectedForAts, setIsSelectedForAts] = useState(atsInitialState);
 
   // !!TEST DATA
-  // const locations = useSelector(selectLocations);
+  // const locations = useLocationsStore();
   // const {
   //   testEssLocationsAll,
   //   testEssSwitch,
@@ -201,11 +200,11 @@ const MainSelects = ({
           machine: machineKey,
         };
         if (swt === 'ess') {
-          dispatch(essSpecificLocationUnselectMachinesHandler(dispatchOjb));
+          dispatch(essSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === 'tes') {
-          dispatch(tesSpecificLocationUnselectMachinesHandler(dispatchOjb));
+          dispatch(tesSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === 'tgs') {
-          dispatch(tgsSpecificLocationUnselectMachinesHandler(dispatchOjb));
+          dispatch(tgsSpecificLocationUnselectMachinesHandler(dispatchOjb);
         }
       });
     });
@@ -220,12 +219,12 @@ const MainSelects = ({
     // } else if (swt === 'tes') {
     //   const machines = Object.keys(switchData[location]);
     //   machines.forEach((machine) =>
-    //     dispatch(tesHandleUnSelectIndividualMachine({ location, machine }))
+    //     setUnSelectIndividualMachine({ location, machine })
     //   );
     // } else {
     //   const machines = Object.keys(switchData[location]);
     //   machines.forEach((machine) =>
-    //     dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }))
+    //     setUnSelectIndividualMachine({ location, machine })
     //   );
     // }
 
@@ -235,11 +234,11 @@ const MainSelects = ({
     if (elValue[0]?.machineType) {
       el.forEach((machine) => {
         if (swt === 'ess') {
-          dispatch(handleUnSelectIndividualMachine({ location, machine }));
+          dispatch(handleUnSelectIndividualMachine({ location, machine });
         } else if (swt === 'tes') {
-          dispatch(tesHandleUnSelectIndividualMachine({ location, machine }));
+          setUnSelectIndividualMachine({ location, machine });
         } else if (swt === 'tgs') {
-          dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }));
+          setUnSelectIndividualMachine({ location, machine });
         } else {
         }
       });
@@ -253,8 +252,7 @@ const MainSelects = ({
   const loopAllMachinesHandler = (selectedSwitches, selectedSys) => {
     const locations = selectedSwitches && Object.keys(selectedSwitches);
     locations.map((location) =>
-      handleUnSelectMachines(location, selectedSys, selectedSwitches)
-    );
+      handleUnSelectMachines(location, selectedSys, selectedSwitches);
   };
 
   useEffect(() => {
@@ -271,8 +269,8 @@ const MainSelects = ({
       setIsSelectedForAts(atsInitialState);
       setGreenDetour([false, false]);
       setSelectPrograms(initialState);
-      dispatch(handleResetMCOffState());
-      dispatch(handleResetAtsState());
+      dispatch(handleResetMCOffState();
+      dispatch(handleResetAtsState();
       if (ess) {
         loopAllMachinesHandler(flatEssSwitch, 'ess');
         // const locations = flatEssSwitch && Object.keys(flatEssSwitch);
@@ -303,11 +301,11 @@ const MainSelects = ({
     if (!controlResetInitialState) {
       if (!selectedOne) {
         // *** reset all switch location to initial state
-        dispatch(handleResetAllSelect());
+        dispatch(handleResetAllSelect();
 
         // *** reset dial and  sections control to initial state
 
-        dispatch(handleResetAll());
+        dispatch(handleResetAll();
       }
     }
   }, [controlResetInitialState, ess, tes, tgs]);
@@ -315,10 +313,10 @@ const MainSelects = ({
   // const presetSelectBoxArr = (swt, swtData) => {
   //   // isAllSelected
   //   const locations = Object.keys(swtData);
-  //   dispatch(handleSelectAll({ switch: swt, status: false }));
+  //   dispatch(handleSelectAll({ switch: swt, status: false });
   //   // isLocationSelected
   //   const locationArr = locations.map((_) => false);
-  //   dispatch(handleLocationSelect({ arr: locationArr, switch: swt }));
+  //   dispatch(handleLocationSelect({ arr: locationArr, switch: swt });
 
   //   const specificLocationArr = [];
   //   const machineArr = Object.values(swtData).map((location) =>
@@ -342,7 +340,7 @@ const MainSelects = ({
   //   );
 
   //   // isMachineSelected
-  //   dispatch(handleMachineSelect({ arr: machineArr, switch: swt }));
+  //   dispatch(handleMachineSelect({ arr: machineArr, switch: swt });
   // };
   const selectionDispatchHandler = (
     swt,
@@ -350,15 +348,14 @@ const MainSelects = ({
     specificLocationArr,
     machineArr
   ) => {
-    dispatch(handleSelectAll({ switch: swt, status: false }));
-    dispatch(handleLocationSelect({ arr: locationArr, switch: swt }));
+    dispatch(handleSelectAll({ switch: swt, status: false });
+    dispatch(handleLocationSelect({ arr: locationArr, switch: swt });
     dispatch(
       handleSpecificLocationSelect({
         arr: specificLocationArr,
         switch: swt,
-      })
-    );
-    dispatch(handleMachineSelect({ arr: machineArr, switch: swt }));
+      });
+    dispatch(handleMachineSelect({ arr: machineArr, switch: swt });
   };
 
   useEffect(() => {
@@ -425,33 +422,33 @@ const MainSelects = ({
     }
 
     if (Object.values(el).every((value) => value === false)) {
-      dispatch(handleResetMCOffState());
+      dispatch(handleResetMCOffState();
       setDisplayOffBox(value);
     } else {
-      dispatch(handleResetAllDialControl());
+      dispatch(handleResetAllDialControl();
       if (el.instantHeat === true) {
         setDisplayOffBox(value);
-        dispatch(handleDeactivatePrograms('instantHeat'));
-        dispatch(fanOnlyHandlerTempo(false));
+        dispatch(handleDeactivatePrograms('instantHeat');
+        dispatch(fanOnlyHandlerTempo(false);
       }
       if (el.isFanOnly === true) {
-        dispatch(handleDeactivatePrograms('isFanOnly'));
+        dispatch(handleDeactivatePrograms('isFanOnly');
         setDisplayOffBox(value);
       }
       if (el.snowSensor === true) {
-        dispatch(handleDeactivatePrograms('snowSensor'));
+        dispatch(handleDeactivatePrograms('snowSensor');
         setDisplayOffBox(value);
       }
       if (el.optionalConstantTemp === true) {
-        dispatch(handleDeactivatePrograms('optionalConstantTemp'));
+        dispatch(handleDeactivatePrograms('optionalConstantTemp');
         setDisplayOffBox(value);
       }
       if (el.heatingSchedule === true) {
-        dispatch(handleDeactivatePrograms('heatingSchedule'));
+        dispatch(handleDeactivatePrograms('heatingSchedule');
         setDisplayOffBox(value);
       }
       if (el.windFactor === true) {
-        dispatch(handleDeactivatePrograms('windFactor'));
+        dispatch(handleDeactivatePrograms('windFactor');
         setDisplayOffBox(value);
       } else {
         setDisplayOffBox(value);
@@ -463,7 +460,7 @@ const MainSelects = ({
   const handleButtonClick = (btnNum) => {
     switch (btnNum) {
       case 0: {
-        dispatch(handleDisplaySelectBox());
+        dispatch(handleDisplaySelectBox();
         break;
       }
       case 1: {
@@ -597,8 +594,7 @@ const MainSelects = ({
               isSelectedForAts[1],
               isSelectedForAts[2],
             ],
-          })
-        );
+          });
       } else {
         const copyArr = [...greenDetour];
         copyArr[0] = false;

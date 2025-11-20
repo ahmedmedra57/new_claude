@@ -31,7 +31,7 @@ const MCSnowSensor = ({
   location,
   machine
 }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   // temporary variables
   // const isF = false;

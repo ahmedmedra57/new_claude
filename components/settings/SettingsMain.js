@@ -10,11 +10,6 @@ import {
 } from '../styles/commonStyles';
 import TitleContainer from '../TitleContainer';
 import SettingsOptionsAndInterfaceMode from './settingsOptions/SettingsOptionsAndInterfaceMode';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  handleSetInitialStateSettingsOptions,
-  selectSettingsOptions,
-} from '../store/slices/settings/settingsOptionsSlice';
 import UserProfileMain from './userProfile/UserProfileMain';
 import TitleOfSettingsOptions from './TitleOfSettingsOptions';
 import EditCancelApplyButtons from './buttons/EditCancelApplyButtons';
@@ -22,32 +17,11 @@ import UnitsMain from './units/UnitsMain';
 import WindFactorMain from './windFactorTrigger/WindFactorMain';
 import SnowSensorMain from './snowSensorSensor/SnowSensorMain';
 import { useState } from 'react';
-import {
-  handleClickedButton,
-  handleResetButtons,
-  selectEditCancelApplyButtons,
-} from '../store/slices/settings/editCancelApplyButtonsSlice';
-import {
-  handleUnitSelection,
-  selectUnits,
-} from '../store/slices/settings/unitsSlice';
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
 import { useFileUpload } from 'react-use-file-upload/dist/lib/useFileUpload';
 import axios from 'axios';
 import { useRef } from 'react';
-import {
-  handleSetWindTemp,
-  selectWindFactor,
-} from '../store/slices/settings/windFactorSlice';
-import {
-  handleSnowSensorTemp,
-  selectSnowSensor,
-} from '../store/slices/settings/snowSensorSlice';
 import ForceAndCommandMain from './ForceAndCommand/ForceAndCommandMain';
-import {
-  handleSelectAts,
-  handleSelectTC,
-  selectForceAndCommands,
-} from '../store/slices/settings/forceAndCommandsSlice';
 import { useEffect } from 'react';
 import AdminMain from './admin/AdminMain';
 import adminSlice, {
@@ -58,18 +32,6 @@ import adminSlice, {
   handleTrackTempControl,
   selectAdmin,
 } from '../store/slices/settings/admin/adminSlice';
-import { handleAddElementToBank } from '../store/slices/settings/admin/addElementToBankAndSystemIdentification';
-import {
-  addUserInfo,
-  handleResetAccessAdministrator,
-  selectUserInfo,
-} from '../store/slices/userSlice';
-import {
-  handleCreateSysIdentification,
-  handleEditSysIdentification,
-  handleLocationsSystemIdentification,
-  handleRemoveSysIdentificationLocation,
-} from '../store/slices/settings/admin/sysIdentificationSlice';
 import { useMediaQuery } from 'react-responsive';
 import AllSettingsSelectOptions from './settingsOptions/AllSettingsSelectOptions';
 import InvisibleDivForEditButton from './messageBoxes/InvisibleDivForEditButton';
@@ -98,11 +60,7 @@ import {
   updateUOSZoneService,
 } from '../../services';
 import * as yup from 'yup';
-import { selectDescription } from '../store/slices/ssrDescriptionSlice';
 import { uploadS3File } from '../../services/uploadS3File.service';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
 import { getLocationsSpecificLocationsMachines } from '../../helpers/setting';
 
 const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
@@ -257,8 +215,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
   ]);
 
   //*********************** redux ************************
-  const dispatch = useDispatch();
-
+  
   const settingsOptionsState = useSelector(selectSettingsOptions);
   const {
     isUserProfileSelected,
@@ -275,9 +232,9 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
   const selectAdminState = useSelector(selectAdmin);
   const { elementsOptions } = useSelector(selectDescription);
 
-  const { flatEssSwitch } = useSelector(selectEssSwitch);
-  const { flatTgsSwitch } = useSelector(selectTgsSwitch);
-  const { flatTesSwitch } = useSelector(selectTesSwitch);
+  const { flatEssSwitch } = useESSSwitchStore();
+  const { flatTgsSwitch } = useTGSSwitchStore();
+  const { flatTesSwitch } = useTESSwitchStore();
 
   const {
     lowWindTemp,
@@ -293,7 +250,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     snowSensorSavedUnitIsF,
   } = useSelector(selectSnowSensor);
 
-  const { isF } = useSelector(selectUnits);
+  const { isF } = useUnitsStore();
 
   // *******************************************
 
@@ -311,8 +268,8 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
   }, [openHeaders]);
 
   useEffect(() => {
-    dispatch(handleSetInitialStateSettingsOptions());
-    return () => dispatch(handleResetButtons());
+    dispatch(handleSetInitialStateSettingsOptions();
+    return () => dispatch(handleResetButtons();
   }, []);
 
   const handleCancelButtonsFunctions = (sysIndex) => {
@@ -356,13 +313,13 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
   // logic for edit, cancel and apply buttons
   const handleEditCancelApplyButtons = (value, sysIndex) => {
     const buttonsIndex = Number(value);
-    dispatch(handleResetButtons());
+    dispatch(handleResetButtons();
     switch (buttonsIndex) {
       case 0:
-        dispatch(handleClickedButton('isEdit'));
+        dispatch(handleClickedButton('isEdit');
         break;
       case 1:
-        dispatch(handleClickedButton('isCancel'));
+        dispatch(handleClickedButton('isCancel');
         handleCancelButtonsFunctions(sysIndex);
         break;
       case 2:
@@ -371,7 +328,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
         } else if (isUnitsSelected) {
           handleSaveUnit(sysIndex);
         }
-        dispatch(handleClickedButton('isApply'));
+        dispatch(handleClickedButton('isApply');
         handleMessageBox(sysIndex);
         setOpenMessageBox(true);
         break;
@@ -438,8 +395,8 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     };
     try {
       const response = await updateUserProfileService(updatedData);
-      dispatch(getUserProfileDataService());
-      dispatch(handleClickedButton('isApply'));
+      dispatch(getUserProfileDataService();
+      dispatch(handleClickedButton('isApply');
       handleMessageBox(sysIndex);
       // setUpdateProfileError(null);
     } catch (error) {
@@ -464,8 +421,8 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
 
     try {
       const response = await updateUserProfileService(dataObject);
-      dispatch(getUserProfileDataService());
-      dispatch(handleClickedButton('isApply'));
+      dispatch(getUserProfileDataService();
+      dispatch(handleClickedButton('isApply');
       handleMessageBox(sysIndex);
       // setUpdateProfileError(null);
     } catch (error) {
@@ -539,8 +496,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
           return acc;
         },
         {}
-      )
-    );
+      );
 
     return newAllSSR;
   };
@@ -580,7 +536,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
   const newSysIdentificationData = (data) => {
     const newData = Array.isArray(data[0])
       ? data
-      : Object.values(groupBy(data.flat(), (obj) => obj.UOS));
+      : Object.values(groupBy(data.flat(), (obj) => obj.UOS);
     const uos_panels = newData.map((switchesInfo, switchIndex) => {
       return {
         device_name:
@@ -682,7 +638,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
         messageBoxContent = 'settings have been applied';
       }
       // setUpdateProfileError(null);
-      dispatch(addUserInfo(profileInputsData));
+      dispatch(addUserInfo(profileInputsData);
       handleUploadImage();
     }
     // messages and dispatch for settings options => units. check in store folder a folder call settings => unitsSlice.js
@@ -699,7 +655,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
         messageBoxContent = updateProfileError;
       }
 
-      dispatch(handleUnitSelection(metricImperialToggle));
+      dispatch(handleUnitSelection(metricImperialToggle);
     }
     // messages and dispatch for settings options => wind factor trigger. check in store folder a folder call settings => windFactorSlice.js
     else if (isWindFactorSelected) {
@@ -720,8 +676,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
           +extremeWindTemp,
         ];
         totalTemp.forEach((temp) =>
-          savedTemp.push(convertCelsiusToFahrenheit(temp))
-        );
+          savedTemp.push(convertCelsiusToFahrenheit(temp));
       } else {
         const totalTemp = [
           +lowWindTemp,
@@ -730,8 +685,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
           +extremeWindTemp,
         ];
         totalTemp.forEach((temp) =>
-          savedTemp.push(convertCelsiusToFahrenheit(temp))
-        );
+          savedTemp.push(convertCelsiusToFahrenheit(temp));
       }
 
       // verify if all input fields are valid
@@ -867,12 +821,10 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
         ];
         if (isF) {
           totalTemp.forEach((temp) =>
-            savedTemp.push(convertCelsiusToFahrenheit(temp))
-          );
+            savedTemp.push(convertCelsiusToFahrenheit(temp));
         } else {
           totalTemp.forEach((temp) =>
-            savedTemp.push(convertCelsiusToFahrenheit(temp))
-          );
+            savedTemp.push(convertCelsiusToFahrenheit(temp));
         }
       }
 
@@ -1032,8 +984,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     machine,
                     selection:
                       selected[sysIndex] === 0 ? 'reactivate' : 'block',
-                  })
-                );
+                  });
               }
             });
 
@@ -1103,8 +1054,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     machine,
                     selection:
                       selected[sysIndex] === 0 ? 'reactivate' : 'block',
-                  })
-                );
+                  });
               }
             });
 
@@ -1178,8 +1128,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                         : selected[0] === 1
                         ? 'reactivate'
                         : 'block',
-                  })
-                );
+                  });
               }
             });
 
@@ -1250,8 +1199,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     machine,
                     selectedTCSys: 'outsideTempTCNumber',
                     tcNum: 'tc' + stringifyNum,
-                  })
-                );
+                  });
               }
             });
 
@@ -1305,8 +1253,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     specificLocation,
                     selectedTCSys: 'burningChamberTCNumber',
                     tcNum: 'tc' + stringifyNum,
-                  })
-                );
+                  });
               }
             });
 
@@ -1358,8 +1305,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     specificLocation,
                     selectedTCSys: 'encloseTempTCNumber',
                     tcNum: 'tc' + stringifyNum,
-                  })
-                );
+                  });
               }
             });
 
@@ -1413,8 +1359,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     machine,
                     selectedTCSys: 'currEssTCNumber',
                     tcNum: 'tc' + stringifyNum,
-                  })
-                );
+                  });
               }
             });
 
@@ -1460,8 +1405,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     machine,
                     selectedTCSys: 'currTgsTCNumber',
                     tcNum: 'tc' + stringifyNum,
-                  })
-                );
+                  });
               }
             });
 
@@ -1509,8 +1453,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     machine,
                     selectedTCSys: 'currTesTCNumber',
                     tcNum: 'tc' + stringifyNum,
-                  })
-                );
+                  });
               }
             });
 
@@ -1603,8 +1546,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     selection: saveChanges.trackTempControl
                       ? true
                       : saveChanges.deactivateTrackTempControl && false,
-                  })
-                );
+                  });
               }
             });
 
@@ -1645,12 +1587,11 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
 
             try {
               await addAdminHeatersService(
-                mapValues(saveInputElement, (value) => value.toString())
-              );
+                mapValues(saveInputElement, (value) => value.toString());
               messageBoxContent =
                 'add element to bank settings have been applied';
 
-              dispatch(handleAddElementToBank(saveInputElement));
+              dispatch(handleAddElementToBank(saveInputElement);
               setSaveChanges(SaveChangesInitialState);
             } catch (error) {
               messageBoxContent = `Failed to apply changes: ${
@@ -1708,8 +1649,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     specificLocation,
                     machine,
                     value: gasSelection === 0 ? 'lp' : 'ng',
-                  })
-                );
+                  });
               }
             });
 
@@ -1786,8 +1726,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                       machine,
                       position: 'isApply',
                       value: true,
-                    })
-                  );
+                    });
                 } else {
                   dispatch(
                     handleGasValuePosition({
@@ -1795,8 +1734,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                       machine,
                       position: 'isApply',
                       value: true,
-                    })
-                  );
+                    });
                 }
               }
             });
@@ -1890,8 +1828,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     selection: saveChanges.trackTempControl
                       ? true
                       : saveChanges.deactivateTrackTempControl && false,
-                  })
-                );
+                  });
               }
             });
 
@@ -1928,15 +1865,14 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
             messageBoxTitle = 'change options';
             messageBoxContent =
               'add element to bank settings have been applied';
-            dispatch(handleAddElementToBank(saveInputElement));
+            dispatch(handleAddElementToBank(saveInputElement);
             try {
               await addAdminHeatersService(
-                mapValues(saveInputElement, (value) => value.toString())
-              );
+                mapValues(saveInputElement, (value) => value.toString());
               messageBoxContent =
                 'add element to bank settings have been applied';
 
-              dispatch(handleAddElementToBank(saveInputElement));
+              dispatch(handleAddElementToBank(saveInputElement);
               setSaveChanges(SaveChangesInitialState);
             } catch (error) {
               messageBoxContent = `Failed to apply changes: ${
@@ -1982,8 +1918,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                           switchesNum: allSavedSwitches.length,
                           switchInfo: allSavedSwitches,
                         },
-                      })
-                    );
+                      });
                   })
                   .then(() => {
                     getZonesInfoForSystemIdentificationService().then((res) => {
@@ -1991,8 +1926,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                         handleLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
-                        })
-                      );
+                        });
                     });
                   });
               } else if (
@@ -2022,8 +1956,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                             switchesNum: sortedSwitchesArr.length,
                             switchInfo: sortedSwitchesArr,
                           },
-                        })
-                      );
+                        });
                     })
                     .then(() => {
                       getZonesInfoForSystemIdentificationService().then(
@@ -2032,8 +1965,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                             handleLocationsSystemIdentification({
                               data: res,
                               heaterSpecs: elementsOptions,
-                            })
-                          );
+                            });
                         }
                       );
                     });
@@ -2052,8 +1984,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                             switchesNum: switches.length,
                             switchInfo: switches,
                           },
-                        })
-                      );
+                        });
                     })
                     .then(() => {
                       getZonesInfoForSystemIdentificationService().then(
@@ -2062,8 +1993,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                             handleLocationsSystemIdentification({
                               data: res,
                               heaterSpecs: elementsOptions,
-                            })
-                          );
+                            });
                         }
                       );
                     });
@@ -2082,8 +2012,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                           switchesNum: switches.length,
                           switchInfo: switches,
                         },
-                      })
-                    );
+                      });
                   })
                   .then(() => {
                     getZonesInfoForSystemIdentificationService().then((res) => {
@@ -2091,8 +2020,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                         handleLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
-                        })
-                      );
+                        });
                     });
                   });
               }
@@ -2121,8 +2049,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     dispatch(
                       handleRemoveSysIdentificationLocation({
                         locationIdx: selectedLocation.locationIdx,
-                      })
-                    );
+                      });
                     setUOSDelete([]);
                   })
                   .then(() => {
@@ -2131,8 +2058,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                         handleLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
-                        })
-                      );
+                        });
                     });
                   });
                 messageBoxTitle = 'change options';
@@ -2154,8 +2080,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                           switchInfo: switches[idx],
                         },
                         isEditAll: false,
-                      })
-                    );
+                      });
                   }
                 });
                 updateUOSZoneService(
@@ -2167,8 +2092,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                       handleLocationsSystemIdentification({
                         data: res,
                         heaterSpecs: elementsOptions,
-                      })
-                    );
+                      });
                   });
                 });
 
@@ -2222,8 +2146,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                           switchInfo: sortedSwitchesArr,
                         },
                         isEditAll: false,
-                      })
-                    );
+                      });
 
                     // dispatch(
                     //   handleEditSysIdentification({
@@ -2250,8 +2173,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                         handleLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
-                        })
-                      );
+                        });
                     });
                   });
                 } else {
@@ -2305,16 +2227,14 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                           // switchInfo: switches,
                         },
                         isEditAll: true,
-                      })
-                    );
+                      });
                     setUOSDelete([]);
                     getZonesInfoForSystemIdentificationService().then((res) => {
                       dispatch(
                         handleLocationsSystemIdentification({
                           data: res,
                           heaterSpecs: elementsOptions,
-                        })
-                      );
+                        });
                     });
                   });
                 }
@@ -2378,8 +2298,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     specificLocation,
                     machine,
                     selection: enableSwitch ? 'enable' : 'disable',
-                  })
-                );
+                  });
               }
             });
 
@@ -2466,32 +2385,27 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
           handleSetWindTemp({
             objectName: 'lowWindTemp',
             temp: lowWindTempRef.current.value,
-          })
-        );
+          });
         dispatch(
           handleSetWindTemp({
             objectName: 'medWindTemp',
             temp: medWindTempRef.current.value,
-          })
-        );
+          });
         dispatch(
           handleSetWindTemp({
             objectName: 'highWindTemp',
             temp: highWindTempRef.current.value,
-          })
-        );
+          });
         dispatch(
           handleSetWindTemp({
             objectName: 'extremeWindTemp',
             temp: extremeWindTempRef.current.value,
-          })
-        );
+          });
         dispatch(
           handleSetWindTemp({
             objectName: 'windFactorSavedUnitIsF',
             temp: isF,
-          })
-        );
+          });
 
         const switchDeviceIds = getDeviceIdsByLocationData(flatEssSwitch);
         const blowerDeviceIds = [
@@ -2530,8 +2444,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
           handleSnowSensorTemp({
             keyName: 'snowSensorSavedUnitIsF',
             value: isF,
-          })
-        );
+          });
 
         if (
           essSnowSensorRef.current.value &&
@@ -2542,8 +2455,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
             handleSnowSensorTemp({
               keyName: 'essSnowSensorTemp',
               value: essSnowSensorRef.current.value,
-            })
-          );
+            });
           switchDeviceIds.length > 0 &&
             updateSwitchSettingService(
               switchDeviceIds,
@@ -2561,8 +2473,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
             handleSnowSensorTemp({
               keyName: 'tgsSnowSensorTemp',
               value: tgsSnowSensorRef.current.value,
-            })
-          );
+            });
         }
         if (
           tesSnowSensorRef.current.value &&
@@ -2572,8 +2483,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
             handleSnowSensorTemp({
               keyName: 'tesSnowSensorTemp',
               value: tesSnowSensorRef.current.value,
-            })
-          );
+            });
         }
 
         if (tgsSnowSensorRef.current.value && tesSnowSensorRef.current.value) {

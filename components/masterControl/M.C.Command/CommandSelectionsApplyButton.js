@@ -30,9 +30,9 @@ function CommandSelectionsApplyButton({
   handleSelectCommand,
   handleCreateNewCommandMessageBox,
 }) {
-  const UserState = useSelector(selectUserInfo);
+  const UserState = useUserStore();
   const userID = UserState.user.user_id;
-  const commandsState = useSelector(selectMCCommand);
+  const commandsState = useMCCommandStore();
   const userCommandsInfo = commandsState.commandsInfo[userID];
   const { isNewCommandCreated } = commandsState;
 

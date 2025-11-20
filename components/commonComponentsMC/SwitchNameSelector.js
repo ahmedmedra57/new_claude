@@ -5,8 +5,6 @@ import { flexBoxCenter } from '../styles/commonStyles';
 
 import SwitchNameButton from './SwitchNameButton';
 import SwitchNameRadioBox from './SwitchNameRadioBox';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
 import { updateHeaterOfSSRService } from '../../services';
 import { useEffect } from 'react';
 

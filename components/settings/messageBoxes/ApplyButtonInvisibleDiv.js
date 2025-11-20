@@ -10,8 +10,7 @@ import SettingClearOkMessage from './SettingClearOkMessage';
 
 function ApplyButtonInvisibleDiv() {
   // redux
-  const dispatch = useDispatch();
-
+  
   const [display, setDisplay] = useState(false);
 
   const handleMessage = (event) => {
@@ -27,8 +26,8 @@ function ApplyButtonInvisibleDiv() {
   const clearMessageBox = (event) => {
     event.stopPropagation();
 
-    dispatch(handleResetButtons());
-    dispatch(handleClickedButton('isCancel'));
+    dispatch(handleResetButtons();
+    dispatch(handleClickedButton('isCancel');
 
     setDisplay(false);
   };

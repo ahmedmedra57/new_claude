@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
-import { addUserInfo, handleAccessToken } from '../store/slices/userSlice';
 import { loginService, resetPasswordService } from '../../services';
 import { NOT_ALLOWED_ROLES } from '../../constants';
 import { Button, Input, Modal } from '../ui';
@@ -32,8 +31,7 @@ import {
 const LoginBox = () => {
   const { t } = useTranslation();
   const navigation = useNavigate();
-  const dispatch = useDispatch();
-  const isMobile = useMediaQuery({ query: '(max-width:600px)' });
+    const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -53,18 +51,18 @@ const LoginBox = () => {
       onSuccess: (data) => {
         if (data?.token) {
           if (isUserNotAllowed(data.user)) {
-            alert(t('messages.notAllowed'));
+            alert(t('messages.notAllowed');
             return;
           }
           navigation('/');
           localStorage.setItem('access_token', data.token);
-          localStorage.setItem('loginTime', new Date());
-          dispatch(handleAccessToken(data.token));
-          dispatch(addUserInfo(data.user));
+          localStorage.setItem('loginTime', new Date();
+          dispatch(handleAccessToken(data.token);
+          dispatch(addUserInfo(data.user);
         }
       },
       onError: () => {
-        setErrorMessage(t('auth.invalidCredentials'));
+        setErrorMessage(t('auth.invalidCredentials');
       },
     }
   );
@@ -73,7 +71,7 @@ const LoginBox = () => {
     resetPasswordService,
     {
       onSuccess: () => {
-        setResetMessage(t('auth.resetEmailSent'));
+        setResetMessage(t('auth.resetEmailSent');
         setTimeout(() => {
           setShowForgotPassword(false);
           setResetMessage('');
@@ -81,7 +79,7 @@ const LoginBox = () => {
         }, 3000);
       },
       onError: () => {
-        setResetMessage(t('auth.resetError'));
+        setResetMessage(t('auth.resetError');
       },
     }
   );
@@ -89,7 +87,7 @@ const LoginBox = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (!username || !password) {
-      setErrorMessage(t('auth.fillAllFields'));
+      setErrorMessage(t('auth.fillAllFields');
       return;
     }
     mutateLogin({ username, password });
@@ -98,7 +96,7 @@ const LoginBox = () => {
   const handleResetPassword = (e) => {
     e.preventDefault();
     if (!resetEmail) {
-      setResetMessage(t('auth.enterAccountName'));
+      setResetMessage(t('auth.enterAccountName');
       return;
     }
     mutateResetPassword({ username: resetEmail });

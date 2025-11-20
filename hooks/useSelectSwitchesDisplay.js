@@ -1,14 +1,4 @@
-import {
-  handleAddLocations,
-  handleAddMachines,
-  handleAddSpecificLocations,
-  handleLocationSelect,
-  handleMachineSelect,
-  handleMachineSelectAlt,
-  handleMachineSelectWithSpecLocationAlt,
-  handleSelectAll,
-  handleSpecificLocationSelect,
-} from "../components/store/slices/masterControlSelectSlice";
+import { useMasterControlSelectStore } from "../components/zustand-stores";
 
 export const useSelectSwitchesDisplay = (
   option,
@@ -18,9 +8,20 @@ export const useSelectSwitchesDisplay = (
   specificLocations,
   swt,
   data,
-  allSelectBoxData,
-  dispatch
+  allSelectBoxData
 ) => {
+  const {
+    setSelectedOne,
+    setSelectAll,
+    setLocationSelect,
+    setSpecificLocationSelect,
+    setMachineSelect,
+    addLocations,
+    addSpecificLocations,
+    addMachines,
+    setMachineSelectAlt,
+    setMachineSelectWithSpecLocationAlt,
+  } = useMasterControlSelectStore();
   const locations = Object.keys(data);
   const {
     isLocationSelected,
@@ -33,26 +34,24 @@ export const useSelectSwitchesDisplay = (
 
   if (option === "all") {
     // 1. select all
-    dispatch(handleSelectAll({ switch: swt, status: true }));
+    setSelectAll(swt, true);
 
     // 2.update all locations
     const locationArr = isLocationSelected.map((location) => true);
 
-    dispatch(handleLocationSelect({ switch: swt, arr: locationArr }));
+    setLocationSelect(swt, locationArr);
 
     // 3.update all isSpecificLocationSelected
     const specificLocationArr = isSpecificLocationSelected.map((el) =>
       el.map((specLocationState) => true)
     );
 
-    dispatch(
-      handleSpecificLocationSelect({ switch: swt, arr: specificLocationArr })
-    );
-    
+    setSpecificLocationSelect(swt, specificLocationArr);
+
     // 4.update all machines
     const individualArr = Object.values(data)?.map((location, i) => {
       if (location.isSpecificLocation) {
-        
+
         return Object.values(location.subLocations).map((subLocation) => {
           return Object.values(subLocation.devices).map((machine) => {
             return true;
@@ -65,14 +64,14 @@ export const useSelectSwitchesDisplay = (
       }
     });
 
-    dispatch(handleMachineSelect({ switch: swt, arr: individualArr }));
+    setMachineSelect(swt, individualArr);
   } else if (option !== "all" && machine === undefined) {
     // 2. select location
     // 2.1 update  isLocationSelected
     const index = locations.indexOf(option);
     const arr = [...isLocationSelected];
     arr[index] = true;
-    dispatch(handleLocationSelect({ switch: swt, arr }));
+    setLocationSelect(swt, arr);
 
     // 2.2 update isSpecificLocationSelected
     const exitingSpecLocationsValue = Object.values(data).filter(
@@ -95,12 +94,7 @@ export const useSelectSwitchesDisplay = (
         });
       }
     });
-    dispatch(
-      handleSpecificLocationSelect({
-        switch: swt,
-        arr: newIsSpecificLocationSelected,
-      })
-    );
+    setSpecificLocationSelect(swt, newIsSpecificLocationSelected);
 
     // 2.3 update isMachineSelected
     const machineNewArr = isMachineSelected[index]?.map((el) => {
@@ -113,12 +107,12 @@ export const useSelectSwitchesDisplay = (
     });
     const copyArr = [...isMachineSelected];
     copyArr[index] = machineNewArr;
-    dispatch(handleMachineSelect({ switch: swt, arr: copyArr }));
+    setMachineSelect(swt, copyArr);
 
     // 2.4 for dispatch selected locations
     const newSelect = [...selectedLocations];
     newSelect.push(option);
-    dispatch(handleAddLocations({ switch: swt, arr: newSelect }));
+    addLocations(swt, newSelect);
   } else if (option !== "all" && machine === "isSpecificLocation") {
 
     // 3. select specific location
@@ -139,14 +133,14 @@ export const useSelectSwitchesDisplay = (
           return true;
         }
         return _;
-  
+
       }
     );
     const arr = [...isSpecificLocationSelected];
 
     arr[index] = isSpecificLocationNewArr;
 
-    dispatch(handleSpecificLocationSelect({ switch: swt, arr }));
+    setSpecificLocationSelect(swt, arr);
 
     // 3.2 update isMachineSelected
     const locationIndex = locations.indexOf(option);
@@ -157,7 +151,7 @@ export const useSelectSwitchesDisplay = (
     const deepCopyArr = JSON.parse(JSON.stringify(isMachineSelected));
 
     deepCopyArr[locationIndex][machineIndex] = machineNewArr;
-    dispatch(handleMachineSelect({ switch: swt, arr: deepCopyArr }));
+    setMachineSelect(swt, deepCopyArr);
 
     // for dispatch selected specific locations
     const newSelect = [...selectedSpecificLocations];
@@ -165,7 +159,7 @@ export const useSelectSwitchesDisplay = (
       newSelect.push(extraOption);
     }
     newSelect.push(extraOption);
-    dispatch(handleAddSpecificLocations({ switch: swt, arr: newSelect }));
+    addSpecificLocations(swt, newSelect);
   } else {
     // 4. select individually
     console.log(
@@ -182,28 +176,19 @@ export const useSelectSwitchesDisplay = (
       const machineIdx = Object.keys(
         data[option].subLocations[extraOption].devices
       ).indexOf(machine);
-      dispatch(
-        handleMachineSelectWithSpecLocationAlt({
-          switch: swt,
-          locationIdx,
-          specLocationIdx,
-          machineIdx,
-        })
-      );
+      setMachineSelectWithSpecLocationAlt(swt, locationIdx, specLocationIdx, machineIdx);
 
       newSelectedMachineArr.push([option, extraOption, machine]);
     } else {
       // 4.2 update isMachineSelected that doesn't have a specific location
       const machineIdx = Object.keys(data[option].devices).indexOf(machine);
 
-      dispatch(
-        handleMachineSelectAlt({ switch: swt, locationIdx, machineIdx })
-      );
+      setMachineSelectAlt(swt, locationIdx, machineIdx);
 
       newSelectedMachineArr.push([option, machine]);
     }
 
     // for dispatch selected machines
-    dispatch(handleAddMachines({ switch: swt, arr: newSelectedMachineArr }));
+    addMachines(swt, newSelectedMachineArr);
   }
 };

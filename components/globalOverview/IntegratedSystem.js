@@ -1,22 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectGlobalOverview } from '../store/slices/globalOverviewSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import {
-  handleEssInitialState,
-  handleOpenMasterControl,
-  handleTesInitialState,
-  handleTesSpecificLocationInitialState,
-  handleTgsInitialState,
-  handleTgsSpecificLocationInitialState,
-  setOpenLocationInitialStateHandler,
-  setOpenSpecificLocationInitialStateHandler,
-  setOpenMachineInitialStateHandler,
-  selectMCIsExpanded,
-} from '../store/slices/MCIsExpandedSlice';
-import { selectUserInfo } from '../store/slices/userSlice';
+import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useMCIsExpandedStore, useTESSwitchStore, useTGSSwitchStore, useUserStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -36,7 +19,6 @@ import SwitchLocation from './SwitchLocation';
 import IndividualMachine from './IndividualMachine';
 import reduce from 'lodash/reduce';
 import set from 'lodash/set';
-import { selectLocations } from '../store/slices/locationsSlice';
 import {
   filteredSuggestionsHandler,
   getFormattedMachineName,
@@ -46,20 +28,20 @@ import testData from '../../test_data/testData';
 import { useSetZoneOpeningsState } from '../../hooks';
 
 const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLocation,setSelectedLocation}) => {
-  const MCIsExpanded = useSelector(selectMCIsExpanded);
+  const MCIsExpanded = useMCIsExpandedStore();
   // const { ess, tgs, tes, hp, ate } = MCIsExpanded;
 
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { isEssSwitch, isTesSwitch, isTgsSwitch, isHpSwitch, isAteSwitch } =
     userInfo;
 
-  const { essSwitch, flatEssSwitch } = useSelector(selectEssSwitch);
+  const { essSwitch, flatEssSwitch } = useESSSwitchStore();
 
-  const { tgsSwitch, flatTgsSwitch } = useSelector(selectTgsSwitch);
-  const { tesSwitch, flatTesSwitch } = useSelector(selectTesSwitch);
-  const locations = useSelector(selectLocations);
+  const { tgsSwitch, flatTgsSwitch } = useTGSSwitchStore();
+  const { tesSwitch, flatTesSwitch } = useTESSwitchStore();
+  const locations = useLocationsStore();
   // console.log(locations);
-  const overViewState = useSelector(selectGlobalOverview);
+  const overViewState = useGlobalOverviewStore();
   const { selectedSystem } = overViewState;
 
   const [inputSearch, setInputSearch] = useState(['', '', '', '', '']);
@@ -75,7 +57,7 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
   // console.log('tgsSwitch:', tgsSwitch);
 
   // !!TEST DATA
-  // const selectExpand = useSelector(selectMCIsExpanded);
+  // const selectExpand = useMCIsExpandedStore();
   // console.log('selectExpand slice', selectExpand);
   // const { testEssSwitch, testTgsSwitch, testTesSwitch, testAllLocations } =
   //   testData(essSwitch, tgsSwitch, locations, tesSwitch);
@@ -200,8 +182,7 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
     initialDisplaySystemState
   );
 
-  const dispatch = useDispatch();
-
+  
   // Object.values(essSwitch).map((el) => {
   //   if (Object.keys(el).length === 0) {
   //     return true;
@@ -267,18 +248,18 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
   //     if (isEssSwitch) {
   //       setOpeningStatesHandler('ess', essSwitch);
   //     } else {
-  //       dispatch(handleOpenMasterControl({ swtName: 'ess', status: false }));
+  //       dispatch(handleOpenMasterControl({ swtName: 'ess', status: false });
   //     }
   //     if (isTgsSwitch) {
   //       setOpeningStatesHandler('tgs', tgsSwitch);
   //     } else {
-  //       dispatch(handleOpenMasterControl({ swtName: 'tgs', status: false }));
+  //       dispatch(handleOpenMasterControl({ swtName: 'tgs', status: false });
   //     }
 
   //     if (isTesSwitch) {
   //       setOpeningStatesHandler('tes', tesSwitch);
   //       // const locationTes = Object.keys(tesSwitch).map((location) => false);
-  //       // dispatch(handleTesInitialState(locationTes));
+  //       // dispatch(handleTesInitialState(locationTes);
 
   //       // searchSpecificLocationHandler(tesSwitch).forEach((checkEl, idx) => {
   //       //   if (!checkEl) {
@@ -290,11 +271,11 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
   //       //       false
   //       //     );
 
-  //       //     dispatch(handleTesSpecificLocationInitialState(booleanArray));
+  //       //     dispatch(handleTesSpecificLocationInitialState(booleanArray);
   //       //   }
   //       // });
   //     } else {
-  //       dispatch(handleOpenMasterControl({ swtName: 'tes', status: false }));
+  //       dispatch(handleOpenMasterControl({ swtName: 'tes', status: false });
   //     }
   //   };
   // }, []);
@@ -430,7 +411,7 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
   //       }
   //     })
   //     .join(' - ')
-  //     .includes(inputSwitchName.toUpperCase());
+  //     .includes(inputSwitchName.toUpperCase();
   // });
 
   useEffect(() => {
@@ -449,10 +430,10 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
 
       const swtName = index === 0 ? 'ess' : index === 1 ? 'tgs' : 'tes';
       if (suggestion.length >= 2) {
-        dispatch(handleOpenMasterControl({ swtName, status: false }));
+        dispatch(handleOpenMasterControl({ swtName, status: false });
       }
       if (suggestion) {
-        dispatch(handleOpenMasterControl({ swtName, status: false }));
+        dispatch(handleOpenMasterControl({ swtName, status: false });
         // show selected machine
         const tempArr = [...displaySelectedMachine];
         tempArr[index] = true;
@@ -517,8 +498,7 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
       handleOpenMasterControl({
         swtName,
         status: !MCIsExpanded[swtName].masterControl,
-      })
-    );
+      });
   };
 
   const handleCancel = (idx, swtName) => {
@@ -533,8 +513,7 @@ const IntegratedSystem = ({ setCenter, setZoomNum ,mapCenter,zoomNum,selectedLoc
       handleOpenMasterControl({
         swtName,
         status: true,
-      })
-    );
+      });
   };
 
   const setInputHandler = (e, swt, idx) => {

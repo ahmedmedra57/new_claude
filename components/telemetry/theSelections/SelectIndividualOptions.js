@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocationsStore } from '../../zustand-stores';
 import styled, { css } from "styled-components";
 import {
   borderABlue,
@@ -34,7 +35,7 @@ const SelectIndividualOptions = ({
 }) => {
   // media query
   // const isMobile = useMediaQuery({ query: '(max-width:600px)' });
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const [displayMachines, setDisplayMachines] = useState(false);
   const [displaySpecificLocations, setDisplaySpecificLocations] =
     useState(false);

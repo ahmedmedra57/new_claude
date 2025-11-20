@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useEffect } from 'react';
+import { useUserStore } from '../../zustand-stores';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
@@ -48,7 +49,7 @@ function SnowSensorMain({
   const buttonsState = useSelector(selectEditCancelApplyButtons);
   const { isEdit } = buttonsState;
 
-  const UserInfoState = useSelector(selectUserInfo);
+  const UserInfoState = useUserStore();
   const { isEssSwitch, isTesSwitch, isTgsSwitch, isHpSwitch, isAteSwitch } =
     UserInfoState;
 

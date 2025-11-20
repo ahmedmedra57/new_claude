@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useUnitsStore } from '../../../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -36,7 +37,7 @@ const OptionalConstantTemp = ({
   isInstantHeatActive,
   setSubtitle,
 }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const unit = isF ? `°F` : `°C`;
 

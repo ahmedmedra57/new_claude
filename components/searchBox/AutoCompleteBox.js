@@ -1,7 +1,7 @@
 import { useCallback, useMemo, memo } from 'react';
+import { useLocationsStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { selectLocations } from '../store/slices/locationsSlice';
 import {
   justifyContentFlexStart,
   justifyContentSpaceBetween,
@@ -10,9 +10,6 @@ import {
 import { useState } from 'react';
 import { useEffect } from 'react';
 import testData from '../../test_data/testData';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
 
 const AutoCompleteBox = ({
   swtName,
@@ -23,7 +20,7 @@ const AutoCompleteBox = ({
   handleNavigate,
   system,
 }) => {
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   const title = useMemo(() => {
     const namesArr = swtName.split(' - ');

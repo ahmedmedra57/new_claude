@@ -1,6 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useESSSwitchStore, useMasterControlSelectStore } from '../../../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   handleSelectIndividualMachine,
@@ -47,7 +47,7 @@ import { getAllSpecificLocationNames } from '../../../../helpers/helpers';
 
 const SelectMachineOptions = ({ handleClose, data, swt, isMasterControl }) => {
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
-  // const data = useSelector(selectEssSwitch);
+  // const data = useESSSwitchStore();
 
   // !! work on this tomorrow
   const hpStations = {
@@ -97,7 +97,7 @@ const SelectMachineOptions = ({ handleClose, data, swt, isMasterControl }) => {
   const locations = Object.keys(data);
 
   const buttons = ['clear', 'select'];
-  const masterControlSelects = useSelector(selectMasterControls);
+  const masterControlSelects = useMasterControlSelectStore();
 
   const {
     // for styling
@@ -140,8 +140,7 @@ const SelectMachineOptions = ({ handleClose, data, swt, isMasterControl }) => {
     []
   );
 
-  const dispatch = useDispatch();
-
+  
   useEffect(() => {
     // const allSpecificLocationsName = [];
     // data &&
@@ -508,8 +507,8 @@ const ButtonWrapper = styled.button`
 //     if (isAllSelected) {
 //       // 1. selected All
 //       // dispatch
-//       dispatch(handleSelectedOne({ switch: swt, selectedOne: 'all' }));
-//       locations.map((location) => handleSelectLocation(location, true));
+//       dispatch(handleSelectedOne({ switch: swt, selectedOne: 'all' });
+//       locations.map((location) => handleSelectLocation(location, true);
 //     } else if (isLocationSelected.indexOf(true) !== -1) {
 //       // 2. selected locations
 //       selectedLocations.map((location) =>
@@ -594,34 +593,34 @@ const ButtonWrapper = styled.button`
 //         })
 //       );
 //     } else if (!isSelected) {
-//       dispatch(handleSelectedOne({ switch: swt, selectedOne: null }));
+//       dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
 //     }
 //     handleClose();
 //   } else {
 //     // reset all selections
 //     // 1.reset all local states
-//     dispatch(handleSelectAll({ switch: swt, status: false }));
-//     dispatch(handleSelectedOne({ switch: swt, selectedOne: null }));
+//     dispatch(handleSelectAll({ switch: swt, status: false });
+//     dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
 
 //     // reset state for dispatch
-//     dispatch(handleAddLocations({ switch: swt, arr: [] }));
-//     dispatch(handleAddMachines({ switch: swt, arr: [] }));
+//     dispatch(handleAddLocations({ switch: swt, arr: [] });
+//     dispatch(handleAddMachines({ switch: swt, arr: [] });
 
 //     // 2. reset location
 //     const arr = locations.map((location) => false);
-//     dispatch(handleLocationSelect({ switch: swt, arr }));
+//     dispatch(handleLocationSelect({ switch: swt, arr });
 
 //     // reset selected machines
 //     const individualArr = Object.values(data).map((location) =>
 //       Object.keys(location).map((machine) => false)
 //     );
-//     dispatch(handleMachineSelect({ switch: swt, arr: individualArr }));
+//     dispatch(handleMachineSelect({ switch: swt, arr: individualArr });
 
 //     // dispatch
-//     locations.map((location) => handleSelectLocation(location));
+//     locations.map((location) => handleSelectLocation(location);
 
 //     // reset all changes
-//     dispatch(handleResetAll());
+//     dispatch(handleResetAll();
 //   }
 // };
 
@@ -677,18 +676,18 @@ const ButtonWrapper = styled.button`
 
 //   if (option === 'all') {
 //     // 1. select all
-//     dispatch(handleSelectAll({ switch: swt, status: true }));
+//     dispatch(handleSelectAll({ switch: swt, status: true });
 
 //     // update all locations
 //     const locationArr = isLocationSelected.map((location) => true);
 
-//     dispatch(handleLocationSelect({ switch: swt, arr: locationArr }));
+//     dispatch(handleLocationSelect({ switch: swt, arr: locationArr });
 
 //     // update all machines global and local
 //     const individualArr = Object.values(data).map((location) =>
 //       Object.keys(location).map((machine) => true)
 //     );
-//     dispatch(handleMachineSelect({ switch: swt, arr: individualArr }));
+//     dispatch(handleMachineSelect({ switch: swt, arr: individualArr });
 //   } else if (option !== 'all' && machine === undefined) {
 //     // 2. select location
 //     // 2-1 find index and make it true
@@ -696,19 +695,19 @@ const ButtonWrapper = styled.button`
 //     const index = locations.indexOf(option);
 //     const arr = [...isLocationSelected];
 //     arr[index] = true;
-//     dispatch(handleLocationSelect({ switch: swt, arr }));
+//     dispatch(handleLocationSelect({ switch: swt, arr });
 
 //     // update machines in the location
 
 //     const machineNewArr = isMachineSelected[index].map((machine) => true);
 //     const copyArr = [...isMachineSelected];
 //     copyArr[index] = machineNewArr;
-//     dispatch(handleMachineSelect({ switch: swt, arr: copyArr }));
+//     dispatch(handleMachineSelect({ switch: swt, arr: copyArr });
 
 //     // for dispatch selected locations
 //     const newSelect = [...selectedLocations];
 //     newSelect.push(option);
-//     dispatch(handleAddLocations({ switch: swt, arr: newSelect }));
+//     dispatch(handleAddLocations({ switch: swt, arr: newSelect });
 //   } else {
 //     // 3. select individually
 //     const locationIdx = Object.keys(data).indexOf(option);
@@ -721,7 +720,7 @@ const ButtonWrapper = styled.button`
 //     // for dispatch selected machines
 //     const newSelectedMachineArr = [...selectedMachines];
 //     newSelectedMachineArr.push([option, machine]);
-//     dispatch(handleAddMachines({ switch: swt, arr: newSelectedMachineArr }));
+//     dispatch(handleAddMachines({ switch: swt, arr: newSelectedMachineArr });
 //   }
 // };
 // const specificLocationsValues = Object.values(data)

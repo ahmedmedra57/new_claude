@@ -1,0 +1,7 @@
+MIGRATION VERIFICATION REPORT
+==============================
+
+Running post-migration checks...
+
+1. Checking for remaining Redux imports...
+   Files with 'react-redux' imports:

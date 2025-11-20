@@ -1,10 +1,9 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { selectUnits } from "../components/store/slices/settings/unitsSlice";
+import { useUnitsStore } from "../components/zustand-stores";
 import { convertCelsiusToFahrenheit } from "../helpers/helpers";
 
 export const useSetAndCurrentTemp = (machineData) => {
-    const { isF } = useSelector(selectUnits);
+    const { isF } = useUnitsStore();
 
     const instantHeatReady = useMemo(() => {
         return machineData.instantHeat.isReady;

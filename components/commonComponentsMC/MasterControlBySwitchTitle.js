@@ -21,8 +21,7 @@ const MasterControlBySwitchTitle = ({
 }) => {
   const btName = isExpand ? 'close' : 'expand';
 
-  const dispatch = useDispatch();
-  return (
+    return (
     <MCTitleWrapper
       isExpanded={isExpand}
       modifyBorderRadius={modifyBorderRadius}

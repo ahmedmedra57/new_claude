@@ -36,8 +36,7 @@ const SelectSwitches = ({
   tgsDataConsumptionSwitch,
   hpDataConsumptionSwitch,
 }) => {
-  const dispatch = useDispatch();
-
+  
   const swt = ess
     ? 'ess'
     : tes

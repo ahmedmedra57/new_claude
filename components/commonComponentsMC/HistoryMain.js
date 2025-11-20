@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useUnitsStore, useUserStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   flexBoxCenter,
@@ -14,7 +15,6 @@ import { getAuditTrailService } from '../../services';
 import { useSelector } from 'react-redux';
 import { selectUserInfo } from './../../components/store/slices/userSlice';
 import { machineAuditTrailActionsFormat, machineAuditTrailFaultsFormat } from '../../helpers/helpers';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 const AUDIT_TRAIL_Action= [
   'MASTER_CONTROL',
   'GLOBAL_MASTER_CONTROL',
@@ -31,10 +31,10 @@ const HistoryMain = ({ swtName, location, machine }) => {
   const [selectedFaultIndex, setSelectedFaultIndex] = useState(null);
   const [historyData,setHistoryData]=useState([]);
   
-  const unitsState = useSelector(selectUnits);
+  const unitsState = useUnitsStore();
   const { isF } = unitsState;
 
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const {allUsers } = userInfo; 
 
   useEffect(() => {

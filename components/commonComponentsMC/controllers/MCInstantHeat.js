@@ -22,6 +22,7 @@ import { leastIndex } from 'd3-array';
 import { useSelector } from 'react-redux';
 import { selectUnits } from '../../store/slices/settings/unitsSlice';
 import { useState } from 'react';
+import { useUnitsStore } from '../../zustand-stores';
 import MessageBoxButton from '../../userMessages/MessageBoxButton';
 import InputTempMessage from '../../userMessages/inputTempMessage';
 import { selectEssSwitch } from '../../store/slices/essSwitchSlice';
@@ -41,7 +42,7 @@ const MCInstantHeat = ({
   swtName,
   machine,
 }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
     swtName === 'ess'

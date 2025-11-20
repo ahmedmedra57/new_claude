@@ -1,5 +1,5 @@
 import { useEffect, useState, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore, useUserStore } from 'zustand-stores';
 import styled, { css } from 'styled-components';
 import DateAndWeather from './masterControl/DateAndWeather';
 import AutoCompleteBox from './searchBox/AutoCompleteBox';
@@ -63,18 +63,18 @@ const Header = () => {
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
   // Global state
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { firstname, lastname, title, gender, avatar } = userInfo.user;
   const { user_code } = userInfo.user;
 
   const { essSwitch: essSwitches, flatEssSwitch } =
-    useSelector(selectEssSwitch);
+    useESSSwitchStore();
   const { tgsSwitch: tgsSwitches, flatTgsSwitch } =
-    useSelector(selectTgsSwitch);
+    useTGSSwitchStore();
   const { tesSwitch: tesSwitches, flatTesSwitch } =
-    useSelector(selectTesSwitch);
+    useTESSwitchStore();
  
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   // local states
   const [searchInput, setSearchInput] = useState('');
@@ -92,12 +92,11 @@ const Header = () => {
   const [searchedMachine, setSearchedMachine] = useState(null);
 
   const navigation = useNavigate();
-  const dispatch = useDispatch();
-
+  
   const { mutate: mutateLogout } = useMutation(logoutService, {
     onSuccess: () => {
       localStorage.removeItem('access_token');
-      dispatch(handleAccessToken(null));
+      dispatch(handleAccessToken(null);
     },
   });
 
@@ -165,8 +164,7 @@ const Header = () => {
             openSpecificLocationIdx: index,
             index: index,
             status: true,
-          })
-        );
+          });
       } else {
         dispatch(
           handleOpenLocation({
@@ -174,8 +172,7 @@ const Header = () => {
             openSpecificLocationIdx: index,
             index: index,
             status: false,
-          })
-        );
+          });
       }
     });
     specificLocationArr.forEach((el, index) => {
@@ -186,8 +183,7 @@ const Header = () => {
             openSpecificLocationIdx: index,
             index: index,
             status: true,
-          })
-        );
+          });
       }
     });
     Object.keys(swtData).forEach((location) =>
@@ -198,11 +194,9 @@ const Header = () => {
               location,
               machine: el,
               status: false,
-            })
-          );
+            });
         }
-      })
-    );
+      });
 
     dispatch(
       machineControlFC({
@@ -210,8 +204,7 @@ const Header = () => {
         specificLocation: searchedSpecificLocation,
         machine: searchedMachine,
         status: true,
-      })
-    );
+      });
   };
 
   const handleSearchbarButton = async (id) => {
@@ -237,8 +230,7 @@ const Header = () => {
         );
         
         dispatch(
-          handleOpenMasterControl({ swtName: searchedSwitch, status: false })
-        );
+          handleOpenMasterControl({ swtName: searchedSwitch, status: false });
       } else if (searchedSwitch === 'tgs') {
         controlMachinesDispatcher(
           flatTgsSwitch,
@@ -441,7 +433,7 @@ const Header = () => {
   // ********************************auto complete*****************************
 
   const inputHandler = (e) => {
-    setSearchInput(e.target.value.toUpperCase());
+    setSearchInput(e.target.value.toUpperCase();
     setInputSwitchSearch(e.target.value);
     setSelectedSuggestionIdx(-1);
   };

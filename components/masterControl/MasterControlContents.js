@@ -1,77 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  handleApplyCommand,
-  handleCommandInfo,
-  handleControllersStatus,
-  handleSaveCommand,
-  selectMCCommand,
-} from '../store/slices/mCCommandSlice';
-import {
-  selectMessageBoxes,
-  handleApplyMessageBox,
-} from '../store/slices/messageBoxesSlice';
-import { selectedMachinesState } from '../store/slices/selectedMachinesSlice';
-import { selectMC } from '../store/slices/mCSlice';
-import {
-  handleActivateHeatingSchedule,
-  handleAddHeatingSchedule,
-  handleAtsSelection,
-  handleClearHeatingSchedule,
-  handleHeatingScheduleReset,
-  handleInstantHeat,
-  handleInstantHeatOff,
-  handleInstantHeatReady,
-  handleInstantHeatReset,
-  handleOptionalConstantTemp,
-  handleOptionalConstantTempOff,
-  handleOptionalConstantTempReady,
-  handleOptionalConstantTempReadyOff,
-  handleOptionalConstantTempReset,
-  handleReadyHeatingSchedule,
-  handleSnowSensor,
-  handleSnowSensorIsActivatedOff,
-  handleSnowSensorOff,
-  handleSnowSensorReset,
-  handleWindFactor,
-  handleWindFactorIsActivatedOff,
-  handleWindFactorOff,
-  handleWindFactorReset,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
-import {
-  selectTesSwitch,
-  tesHandleAddHeatingSchedule,
-  tesHandleAtsSelection,
-  tesHandleHeatingScheduleReset,
-  tesHandleInstantHeat,
-  tesHandleInstantHeatIsReady,
-  tesHandleInstantHeatReset,
-  tesHandleOptionalConstantTemp,
-  tesHandleOptionalConstantTempIsReady,
-  tesHandleOptionalConstantTempReset,
-  tesHandleReadyHeatingSchedule,
-  tesHandleSnowSensor,
-  tesHandleSnowSensorReset,
-  tesHandleWindFactor,
-  tesHandleWindFactorReset,
-} from '../store/slices/tesSwitchSlice';
-import {
-  selectTgsSwitch,
-  tgsHandleInstantHeat,
-  tgsHandleSnowSensor,
-  tgsHandleAddHeatingSchedule,
-  tgsHandleWindFactor,
-  tgsHandleFanOnly,
-  tgsHandleAtsSelection,
-  tgsHandleInstantHeatReset,
-  tgsHandleFanOnlyReset,
-  tgsHandleSnowSensorReset,
-  tgsHandleHeatingScheduleReset,
-  tgsHandleWindFactorReset,
-  tgsHandleReadyHeatingSchedule,
-  tgsHandleInstantHeatIsReady,
-} from '../store/slices/tgsSwitchSlice';
+import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMCStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
 
 import styled from 'styled-components';
 import {
@@ -85,9 +13,7 @@ import DisplayDialAndSections from './controls/mainSelection/DisplayDialAndSecti
 import ViewCommand from './userMessages/ViewCommand';
 import SelectSystemApplyMessageBox from './userMessages/SelectSystemApplyMessageBox';
 import MasterControlCommandMain from './M.C.Command/MasterControlCommandMain';
-import { selectUserInfo } from '../store/slices/userSlice';
 import moment from 'moment';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import {
   updateBlowersMasterControlService,
   updateSwitchesMasterControlService,
@@ -96,8 +22,6 @@ import { convertFahrenheitToCelsius, formatTime } from '../../helpers/helpers';
 import { getAuditTrailService } from '../../services';
 import { clear } from '@testing-library/user-event/dist/clear';
 import testData from '../../test_data/testData';
-import { selectLocations } from '../store/slices/locationsSlice';
-import { selectMasterControls } from '../store/slices/masterControlSelectSlice';
 
 const MasterControlContents = ({
   // data,
@@ -112,16 +36,15 @@ const MasterControlContents = ({
   // setControllersStatus,
 }) => {
   // redux
-  const dispatch = useDispatch();
-  const mCCommandState = useSelector(selectMCCommand);
+    const mCCommandState = useMCCommandStore();
   const number = mCCommandState.commandNumber;
   const messageBoxesState = useSelector(selectMessageBoxes);
   const selectedMachines = useSelector(selectedMachinesState);
-  const { flatEssSwitch } = useSelector(selectEssSwitch);
-  const { flatTesSwitch } = useSelector(selectTesSwitch);
-  const { flatTgsSwitch } = useSelector(selectTgsSwitch);
-  const selectedSwitch = useSelector(selectMC);
-  const UserState = useSelector(selectUserInfo);
+  const { flatEssSwitch } = useESSSwitchStore();
+  const { flatTesSwitch } = useTESSwitchStore();
+  const { flatTgsSwitch } = useTGSSwitchStore();
+  const selectedSwitch = useMCStore();
+  const UserState = useUserStore();
   const { user } = UserState;
   const { viewCommand } = mCCommandState;
   const { applyButton } = messageBoxesState;
@@ -148,7 +71,7 @@ const MasterControlContents = ({
 
   const { atsState } = selectedMachines;
   const { swt, selections } = atsState;
-  const unitState = useSelector(selectUnits);
+  const unitState = useUnitsStore();
   const { isF } = unitState;
   // useState
   const [messageBoxContent, setMessageBoxContent] = useState({});
@@ -194,25 +117,22 @@ const MasterControlContents = ({
               location,
               machine,
               specificLocation,
-            })
-          );
+            });
           break;
         case 'tgs':
           dispatch(
-            tgsHandleInstantHeatReset({ location, machine, specificLocation })
-          );
+            tgsHandleInstantHeatReset({ location, machine, specificLocation });
           break;
         case 'tes':
           dispatch(
-            tesHandleInstantHeatReset({ location, machine, specificLocation })
-          );
+            tesHandleInstantHeatReset({ location, machine, specificLocation });
           break;
         default:
           break;
       }
     } else if (instantHeatState.ready) {
       // else if the instant heat is selected, the code below will be executed
-      dispatch(handleControllersStatus(0));
+      dispatch(handleControllersStatus(0);
 
       switch (system) {
         case 'ess':
@@ -223,8 +143,7 @@ const MasterControlContents = ({
               machine,
               isF: instantHeatState.isF,
               temp: instantHeatState.temp,
-            })
-          );
+            });
 
           break;
         case 'tgs':
@@ -235,20 +154,17 @@ const MasterControlContents = ({
               machine,
               isF: instantHeatState.isF,
               temp: instantHeatState.temp,
-            })
-          );
+            });
 
           break;
         case 'tes':
-          dispatch(
-            tesHandleInstantHeatIsReady({
+          setInstantHeatIsReady({
               location,
               specificLocation,
               machine,
               isF: instantHeatState.isF,
               temp: instantHeatState.temp,
-            })
-          );
+            });
           break;
         default:
           break;
@@ -266,39 +182,32 @@ const MasterControlContents = ({
               location,
               specificLocation,
               machine,
-            })
-          );
+            });
           break;
         case 'tgs':
           dispatch(
-            tgsHandleSnowSensorReset({ location, specificLocation, machine })
-          );
+            tgsHandleSnowSensorReset({ location, specificLocation, machine });
           break;
         case 'tes':
           dispatch(
-            tesHandleSnowSensorReset({ location, specificLocation, machine })
-          );
+            tesHandleSnowSensorReset({ location, specificLocation, machine });
           break;
         default:
           break;
       }
     } else if (ready) {
       // else if the snow sensor is selected, the code below will be executed
-      dispatch(handleControllersStatus(1));
+      dispatch(handleControllersStatus(1);
 
       switch (system) {
         case 'ess':
-          dispatch(handleSnowSensor({ location, specificLocation, machine }));
+          dispatch(handleSnowSensor({ location, specificLocation, machine });
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleSnowSensor({ location, specificLocation, machine })
-          );
+          setSnowSensor({ location, specificLocation, machine });
           break;
         case 'tes':
-          dispatch(
-            tesHandleSnowSensor({ location, specificLocation, machine })
-          );
+          setSnowSensor({ location, specificLocation, machine });
           break;
         default:
           break;
@@ -308,25 +217,21 @@ const MasterControlContents = ({
     if (system === 'tgs') {
       if (isFanOnly) {
         // **if Deactivate for fan only is TRUE, then the code below will be executed
-        dispatch(
-          tgsHandleFanOnly({
+        setFanOnly({
             location,
             machine,
             specificLocation,
             state: false,
-          })
-        );
+          });
       } else if (isFanOnlyState) {
         // else if the fan only is selected, the code below will be executed
-        dispatch(handleControllersStatus(2));
-        dispatch(
-          tgsHandleFanOnly({
+        dispatch(handleControllersStatus(2);
+        setFanOnly({
             location,
             machine,
             specificLocation,
             state: true,
-          })
-        );
+          });
       }
     }
     // optional constant temperature
@@ -339,20 +244,18 @@ const MasterControlContents = ({
               location,
               specificLocation,
               machine,
-            })
-          );
+            });
         } else if (system === 'tes') {
           dispatch(
             tesHandleOptionalConstantTempReset({
               location,
               specificLocation,
               machine,
-            })
-          );
+            });
         }
       } else if (constantTempState.ready) {
         // else if optional constant temperature is selected, the code below will be executed
-        dispatch(handleControllersStatus(2));
+        dispatch(handleControllersStatus(2);
         if (system === 'ess') {
           dispatch(
             handleOptionalConstantTempReady({
@@ -361,18 +264,15 @@ const MasterControlContents = ({
               machine,
               isF: constantTempState.isF,
               temp: constantTempState.temp,
-            })
-          );
+            });
         } else if (system === 'tes') {
-          dispatch(
-            tesHandleOptionalConstantTempIsReady({
+          setOptionalConstantTempIsReady({
               location,
               specificLocation,
               machine,
               isF: constantTempState.isF,
               temp: constantTempState.temp,
-            })
-          );
+            });
         }
       }
     }
@@ -386,8 +286,7 @@ const MasterControlContents = ({
               location,
               specificLocation,
               machine,
-            })
-          );
+            });
 
           break;
         case 'tgs':
@@ -396,8 +295,7 @@ const MasterControlContents = ({
               location,
               specificLocation,
               machine,
-            })
-          );
+            });
 
           break;
         case 'tes':
@@ -406,15 +304,14 @@ const MasterControlContents = ({
               location,
               specificLocation,
               machine,
-            })
-          );
+            });
           break;
         default:
           break;
       }
     } else if (heatingScheduleState) {
       // else if heating schedule is selected, the code below will be executed
-      dispatch(handleControllersStatus(3));
+      dispatch(handleControllersStatus(3);
 
       switch (system) {
         case 'ess':
@@ -424,8 +321,7 @@ const MasterControlContents = ({
               machine,
               specificLocation,
               state: true,
-            })
-          );
+            });
           dispatch(
             handleAddHeatingSchedule({
               location,
@@ -436,21 +332,17 @@ const MasterControlContents = ({
               inputTemp: heatingScheduleTemp,
               isF: heatingScheduleIsF,
               index: 0,
-            })
-          );
+            });
 
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleReadyHeatingSchedule({
+          setReadyHeatingSchedule({
               location,
               machine,
               specificLocation,
               state: true,
-            })
-          );
-          dispatch(
-            tgsHandleAddHeatingSchedule({
+            });
+          setAddHeatingSchedule({
               location,
               specificLocation,
               machine,
@@ -459,21 +351,17 @@ const MasterControlContents = ({
               inputTemp: heatingScheduleTemp,
               isF: heatingScheduleIsF,
               index: 0,
-            })
-          );
+            });
 
           break;
         case 'tes':
-          dispatch(
-            tesHandleReadyHeatingSchedule({
+          setReadyHeatingSchedule({
               location,
               specificLocation,
               machine,
               state: true,
-            })
-          );
-          dispatch(
-            tesHandleAddHeatingSchedule({
+            });
+          setAddHeatingSchedule({
               location,
               specificLocation,
               machine,
@@ -482,8 +370,7 @@ const MasterControlContents = ({
               inputTemp: heatingScheduleTemp,
               isF: heatingScheduleIsF,
               index: 0,
-            })
-          );
+            });
           break;
         default:
           break;
@@ -496,39 +383,32 @@ const MasterControlContents = ({
       switch (system) {
         case 'ess':
           dispatch(
-            handleWindFactorReset({ location, specificLocation, machine })
-          );
+            handleWindFactorReset({ location, specificLocation, machine });
           break;
         case 'tgs':
           dispatch(
-            tgsHandleWindFactorReset({ location, specificLocation, machine })
-          );
+            tgsHandleWindFactorReset({ location, specificLocation, machine });
           break;
         case 'tes':
           dispatch(
-            tesHandleWindFactorReset({ location, specificLocation, machine })
-          );
+            tesHandleWindFactorReset({ location, specificLocation, machine });
           break;
         default:
           break;
       }
     } else if (isWindFactorState) {
       // else if wind factor is selected, the code below will be executed
-      dispatch(handleControllersStatus(4));
+      dispatch(handleControllersStatus(4);
 
       switch (system) {
         case 'ess':
-          dispatch(handleWindFactor({ location, specificLocation, machine }));
+          dispatch(handleWindFactor({ location, specificLocation, machine });
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleWindFactor({ location, specificLocation, machine })
-          );
+          setWindFactor({ location, specificLocation, machine });
           break;
         case 'tes':
-          dispatch(
-            tesHandleWindFactor({ location, specificLocation, machine })
-          );
+          setWindFactor({ location, specificLocation, machine });
           break;
         default:
           break;
@@ -544,8 +424,7 @@ const MasterControlContents = ({
               machine,
               specificLocation,
               selection: selections,
-            })
-          );
+            });
 
           break;
         case 'tgs':
@@ -555,8 +434,7 @@ const MasterControlContents = ({
               machine,
               specificLocation,
               selection: selections,
-            })
-          );
+            });
 
           break;
         case 'tes':
@@ -566,8 +444,7 @@ const MasterControlContents = ({
               machine,
               specificLocation,
               selection: selections,
-            })
-          );
+            });
           break;
         default:
           break;
@@ -592,8 +469,7 @@ const MasterControlContents = ({
                   flatEssSwitch,
                   flatTgsSwitch,
                   flatTesSwitch,
-                })
-              );
+                });
             });
           }
         );
@@ -615,8 +491,7 @@ const MasterControlContents = ({
                 flatEssSwitch,
                 flatTgsSwitch,
                 flatTesSwitch,
-              })
-            );
+              });
           });
         });
       }
@@ -735,8 +610,7 @@ const MasterControlContents = ({
             },
           },
         },
-      })
-    );
+      });
   };
 
   const loopAllMachinesToDispatchProgramsHandler = (
@@ -772,12 +646,11 @@ const MasterControlContents = ({
             }
           });
         }
-      })
-    );
+      });
   };
 
   // !! TEST DATA!!
-  // const locations = useSelector(selectLocations);
+  // const locations = useLocationsStore();
   // const { testEssSwitch, testTgsSwitch } = testData(
   //   flatEssSwitch,
   //   flatTgsSwitch,
@@ -1024,9 +897,9 @@ const MasterControlContents = ({
   ]);
 
   const handleDispatchAfterClickApplyButton = () => {
-    dispatch(handleApplyMessageBox(false));
+    dispatch(handleApplyMessageBox(false);
     setCommandConfirmed(true);
-    dispatch(handleApplyCommand(true));
+    dispatch(handleApplyCommand(true);
   };
 
   // 2 buttons of message box (edit and confirm) that appears after clicking on apply button
@@ -1034,7 +907,7 @@ const MasterControlContents = ({
     switch (index) {
       // *****Edit button. it closes the message box
       case 0: {
-        dispatch(handleApplyMessageBox(false));
+        dispatch(handleApplyMessageBox(false);
         break;
       }
       // *****Confirm button. it closes the message box, creates a new command and sends the changes to backend.
@@ -1297,10 +1170,10 @@ export default MasterControlContents;
 //     //     if (flatTgsSwitch[location][machine].isSelected) {
 //     //       // instant heat
 //     //       if (instantHeat) {
-//     //         dispatch(tgsHandleInstantHeatReset({ location, machine }));
+//     //         dispatch(tgsHandleInstantHeatReset({ location, machine });
 //     //       } else if (instantHeatState.ready) {
 //     //         // else if the instant heat is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(0));
+//     //         dispatch(handleControllersStatus(0);
 //     //         dispatch(
 //     //           tgsHandleInstantHeatIsReady({
 //     //             location,
@@ -1322,7 +1195,7 @@ export default MasterControlContents;
 //     //         );
 //     //       } else if (isFanOnlyState) {
 //     //         // else if the fan only is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(0));
+//     //         dispatch(handleControllersStatus(0);
 //     //         dispatch(
 //     //           tgsHandleFanOnly({
 //     //             location,
@@ -1334,20 +1207,20 @@ export default MasterControlContents;
 //     //       // snowSensor
 //     //       if (snowSensor) {
 //     //         // **if Deactivate for snow sensor is TRUE, then the code below will be executed
-//     //         dispatch(tgsHandleSnowSensorReset({ location, machine }));
+//     //         dispatch(tgsHandleSnowSensorReset({ location, machine });
 //     //       } else if (ready) {
 //     //         // else if the snow sensor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(1));
-//     //         dispatch(tgsHandleSnowSensor({ location, machine }));
+//     //         dispatch(handleControllersStatus(1);
+//     //         setSnowSensor({ location, machine });
 //     //       }
 //     //     }
 //     //     // heating scheduler
 //     //     if (heatingSchedule) {
 //     //       // **if Deactivate for heating scheduler is TRUE, then the code below will be executed
-//     //       dispatch(tgsHandleHeatingScheduleReset({ location, machine }));
+//     //       dispatch(tgsHandleHeatingScheduleReset({ location, machine });
 //     //     } else if (heatingScheduleState) {
 //     //       // else if the heating scheduler is selected, the code below will be executed
-//     //       dispatch(handleControllersStatus(3));
+//     //       dispatch(handleControllersStatus(3);
 //     //       dispatch(
 //     //         tgsHandleReadyHeatingSchedule({ location, machine, state: true })
 //     //       );
@@ -1366,11 +1239,11 @@ export default MasterControlContents;
 //     //     //  wind factor
 //     //     if (windFactor) {
 //     //       // **if Deactivate for wind factor is TRUE, then the code below will be executed
-//     //       dispatch(tgsHandleWindFactorReset({ location, machine }));
+//     //       dispatch(tgsHandleWindFactorReset({ location, machine });
 //     //     } else if (isWindFactorState) {
 //     //       // else if the wind factor is selected, the code below will be executed
-//     //       dispatch(handleControllersStatus(4));
-//     //       dispatch(tgsHandleWindFactor({ location, machine }));
+//     //       dispatch(handleControllersStatus(4);
+//     //       setWindFactor({ location, machine });
 //     //     }
 //     //     // select ATS
 //     //     if (swt) {
@@ -1540,10 +1413,10 @@ export default MasterControlContents;
 //     //       // instant heat
 //     //       if (instantHeat) {
 //     //         // **if Deactivate for instant heat is TRUE, then the code below will be executed
-//     //         dispatch(tesHandleInstantHeatReset({ location, machine }));
+//     //         dispatch(tesHandleInstantHeatReset({ location, machine });
 //     //       } else if (instantHeatState.ready) {
 //     //         // else if the instant heat is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(0));
+//     //         dispatch(handleControllersStatus(0);
 //     //         dispatch(
 //     //           tesHandleInstantHeatIsReady({
 //     //             location,
@@ -1556,11 +1429,11 @@ export default MasterControlContents;
 //     //       // snow sensor
 //     //       if (snowSensor) {
 //     //         // **if Deactivate for snow sensor is TRUE, then the code below will be executed
-//     //         dispatch(tesHandleSnowSensorReset({ location, machine }));
+//     //         dispatch(tesHandleSnowSensorReset({ location, machine });
 //     //       } else if (ready) {
 //     //         // else if the snow sensor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(1));
-//     //         dispatch(tesHandleSnowSensor({ location, machine }));
+//     //         dispatch(handleControllersStatus(1);
+//     //         setSnowSensor({ location, machine });
 //     //       }
 //     //       // optional constant temperature
 //     //       if (optionalConstantTemp) {
@@ -1570,7 +1443,7 @@ export default MasterControlContents;
 //     //         );
 //     //       } else if (constantTempState.ready) {
 //     //         // else if the optional constant temp is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(2));
+//     //         dispatch(handleControllersStatus(2);
 //     //         dispatch(
 //     //           tesHandleOptionalConstantTempIsReady({
 //     //             location,
@@ -1583,10 +1456,10 @@ export default MasterControlContents;
 //     //       // heating scheduler
 //     //       if (heatingSchedule) {
 //     //         // **if Deactivate for heating scheduler is TRUE, then the code below will be executed
-//     //         dispatch(tesHandleHeatingScheduleReset({ location, machine }));
+//     //         dispatch(tesHandleHeatingScheduleReset({ location, machine });
 //     //       } else if (heatingScheduleState) {
 //     //         // else if the heating scheduler is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(3));
+//     //         dispatch(handleControllersStatus(3);
 //     //         dispatch(
 //     //           tesHandleReadyHeatingSchedule({
 //     //             location,
@@ -1609,11 +1482,11 @@ export default MasterControlContents;
 //     //       // wind factor
 //     //       if (windFactor) {
 //     //         // **if Deactivate for wind factor is TRUE, then the code below will be executed
-//     //         dispatch(tesHandleWindFactorReset({ location, machine }));
+//     //         dispatch(tesHandleWindFactorReset({ location, machine });
 //     //       } else if (isWindFactorState) {
 //     //         // else if the wind factor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(4));
-//     //         dispatch(tesHandleWindFactor({ location, machine }));
+//     //         dispatch(handleControllersStatus(4);
+//     //         setWindFactor({ location, machine });
 //     //       }
 //     //       // select ATS
 //     //       if (swt) {
@@ -1806,11 +1679,11 @@ export default MasterControlContents;
 //     //       // instant Heat
 //     //       if (instantHeat) {
 //     //         // **if Deactivate for instant heat is TRUE, then the code below will be executed
-//     //         // dispatch(handleInstantHeatOff({ location, machine }));
-//     //         dispatch(handleInstantHeatReset({ location, machine }));
+//     //         // dispatch(handleInstantHeatOff({ location, machine });
+//     //         dispatch(handleInstantHeatReset({ location, machine });
 //     //       } else if (instantHeatState.ready) {
 //     //         // else if the instant heat is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(0));
+//     //         dispatch(handleControllersStatus(0);
 //     //         dispatch(
 //     //           handleInstantHeatReady({
 //     //             location,
@@ -1823,7 +1696,7 @@ export default MasterControlContents;
 //     //       // snow sensor
 //     //       if (snowSensor) {
 //     //         // **if Deactivate for snow sensor is TRUE, then the code below will be executed
-//     //         // dispatch(handleSnowSensorOff({ location, machine }));
+//     //         // dispatch(handleSnowSensorOff({ location, machine });
 //     //         // dispatch(
 //     //         //   handleSnowSensorIsActivatedOff({
 //     //         //     location,
@@ -1838,20 +1711,20 @@ export default MasterControlContents;
 //     //         );
 //     //       } else if (ready) {
 //     //         // else if the snow sensor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(1));
-//     //         dispatch(handleSnowSensor({ location, machine }));
+//     //         dispatch(handleControllersStatus(1);
+//     //         dispatch(handleSnowSensor({ location, machine });
 //     //       }
 //     //       // optional constant temperature
 //     //       if (optionalConstantTemp) {
 //     //         // **if Deactivate for optional constant temperature is TRUE, then the code below will be executed
-//     //         // dispatch(handleOptionalConstantTempOff({ location, machine }));
+//     //         // dispatch(handleOptionalConstantTempOff({ location, machine });
 //     //         // dispatch(
 //     //         //   handleOptionalConstantTempReadyOff({ location, machine })
 //     //         // );
-//     //         dispatch(handleOptionalConstantTempReset({ location, machine }));
+//     //         dispatch(handleOptionalConstantTempReset({ location, machine });
 //     //       } else if (constantTempState.ready) {
 //     //         // else if optional constant temperature is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(2));
+//     //         dispatch(handleControllersStatus(2);
 //     //         dispatch(
 //     //           handleOptionalConstantTempReady({
 //     //             location,
@@ -1882,11 +1755,11 @@ export default MasterControlContents;
 //     //         //     isF: null,
 //     //         //   },
 //     //         // ];
-//     //         // dispatch(handleClearHeatingSchedule({ location, machine, data }));
-//     //         dispatch(handleHeatingScheduleReset({ location, machine }));
+//     //         // dispatch(handleClearHeatingSchedule({ location, machine, data });
+//     //         dispatch(handleHeatingScheduleReset({ location, machine });
 //     //       } else if (heatingScheduleState) {
 //     //         // else if heating schedule is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(3));
+//     //         dispatch(handleControllersStatus(3);
 //     //         dispatch(
 //     //           handleAddHeatingSchedule({
 //     //             location,
@@ -1917,11 +1790,11 @@ export default MasterControlContents;
 //     //         //     machine,
 //     //         //   })
 //     //         // );
-//     //         dispatch(handleWindFactorReset({ location, machine }));
+//     //         dispatch(handleWindFactorReset({ location, machine });
 //     //       } else if (isWindFactorState) {
 //     //         // else if wind factor is selected, the code below will be executed
-//     //         dispatch(handleControllersStatus(4));
-//     //         dispatch(handleWindFactor({ location, machine }));
+//     //         dispatch(handleControllersStatus(4);
+//     //         dispatch(handleWindFactor({ location, machine });
 //     //       }
 //     //       // select ATS
 //     //       if (swt) {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocationsStore } from '../../../zustand-stores';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { selectEssSwitch } from '../../../store/slices/essSwitchSlice';
@@ -35,7 +36,7 @@ const SelectOptions = ({
   const [displayMachines, setDisplayMachines] = useState(false);
   const [displaySpecificLocations, setDisplaySpecificLocations] =
     useState(false);
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   const machines =
     data && !data?.isSpecificLocation && Object.keys(data?.devices);

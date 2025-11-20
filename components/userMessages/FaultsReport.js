@@ -2,8 +2,6 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { getFaultsList } from "../../helpers/helpers";
-import { selectFaults } from "../store/slices/FaultsSlice";
-import { selectLocations } from "../store/slices/locationsSlice";
 import {
   justifyContentFlexStart,
   justifyContentSpaceBetween,
@@ -18,8 +16,8 @@ const FaultsReport = ({
   specificLocation,
 }) => {
   
-  const locations = useSelector(selectLocations);
-  const faultsState = useSelector(selectFaults);
+  const locations = useLocationsStore();
+  const faultsState = useFaultsStore();
   const faultsArray = getFaultsList(locationData)?.map((fault) => {
     const { receivedThermocoupleSetting } = faultsState[swt][fault.location][fault.machine];
     const locationName = locations[swt][fault.location].locationName;

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useLocationsStore, useUnitsStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   flexBoxCenter,
@@ -9,9 +10,7 @@ import {
   layerB,
 } from '../styles/commonStyles';
 import { useMediaQuery } from 'react-responsive';
-import { selectLocations } from '../store/slices/locationsSlice';
 import { useSelector } from 'react-redux';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { convertCelsiusToFahrenheit } from '../../helpers/helpers';
 
 const WeatherBox = ({
@@ -25,8 +24,8 @@ const WeatherBox = ({
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
   // redux
-  const locations = useSelector(selectLocations);
-  const unitsStatus = useSelector(selectUnits);
+  const locations = useLocationsStore();
+  const unitsStatus = useUnitsStore();
 
   const { isF } = unitsStatus;
   const unit = isF ? '°F' : '°C';

@@ -1,10 +1,8 @@
 import { useEffect, useState, memo } from 'react';
+import { useUnitsStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
 
 import {
   flexBoxCenter,
@@ -23,7 +21,6 @@ import DisplaySum from './DisplaySum';
 import InstantHeatMC from './InstantHeatMC';
 import SnowSensorMC from './SnowSensorMC';
 import WeatherBox from './WeatherBox';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { useMemo } from 'react';
 import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
 import testData from '../../test_data/testData';
@@ -113,7 +110,7 @@ const MainController = ({
 
   // !!END OF TEST DATA
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   // Object.keys(switchStatusE[location]?.subLocations).forEach((subLocation) => {

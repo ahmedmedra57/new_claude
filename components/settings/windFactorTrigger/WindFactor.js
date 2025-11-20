@@ -23,7 +23,7 @@ function WindFactor({
   // media query
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
-  const unitsState = useSelector(selectUnits);
+  const unitsState = useUnitsStore();
   const { isF } = unitsState;
 
   return (

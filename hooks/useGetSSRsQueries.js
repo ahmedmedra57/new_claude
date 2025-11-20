@@ -1,20 +1,17 @@
 import { useEffect, useState, useRef } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { useDispatch, useSelector } from "react-redux";
-import { handleEssSSRState, selectEssSwitch } from "../components/store/slices/essSwitchSlice";
-import { selectDescription } from "../components/store/slices/ssrDescriptionSlice";
-import { handleTesSSRState, selectTesSwitch } from "../components/store/slices/tesSwitchSlice";
+import { useESSSwitchStore, useTESSwitchStore, useSSRDescriptionStore } from "../components/zustand-stores";
 import { getSSRsForDeviceService } from "../services";
 
 export const useGetSSRsQueries = (location, machine, swtName) => {
-  const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const { elementsOptions } = useSelector(selectDescription);
-  const { flatEssSwitch, flatTesSwitch } = useSelector(
-    swtName === 'ESS'
-      ? selectEssSwitch
-      : selectTesSwitch
-  );
+  const { elementsOptions } = useSSRDescriptionStore();
+
+  const essStore = useESSSwitchStore();
+  const tesStore = useTESSwitchStore();
+
+  const { flatEssSwitch, setEssSSRState } = essStore;
+  const { flatTesSwitch, setTesSSRState } = tesStore;
 
   const swtStatus = swtName === 'ESS' ? flatEssSwitch : flatTesSwitch;
 
@@ -61,16 +58,10 @@ export const useGetSSRsQueries = (location, machine, swtName) => {
               switchName: `${item.name} ${item.size}`,
             };
           });
-          const ssrStateData = {
-            location,
-            machine,
-            data: result,
-          };
           if (swtName === 'ESS') {
-        
-            dispatch(handleEssSSRState(ssrStateData));
+            setEssSSRState(location, machine, result);
           } else if (swtName === 'TES') {
-            dispatch(handleTesSSRState(ssrStateData));
+            setTesSSRState(location, null, machine, result);
           }
         }
       },

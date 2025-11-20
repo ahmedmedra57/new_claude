@@ -1,16 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  tesHandleInstantHeatOff,
-  tesHandleShutOff,
-  tesHandleSnowSensor,
-  tesHandleSnowSensorOff,
-  selectTesSwitch,
-  tesHandleOpenMachineController,
-  tesHandleExpandSSRDetail,
-  tesHandleUnselectAllProgram,
-  tesHandleInstantHeatIsReady,
-} from '../store/slices/tesSwitchSlice';
+import { useTESSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
 
 import {
   activeInput,
@@ -37,7 +26,6 @@ import styled, { css } from 'styled-components';
 
 import SwitchWrapper from '../commonComponentsMC/SwitchWrapper';
 import TesControlBox from './TesControlBox';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { freezeBlowerDeviceService, postTesCommand } from '../../services';
 import {
   useGetGraphQueries,
@@ -59,7 +47,6 @@ import InputTempMessage from '../userMessages/inputTempMessage';
 import TurnOffMessageBox from '../commonComponentsMC/controllers/TurnOffMessageBox';
 import {
   selectUserInfo,
-  selectUserPermissions,
 } from '../store/slices/userSlice';
 import { selectLocations } from '../store/slices/locationsSlice';
 import testData from '../../test_data/testData';
@@ -72,8 +59,7 @@ const TesMasterControlByMachine = ({
   indivLocationName,
 }) => {
   // Use shared hooks for switch data (replaces ~100 lines)
-  const { isF } = useSelector(selectUnits);
-  const permissions = useSelector(selectUserPermissions);
+  const { isF } = useUnitsStore();
   const disabled = !permissions.WRITE;
 
   const switchDataHook = useSwitchData(location, machine, 'tes', isMobile, isF);
@@ -490,20 +476,16 @@ const TesMasterControlByMachine = ({
               <HeaderHat third={true} imgSrc={'/images/MC-machine-header3.svg'}>
                 <HeaderButton
                   onClick={() => {
-                    dispatch(
-                      tesHandleOpenMachineController({
+                    setOpenMachineController({
                         location,
                         machine,
                         status: false,
-                      })
-                    );
-                    dispatch(
-                      tesHandleExpandSSRDetail({
+                      });
+                    setExpandSSRDetail({
                         location,
                         machine,
                         status: false,
-                      })
-                    );
+                      });
                     sessionStorage.removeItem('machineId');
                   }}
                 >
@@ -841,13 +823,11 @@ const TesMasterControlByMachine = ({
                     isOff={isOff}
                     onClick={() => {
                       isOff ||
-                        dispatch(
-                          tesHandleOpenMachineController({
+                        setOpenMachineController({
                             location,
                             machine,
                             status: true,
-                          })
-                        );
+                          });
                       sessionStorage.setItem('machineId', machine);
                     }}
                   >

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useFaultsStore } from '../zustand-stores';
 
 import {
   flexBoxCenter,
@@ -10,11 +11,7 @@ import {
 } from '../styles/commonStyles';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
-import { selectFaults } from '../store/slices/FaultsSlice';
 import { useMediaQuery } from 'react-responsive';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
 import { useMemo } from 'react';
 import { countdownTimer } from '../../helpers/helpers';
 
@@ -45,7 +42,7 @@ const FaultsDetailButton = ({
     : swtStatus[location][machine];
   const { ssrState } = verifiedSwtStatus;
 
-  const faultsState = useSelector(selectFaults);
+  const faultsState = useFaultsStore();
   const verifiedFaultsState = specificLocation
     ? faultsState[name][location][specificLocation][machine]
     : faultsState[name][location][machine];

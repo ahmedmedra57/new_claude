@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import {
-  handleLocationSelectBySwitch,
-  handleMachineSelectBySwitch,
-  handleSelectAllBySwitch,
-  selectMCBySwitch,
-} from '../store/slices/masterControlBySwitchSelectSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { useESSSwitchStore, useMasterControlBySwitchSelectStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 
@@ -14,14 +7,13 @@ import SelectMachineItems from './SelectMachineItems';
 
 const SelectMachines = ({ size, name, disabled }) => {
   // Global States
-  const { essSwitch } = useSelector(selectEssSwitch);
-  const mCBySwitch = useSelector(selectMCBySwitch);
+  const { essSwitch } = useESSSwitchStore();
+  const mCBySwitch = useMasterControlBySwitchSelectStore();
   const { selectedOne } = mCBySwitch[name];
 
   // location states and variables
   const [displaySelectBox, setDisplaySelectBox] = useState(false);
-  const dispatch = useDispatch();
-  const arrowSrc = disabled
+    const arrowSrc = disabled
     ? '/images/masterCtr-select-btn-disabled.svg'
     : '/images/masterCtr-select-btn.svg';
 
@@ -30,21 +22,18 @@ const SelectMachines = ({ size, name, disabled }) => {
     if (!selectedOne) {
       const essLocations = Object.keys(essSwitch);
       // unSelect all
-      dispatch(handleSelectAllBySwitch({ controller: name, status: false }));
+      dispatch(handleSelectAllBySwitch({ controller: name, status: false });
 
       // unSelect all the locations
       const locationArr = essLocations.map((location) => false);
       dispatch(
-        handleLocationSelectBySwitch({ arr: locationArr, controller: name })
-      );
+        handleLocationSelectBySwitch({ arr: locationArr, controller: name });
 
       // unSelect all the individual machines into Back end(later)
       const machineArr = Object.values(essSwitch).map((location) =>
-        Object.keys(location).map((machine) => false)
-      );
+        Object.keys(location).map((machine) => false);
       dispatch(
-        handleMachineSelectBySwitch({ arr: machineArr, controller: name })
-      );
+        handleMachineSelectBySwitch({ arr: machineArr, controller: name });
     }
   }, []);
 

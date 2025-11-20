@@ -1,7 +1,4 @@
 import { useSelector } from 'react-redux';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
 
 import styled, { css } from 'styled-components';
 import {
@@ -11,12 +8,12 @@ import {
   layerA0Deg,
   layerA180Deg,
 } from '../styles/commonStyles';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { useMemo } from 'react';
+import { useUnitsStore } from '../zustand-stores';
 import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
 
 const DisplayConsumptionBox = ({ swtName, location, machine }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
     swtName === 'ess'

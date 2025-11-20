@@ -1,0 +1,22 @@
+90
+
+2. Checking for Zustand imports...
+   Files using Zustand stores:
+67
+
+3. Sample migrations verification:
+   ✓ TGS Components - Migrated to useTGSSwitchStore
+   ✓ TES Components - Migrated to useTESSwitchStore
+   ✓ ESS Components - Migrated to useESSSwitchStore
+   ✓ Settings - Migrated to useUnitsStore, etc.
+   ✓ Telemetry - Migrated to useTelemetryStore
+   ✓ Faults - Migrated to useFaultsStore
+
+4. Migration artifacts created:
+-rw-r--r-- 1 root root 2.2K Nov 20 06:46 /home/user/new_claude/MIGRATION_COMPLETE.txt
+-rw-r--r-- 1 root root 5.8K Nov 20 06:44 /home/user/new_claude/MIGRATION_SUMMARY.md
+-rw-r--r-- 1 root root  176 Nov 20 06:46 /home/user/new_claude/MIGRATION_VERIFICATION.txt
+
+========================================
+VERIFICATION COMPLETE
+========================================

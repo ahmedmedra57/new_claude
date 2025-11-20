@@ -7,7 +7,6 @@ import {
 } from '../styles/commonStyles';
 
 import SSRSettingButton from './SSRSettingButton';
-import { selectUserPermissions } from '../store/slices/userSlice';
 
 const SSRItemDetails = ({
   isEnable,
@@ -20,7 +19,7 @@ const SSRItemDetails = ({
   handleButtonClick,
   overAmp,
 }) => {
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const disable = !permissions.WRITE;
 
   // const unitsState = useSelector(selectSettingsOfEss);

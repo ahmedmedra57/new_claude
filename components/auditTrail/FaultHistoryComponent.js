@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useLocationsStore } from '../zustand-stores';
 import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components';
@@ -14,7 +15,6 @@ import {
 
 import ButtonComponent from './ButtonComponent';
 import { useSelector } from 'react-redux';
-import { selectLocations } from '../store/slices/locationsSlice';
 import moment from 'moment';
 import { postAuditTrailLogService } from '../../services/auditTrail.service';
 const FaultHistoryComponent = ({ data,searchQuery,componentName }) => {
@@ -31,7 +31,7 @@ const faultSsrArray = useMemo(() => {
 }, [data]);
 
   //redux
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const { specific: allLocations } = locations;
 
   const handlePrintPDF = () => {

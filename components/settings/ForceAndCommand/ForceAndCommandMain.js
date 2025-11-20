@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useUserStore } from '../../zustand-stores';
 import SelectAts from "./selectArts/SelectAts";
 import SelectTc from "./selectTc/SelectTc";
 import {
@@ -87,8 +87,7 @@ function ForceAndCommandMain({
   const [openPasswordBox, setOpenPasswordBox] = useState(true);
 
   // redux
-  const dispatch = useDispatch();
-
+  
   const buttonState = useSelector(selectEditCancelApplyButtons);
   const { isEdit } = buttonState;
 
@@ -110,7 +109,7 @@ function ForceAndCommandMain({
     selectForceCommandAndAdminSelect
   );
 
-  const { isAdministrator } = useSelector(selectUserInfo);
+  const { isAdministrator } = useUserStore();
 
   const sysOpeningSelectBoxState =
     forceCommandAndAdminSelectState.displayMultipleSelectBox.forceAndCommands
@@ -137,7 +136,7 @@ function ForceAndCommandMain({
     : sysOpeningSelectBoxState.currTes &&
       forceCommandAndAdminSelectState.currTes;
 
-  const UserInfoState = useSelector(selectUserInfo);
+  const UserInfoState = useUserStore();
   const { isEssSwitch, isTesSwitch, isTgsSwitch, isHpSwitch, isAteSwitch } =
     UserInfoState;
 
@@ -222,13 +221,12 @@ function ForceAndCommandMain({
   };
 
   const handleOpenSelectLocations = (sysIndex) => {
-    dispatch(handleSettingsDisplaySelectBox(sysIndex));
+    dispatch(handleSettingsDisplaySelectBox(sysIndex);
   };
 
   const handleOpenMultipleSelectLocations = (sysOptions, swt, contentTitle) => {
     dispatch(
-      handleSettingsMultipleDisplaySelectBox({ sysOptions, swt, contentTitle })
-    );
+      handleSettingsMultipleDisplaySelectBox({ sysOptions, swt, contentTitle });
   };
 
   return (

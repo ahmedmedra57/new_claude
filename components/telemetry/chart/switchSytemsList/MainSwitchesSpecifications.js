@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUserStore } from '../../../zustand-stores';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { selectEssDataConsumption } from '../../../store/slices/essDataConsumptionSlice';
@@ -65,13 +66,13 @@ const MainSwitchesSpecifications = ({
   const tesDropPinLogo = './images/tes-droppin-logo-for-nivo-chart.svg';
   const tgsTesDropPinLogo = './images/tgs-tes-droppin-logo-for-nivo-chart.svg';
 
-  const telemetryState = useSelector(selectTelemetry);
+  const telemetryState = useTelemetryStore();
   const isSearch = telemetryState.isSearch;
 
-  const { flatEssSwitch } = useSelector(selectEssSwitch);
-  const { flatTgsSwitch } = useSelector(selectTgsSwitch);
-  const { flatTesSwitch } = useSelector(selectTesSwitch);
-  const locations = useSelector(selectLocations);
+  const { flatEssSwitch } = useESSSwitchStore();
+  const { flatTgsSwitch } = useTGSSwitchStore();
+  const { flatTesSwitch } = useTESSwitchStore();
+  const locations = useLocationsStore();
   const hpElectricSwitch = useSelector(selectHpElectricSwitch);
   const hpGasSwitch = useSelector(selectHpGasSwitch);
   const { essDataConsumptionSwitch } = useSelector(selectEssDataConsumption);
@@ -95,7 +96,7 @@ const MainSwitchesSpecifications = ({
   const [totalNumOfSwt, setTotalNumOfSwt] = useState([]);
   const [isDataChanged, setIsDataChanged] = useState('');
   const [searchedSwtName, setSearchedSwtName] = useState('');
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
 
   // !! TEST DATA !!
   // const {
@@ -381,19 +382,19 @@ const MainSwitchesSpecifications = ({
     copyInputSearch[0] = '';
     setInputSearch(copyInputSearch);
     setSearchedSwtName('');
-    setIsExpand(isExpand.fill(false));
-    setSrc(src.fill(closeArrow));
+    setIsExpand(isExpand.fill(false);
+    setSrc(src.fill(closeArrow);
   }, [inputSearch, isExpand, src]);
 
   const handleExpandSearch = useCallback(() => {
     if (expandButtonTitle === 'close') {
       setExpandButtonTitle('expand');
-      setIsExpand(isExpand.fill(false));
-      setSrc(src.fill(closeArrow));
+      setIsExpand(isExpand.fill(false);
+      setSrc(src.fill(closeArrow);
     } else {
       setExpandButtonTitle('close');
-      setIsExpand(isExpand.fill(true));
-      setSrc(src.fill(openArrow));
+      setIsExpand(isExpand.fill(true);
+      setSrc(src.fill(openArrow);
     }
   }, [expandButtonTitle, isExpand, src]);
   // *************************************************
@@ -690,7 +691,7 @@ const MainSwitchesSpecifications = ({
   //       }
   //     })
   //     .join(' - ')
-  //     .includes(inputSwitchName.toUpperCase());
+  //     .includes(inputSwitchName.toUpperCase();
   // });
 
   const filteredSuggestions = filteredSuggestionsHandler(
@@ -729,7 +730,7 @@ const MainSwitchesSpecifications = ({
   //       }
   //     })
   //     .join(' - ')
-  //     .includes(inputSwitchName.toUpperCase());
+  //     .includes(inputSwitchName.toUpperCase();
   // });
 
   useEffect(() => {
@@ -856,8 +857,8 @@ const MainSwitchesSpecifications = ({
   //     }
 
   //     if (suggestion?.length >= 2) {
-  //       // setIsExpand(isExpand?.fill(false));
-  //       setSrc(src.fill(closeArrow));
+  //       // setIsExpand(isExpand?.fill(false);
+  //       setSrc(src.fill(closeArrow);
   //       setExpandButtonTitle('expand');
   //     }
   //   },
@@ -900,8 +901,8 @@ const MainSwitchesSpecifications = ({
       }
 
       if (suggestion?.length >= 2) {
-        // setIsExpand(isExpand?.fill(false));
-        setSrc(src.fill(closeArrow));
+        // setIsExpand(isExpand?.fill(false);
+        setSrc(src.fill(closeArrow);
         setExpandButtonTitle('expand');
       }
     },
@@ -944,8 +945,8 @@ const MainSwitchesSpecifications = ({
   //     }
 
   //     if (suggestion?.length >= 2) {
-  //       // setIsExpand(isExpand?.fill(false));
-  //       setSrc(src.fill(closeArrow));
+  //       // setIsExpand(isExpand?.fill(false);
+  //       setSrc(src.fill(closeArrow);
   //       setExpandButtonTitle('expand');
   //     }
   //   },
@@ -960,8 +961,8 @@ const MainSwitchesSpecifications = ({
   };
 
   const closeSuggestionsHandler = () => {
-    setIsExpand(isExpand.fill(false));
-    setSrc(src.fill(closeArrow));
+    setIsExpand(isExpand.fill(false);
+    setSrc(src.fill(closeArrow);
     setExpandButtonTitle('expand');
   };
 
@@ -982,8 +983,8 @@ const MainSwitchesSpecifications = ({
         // Close all locations
         if (filteredSuggestions[selectedSuggestionIdx]) {
           closeSuggestionsHandler();
-          // setIsExpand(isExpand.fill(false));
-          // setSrc(src.fill(closeArrow));
+          // setIsExpand(isExpand.fill(false);
+          // setSrc(src.fill(closeArrow);
           // setExpandButtonTitle('expand');
         }
 

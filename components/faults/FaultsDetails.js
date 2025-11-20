@@ -1,16 +1,6 @@
 import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
-import {
-  handleAddActionTaken,
-  handleAttendButtonClick,
-  handleDisplayForceSelectionBox,
-  handleDisplaySystemTurnOffMessageBox,
-  handleForceSelection,
-  selectFaults,
-} from '../store/slices/FaultsSlice';
-import { selectLocations } from '../store/slices/locationsSlice';
 import {
   flexBoxCenter,
   justifyContentSpaceBetween,
@@ -27,8 +17,8 @@ const FaultsDetails = ({ faultContents, column, name }) => {
   // media query
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
-  const locations = useSelector(selectLocations);
-  const faultsState = useSelector(selectFaults);
+  const locations = useLocationsStore();
+  const faultsState = useFaultsStore();
 
   const {
     faultType,
@@ -88,8 +78,7 @@ const FaultsDetails = ({ faultContents, column, name }) => {
     ${locationName}${isSpecification} - ${machineName} - ${address}
     ${faultDate}`;
 
-  const dispatch = useDispatch();
-
+  
   const handleCloseSelectForceBox = () => {
     dispatch(
       handleDisplayForceSelectionBox({
@@ -98,8 +87,7 @@ const FaultsDetails = ({ faultContents, column, name }) => {
         specificLocation,
         machine,
         state: false,
-      })
-    );
+      });
   };
 
   const handleAddActions = (data) => {
@@ -114,8 +102,7 @@ const FaultsDetails = ({ faultContents, column, name }) => {
           actionTaken: data[1],
           date: data[2],
         },
-      })
-    );
+      });
   };
 
   const attendButtonHandler = () => {
@@ -127,8 +114,7 @@ const FaultsDetails = ({ faultContents, column, name }) => {
         machine,
         faultType: null,
         state: false,
-      })
-    );
+      });
   };
 
   // attendButtonClicked.faultNumber === number[0] - 1 &&

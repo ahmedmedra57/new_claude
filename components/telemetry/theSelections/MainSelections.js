@@ -12,7 +12,7 @@ import SelectSystem from "./SelectSystem";
 import SelectDates from "./SelectDates";
 import SelectSwitches from "./SelectSwitches";
 import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useESSSwitchStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../../zustand-stores';
 import {
   essSpecificLocationUnselectMachinesHandler,
   handleUnSelectIndividualMachine,
@@ -151,13 +151,12 @@ const MainSelections = ({
   ];
 
   // **************************redux***************************
-  const dispatch = useDispatch();
-
-  const { isF } = useSelector(selectUnits);
-  const selectedSwitch = useSelector(selectMC);
+  
+  const { isF } = useUnitsStore();
+  const selectedSwitch = useMCStore();
   const { essDc, tgsTesDc, hpDc, tgs, hpGc, ess, tes, hpEc } =
     selectedSwitch.selectSystem;
-  const masterControlSelects = useSelector(selectMasterControls);
+  const masterControlSelects = useMasterControlSelectStore();
 
   const { displaySelectBox } = masterControlSelects;
   const { selectedOne } = ess
@@ -195,9 +194,9 @@ const MainSelections = ({
     : false;
 
   // ess || tes || teg ||  essDc || tgsDc || tesDc || hpDc || hpEc || hpGc
-  const { essSwitch, flatEssSwitch } = useSelector(selectEssSwitch);
-  const { tesSwitch, flatTesSwitch } = useSelector(selectTesSwitch);
-  const { tgsSwitch, flatTgsSwitch } = useSelector(selectTgsSwitch);
+  const { essSwitch, flatEssSwitch } = useESSSwitchStore();
+  const { tesSwitch, flatTesSwitch } = useTESSwitchStore();
+  const { tgsSwitch, flatTgsSwitch } = useTGSSwitchStore();
   const hpElectricSwitch = useSelector(selectHpElectricSwitch);
   const hpGasSwitch = useSelector(selectHpGasSwitch);
   const { essDataConsumptionSwitch, essDataConsumptionSwitchSpecificLocation } =
@@ -240,38 +239,34 @@ const MainSelections = ({
           machine: machineKey,
         };
         if (swt === "ess") {
-          dispatch(essSpecificLocationUnselectMachinesHandler(dispatchOjb));
+          dispatch(essSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === "tes") {
-          dispatch(tesSpecificLocationUnselectMachinesHandler(dispatchOjb));
+          dispatch(tesSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === "tgs") {
-          dispatch(tgsSpecificLocationUnselectMachinesHandler(dispatchOjb));
+          dispatch(tgsSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === "essDc") {
           dispatch(
             essDataConsumptionSpecificLocationUnselectMachineHandler(
               dispatchOjb
-            )
-          );
+            );
         } else if (swt === "tgsTesDc") {
           dispatch(
             tesDataConsumptionSpecificLocationUnselectMachineHandler(
               dispatchOjb
-            )
-          );
+            );
           dispatch(
             tgsDataConsumptionSpecificLocationUnselectMachineHandler(
               dispatchOjb
-            )
-          );
+            );
         } else if (swt === "hpEc") {
-          dispatch(hpEcSpecificLocationUnselectMachinesHandler(dispatchOjb));
+          dispatch(hpEcSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === "hpGc") {
-          dispatch(hpGcSpecificLocationUnselectMachinesHandler(dispatchOjb));
+          dispatch(hpGcSpecificLocationUnselectMachinesHandler(dispatchOjb);
         } else if (swt === "hpDc") {
           dispatch(
             hpDataConsumptionSpecificLocationUnselectMachinesHandler(
               dispatchOjb
-            )
-          );
+            );
         }
       });
     });
@@ -284,42 +279,38 @@ const MainSelections = ({
     if (elValue[0]?.machineType) {
       el.forEach((machine) => {
         if (swt === "ess") {
-          dispatch(handleUnSelectIndividualMachine({ location, machine }));
+          dispatch(handleUnSelectIndividualMachine({ location, machine });
         } else if (swt === "tes") {
-          dispatch(tesHandleUnSelectIndividualMachine({ location, machine }));
+          setUnSelectIndividualMachine({ location, machine });
         } else if (swt === "tgs") {
-          dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }));
+          setUnSelectIndividualMachine({ location, machine });
         } else if (swt === "hpEc") {
-          dispatch(hpEcHandleUnSelectIndividualMachine({ location, machine }));
+          dispatch(hpEcHandleUnSelectIndividualMachine({ location, machine });
         } else if (swt === "hpGc") {
-          dispatch(hpEcHandleUnSelectIndividualMachine({ location, machine }));
+          dispatch(hpEcHandleUnSelectIndividualMachine({ location, machine });
         } else if (swt === "essDc") {
           dispatch(
             essDataConsumptionHandleUnSelectIndividualMachine({
               location,
               machine,
-            })
-          );
+            });
         } else if (swt === "tgsTesDc") {
           dispatch(
             tesDataConsumptionHandleUnSelectIndividualMachine({
               location,
               machine,
-            })
-          );
+            });
           dispatch(
             tgsDataConsumptionHandleUnSelectIndividualMachine({
               location,
               machine,
-            })
-          );
+            });
         } else if (swt === "hpDc") {
           dispatch(
             hpDataConsumptionHandleUnSelectIndividualMachine({
               location,
               machine,
-            })
-          );
+            });
         }
       });
     } else if (elValue.length > 0) {
@@ -334,14 +325,13 @@ const MainSelections = ({
   const loopAllMachinesHandler = (selectedSwitches, selectedSys) => {
     const locations = selectedSwitches && Object.keys(selectedSwitches);
     locations.map((location) =>
-      handleUnSelectMachines(location, selectedSys, selectedSwitches)
-    );
+      handleUnSelectMachines(location, selectedSys, selectedSwitches);
   };
 
   useEffect(() => {
     // this resets all switches when system is changed
 
-    dispatch(handleResetAllSelect());
+    dispatch(handleResetAllSelect();
     if (ess) {
       loopAllMachinesHandler(flatEssSwitch, "ess");
 
@@ -350,47 +340,47 @@ const MainSelections = ({
       loopAllMachinesHandler(flatTesSwitch, "tes");
 
       // const locations = tesSwitch && Object.keys(tesSwitch);
-      // locations.map((location) => handleUnSelectMachines(location, 'tes'));
+      // locations.map((location) => handleUnSelectMachines(location, 'tes');
     } else if (tgs) {
       loopAllMachinesHandler(flatTgsSwitch, "tgs");
 
       // const locations = tgsSwitch && Object.keys(tgsSwitch);
-      // locations.map((location) => handleUnSelectMachines(location, 'tgs'));
+      // locations.map((location) => handleUnSelectMachines(location, 'tgs');
     } else if (hpEc) {
       loopAllMachinesHandler(hpElectricSwitch, "hpEc");
 
       // const locations = hpElectricSwitch && Object.keys(hpElectricSwitch);
-      // locations.map((location) => handleUnSelectMachines(location, 'hpEc'));
+      // locations.map((location) => handleUnSelectMachines(location, 'hpEc');
     } else if (hpGc) {
       const locations = hpGasSwitch && Object.keys(hpGasSwitch);
-      locations.map((location) => handleUnSelectMachines(location, "hpGc"));
+      locations.map((location) => handleUnSelectMachines(location, "hpGc");
     } else if (essDc) {
       loopAllMachinesHandler(essDataConsumptionSwitch, "essDc");
 
       // const locations =
       //   essDataConsumptionSwitch && Object.keys(essDataConsumptionSwitch);
-      // locations.map((location) => handleUnSelectMachines(location, 'essDc'));
+      // locations.map((location) => handleUnSelectMachines(location, 'essDc');
     } else if (tgsTesDc) {
       loopAllMachinesHandler(tesDataConsumptionSwitch, "tgsTesDc");
       loopAllMachinesHandler(tgsDataConsumptionSwitch, "tgsTesDc");
 
       // const locations =
       //   tesDataConsumptionSwitch && Object.keys(tesDataConsumptionSwitch);
-      // locations.map((location) => handleUnSelectMachines(location, 'tgsTesDc'));
+      // locations.map((location) => handleUnSelectMachines(location, 'tgsTesDc');
     } else if (tgsTesDc) {
       // const locations =
       //   tgsDataConsumptionSwitch && Object.keys(tgsDataConsumptionSwitch);
-      // locations.map((location) => handleUnSelectMachines(location, 'tgsTesDc'));
+      // locations.map((location) => handleUnSelectMachines(location, 'tgsTesDc');
     } else if (hpDc) {
       loopAllMachinesHandler(hpDataConsumptionSwitch, "hpDc");
 
       // const locations =
       //   hpDataConsumptionSwitch && Object.keys(hpDataConsumptionSwitch);
-      // locations.map((location) => handleUnSelectMachines(location, 'hpDc'));
+      // locations.map((location) => handleUnSelectMachines(location, 'hpDc');
     }
     // this is to reset the chart when system is changed
     return () => {
-      dispatch(handleSearchTelemetrySystem(false));
+      dispatch(handleSearchTelemetrySystem(false);
     };
   }, [ess, tes, tgs, essDc, tgsTesDc, hpDc, hpGc, hpEc]);
 
@@ -401,17 +391,16 @@ const MainSelections = ({
   const presetSelectBoxArr = (swt, swtData) => {
     // isAllSelected
     const essLocations = Object.keys(swtData);
-    dispatch(handleSelectAll({ switch: swt, status: false }));
+    dispatch(handleSelectAll({ switch: swt, status: false });
     // isLocationSelected
     const locationArr = essLocations.map((location) => false);
-    dispatch(handleLocationSelect({ arr: locationArr, switch: swt }));
+    dispatch(handleLocationSelect({ arr: locationArr, switch: swt });
     // isMachineSelected
     const specificLocationArr = [];
     const machineArr = Object.values(swtData).map((location) => {
       if (location.isSpecificLocation) {
         const machinesList = Object.values(location.subLocations).map(
-          (specLocation) => Object.keys(specLocation.devices).map((el) => false)
-        );
+          (specLocation) => Object.keys(specLocation.devices).map((el) => false);
         const specLocation = Object.keys(location.subLocations).map(
           (el) => false
         );
@@ -429,11 +418,10 @@ const MainSelections = ({
       handleSpecificLocationSelect({
         arr: specificLocationArr,
         switch: swt,
-      })
-    );
+      });
 
     // isMachineSelected
-    dispatch(handleMachineSelect({ arr: machineArr, switch: swt }));
+    dispatch(handleMachineSelect({ arr: machineArr, switch: swt });
   };
 
   useEffect(() => {
@@ -606,10 +594,10 @@ const MainSelections = ({
         case 0:
           setSelectedSystemTitle(null);
           setSystemGreenCircle(null);
-          dispatch(handleUnselectAllSystem());
+          dispatch(handleUnselectAllSystem();
           break;
         case 1:
-          dispatch(handleSelectTelemetrySystem(abrSelectedSystemTitle));
+          dispatch(handleSelectTelemetrySystem(abrSelectedSystemTitle);
           setOpenSelections(false);
           break;
         default:
@@ -621,7 +609,7 @@ const MainSelections = ({
 
   // ******************************************it handles the select switch location*******************************
   const handleButtonClick = () => {
-    dispatch(handleDisplaySelectBox());
+    dispatch(handleDisplaySelectBox();
   };
 
   // *********************************************handles search button***********************
@@ -683,17 +671,16 @@ const MainSelections = ({
                 monthlyData: intervalData,
                 monthlyKeys: intervalKeys,
               },
-            })
-          );
-          dispatch(setTelemetryIntervalUnit(unit));
-          dispatch(handleTotalHoursTelemetry(totalHours));
-          dispatch(handleTotalConsumptionTelemetry(totalConsumption));
+            });
+          dispatch(setTelemetryIntervalUnit(unit);
+          dispatch(handleTotalHoursTelemetry(totalHours);
+          dispatch(handleTotalConsumptionTelemetry(totalConsumption);
           setTelemetryData(intervalData);
           setCopyTelemetryState(intervalData);
           setCopyTelemetryDailyState(essSwitchData.dailyData);
           setTelemetryDataKeys(intervalKeys);
           setCopyTelemetryStateKeys(intervalKeys);
-          dispatch(handleAuditLogData(auditLogData));
+          dispatch(handleAuditLogData(auditLogData);
         }
       ).catch((error) => {
       });
@@ -802,19 +789,18 @@ const MainSelections = ({
                   monthlyData: intervalData,
                   monthlyKeys: intervalKeys,
                 },
-              })
-            );
-            dispatch(setTelemetryIntervalUnit("months"));
-            dispatch(handleTotalHoursTelemetry(totalHours));
-            dispatch(handleTotalConsumptionTelemetry(totalConsumption));
+              });
+            dispatch(setTelemetryIntervalUnit("months");
+            dispatch(handleTotalHoursTelemetry(totalHours);
+            dispatch(handleTotalConsumptionTelemetry(totalConsumption);
             setTelemetryData(intervalData);
             setTelemetryDataKeys(intervalKeys);
-            dispatch(handleAuditLogData(auditLogData));
+            dispatch(handleAuditLogData(auditLogData);
           }
         );
       } else {
-        dispatch(handleTotalHoursTelemetry(0));
-        dispatch(handleTotalConsumptionTelemetry(0));
+        dispatch(handleTotalHoursTelemetry(0);
+        dispatch(handleTotalConsumptionTelemetry(0);
         setTelemetryData([]);
         setTelemetryDataKeys([]);
       }
@@ -826,7 +812,7 @@ const MainSelections = ({
       (ess || tgs || tes || essDc || tgsTesDc || hpDc || hpGc || hpEc) &&
       selectedSwitches
     ) {
-      dispatch(handleSearchTelemetrySystem(true));
+      dispatch(handleSearchTelemetrySystem(true);
       setControlSelectionDisplay(true);
       if (ess) {
         getTelemetryData("ess", false, "energy");
@@ -844,22 +830,19 @@ const MainSelections = ({
         return (
           setTelemetryData(hpDataConsumpData.dailyData),
           setCopyTelemetryState(hpDataConsumpData.dailyData),
-          setTelemetryDataKeys(hpDataConsumpData.dailyKeys)
-        );
+          setTelemetryDataKeys(hpDataConsumpData.dailyKeys);
       } else if (hpGc) {
         return (
           setTelemetryData(hpGasData.monthlyData),
           setCopyTelemetryState(hpGasData.monthlyData),
           setCopyTelemetryDailyState(hpGasData.dailyData),
-          setTelemetryDataKeys(hpGasData.monthlyKeys)
-        );
+          setTelemetryDataKeys(hpGasData.monthlyKeys);
       } else if (hpEc) {
         return (
           setTelemetryData(hpElectricData.monthlyData),
           setCopyTelemetryState(hpElectricData.monthlyData),
           setCopyTelemetryDailyState(hpElectricData.dailyData),
-          setTelemetryDataKeys(hpElectricData.monthlyKeys)
-        );
+          setTelemetryDataKeys(hpElectricData.monthlyKeys);
       }
     }
   };

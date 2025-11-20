@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocationsStore } from '../zustand-stores';
 import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components';
@@ -15,7 +16,6 @@ import {
 } from '../../helpers/helpers';
 import { getAuditTrailService } from '../../services/auditTrail.service';
 import { useSelector } from 'react-redux';
-import { selectLocations } from '../store/slices/locationsSlice';
 import { useCheckControlPermsission } from '../../hooks';
 
 const AuditTrailMain = () => {
@@ -24,7 +24,7 @@ const AuditTrailMain = () => {
   const [userSelect, setUserSelect] = useState([]);
   const [auditTrailData, setAuditTrailData] = useState({});
   const checkSwitchPermission=useCheckControlPermsission();
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const { all: allLocations } = locations;
   const [disableSettings, setDisableSettings] = useState(false);
   const [searchQuery, setSearchQuery] = useState(null);

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocationsStore } from '../zustand-stores';
 import { useTranslation } from 'react-i18next';
 
 import styled, { css } from "styled-components";
@@ -14,7 +15,6 @@ import {
 
 import ButtonComponent from "./ButtonComponent";
 import { useSelector } from "react-redux";
-import { selectLocations } from "../store/slices/locationsSlice";
 import { useMemo } from "react";
 import {
   createCommandTitle,
@@ -35,7 +35,7 @@ const ActionHistoryComponent = ({
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   //redux
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const { specific: allLocations } = locations;
   const {
     instantHeat,

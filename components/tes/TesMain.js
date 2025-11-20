@@ -1,15 +1,6 @@
 import { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectTesSwitch,
-  tesHandleOpenMachineController,
-  tesHandleUnSelectIndividualMachine,
-  tesSpecificLocationUnselectMachinesHandler,
-} from '../store/slices/tesSwitchSlice';
+import { useMCIsExpandedStore, useTESSwitchStore, useUnitsStore } from '../zustand-stores';
 
-import {
-  selectMCIsExpanded,
-} from '../store/slices/MCIsExpandedSlice';
 
 import { useMediaQuery } from 'react-responsive';
 
@@ -17,9 +8,6 @@ import styled from 'styled-components';
 
 import MasterControlBySwitch from '../commonComponentsMC/MasterControlBySwitch';
 import IntegratedSwitchLocations from '../commonComponentsMC/IntegratedSwitchLocations';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { handleResetAllSelectBySwitch } from '../store/slices/masterControlBySwitchSelectSlice';
-import { handleResetAllSelectByLocation } from '../store/slices/masterControlSelectByLocationSlice';
 import {
   useGetScheduleQueries,
   useGetThermocouplesQueries,
@@ -29,7 +17,6 @@ import {
   getTesZones,
 } from '../../services';
 import { useQuery } from 'react-query';
-import { handleAccessToken } from '../store/slices/userSlice';
 import { useSetOpenMasterControl } from '../../hooks/ess_tgs_tes_hooks/useSetOpenMasterControl';
 import { EssTgsTesContext } from '../context/contextOfEssTgsTes';
 import { loopMachinesHandler } from '../../helpers/ess-tgs-tes-mc';
@@ -37,15 +24,14 @@ import { loopMachinesHandler } from '../../helpers/ess-tgs-tes-mc';
 const TesMain = ({ isMasterControl }) => {
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
-  const { tesSwitch ,flatTesSwitch } = useSelector(selectTesSwitch);
-  const MCIsExpanded = useSelector(selectMCIsExpanded);
+  const { tesSwitch ,flatTesSwitch } = useTESSwitchStore();
+  const MCIsExpanded = useMCIsExpandedStore();
   const { masterControl } = MCIsExpanded.tes;
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
-  const dispatch = useDispatch();
-
+  
   const { messageBoxHandler } = useContext(EssTgsTesContext);
 
   useGetScheduleQueries(flatTesSwitch, 'TES');

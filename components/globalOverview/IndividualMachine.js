@@ -1,17 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import {
-  handleSelectDisplaySystem,
-  selectGlobalOverview,
-} from '../store/slices/globalOverviewSlice';
 import { justifyContentSpaceBetween, layerA } from '../styles/commonStyles';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
 import { useMemo } from 'react';
+import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
 import isNumber from 'lodash/isNumber';
-import { selectLocations } from '../store/slices/locationsSlice';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { calculateTotalEnergyConsumption } from '../../helpers/helpers';
 import testData from '../../test_data/testData';
 
@@ -26,8 +17,7 @@ const IndividualMachine = ({
   selectedLocation
  ,setSelectedLocation
 }) => {
-  const dispatch = useDispatch();
-
+  
   // !!TODO: put back the code below
   const { essSwitch,flatEssSwitch, tgsSwitch,flatTgsSwitch, tesSwitch,flatTesSwitch } = useSelector(
     swtName === 'ess'
@@ -41,17 +31,17 @@ const IndividualMachine = ({
   const flatSwitchStatus =
     swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
 
-  const locations = useSelector(selectLocations);
-  const { selectedSystem } = useSelector(selectGlobalOverview);
-  const unitsStatus = useSelector(selectUnits);
+  const locations = useLocationsStore();
+  const { selectedSystem } = useGlobalOverviewStore();
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const gas = isF ? 'FT³' : 'M³';
   const unit = swtName === 'tgs' ? gas : 'kw';
 
   // !!TEST
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
-  // const { tesSwitch } = useSelector(selectTesSwitch);
+  // const { essSwitch } = useESSSwitchStore();
+  // const { tgsSwitch } = useTGSSwitchStore();
+  // const { tesSwitch } = useTESSwitchStore();
 
   // const { testEssSwitch, testTgsSwitch, testTesSwitch, testAllLocations } =
   //   testData(essSwitch, tgsSwitch, locations, tesSwitch);
@@ -64,7 +54,7 @@ const IndividualMachine = ({
   //     : testTesSwitch;
 
   // const handleOnClick = () => {
-  //   dispatch(handleSelectDisplaySystem(selectedSystem || 'all'));
+  //   dispatch(handleSelectDisplaySystem(selectedSystem || 'all');
   //   if (specificLocation) {
   //     setCenter(testAllLocations[swtName][location][specificLocation]?.address);
   //   } else {
@@ -88,7 +78,7 @@ const IndividualMachine = ({
   const { locationName, specificLocationName, machineName } = data;
 
   const handleOnClick = () => {
-    dispatch(handleSelectDisplaySystem(selectedSystem || 'all'));
+    dispatch(handleSelectDisplaySystem(selectedSystem || 'all');
     if (specificLocation) {
       setCenter(locations[swtName][location][specificLocation]?.address);
     } else {

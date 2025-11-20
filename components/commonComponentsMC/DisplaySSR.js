@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { useUserStore } from '../zustand-stores';
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import { selectUserInfo } from "../store/slices/userSlice";
 import {
   activeInput,
   activeLayer180Deg,
@@ -18,7 +18,7 @@ import {
 } from "../../services/sendCommand.service";
 const DisplaySSR = ({ status, id, isMobile, swtName }) => {
   // console.log(status, "statusxD");
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { isAdministrator } = userInfo;
   const commandService = swtName === "ess" ? essCommandService : tesCommandService;
 

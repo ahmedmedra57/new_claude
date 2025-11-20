@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useUnitsStore, useUserStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
-import { handleExpandSSRDetail } from '../store/slices/essSwitchSlice';
 
 import {
   activeLayer180Deg,
@@ -27,7 +27,6 @@ import styled, { css } from 'styled-components';
 
 import SwitchWrapper from '../commonComponentsMC/SwitchWrapper';
 import EssControlBox from './EssControlBox';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { convertCelsiusToFahrenheit } from '../../helpers/helpers';
 import {
   useGetGraphQueries,
@@ -40,7 +39,6 @@ import {
 } from '../../hooks';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import TurnOffMessageBox from '../commonComponentsMC/controllers/TurnOffMessageBox';
-import { selectUserPermissions } from '../store/slices/userSlice';
 
 const EssMasterControlByMachine = ({
   location,
@@ -50,9 +48,9 @@ const EssMasterControlByMachine = ({
   indivLocationName,
 }) => {
   // Permissions and units
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const disabled = !permissions.WRITE;
-  const { isF } = useSelector(selectUnits);
+  const { isF } = useUnitsStore();
 
   // Use shared hooks for switch data (replaces ~100 lines)
   const switchDataHook = useSwitchData(location, machine, 'ess', isMobile, isF);
@@ -455,22 +453,19 @@ const EssMasterControlByMachine = ({
               <HeaderHat third={true} imgSrc={'/images/MC-machine-header3.svg'}>
                 <HeaderButton
                   onClick={() => {
-                    dispatch(
-                      handleOpenMachineController({
+                    setOpenMachineController({
                         location,
 
                         machine,
                         status: false,
-                      })
-                    );
+                      });
                     dispatch(
                       handleExpandSSRDetail({
                         location,
 
                         machine,
                         status: false,
-                      })
-                    );
+                      });
                     sessionStorage.removeItem('machineId');
                   }}
                 >
@@ -817,13 +812,11 @@ const EssMasterControlByMachine = ({
                         isOff={isOff}
                         onClick={() => {
                           isOff ||
-                            dispatch(
-                              handleOpenMachineController({
+                            setOpenMachineController({
                                 location,
                                 machine,
                                 status: true,
-                              })
-                            );
+                              });
                           sessionStorage.setItem('machineId', machine);
                         }}
                       >

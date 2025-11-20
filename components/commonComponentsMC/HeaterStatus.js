@@ -1,24 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useUserStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import { getAllAdminHeatersService } from '../../services';
 import ContainerLogin from '../adminPassword/ContainerLogin';
 
-import {
-  handleExpandSSRDetail,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
-import { handleAddNewElements } from '../store/slices/ssrDescriptionSlice';
 
-import {
-  selectTesSwitch,
-  tesHandleExpandSSRDetail,
-} from '../store/slices/tesSwitchSlice';
-import {
-  handleAccessAdministrator,
-  handlePasswordPropagation,
-  selectUserInfo,
-} from '../store/slices/userSlice';
 
 import {
   flexBoxCenter,
@@ -57,14 +43,13 @@ const HeaterStatus = ({
   const [localActivatedHeaters, setLocalActivatedHeaters] = useState(
     activatedHeaters 
   );
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { isAdministrator, isPasswordBoxOpen } = userInfo;
 const [isUpdating, setIsUpdating] = useState(false);
   // local
   const [btnName, setBtnName] = useState('expand');
   const [openPasswordBox, setOpenPasswordBox] = useState(false);
-  const dispatch = useDispatch();
-
+  
   useEffect(() => {
     isExpanded ? setBtnName('close') : setBtnName('expand');
   }, [isExpanded]);
@@ -73,7 +58,7 @@ const [isUpdating, setIsUpdating] = useState(false);
     getAllAdminHeatersService().then((res) => {
       if (res) {    
        
-        dispatch(handleAddNewElements(res));
+        dispatch(handleAddNewElements(res);
       }
     });
   }, []);
@@ -88,13 +73,11 @@ const [isUpdating, setIsUpdating] = useState(false);
               status: false,
             })
           )
-        : dispatch(
-            tesHandleExpandSSRDetail({
+        : setExpandSSRDetail({
               location,
               machine,
               status: false,
-            })
-          );
+            });
     } else {
       swtName === 'ess'
         ? dispatch(
@@ -104,20 +87,18 @@ const [isUpdating, setIsUpdating] = useState(false);
               status: true,
             })
           )
-        : dispatch(
-            tesHandleExpandSSRDetail({
+        : setExpandSSRDetail({
               location,
               machine,
               status: true,
-            })
-          );
+            });
     }
   };
 
   // useEffect(() => {
   //   openPasswordBox
   //     ? dispatch(handlePasswordPropagation(true))
-  //     : dispatch(handlePasswordPropagation(false));
+  //     : dispatch(handlePasswordPropagation(false);
   // }, [openPasswordBox]);
 
   const handlePasswordBox = (status) => {

@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUnits } from '../components/store/slices/settings/unitsSlice';
+import { useUnitsStore } from '../components/zustand-stores';
 import { convertCelsiusToFahrenheit } from '../helpers/helpers';
 
 /**
  * Custom hook to manage temperature state for ControlBox components
  * Replaces ~80 lines of useState + useEffect logic per component
  *
- * @param {object} switchData - The switch data from Redux
+ * @param {object} switchData - The switch data from Zustand
  * @param {string} systemName - 'ess', 'tgs', or 'tes'
  * @returns {object} - Temperature states and unit
  */
 const useControlBoxTemperatures = (switchData, systemName) => {
-  const { isF } = useSelector(selectUnits);
+  const { isF } = useUnitsStore();
   const unit = isF ? '°F' : '°C';
 
   const {

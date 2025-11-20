@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useUserStore } from '../zustand-stores';
 
 import styled from 'styled-components';
 import {
@@ -10,11 +10,6 @@ import {
 } from '../styles/commonStyles';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-import {
-  handleAccessAdministrator,
-  handlePasswordPropagation,
-  selectUserInfo,
-} from '../store/slices/userSlice';
 
 function ContainerLogin({
   setIsSettingOpen,
@@ -28,13 +23,12 @@ function ContainerLogin({
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   // redux
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
 
   const { adminPassword, isPasswordBoxOpen } = userInfo;
   
 
-  const dispatch = useDispatch();
-  const inputRef = useRef();
+    const inputRef = useRef();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -55,7 +49,7 @@ function ContainerLogin({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passwordInput.toLowerCase() === adminPassword.toLowerCase()) {
-      dispatch(handleAccessAdministrator(true));
+      dispatch(handleAccessAdministrator(true);
       setShowErrorMessage(false);
       isReadyToClose && setIsSettingOpen();
       handleClose();

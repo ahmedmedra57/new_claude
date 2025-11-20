@@ -1,21 +1,17 @@
 import React, { useEffect } from 'react';
+import { useESSSwitchStore, useGlobalOverviewStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
 
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectGlobalOverview } from '../store/slices/globalOverviewSlice';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
 
 import styled from 'styled-components';
 import { layerA180Deg } from '../styles/commonStyles';
 
 import MapMarker from './MapMarker';
-import { selectLocations } from '../store/slices/locationsSlice';
 
 const OverviewMap = ({ center, setCenter, zoomNum, setZoomNum,selectedLocation,setSelectedLocation }) => {
-  const overViewState = useSelector(selectGlobalOverview);
+  const overViewState = useGlobalOverviewStore();
   const { selectedSystem } = overViewState;
   const [displayIcon, setDisplayIcon] = useState([true, true, true]);
 
@@ -32,13 +28,13 @@ const OverviewMap = ({ center, setCenter, zoomNum, setZoomNum,selectedLocation,s
   }, [selectedSystem]);
 
   // dummy address data
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const { ess, tes, tgs } = locations;
   // dummy address data
 
-  const { essSwitch: essSwitches } = useSelector(selectEssSwitch);
-  const { tesSwitch: tesSwitches } = useSelector(selectTesSwitch);
-  const { tgsSwitch: tgsSwitches } = useSelector(selectTgsSwitch);
+  const { essSwitch: essSwitches } = useESSSwitchStore();
+  const { tesSwitch: tesSwitches } = useTESSwitchStore();
+  const { tgsSwitch: tgsSwitches } = useTGSSwitchStore();
 
   const { REACT_APP_GOOGLE_MAPS_API } = process.env;
 

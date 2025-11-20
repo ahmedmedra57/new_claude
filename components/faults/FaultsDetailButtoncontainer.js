@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useFaultsStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 import {
@@ -12,13 +12,6 @@ import {
   ELECTRIC_FAULTS_TYPES,
   GAS_FAULTS_TYPES,
 } from '../DUMMY/DUMMY_FAULTS_MESSAGES';
-import {
-  handleAttendButtonClick,
-  handleDisplayForceSelectionBox,
-  handleFaultsReset,
-  handleForceButtonClick,
-  selectFaults,
-} from '../store/slices/FaultsSlice';
 import { justifyContentFlexEnd } from '../styles/commonStyles';
 
 import FaultsDetailButton from './FaultsDetailButton';
@@ -35,7 +28,7 @@ const FaultsDetailButtonContainer = ({
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
   // Global states
-  const faultsState = useSelector(selectFaults);
+  const faultsState = useFaultsStore();
   const verifiedFaultsState = specificLocation
     ? faultsState[name][location][specificLocation][machine]
     : faultsState[name][location][machine];
@@ -52,8 +45,7 @@ const FaultsDetailButtonContainer = ({
   const faultsTypes = name === 'tgs' ? GAS_FAULTS_TYPES : ELECTRIC_FAULTS_TYPES;
 
   const faultsNumber = faultsTypes.indexOf(faultType);
-  const dispatch = useDispatch();
-
+  
   const handleButtonClick = (buttonName, setResetBtnActivated) => {
     switch (buttonName) {
       case 'force':
@@ -65,8 +57,7 @@ const FaultsDetailButtonContainer = ({
             location,
             machine,
             state: true,
-          })
-        );
+          });
         // 2.open force selection box
         dispatch(
           handleDisplayForceSelectionBox({
@@ -75,8 +66,7 @@ const FaultsDetailButtonContainer = ({
             specificLocation,
             machine,
             state: true,
-          })
-        );
+          });
 
         break;
       case 'reset':
@@ -146,8 +136,7 @@ const FaultsDetailButtonContainer = ({
             machine,
             faultType,
             faultNumber,
-          })
-        );
+          });
         break;
       case 'attend':
         dispatch(
@@ -159,8 +148,7 @@ const FaultsDetailButtonContainer = ({
             faultType,
             state: true,
             column: column,
-          })
-        );
+          });
         break;
       default:
         throw new Error('unknown error', buttonName);

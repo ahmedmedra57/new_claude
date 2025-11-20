@@ -11,8 +11,8 @@ import {
 } from '../../styles/commonStyles';
 
 const TitleOfSelectedSystem = ({ scheduleData }) => {
-  const telemetryState = useSelector(selectTelemetry);
-  const selectedSwitch = useSelector(selectMC);
+  const telemetryState = useTelemetryStore();
+  const selectedSwitch = useMCStore();
   const isSearch = telemetryState.isSearch;
   const { ess, tgs, tes, essDc, tgsDc, tesDc, hpDc, hpGc, hpEc, tgsTesDc } =
     selectedSwitch.selectSystem;

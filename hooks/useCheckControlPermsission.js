@@ -1,10 +1,9 @@
 import { useCallback } from "react";
-import { selectUserPermissions } from "../components/store/slices/userSlice";
+import { useUserStore } from "../components/zustand-stores";
 import { PERMISSIONS } from "../constants";
-import { useSelector } from "react-redux";
 
 export const useCheckControlPermsission = () => {
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
 
   const checkControlPermsission = useCallback((swt) => {
     const userPermissions = {

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectMCCommand } from '../../store/slices/mCCommandSlice';
 
 function CreateNewCommandButton({ name, handleButton }) {
-  const commandState = useSelector(selectMCCommand);
+  const commandState = useMCCommandStore();
   const { isNewCommandCreated } = commandState;
 
   return (

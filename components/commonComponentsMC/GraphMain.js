@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocationsStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -20,12 +21,8 @@ import DisplayFaultsTimer from './DisplayFaultsTimer';
 import DisplayGraphInfoTitle from './DisplayGraphInfoTitle';
 import DisplayLegend from './DisplayLegend';
 import ChartContainer from './ChartContainer';
-import { useDispatch, useSelector } from 'react-redux';
 import { getDataConsumptionService, getTelemetryService } from '../../services';
 import { formatTime, getGraphTypeKey } from '../../helpers/helpers';
-import { handleEssGraphDate } from '../store/slices/essSwitchSlice';
-import { handleTgsGraphDate } from '../store/slices/tgsSwitchSlice';
-import { handleTesGraphDate } from '../store/slices/tesSwitchSlice';
 import { selectLocations } from './../store/slices/locationsSlice';
 
 const GraphMain = ({
@@ -35,9 +32,8 @@ const GraphMain = ({
   setAuditLogData,
   handleMessage,
 }) => {
-  const dispatch = useDispatch();
-
-  const locations = useSelector(selectLocations);
+  
+  const locations = useLocationsStore();
 
   const energySource =
     swtName === 'tgs'
@@ -129,11 +125,11 @@ const GraphMain = ({
         unit,
       };
       if (swtName === 'ess') {
-        dispatch(handleEssGraphDate(newData));
+        dispatch(handleEssGraphDate(newData);
       } else if (swtName === 'tgs') {
-        dispatch(handleTgsGraphDate(newData));
+        dispatch(handleTgsGraphDate(newData);
       } else if (swtName === 'tes') {
-        dispatch(handleTesGraphDate(newData));
+        dispatch(handleTesGraphDate(newData);
       }
     };
 
@@ -141,13 +137,11 @@ const GraphMain = ({
       const totalUsageHours = Math.floor(
         data?.reduce((acc, cur) => {
           return acc + ((isDc ? cur.total : cur.consumption) || 0);
-        }, 0)
-      );
+        }, 0);
       const totalConsumption = Math.floor(
         data?.reduce((acc, cur) => {
           return acc + ((isDc ? cur.total : cur.consumption) || 0);
-        }, 0)
-      );
+        }, 0);
 
       return {
         actionType: isDc
@@ -189,8 +183,7 @@ const GraphMain = ({
                 'wind_graph',
               ];
         const promises = categories.map((category) =>
-          getTelemetryService({ deviceIds, startDate, endDate, category })
-        );
+          getTelemetryService({ deviceIds, startDate, endDate, category });
         Promise.all(promises).then((res) => {
           res.forEach(({ data, unit }, index) => {
             handleTelemetryData(data, unit, categories[index]);
@@ -203,7 +196,7 @@ const GraphMain = ({
         getTelemetryService({ deviceIds, startDate, endDate, category }).then(
           ({ data, unit }) => {
             handleTelemetryData(data, unit, category);
-            setAuditLogData(getAuditLogData(data[0]?.data, false));
+            setAuditLogData(getAuditLogData(data[0]?.data, false);
           }
         );
       }
@@ -226,14 +219,14 @@ const GraphMain = ({
                   }),
               };
               if (swtName === 'ess') {
-                dispatch(handleEssGraphDate(newData));
+                dispatch(handleEssGraphDate(newData);
               } else if (swtName === 'tgs') {
-                dispatch(handleTgsGraphDate(newData));
+                dispatch(handleTgsGraphDate(newData);
               } else if (swtName === 'tes') {
-                dispatch(handleTesGraphDate(newData));
+                dispatch(handleTesGraphDate(newData);
               }
 
-              setAuditLogData(getAuditLogData(Object.values(res)[0], true));
+              setAuditLogData(getAuditLogData(Object.values(res)[0], true);
             }
           );
         }

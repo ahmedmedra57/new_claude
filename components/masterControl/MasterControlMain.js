@@ -1,35 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useESSSwitchStore, useMCCommandStore, useMCStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore, useUserStore } from '../zustand-stores';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import {
-  handleUnSelectIndividualMachine,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
-import {
-  handleDisplaySelectBoxWithAction,
-  handleResetAllSelect,
-} from '../store/slices/masterControlSelectSlice';
-import {
-  handleApplyCommand,
-  handleCommandInfo,
-  handleCommandDate,
-  handleControlResetInit,
-  handleCreateCommand,
-  handleResetCommandNumber,
-  selectMCCommand,
-  handleResetCreateNewCommand,
-} from '../store/slices/mCCommandSlice';
-import { handleUnselectAllSystem, selectMC } from '../store/slices/mCSlice';
-import { handleResetAll } from '../store/slices/selectedMachinesSlice';
-import {
-  selectTesSwitch,
-  tesHandleUnSelectIndividualMachine,
-} from '../store/slices/tesSwitchSlice';
-import {
-  selectTgsSwitch,
-  tgsHandleUnSelectIndividualMachine,
-} from '../store/slices/tgsSwitchSlice';
 import { flexDirectionColumn, layerADark } from '../styles/commonStyles';
 import TitleContainer from '../TitleContainer';
 import MasterControlContents from './MasterControlContents';
@@ -37,30 +9,27 @@ import ContainerSelectSystem from './selectSystemAndAddCommand/ContainerSelectSy
 import SelectCreateNewCommandMessage from './userMessages/SelectCreateNewCommandMessage';
 import MasterControlProvider from './MaterControlContext';
 import { getAuditTrailService } from '../../services';
-import { selectUserInfo } from '../store/slices/userSlice';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import moment from 'moment';
 import SelectSystemMessage from './userMessages/SelectSystemMessage';
 
 const MasterControlMain = () => {
   const { t } = useTranslation();
   // redux
-  const dispatch = useDispatch();
+  
+  const { flatEssSwitch } = useESSSwitchStore();
+  const { flatTesSwitch } = useTESSwitchStore();
+  const { flatTgsSwitch } = useTGSSwitchStore();
+  const { user } = useUserStore();
+  const { isF } = useUnitsStore();
 
-  const { flatEssSwitch } = useSelector(selectEssSwitch);
-  const { flatTesSwitch } = useSelector(selectTesSwitch);
-  const { flatTgsSwitch } = useSelector(selectTgsSwitch);
-  const { user } = useSelector(selectUserInfo);
-  const { isF } = useSelector(selectUnits);
-
-  const mCState = useSelector(selectMC);
+  const mCState = useMCStore();
 
   const essSelectSystem = mCState.selectSystem.ess;
   const tgsSelectSystem = mCState.selectSystem.tgs;
   const tesSelectSystem = mCState.selectSystem.tes;
   const hpSelectSystem = mCState.selectSystem.hp;
 
-  const mCCommandState = useSelector(selectMCCommand);
+  const mCCommandState = useMCCommandStore();
   const { commandDate, isNewCommandCreated } = mCCommandState;
   // useState
   const [toggleButtonColor, setToggleButtonColor] = useState(false);
@@ -91,17 +60,16 @@ const MasterControlMain = () => {
           flatEssSwitch,
           flatTgsSwitch,
           flatTesSwitch,
-        })
-      );
+        });
     });
   }, []);
 
   // Reset selected switch and dial control
   useEffect(() => {
-    dispatch(handleUnselectAllSystem());
-    dispatch(handleResetAll());
-    dispatch(handleResetAllSelect());
-    dispatch(handleResetCreateNewCommand());
+    dispatch(handleUnselectAllSystem();
+    dispatch(handleResetAll();
+    dispatch(handleResetAllSelect();
+    dispatch(handleResetCreateNewCommand();
   }, []);
 
   useEffect(() => {
@@ -109,11 +77,11 @@ const MasterControlMain = () => {
     if (commandDate) {
       let difference = moment().diff(commandDate, 'days');
       if (difference) {
-        dispatch(handleResetCommandNumber());
+        dispatch(handleResetCommandNumber();
       }
     } else {
       // if we don't have a command date, we will set new commandDate to today
-      dispatch(handleCommandDate(moment().format('DDMMYY')));
+      dispatch(handleCommandDate(moment().format('DDMMYY');
     }
   }, [moment().format('DDMMYY')]);
 
@@ -121,26 +89,26 @@ const MasterControlMain = () => {
   useEffect(() => {
     if (isNewCommandCreated) {
       if (essSelectSystem) {
-        dispatch(handleDisplaySelectBoxWithAction(false));
+        dispatch(handleDisplaySelectBoxWithAction(false);
         setToggleButtonColor(0);
-        dispatch(handleControlResetInit(false));
+        dispatch(handleControlResetInit(false);
       } else if (tgsSelectSystem) {
-        dispatch(handleDisplaySelectBoxWithAction(false));
+        dispatch(handleDisplaySelectBoxWithAction(false);
         setToggleButtonColor(1);
-        dispatch(handleControlResetInit(false));
+        dispatch(handleControlResetInit(false);
       } else if (tesSelectSystem) {
-        dispatch(handleDisplaySelectBoxWithAction(false));
+        dispatch(handleDisplaySelectBoxWithAction(false);
         setToggleButtonColor(2);
-        dispatch(handleControlResetInit(false));
+        dispatch(handleControlResetInit(false);
       } else if (hpSelectSystem) {
-        dispatch(handleDisplaySelectBoxWithAction(false));
+        dispatch(handleDisplaySelectBoxWithAction(false);
         setToggleButtonColor(3);
-        dispatch(handleControlResetInit(false));
+        dispatch(handleControlResetInit(false);
       }
     }
 
     return () => {
-      dispatch(handleApplyCommand(false));
+      dispatch(handleApplyCommand(false);
       setToggleButtonColor(false);
     };
   }, [essSelectSystem, tgsSelectSystem, tesSelectSystem, hpSelectSystem]);
@@ -149,32 +117,29 @@ const MasterControlMain = () => {
   const handleCreateNewCommand = (e) => {
     // this will create new command which will set everything to default and increase the command# by 1
     e.stopPropagation();
-    dispatch(handleCreateCommand());
-    dispatch(handleResetAllSelect());
-    dispatch(handleResetAll());
-    dispatch(handleApplyCommand(false));
-    dispatch(handleUnselectAllSystem());
-    dispatch(handleControlResetInit(false));
+    dispatch(handleCreateCommand();
+    dispatch(handleResetAllSelect();
+    dispatch(handleResetAll();
+    dispatch(handleApplyCommand(false);
+    dispatch(handleUnselectAllSystem();
+    dispatch(handleControlResetInit(false);
     handleCreateNewCommandMessageBox(1);
 
     if (essSelectSystem) {
       return Object.keys(flatEssSwitch).forEach((location) =>
         Object.keys(flatEssSwitch[location]).forEach((machine) => {
-          dispatch(handleUnSelectIndividualMachine({ location, machine }));
-        })
-      );
+          dispatch(handleUnSelectIndividualMachine({ location, machine });
+        });
     } else if (tgsSelectSystem) {
       return Object.keys(flatTgsSwitch).forEach((location) =>
         Object.keys(flatTgsSwitch[location]).forEach((machine) => {
-          dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }));
-        })
-      );
+          setUnSelectIndividualMachine({ location, machine });
+        });
     } else if (tesSelectSystem) {
       return Object.keys(flatTesSwitch).forEach((location) =>
         Object.keys(flatTesSwitch[location]).forEach((machine) => {
-          dispatch(tesHandleUnSelectIndividualMachine({ location, machine }));
-        })
-      );
+          setUnSelectIndividualMachine({ location, machine });
+        });
     } else return;
   };
 

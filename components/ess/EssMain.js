@@ -1,15 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useContext } from 'react';
-import {
-  selectMCIsExpanded,
-} from '../store/slices/MCIsExpandedSlice';
+import { useESSSwitchStore, useMCIsExpandedStore, useUnitsStore, useUserStore } from '../zustand-stores';
 
-import {
-  essSpecificLocationUnselectMachinesHandler,
-  handleOpenMachineController,
-  handleUnSelectIndividualMachine,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
 
 import { useMediaQuery } from 'react-responsive';
 
@@ -17,13 +8,6 @@ import styled from 'styled-components';
 
 import MasterControlBySwitch from '../commonComponentsMC/MasterControlBySwitch';
 import IntegratedSwitchLocations from '../commonComponentsMC/IntegratedSwitchLocations';
-import {
-  handleResetAllSelectBySwitch,
-} from '../store/slices/masterControlBySwitchSelectSlice';
-import {
-  handleResetAllSelectByLocation,
-} from '../store/slices/masterControlSelectByLocationSlice';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import {
   useGetScheduleQueries,
   useGetThermocouplesQueries,
@@ -33,8 +17,6 @@ import {
   getEssZones,
 } from '../../services';
 import { useQuery } from 'react-query';
-import { handleAccessToken } from '../store/slices/userSlice';
-import { selectUserPermissions } from "../store/slices/userSlice";
 
 import {
   loopMachinesHandler,
@@ -45,18 +27,17 @@ import { useSetOpenMasterControl } from '../../hooks/ess_tgs_tes_hooks/useSetOpe
 const EssMain = ({ isMasterControl }) => {
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
 
-  const { essSwitch,flatEssSwitch } = useSelector(selectEssSwitch);
+  const { essSwitch,flatEssSwitch } = useESSSwitchStore();
 
-  const MCIsExpanded = useSelector(selectMCIsExpanded);
+  const MCIsExpanded = useMCIsExpandedStore();
   const { masterControl } = MCIsExpanded.ess;
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   const { messageBoxHandler } = useContext(EssTgsTesContext);
 
-  const dispatch = useDispatch();
-
+  
   useGetScheduleQueries(flatEssSwitch, 'ESS');
   useGetThermocouplesQueries(flatEssSwitch, 'ess');
 
@@ -78,7 +59,7 @@ const EssMain = ({ isMasterControl }) => {
     }
   );
 
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
 
   const integratedButtonHandler = (
     id,

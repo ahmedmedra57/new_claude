@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useLocationsStore } from '../../../zustand-stores';
 import { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -38,7 +39,7 @@ const ValveSearchBar = ({
     copyInputSearch[0] = "";
     setInputSearch(copyInputSearch);
   }, [inputSearch, inputSwitchName]);
-  // const locationsData = useSelector(selectLocations);
+  // const locationsData = useLocationsStore();
 
   const [selectedSuggestionIdx, setSelectedSuggestionIdx] = useState(0);
 
@@ -46,7 +47,7 @@ const ValveSearchBar = ({
 
   const [machineSuggestions, setMachineSuggestions] = useState(null);
 
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   // Machine name list as an array
   // const tgsLocations = useMemo(
   //   () =>

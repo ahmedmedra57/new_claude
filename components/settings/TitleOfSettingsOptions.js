@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { selectSettingsOptions } from '../store/slices/settings/settingsOptionsSlice';
 import {
   layerADark,
   flexBoxCenter,

@@ -1,13 +1,11 @@
 import { useQueries } from "react-query";
-import { useDispatch, useSelector } from "react-redux";
-import { handleReceivedThermocoupleSetting } from "../components/store/slices/FaultsSlice";
-import { selectLocations } from "../components/store/slices/locationsSlice";
+import { useFaultsStore, useLocationsStore } from "../components/zustand-stores";
 import { getLocationDataByDeviceId } from "../helpers/helpers";
 import { getDeviceThermocouplesService } from "../services";
 
 export const useGetThermocouplesQueries = (switchStatus, swtName) => {
-    const dispatch = useDispatch();
-    const locations = useSelector(selectLocations);
+    const { setReceivedThermocoupleSetting } = useFaultsStore();
+    const locations = useLocationsStore();
     const getSSRsQueries = useQueries(
         Object.values(switchStatus)
             .flatMap((zone) =>
@@ -25,7 +23,7 @@ export const useGetThermocouplesQueries = (switchStatus, swtName) => {
                                         machine: thermocouple.device_id,
                                         data: { ...thermocouple, deviceType: swtName },
                                     }
-                                    dispatch(handleReceivedThermocoupleSetting(newData));
+                                    setReceivedThermocoupleSetting(newData);
                                 });
                             }
                         },

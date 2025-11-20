@@ -1,6 +1,4 @@
-import { Provider } from "react-redux";
 import styled from "styled-components";
-import store from "./components/store/store";
 import GlobalStyle from "./components/styles/GlobalStyles";
 import MainPage from "./Mainpage";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -25,13 +23,11 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Wrapper>
           <GlobalStyle />
-          <Provider store={store}>
-            <ErrorBoundary>
-              <AutoLogoutProvider>
-                <MainPage />
-              </AutoLogoutProvider>
-            </ErrorBoundary>
-          </Provider>
+          <ErrorBoundary>
+            <AutoLogoutProvider>
+              <MainPage />
+            </AutoLogoutProvider>
+          </ErrorBoundary>
         </Wrapper>
       </QueryClientProvider>
     </ErrorBoundary>

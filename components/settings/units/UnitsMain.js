@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import ImperialMetricMeasurementReader from './ImperialMetricMeasurementReader';
-import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useUnitsStore, useUserStore } from '../../zustand-stores';
 import SettingAppliedMessage from '../../masterControl/userMessages/SettingAppliedMessage';
 import {
   flexBoxCenter,
@@ -55,17 +55,16 @@ const UnitsMain = ({
   ];
 
   // redux
-  const dispatch = useDispatch();
-  const unitState = useSelector(selectUnits);
+    const unitState = useUnitsStore();
   const { selectedUnit, isF } = unitState;
   const buttonsState = useSelector(selectEditCancelApplyButtons);
   const { isCancel, isEdit } = buttonsState;
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { user } = userInfo;
   // keeps track and render last state saved either to imperial or metric
   useEffect(() => {
     let choosenUnit = user?.temperature_unit === 'f' ? 0 : 1;
-    dispatch(handleResetButtons());
+    dispatch(handleResetButtons();
     setMetricImperialToggle(choosenUnit);
   }, [user]);
 

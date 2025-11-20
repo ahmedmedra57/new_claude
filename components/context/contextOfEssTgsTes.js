@@ -1,8 +1,7 @@
 import { createContext, useState } from 'react';
+import { useFaultsStore, useUserStore } from '../zustand-stores';
 import mainMessageBoxHandler from '../../helpers/ess-tgs-tes-mc/mainMessageBoxHandler';
 import { useSelector } from 'react-redux';
-import { selectUserInfo } from '../store/slices/userSlice';
-import { selectFaults } from '../store/slices/FaultsSlice';
 
 export const EssTgsTesContext = createContext();
 
@@ -45,8 +44,8 @@ const EssTgsTesProvider = ({ children }) => {
 
   // used in global display and ess tgs tes MC
   // icon src options
-  // const faultsState = useSelector(selectFaults);
-  // const userInfo = useSelector(selectUserInfo);
+  // const faultsState = useFaultsStore();
+  // const userInfo = useUserStore();
   // const { isEssSwitch, isTesSwitch, isTgsSwitch } = userInfo;
   // const essFaultMessages = faultsState.messages.ess;
   // const tgsFaultMessages = faultsState.messages.tgs;

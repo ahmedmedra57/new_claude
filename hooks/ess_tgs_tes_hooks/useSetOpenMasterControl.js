@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { handleOpenMasterControl } from '../../components/store/slices/MCIsExpandedSlice';
+import { useMCIsExpandedStore } from '../../components/zustand-stores';
 
 export const useSetOpenMasterControl = (swtName, isMobile) => {
-  const dispatch = useDispatch();
+  const { setOpenMasterControl } = useMCIsExpandedStore();
   useEffect(() => {
-    isMobile
-      ? dispatch(handleOpenMasterControl({ swtName, status: false }))
-      : dispatch(handleOpenMasterControl({ swtName, status: true }));
+    setOpenMasterControl(swtName, isMobile ? false : true);
   }, []);
 };

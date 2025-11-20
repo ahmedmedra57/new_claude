@@ -1,12 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMCIsExpandedStore, useUserStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
 
-import { handleResetSelectedOne } from '../store/slices/masterControlBySwitchSelectSlice';
-import {
-  handleOpenMasterControl,
-  selectMCIsExpanded,
-} from '../store/slices/MCIsExpandedSlice';
 
 import styled, { css } from 'styled-components';
 import {
@@ -30,7 +25,6 @@ import WindFactor from '../masterControlSwitches/WindFactor';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import FanOnly from '../masterControlSwitches/FanOnly';
 import { EssTgsTesContext } from '../context/contextOfEssTgsTes';
-import { selectUserPermissions } from '../store/slices/userSlice';
 import MasterControlBySwitchTitle from './MasterControlBySwitchTitle';
 
 const MasterControlBySwitch = ({ swtName, buttonHandler }) => {
@@ -40,20 +34,19 @@ const MasterControlBySwitch = ({ swtName, buttonHandler }) => {
   const { openMessageBox, setOpenMessageBox, message, programName } =
     useContext(EssTgsTesContext);
 
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const disabled = !permissions.WRITE;
 
   // Global states
-  const MCIsExpanded = useSelector(selectMCIsExpanded);
+  const MCIsExpanded = useMCIsExpandedStore();
   // const { ess, tgs, tes } = MCIsExpanded;
   const { masterControl } = MCIsExpanded[swtName];
 
   // local states and variables
   const [btnName, setBtnName] = useState(masterControl ? 'close' : 'expand');
-  const dispatch = useDispatch();
-
+  
   useEffect(() => {
-    dispatch(handleResetSelectedOne());
+    dispatch(handleResetSelectedOne();
   }, [swtName]);
 
   useEffect(() => {

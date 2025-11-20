@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocationsStore } from '../../../../zustand-stores';
 import styled from 'styled-components';
 import {
   flexBoxCenter,
@@ -15,7 +16,7 @@ import ContainerLogin from '../../../../adminPassword/ContainerLogin';
 import Upload from '../../../../commonComponentsMC/UploadBox';
 
 const GroupButtons = ({ locationId = '' }) => {
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   // !! test purpose only with test data
   const sitePlanUrl = locations?.hp[locationId] || '';

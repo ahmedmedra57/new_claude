@@ -1,30 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import io from 'socket.io-client';
 import {
-  handleAddHeatingSchedule,
-  handleClearHeatingSchedule,
-  handleEssGraph,
-  handleEssSSRStateSocket,
-  handleEssSwitchSocket,
-} from '../components/store/slices/essSwitchSlice';
-import { handleReceivedThermocoupleSetting } from '../components/store/slices/FaultsSlice';
-import { selectLocations } from '../components/store/slices/locationsSlice';
-import { selectUnits } from '../components/store/slices/settings/unitsSlice';
-import { selectDescription } from '../components/store/slices/ssrDescriptionSlice';
-import {
-  handleTesSwitchSocket,
-  handleTesSSRStateSocket,
-  tesHandleClearHeatingSchedule,
-  tesHandleAddHeatingSchedule,
-  handleTesGraph,
-} from '../components/store/slices/tesSwitchSlice';
-import {
-  handleTgsGraph,
-  handleTgsSwitchSocket,
-  tgsHandleAddHeatingSchedule,
-  tgsHandleClearHeatingSchedule,
-} from '../components/store/slices/tgsSwitchSlice';
+  useESSSwitchStore,
+  useTESSwitchStore,
+  useTGSSwitchStore,
+  useFaultsStore,
+  useLocationsStore,
+  useUnitsStore,
+  useSSRDescriptionStore,
+} from '../components/zustand-stores';
 import {
   convertCelsiusToFahrenheit,
   getGraphTypeKey,
@@ -33,10 +17,34 @@ import {
 
 export const useSocket = (room, accessToken) => {
   const [socket, setSocket] = useState(null);
-  const dispatch = useDispatch();
-  const { elementsOptions } = useSelector(selectDescription);
-  const { isF } = useSelector(selectUnits);
-  const locations = useSelector(selectLocations);
+  const { elementsOptions } = useSSRDescriptionStore();
+  const { isF } = useUnitsStore();
+  const locations = useLocationsStore();
+
+  const {
+    setEssSwitchSocket,
+    setEssSSRStateSocket,
+    setAddHeatingSchedule: essSetAddHeatingSchedule,
+    setClearHeatingSchedule: essSetClearHeatingSchedule,
+    setEssGraph,
+  } = useESSSwitchStore();
+
+  const {
+    setTesSwitchSocket,
+    setTesSSRStateSocket,
+    setAddHeatingSchedule: tesSetAddHeatingSchedule,
+    setClearHeatingSchedule: tesSetClearHeatingSchedule,
+    setTesGraph,
+  } = useTESSwitchStore();
+
+  const {
+    setTgsSwitchSocket,
+    setAddHeatingSchedule: tgsSetAddHeatingSchedule,
+    setClearHeatingSchedule: tgsSetClearHeatingSchedule,
+    setTgsGraph,
+  } = useTGSSwitchStore();
+
+  const { setReceivedThermocoupleSetting } = useFaultsStore();
 
   useEffect(() => {
     if (accessToken) {
@@ -53,16 +61,16 @@ export const useSocket = (room, accessToken) => {
 
       // Listen for messages from the server
       newSocket.on('switchAudit', (data) => {
-        dispatch(handleEssSwitchSocket({ data, isF }));
-        dispatch(handleEssSSRStateSocket(data));
+        setEssSwitchSocket(data, isF);
+        setEssSSRStateSocket(data);
       });
 
       newSocket.on('blowerAudit', (data) => {
         if (data.eventDeviceType === 'TGS') {
-          dispatch(handleTgsSwitchSocket({ data, isF }));
+          setTgsSwitchSocket(data, isF);
         } else if (data.eventDeviceType === 'TES') {
-          dispatch(handleTesSwitchSocket({ data, isF }));
-          dispatch(handleTesSSRStateSocket(data));
+          setTesSwitchSocket(data, isF);
+          setTesSSRStateSocket(data);
         }
       });
 
@@ -75,9 +83,9 @@ export const useSocket = (room, accessToken) => {
           specs: specs.length !== 0 ? specs : [{}],
         }
         if (data.eventDeviceType === 'ESS') {
-          dispatch(handleEssSSRStateSocket(newData));
+          setEssSSRStateSocket(newData);
         } else if (data.eventDeviceType === 'TES') {
-          dispatch(handleTesSSRStateSocket(newData));
+          setTesSSRStateSocket(newData);
         }
       });
 
@@ -95,31 +103,31 @@ export const useSocket = (room, accessToken) => {
         ];
 
         const addSchedule = data.eventDeviceType === 'ESS'
-          ? handleAddHeatingSchedule
+          ? essSetAddHeatingSchedule
           : data.eventDeviceType === 'TES'
-            ? tesHandleAddHeatingSchedule
-            : tgsHandleAddHeatingSchedule;
+            ? tesSetAddHeatingSchedule
+            : tgsSetAddHeatingSchedule;
 
         const clearSchedule = data.eventDeviceType === 'ESS'
-          ? handleClearHeatingSchedule
+          ? essSetClearHeatingSchedule
           : data.eventDeviceType === 'TES'
-            ? tesHandleClearHeatingSchedule
-            : tgsHandleClearHeatingSchedule;
+            ? tesSetClearHeatingSchedule
+            : tgsSetClearHeatingSchedule;
 
         if (data.hasOwnProperty('threshold')) {
           const { threshold, startDate, endDate, id } = data;
-          dispatch(addSchedule({
+          addSchedule(
             location,
             machine,
-            start: readableTime(startDate),
-            end: readableTime(endDate),
-            index: 0,
-            inputTemp: isF ? convertCelsiusToFahrenheit(+threshold) : +threshold,
+            readableTime(startDate),
+            readableTime(endDate),
+            0,
+            isF ? convertCelsiusToFahrenheit(+threshold) : +threshold,
             isF,
-            id,
-          }));
+            id
+          );
         } else {
-          dispatch(clearSchedule({ location, machine, data: clearData }));
+          clearSchedule(location, machine, clearData);
         }
       });
 
@@ -131,22 +139,21 @@ export const useSocket = (room, accessToken) => {
           machine: data.device_id,
           data: { ...data, deviceType: swtName },
         }
-        dispatch(handleReceivedThermocoupleSetting(newData));
+        setReceivedThermocoupleSetting(newData);
       });
 
       const handleGraph = (data, graphType) => {
-        const newData = {
-          location: data.zoneInfo?.zone_id,
-          machine: data.device_mac,
-          graphType: getGraphTypeKey(graphType),
-          data: data.points,
-        };
+        const location = data.zoneInfo?.zone_id;
+        const machine = data.device_mac;
+        const graphTypeKey = getGraphTypeKey(graphType);
+        const points = data.points;
+
         if (data.eventDeviceType === 'ESS') {
-          dispatch(handleEssGraph(newData));
+          setEssGraph(location, machine, graphTypeKey, points);
         } else if (data.eventDeviceType === 'TGS') {
-          dispatch(handleTgsGraph(newData));
+          setTgsGraph(location, machine, graphTypeKey, points);
         } else if (data.eventDeviceType === 'TES') {
-          dispatch(handleTesGraph(newData));
+          setTesGraph(location, machine, graphTypeKey, points);
         }
       };
 

@@ -1,12 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {
-  handleSettingsLocationSelect,
-  handleSettingsMachineSelect,
-  handleSettingsResetAllSelect,
-  handleSettingsSelectAll,
-  handleSettingsSpecificLocationSelect,
-} from "../store/slices/settings/force&CommandAndAdminSelectSlice";
 import { getAllSpecificLocationNames } from "../../helpers/helpers";
 
 const useSelectLocationBox = (
@@ -34,8 +27,7 @@ const useSelectLocationBox = (
   isEnable9,
   isEnable10
 ) => {
-  const dispatch = useDispatch();
-  const dispatchUnSelectMachinesHandler = (
+    const dispatchUnSelectMachinesHandler = (
     location,
     swt,
     swtData,
@@ -53,8 +45,7 @@ const useSelectLocationBox = (
             machine,
             isSelectedSys,
           })
-        )
-      );
+        );
     } else {
       const machines = Object.keys(swtData[location].devices);
       machines.forEach((machine) =>
@@ -65,8 +56,7 @@ const useSelectLocationBox = (
             machine,
             isSelectedSys,
           })
-        )
-      );
+        );
     }
   };
 
@@ -137,14 +127,13 @@ const useSelectLocationBox = (
         handleUnSelectMachines(location, swt, swtData);
       } else {
         Object.keys(swtData[location].subLocations).forEach((specificLocation) =>
-          handleUnSelectMachines(location, swt, swtData, specificLocation)
-        );
+          handleUnSelectMachines(location, swt, swtData, specificLocation);
       }
     });
   };
 
   useEffect(() => {
-    dispatch(handleSettingsResetAllSelect());
+    dispatch(handleSettingsResetAllSelect();
     if (openHeaders[0]) {
       loopHandler("ess", essSpec);
     } else if (openHeaders[2]) {
@@ -190,14 +179,13 @@ const useSelectLocationBox = (
 
 
   const dispatchAllHandler = (program) => {
-    dispatch(handleSettingsSelectAll({ switch: program, status: false }));
+    dispatch(handleSettingsSelectAll({ switch: program, status: false });
   };
   const dispatchLocationsHandler = (programData, program) => {
     const locations = Object.keys(programData);
     const locationsArr = locations.map((_) => false);
     dispatch(
-      handleSettingsLocationSelect({ arr: locationsArr, switch: program })
-    );
+      handleSettingsLocationSelect({ arr: locationsArr, switch: program });
   };
   const dispatchSpecificLocationsHandler = (programData, program) => {
     const specificLocationName = getAllSpecificLocationNames(programData);
@@ -215,8 +203,7 @@ const useSelectLocationBox = (
       handleSettingsSpecificLocationSelect({
         arr: allSpecificLocationsArr,
         switch: program,
-      })
-    );
+      });
     return specificLocationName;
   };
   const dispatchMachinesHandler = (
@@ -228,8 +215,7 @@ const useSelectLocationBox = (
     const machineArr = Object.values(programData).map((location) => {
       if (location.isSpecificLocation) {
         const machinesList = Object.values(location.subLocations).map(
-          (specLocation) => Object.keys(specLocation.devices).map((el) => false)
-        );
+          (specLocation) => Object.keys(specLocation.devices).map((el) => false);
         const specLocation = Object.keys(location.subLocations).map(
           (el) => false
         );
@@ -241,7 +227,7 @@ const useSelectLocationBox = (
         });
       }
     });
-    dispatch(handleSettingsMachineSelect({ arr: machineArr, switch: program }));
+    dispatch(handleSettingsMachineSelect({ arr: machineArr, switch: program });
   };
 
   useEffect(() => {

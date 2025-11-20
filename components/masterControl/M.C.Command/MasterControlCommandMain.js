@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useUserStore } from '../../zustand-stores';
 import styled, { css } from "styled-components";
 import {
   handleAddLocations,
@@ -83,20 +83,19 @@ function MasterControlCommandMain({
   handleCreateNewCommandMessageBox,
   // commandConfirmed,
 }) {
-  const dispatch = useDispatch();
-  const mCCommandState = useSelector(selectMCCommand);
-  const selectSwitch = useSelector(selectMasterControls);
+    const mCCommandState = useMCCommandStore();
+  const selectSwitch = useMasterControlSelectStore();
   const viewCommandState = mCCommandState.viewCommand;
-  const essSwitchState = useSelector(selectEssSwitch);
-  const tgsSwitchState = useSelector(selectTgsSwitch);
-  const tesSwitchState = useSelector(selectTesSwitch);
+  const essSwitchState = useESSSwitchStore();
+  const tgsSwitchState = useTGSSwitchStore();
+  const tesSwitchState = useTESSwitchStore();
 
   // ess || tes || teg
   const { essSwitch, flatEssSwitch } = essSwitchState;
   const { tesSwitch, flatTesSwitch } = tesSwitchState;
   const { tgsSwitch, flatTgsSwitch } = tgsSwitchState;
 
-  const UserState = useSelector(selectUserInfo);
+  const UserState = useUserStore();
   const userID = UserState.user.user_id;
 
   // useContext for styling purposes
@@ -127,11 +126,11 @@ function MasterControlCommandMain({
     e.stopPropagation();
     switch (idx) {
       case 0:
-        dispatch(handleControlResetInit(true));
+        dispatch(handleControlResetInit(true);
         break;
       case 1:
         setResetDialControl(false);
-        dispatch(handleControlResetInit(false));
+        dispatch(handleControlResetInit(false);
         break;
       default:
         break;
@@ -147,24 +146,24 @@ function MasterControlCommandMain({
       selectSwitch.tes.selectedOne ||
       selectSwitch.tgs.selectedOne
     ) {
-      dispatch(handleApplyMessageBox(true));
+      dispatch(handleApplyMessageBox(true);
       handleMessageBox();
-      dispatch(handleViewCommand(false));
-      dispatch(handleControlResetInit(false));
+      dispatch(handleViewCommand(false);
+      dispatch(handleControlResetInit(false);
     }
   };
 
   const handleCreateNewCommand = () => {
     // ***this will create new command which will set everything to default and increase the command# by 1
-    // dispatch(handleViewPrevCommandAndCreateNewCommand());
-    dispatch(handleCreateCommand());
-    dispatch(handleApplyCommand(false));
+    // dispatch(handleViewPrevCommandAndCreateNewCommand();
+    dispatch(handleCreateCommand();
+    dispatch(handleApplyCommand(false);
   };
 
   const handleCommandResetSystem = () => {
     // ***resets all dial system selection state in selected machines slice
 
-    dispatch(handleResetAll());
+    dispatch(handleResetAll();
   };
 
   // const dispatchSelectLocationHandler = (switchData, location, dispatchFC) => {
@@ -288,7 +287,7 @@ function MasterControlCommandMain({
   //   if (isAllSelected) {
   //     // 1. selected All
   //     // dispatch
-  //     dispatch(handleSelectedOne({ switch: swt, selectedOne: 'all' }));
+  //     dispatch(handleSelectedOne({ switch: swt, selectedOne: 'all' });
   //     switch (swt) {
   //       case 'ess':
   //         selectLocationHandler(essSwitch, swt);
@@ -443,7 +442,7 @@ function MasterControlCommandMain({
   //   );
   //   // **if no machines were selected then dispatch the code below
   //   // else if (!isSelected) {
-  //   //   dispatch(handleSelectedOne({ switch: swt, selectedOne: null }));
+  //   //   dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
   //   // }
   // };
 
@@ -466,7 +465,7 @@ function MasterControlCommandMain({
     if (isAllSelected) {
       // 1. selected All
       // dispatch
-      dispatch(handleSelectedOne({ switch: swt, selectedOne: "all" }));
+      dispatch(handleSelectedOne({ switch: swt, selectedOne: "all" });
       // #1.1. select locations
       selectLocationsHandler(locations, swt, data, dispatch);
     } else if (isLocationSelected.indexOf(true) !== -1) {
@@ -513,7 +512,7 @@ function MasterControlCommandMain({
       // #4.1.switches/machines count
       // switchCountHandler(isMachineSelected);
     } else if (!isSelected) {
-      dispatch(handleSelectedOne({ switch: swt, selectedOne: null }));
+      dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
     }
   };
 
@@ -524,7 +523,7 @@ function MasterControlCommandMain({
   // ) => {
   //   selectedMachines.forEach((el) => {
   //     if (el.length === 2) {
-  //       dispatch(dispatchLocation({ location: el[0], machine: el[1] }));
+  //       dispatch(dispatchLocation({ location: el[0], machine: el[1] });
   //     } else {
   //       dispatch(
   //         dispatchSpecificLocation({
@@ -566,19 +565,16 @@ function MasterControlCommandMain({
         handleSelectAll({
           switch: selectedSystemAbr,
           status: isAllSelected,
-        })
-      );
+        });
       // 2. select locations
       // update isLocationSelected
       //  Each saved location from selected command will set a TRUE to Array to be ready for a dispatch to modify isLocationSelected
       const locationArr = locations.map((location) =>
         selectedLocations.some(
           (selectedLocation) => selectedLocation === location
-        )
-      );
+        );
       dispatch(
-        handleLocationSelect({ arr: locationArr, switch: selectedSystemAbr })
-      );
+        handleLocationSelect({ arr: locationArr, switch: selectedSystemAbr });
 
       // update selected location
       // push all the names of the locations that were saved in the selected command to be ready for dispatch
@@ -593,8 +589,7 @@ function MasterControlCommandMain({
         handleAddLocations({
           switch: selectedSystemAbr,
           arr: newSelectLocations,
-        })
-      );
+        });
 
       // 3. select specific locations
       // format of specific location saved in command:
@@ -606,26 +601,23 @@ function MasterControlCommandMain({
         // update isSpecificLocationSelected state
         const specificLocationState = selectedSpecificLocations
           .filter((specLocation) => specLocation.length > 0)
-          .map((el) => el.map((_) => true));
+          .map((el) => el.map((_) => true);
 
         dispatch(
           handleSpecificLocationSelect({
             arr: specificLocationState,
             switch: selectedSystemAbr,
-          })
-        );
+          });
 
         // update selectedSpecificLocations
         const newSpecLocation = [];
         selectedSpecificLocations.forEach((specLocation) =>
-          specLocation.forEach((el) => newSpecLocation.push(el))
-        );
+          specLocation.forEach((el) => newSpecLocation.push(el);
         dispatch(
           handleAddSpecificLocations({
             arr: newSpecLocation,
             switch: selectedSystemAbr,
-          })
-        );
+          });
         newSpecificLocationList = newSpecLocation;
         isSpecificLocationSelected = specificLocationState;
       }
@@ -658,8 +650,7 @@ function MasterControlCommandMain({
 
       // update isMachineSelected state
       dispatch(
-        handleMachineSelect({ arr: machineArr, switch: selectedSystemAbr })
-      );
+        handleMachineSelect({ arr: machineArr, switch: selectedSystemAbr });
 
       // push all the names of the machines that were saved in the selected command to be ready for dispatch
       const newSelectedMachineArr = [];
@@ -690,8 +681,7 @@ function MasterControlCommandMain({
         handleAddMachines({
           switch: selectedSystemAbr,
           arr: newSelectedMachineArr,
-        })
-      );
+        });
 
       const machinesArrLength = newSelectedMachineArr.length;
 
@@ -720,10 +710,10 @@ function MasterControlCommandMain({
     }
   };
 
-  // const tgsSelect = useSelector(selectMasterControls);
+  // const tgsSelect = useMasterControlSelectStore();
 
   // !! TEST DATA!!
-  // const locations = useSelector(selectLocations);
+  // const locations = useLocationsStore();
   // const { testEssSwitch, testTgsSwitch } = testData(
   //   essSwitch,
   //   tgsSwitch,
@@ -781,7 +771,7 @@ function MasterControlCommandMain({
     //           (selectedLocation) => selectedLocation === location
     //         )
     //       );
-    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' }));
+    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' });
 
     //       // push all the names of the locations that were saved in the selected command to be ready for dispatch
     //       const newSelect = [];
@@ -807,7 +797,7 @@ function MasterControlCommandMain({
     //           );
     //         });
     //       });
-    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'ess' }));
+    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'ess' });
 
     //       // push all the names of the machines that were saved in the selected command to be ready for dispatch
     //       const newSelectedMachineArr = [];
@@ -858,7 +848,7 @@ function MasterControlCommandMain({
     //           (selectedLocation) => selectedLocation === location
     //         )
     //       );
-    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' }));
+    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' });
 
     //       // push all the names of the locations that were saved in the selected command to be ready for dispatch
     //       const newSelect = [];
@@ -883,7 +873,7 @@ function MasterControlCommandMain({
     //           );
     //         });
     //       });
-    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tgs' }));
+    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tgs' });
 
     //       // push all the names of the machines that were saved in the selected command to be ready for dispatch
     //       const newSelectedMachineArr = [];
@@ -933,7 +923,7 @@ function MasterControlCommandMain({
     //           (selectedLocation) => selectedLocation === location
     //         )
     //       );
-    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' }));
+    //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' });
 
     //       // push all the names of the locations that were saved in the selected command to be ready for dispatch
     //       const newSelect = [];
@@ -958,7 +948,7 @@ function MasterControlCommandMain({
     //           );
     //         });
     //       });
-    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tes' }));
+    //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tes' });
 
     //       // push all the names of the machines that were saved in the selected command to be ready for dispatch
     //       const newSelectedMachineArr = [];
@@ -1006,8 +996,7 @@ function MasterControlCommandMain({
           commandInfo.ats.block,
           commandInfo.ats?.activateTgs ? commandInfo.ats?.activateTgs : false,
         ],
-      })
-    );
+      });
 
     if (commandInfo.ats.reactivate) {
       setIsSelectedForAts([true, false, false]);
@@ -1019,7 +1008,7 @@ function MasterControlCommandMain({
   };
 
   const handleSetPrevCommandSelectedDeactivate = (commandInfo) => {
-    dispatch(handleAllDeactivatePrograms(commandInfo.deactivate));
+    dispatch(handleAllDeactivatePrograms(commandInfo.deactivate);
 
     // for styling
     // sets the circle to solid green of selected program
@@ -1054,7 +1043,7 @@ function MasterControlCommandMain({
     } = commandInfo.parameters;
     // sets the unit measure to the previous selected command unit
     const { isF } = commandInfo;
-    dispatch(handleSetUnits(isF));
+    dispatch(handleSetUnits(isF);
     // sets the dial control style and the input temp fields
     if (instantHeat) {
       // select(1, true);
@@ -1066,17 +1055,15 @@ function MasterControlCommandMain({
           temp: InstantHeatTempNumbers,
           state: true,
           isF,
-        })
-      );
+        });
     }
     if (snowSensor) {
-      dispatch(snowSensorHandlerTempo(true));
+      dispatch(snowSensorHandlerTempo(true);
     }
     if (optionalConstantTemp) {
       const optionalConstantTempNumbers = optionalConstantTemp.match(/\d+/)[0];
       dispatch(
-        constantHeatHandlerTempo({ temp: optionalConstantTempNumbers, isF })
-      );
+        constantHeatHandlerTempo({ temp: optionalConstantTempNumbers, isF });
     }
     // ! this is not doable because we cannot set a previous schedule of past dates.
     if (heatingSchedule) {
@@ -1088,14 +1075,13 @@ function MasterControlCommandMain({
           start: readableTime(newHeatingSchedule[1]),
           end: readableTime(newHeatingSchedule[2]),
           isF,
-        })
-      );
+        });
     }
     if (windFactor) {
-      dispatch(windFactorHandlerTempo(true));
+      dispatch(windFactorHandlerTempo(true);
     }
     if (fanOnly) {
-      dispatch(fanOnlyHandlerTempo(true));
+      dispatch(fanOnlyHandlerTempo(true);
     }
     setResetDialControl(false);
   };
@@ -1111,7 +1097,7 @@ function MasterControlCommandMain({
       searchedCommand[0][selectCommand.command].system.split("-")[0];
 
     // dispatch to select the system of the selected command. eg: ess, tgs or tes
-    dispatch(handleSelectSystem(selectedSystem));
+    dispatch(handleSelectSystem(selectedSystem);
 
     const commandInfo = Object.values(searchedCommand[0])[0];
     // ***set all the previous command's locations and machines
@@ -1136,7 +1122,7 @@ function MasterControlCommandMain({
       // set previous command's system
       handleSetPrevCommandSelectedSys();
 
-      dispatch(handleSearchCommand(selectCommand));
+      dispatch(handleSearchCommand(selectCommand);
       setOpeningSelectionBox(false);
     }
   };
@@ -1144,8 +1130,8 @@ function MasterControlCommandMain({
   const handleSelectCommand = (el) => {
     setSelectCommand({ command: el, userId: userID });
     // ***resets all select switch location state in master control select slice
-    dispatch(handleResetAllSelect());
-    dispatch(handleResetAll());
+    dispatch(handleResetAllSelect();
+    dispatch(handleResetAll();
     setResetDialControl(true);
 
     // finds the command that's chosen depending on the userID given by the backend

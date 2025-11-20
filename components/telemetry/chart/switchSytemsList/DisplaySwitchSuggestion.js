@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { ItemBackground } from '../../../styles/commonStyles';
 import { useMemo } from 'react';
+import { useLocationsStore } from '../../../zustand-stores';
 import { useSelector } from 'react-redux';
 import { selectLocations } from '../../../store/slices/locationsSlice';
 
@@ -15,7 +16,7 @@ const DisplaySwitchSuggestion = ({
     handleSelect(column, matchedSuggestion, true);
     handleClose();
   };
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   // const title = useMemo(() => {
   //   return matchedSuggestion

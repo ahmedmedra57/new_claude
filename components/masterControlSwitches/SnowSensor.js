@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useUnitsStore } from '../zustand-stores';
 
 import { useMediaQuery } from 'react-responsive';
 
-import { selectMCBySwitch } from '../store/slices/masterControlBySwitchSelectSlice';
-import { selectMCByLocation } from '../store/slices/masterControlSelectByLocationSlice';
 import {
   flexBoxCenter,
   flexDirectionColumn,
@@ -21,7 +19,6 @@ import {
 import styled, { css } from 'styled-components';
 
 import SelectLocations from './SelectLocations';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import InputTempMessage from '../userMessages/inputTempMessage';
 
 const SnowSensor = ({
@@ -43,7 +40,7 @@ const SnowSensor = ({
   );
   const { selectedOne } = switchStatus.snowSensor;
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   // Local
@@ -59,7 +56,7 @@ const SnowSensor = ({
   //   // Logic for access selected machine
   //   Object.keys(essSwitch).forEach((location) =>
   //     Object.keys(essSwitch[location]).forEach((machine) => {
-  //       dispatch(handleUnSelectIndividualMachine({ location, machine }));
+  //       dispatch(handleUnSelectIndividualMachine({ location, machine });
   //     })
   //   );
   // }, []);

@@ -1,17 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
+import { useGlobalOverviewStore, useLocationsStore, useUnitsStore } from '../zustand-stores';
 import { justifyContentSpaceBetween, layerA } from "../styles/commonStyles";
-import { useDispatch, useSelector } from "react-redux";
-import { handleOpenLocation } from "../store/slices/MCIsExpandedSlice";
 
 import styled from "styled-components";
 
 import IndividualMachine from "./IndividualMachine";
-import { selectLocations } from "../store/slices/locationsSlice";
-import {
-  handleSelectDisplaySystem,
-  selectGlobalOverview,
-} from "../store/slices/globalOverviewSlice";
-import { selectUnits } from "../store/slices/settings/unitsSlice";
 import { calculateTotalEnergyConsumption } from "../../helpers/helpers";
 import SwitchSpecificLocation from "./SwitchSpecificLocation";
 
@@ -28,14 +21,14 @@ const SwitchLocation = ({
   isSpecificLocationExpanded,
   selectedLocation,setSelectedLocation
 }) => {
-  const locations = useSelector(selectLocations);
-  const { selectedSystem } = useSelector(selectGlobalOverview);
+  const locations = useLocationsStore();
+  const { selectedSystem } = useGlobalOverviewStore();
   const [src, setSrc] = useState("/images/IS-arrow.svg");
    
   
 
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const gas = isF ? "FT³" : "M³";
   const unit = id === "tgs" ? gas : "kw";
@@ -94,8 +87,7 @@ else {
 //     }
 //   });
 // }
-  const dispatch = useDispatch();
-  // const previous = usePrevious(isExpand);
+    // const previous = usePrevious(isExpand);
 
   useEffect(() => {
     isExpanded
@@ -105,9 +97,9 @@ else {
 
   const handleExpand = () => {
     if (isExpanded) {
-      dispatch(handleOpenLocation({ swtName: id, index, status: false }));
+      dispatch(handleOpenLocation({ swtName: id, index, status: false });
     } else {
-      dispatch(handleOpenLocation({ swtName: id, index, status: true }));
+      dispatch(handleOpenLocation({ swtName: id, index, status: true });
     }
   };
 
@@ -119,8 +111,7 @@ else {
   } else {
     isMachineAvailable = Object.values(system[location]?.subLocations).some(
       (subLocation) =>
-        Object.values(subLocation.devices).some((el) => el.machineType)
-    );
+        Object.values(subLocation.devices).some((el) => el.machineType);
   }
 
 const hoursOfUsage = useMemo(() => {
@@ -174,7 +165,7 @@ const hoursOfUsage = useMemo(() => {
   }, [system, location, isMachineAvailable, isF, id]);
 
   const handleOnClick = () => {
-    dispatch(handleSelectDisplaySystem(selectedSystem || "all"));
+    dispatch(handleSelectDisplaySystem(selectedSystem || "all");
     setCenter(locations[id][location]?.address);
     setZoomNum(17);
     setSelectedLocation(location);

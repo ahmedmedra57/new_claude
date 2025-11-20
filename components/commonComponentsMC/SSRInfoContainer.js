@@ -1,20 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useUserStore } from '../zustand-stores';
 
-import {
-  handleOpenPasswordBox,
-  handleOpenSetting,
-} from '../store/slices/essSwitchSlice';
-import {
-  tesHandleOpenPasswordBox,
-  tesHandleOpenSetting,
-} from '../store/slices/tesSwitchSlice';
 
-import {
-  handleAccessAdministrator,
-  handlePasswordPropagation,
-  selectUserInfo,
-} from '../store/slices/userSlice';
 
 import { flexBoxCenter } from '../styles/commonStyles';
 import styled from 'styled-components';
@@ -36,13 +23,12 @@ const SSRInfoContainer = ({
   setSSRSwitchName,
 }) => {
   // Global states
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { isAdministrator, isPasswordBoxOpen } = userInfo;
 
   const { openPasswordBox } = data;
 
-  const dispatch = useDispatch();
-
+  
   // temporary variables
   const unitsMeasurement = false;
 
@@ -74,8 +60,7 @@ const SSRInfoContainer = ({
                 machine,
                 id: `ssr${id}`,
                 status: true,
-              })
-            );
+              });
       } else {
         // no admin ?
         if (openPasswordBox) {
@@ -95,8 +80,7 @@ const SSRInfoContainer = ({
                   machine,
                   id: `ssr${id}`,
                   status: false,
-                })
-              );
+                });
         } else {
           // 2. Login process => Display Password require box
 
@@ -116,10 +100,9 @@ const SSRInfoContainer = ({
                     machine,
                     id: `ssr${id}`,
                     status: true,
-                  })
-                );
+                  });
             // true : update password box status
-            dispatch(handlePasswordPropagation(true));
+            dispatch(handlePasswordPropagation(true);
           }
         }
       }
@@ -140,11 +123,10 @@ const SSRInfoContainer = ({
               machine,
               id: `ssr${id}`,
               status: false,
-            })
-          );
+            });
 
       // log out admin
-      dispatch(handleAccessAdministrator(false));
+      dispatch(handleAccessAdministrator(false);
     }
   };
 
@@ -164,9 +146,8 @@ const SSRInfoContainer = ({
             machine,
             id: `ssr${id}`,
             status: false,
-          })
-        );
-    dispatch(handlePasswordPropagation(false));
+          });
+    dispatch(handlePasswordPropagation(false);
   };
 
   return (
@@ -246,8 +227,7 @@ const SSRInfoContainer = ({
                       machine,
                       id: `ssr${id}`,
                       status: true,
-                    })
-                  );
+                    });
             }}
             handleClose={handleClosePasswordBox}
             isReadyToClose={true}

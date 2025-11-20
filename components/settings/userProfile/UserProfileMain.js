@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useUserStore } from '../../zustand-stores';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -86,7 +87,7 @@ const UserProfileMain = ({
   const [isNewPasswordConfirmed, setIsNewPasswordConfirmed] = useState(false);
 
   // redux
-  const UserState = useSelector(selectUserInfo);
+  const UserState = useUserStore();
   const { user } = UserState;
   const buttonsState = useSelector(selectEditCancelApplyButtons);
   const { isEdit } = buttonsState;

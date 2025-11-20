@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import styled from 'styled-components';
 import {
   flexDirectionColumn,
@@ -6,16 +7,12 @@ import {
   layerA,
 } from '../styles/commonStyles';
 import { useSelector } from 'react-redux';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectLocations } from '../store/slices/locationsSlice';
 
 const MapMarker = ({ location, handleZoom }) => {
-  const locations = useSelector(selectLocations);
-  const { essSwitch } = useSelector(selectEssSwitch);
-  const { tesSwitch } = useSelector(selectTesSwitch);
-  const { tgsSwitch } = useSelector(selectTgsSwitch);
+  const locations = useLocationsStore();
+  const { essSwitch } = useESSSwitchStore();
+  const { tesSwitch } = useTESSwitchStore();
+  const { tgsSwitch } = useTGSSwitchStore();
 
   const essNum = essSwitch[location]
     ? Object.values(essSwitch[location]).length

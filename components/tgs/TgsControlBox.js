@@ -1,23 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState , useMemo} from 'react';
-import {
-  tgsHandleInstantHeatOff,
-  selectTgsSwitch,
-  tgsHandleInstantHeat,
-  tgsHandleSnowSensorOff,
-  tgsHandleSnowSensor,
-  tgsHandleWindFactor,
-  tgsHandleWindFactorOff,
-  tgsHandleAddHeatingSchedule,
-  tgsHandleReadyHeatingSchedule,
-  tgsHandleFanOnly,
-  tgsHandleClearHeatingSchedule,
-  tgsHandleUnselectAllProgram,
-  tgsHandleSelectProgram,
-  tgsDeactivateConflictMessage,
-  tgsActivateConflictMessage,
-  tgsSetDevicesConflicts,
-} from '../store/slices/tgsSwitchSlice';
+import { useTGSSwitchStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -41,8 +23,7 @@ import MCWindFactor from '../commonComponentsMC/controllers/MCWindFactor';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import MCFanOnly from '../commonComponentsMC/controllers/MCFanOnly';
 import MachineTelemetry from '../commonComponentsMC/MachineTelemetry';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { selectUserPermissions } from '../store/slices/userSlice';
+import { useUnitsStore, useUserStore } from '../zustand-stores';
 
 import {
   convertCelsiusToFahrenheit,
@@ -65,7 +46,7 @@ import {
 
 const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
   // Global
-  const { flatTgsSwitch } = useSelector(selectTgsSwitch);
+  const { flatTgsSwitch } = useTGSSwitchStore();
   const switchStatus = flatTgsSwitch[location][machine];
   const {
     deviceMac,
@@ -87,9 +68,27 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
     devicesConflicts,
     currentRun,
   } = flatTgsSwitch[location][machine];
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const disable = !permissions.WRITE;
-  const dispatch = useDispatch();
+
+  // Zustand actions
+  const {
+    setInstantHeatOff,
+    setInstantHeat,
+    setSnowSensorOff,
+    setSnowSensor,
+    setWindFactor,
+    setWindFactorOff,
+    setAddHeatingSchedule,
+    setReadyHeatingSchedule,
+    setFanOnly,
+    setClearHeatingSchedule,
+    setUnselectAllProgram,
+    setSelectProgram,
+    setDeactivateConflictMessage,
+    setActivateConflictMessage,
+    setDevicesConflicts,
+  } = useTGSSwitchStore();
 
   // Use shared hooks for temperature state management (replaces ~80 lines)
   const {
@@ -128,17 +127,13 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
   // Keep heating schedule ready state dispatch (business logic not in hook)
   useEffect(() => {
     if (heatingScheduleList[0].inputTemp > 0) {
-      dispatch(
-        tgsHandleReadyHeatingSchedule({ location, machine, state: true })
-      );
+      setReadyHeatingSchedule({ location, machine, state: true });
       setReady(true);
     } else {
-      dispatch(
-        tgsHandleReadyHeatingSchedule({ location, machine, state: false })
-      );
+      setReadyHeatingSchedule({ location, machine, state: false });
       setReady(false);
     }
-  }, [heatingScheduleList, dispatch, location, machine]);
+  }, [heatingScheduleList, setReadyHeatingSchedule, location, machine]);
 
   const integratedButtonHandler = (id, state, temp, data, index) => {
     switch (id) {
@@ -166,7 +161,7 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
   const fanOnlyHandler = (state) => {
     if (state === 'on') {
       postTgsCommand(deviceMac, 'fan', 1);
-      dispatch(tgsHandleFanOnly({ location, machine, state: true }));
+      setFanOnly({ location, machine, state: true });
     } else {
       if (
         instantHeat.isActivated ||
@@ -178,7 +173,7 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
         handleMessageBox('fanOnly');
       } else {
         postTgsCommand(deviceMac, 'fan', 0);
-        dispatch(tgsHandleFanOnly({ location, machine, state: false }));
+        setFanOnly({ location, machine, state: false });
       }
     }
   };
@@ -193,7 +188,7 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
           isF: null,
         },
       ];
-      dispatch(tgsHandleClearHeatingSchedule({ location, machine, data }));
+      setClearHeatingSchedule({ location, machine, data });
     } else if (state === 'clear') {
       // delete
       let data;
@@ -209,9 +204,7 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
         ];
         deleteScheduleService(heatingScheduleList[index]?.id)
           .then(() => {
-            dispatch(
-              tgsHandleClearHeatingSchedule({ location, machine, data })
-            );
+            setClearHeatingSchedule({ location, machine, data });
           })
           .catch((err) => {
           });
@@ -222,9 +215,7 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
         );
         deleteScheduleService(heatingScheduleList[index]?.id)
           .then(() => {
-            dispatch(
-              tgsHandleClearHeatingSchedule({ location, machine, data })
-            );
+            setClearHeatingSchedule({ location, machine, data });
           })
           .catch((err) => {
           });
@@ -243,58 +234,52 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
         threshold,
       };
       if (isAnotherSystemRunning(currentRun, 'electrical')) {
-        dispatch(tgsActivateConflictMessage({ location, machine }));
-        dispatch(
-          tgsSetDevicesConflicts({
-            location,
-            machine,
-            currentSwitch: 'tes-typhoon electric system',
-            desiredSwitch: 'tgs-typhoon gas system',
-            systemTarget: 'gas',
-            commandTarget: 'schedule',
-            extraData: {
-              start: data.start,
-              end: data.end,
-              temp,
-              index,
-            },
-          })
-        );
+        setActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
+          location,
+          machine,
+          currentSwitch: 'tes-typhoon electric system',
+          desiredSwitch: 'tgs-typhoon gas system',
+          systemTarget: 'gas',
+          commandTarget: 'schedule',
+          extraData: {
+            start: data.start,
+            end: data.end,
+            temp,
+            index,
+          },
+        });
         return;
       }
       if (heatingScheduleList[index]?.id) {
         updateScheduleService(heatingScheduleList[index]?.id, scheduleData)
           .then((res) => {
-            dispatch(
-              tgsHandleAddHeatingSchedule({
-                location,
-                machine,
-                start: data.start,
-                end: data.end,
-                index,
-                inputTemp: temp,
-                isF,
-                id: res.id,
-              })
-            );
+            setAddHeatingSchedule({
+              location,
+              machine,
+              start: data.start,
+              end: data.end,
+              index,
+              inputTemp: temp,
+              isF,
+              id: res.id,
+            });
           })
           .catch((e) => {
           });
       } else {
         createScheduleService(scheduleData)
           .then((res) => {
-            dispatch(
-              tgsHandleAddHeatingSchedule({
-                location,
-                machine,
-                start: data.start,
-                end: data.end,
-                index,
-                inputTemp: temp,
-                isF,
-                id: res.id,
-              })
-            );
+            setAddHeatingSchedule({
+              location,
+              machine,
+              start: data.start,
+              end: data.end,
+              index,
+              inputTemp: temp,
+              isF,
+              id: res.id,
+            });
           })
           .catch((e) => {
           });
@@ -305,18 +290,16 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
   const instantHeatHandler = (state, temp) => {
     if (state === 'on') {
       if (isAnotherSystemRunning(currentRun, 'electrical')) {
-        dispatch(tgsActivateConflictMessage({ location, machine }));
-        dispatch(
-          tgsSetDevicesConflicts({
-            location,
-            machine,
-            currentSwitch: 'tes-typhoon electric system',
-            desiredSwitch: 'tgs-typhoon gas system',
-            systemTarget: 'gas',
-            commandTarget: 'on_switch',
-            extraData: isF ? convertFahrenheitToCelsius(temp) : temp,
-          })
-        );
+        setActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
+          location,
+          machine,
+          currentSwitch: 'tes-typhoon electric system',
+          desiredSwitch: 'tgs-typhoon gas system',
+          systemTarget: 'gas',
+          commandTarget: 'on_switch',
+          extraData: isF ? convertFahrenheitToCelsius(temp) : temp,
+        });
         return;
       }
 
@@ -327,11 +310,11 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
         isF ? convertFahrenheitToCelsius(temp) : temp
       );
       postTgsCommand(deviceMac, 'on_switch', 1);
-      dispatch(tgsHandleInstantHeat({ location, machine, isF, temp }));
+      setInstantHeat({ location, machine, isF, temp });
     } else if (state === 'off') {
       // turn off
       postTgsCommand(deviceMac, 'on_switch', 0);
-      dispatch(tgsHandleInstantHeatOff({ location, machine }));
+      setInstantHeatOff({ location, machine });
     } else {
       // state === 'message'
       setInstantHeatTemp('');
@@ -343,24 +326,22 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
   const snowSensorHandler = (state) => {
     if (state === 'off') {
       postTgsCommand(deviceMac, 'snow_enabled', 0);
-      dispatch(tgsHandleSnowSensorOff({ location, machine }));
+      setSnowSensorOff({ location, machine });
     } else if (state === 'on') {
       if (isAnotherSystemRunning(currentRun, 'electrical')) {
-        dispatch(tgsActivateConflictMessage({ location, machine }));
-        dispatch(
-          tgsSetDevicesConflicts({
-            location,
-            machine,
-            currentSwitch: 'tes-typhoon electric system',
-            desiredSwitch: 'tgs-typhoon gas system',
-            systemTarget: 'gas',
-            commandTarget: 'snow_enabled',
-          })
-        );
+        setActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
+          location,
+          machine,
+          currentSwitch: 'tes-typhoon electric system',
+          desiredSwitch: 'tgs-typhoon gas system',
+          systemTarget: 'gas',
+          commandTarget: 'snow_enabled',
+        });
         return;
       }
       postTgsCommand(deviceMac, 'snow_enabled', 1);
-      dispatch(tgsHandleSnowSensor({ location, machine }));
+      setSnowSensor({ location, machine });
     } else {
       setProgramName('snow sensor program');
       handleMessageBox(state, 'snow sensor program');
@@ -370,24 +351,22 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
     if (state === 'off') {
       postTgsCommand(deviceMac, 'wind', 0);
       // !! TODO: add specificLocation
-      dispatch(tgsHandleWindFactorOff({ location, machine }));
+      setWindFactorOff({ location, machine });
     } else {
       if (isAnotherSystemRunning(currentRun, 'electrical')) {
-        dispatch(tgsActivateConflictMessage({ location, machine }));
-        dispatch(
-          tgsSetDevicesConflicts({
-            location,
-            machine,
-            currentSwitch: 'tes-typhoon electric system',
-            desiredSwitch: 'tgs-typhoon gas system',
-            systemTarget: 'gas',
-            commandTarget: 'wind',
-          })
-        );
+        setActivateConflictMessage({ location, machine });
+        setDevicesConflicts({
+          location,
+          machine,
+          currentSwitch: 'tes-typhoon electric system',
+          desiredSwitch: 'tgs-typhoon gas system',
+          systemTarget: 'gas',
+          commandTarget: 'wind',
+        });
         return;
       }
       postTgsCommand(deviceMac, 'wind', 1);
-      dispatch(tgsHandleWindFactor({ location, machine }));
+      setWindFactor({ location, machine });
     }
   };
 
@@ -436,45 +415,43 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
   // for mobile
   const handleSwitchController = (program) => {
     if (program === 'unselect') {
-      dispatch(tgsHandleUnselectAllProgram({ location, machine }));
+      setUnselectAllProgram({ location, machine });
     } else {
       if (mobileSelectedProgram[program]) {
-        dispatch(tgsHandleUnselectAllProgram({ location, machine }));
+        setUnselectAllProgram({ location, machine });
       } else {
-        dispatch(tgsHandleUnselectAllProgram({ location, machine }));
-        dispatch(tgsHandleSelectProgram({ location, machine, program }));
+        setUnselectAllProgram({ location, machine });
+        setSelectProgram({ location, machine, program });
       }
     }
   };
 
   const handleCancelConflictMessage = () => {
-    dispatch(tgsDeactivateConflictMessage({ location, machine }));
+    setDeactivateConflictMessage({ location, machine });
   };
 
   const handleConfirmConflictMessage = () => {
     if (devicesConflicts.commandTarget === 'on_switch') {
       postTgsCommand(deviceMac, 'instant_temp', devicesConflicts.extraData);
       postTgsCommand(deviceMac, 'on_switch', 1);
-      dispatch(
-        tgsHandleInstantHeat({
-          location,
-          machine,
-          isF,
-          temp: devicesConflicts.extraData,
-        })
-      );
+      setInstantHeat({
+        location,
+        machine,
+        isF,
+        temp: devicesConflicts.extraData,
+      });
     }
     if (devicesConflicts.commandTarget === 'fan') {
       postTgsCommand(deviceMac, 'fan', 1);
-      dispatch(tgsHandleFanOnly({ location, machine, state: true }));
+      setFanOnly({ location, machine, state: true });
     }
     if (devicesConflicts.commandTarget === 'snow_enabled') {
       postTgsCommand(deviceMac, 'snow_enabled', 1);
-      dispatch(tgsHandleSnowSensor({ location, machine }));
+      setSnowSensor({ location, machine });
     }
     if (devicesConflicts.commandTarget === 'wind') {
       postTgsCommand(deviceMac, 'wind', 1);
-      dispatch(tgsHandleWindFactor({ location, machine }));
+      setWindFactor({ location, machine });
     }
     if (devicesConflicts.commandTarget === 'schedule') {
       const startDate = formatTime({ ...devicesConflicts.extraData.start });
@@ -488,18 +465,16 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
         threshold,
       };
       const dispatchData = (res) =>
-        dispatch(
-          tgsHandleAddHeatingSchedule({
-            location,
-            machine,
-            start: devicesConflicts.extraData.start,
-            end: devicesConflicts.extraData.end,
-            index: devicesConflicts.extraData.index,
-            inputTemp: devicesConflicts.extraData.temp,
-            isF,
-            id: res.id,
-          })
-        );
+        setAddHeatingSchedule({
+          location,
+          machine,
+          start: devicesConflicts.extraData.start,
+          end: devicesConflicts.extraData.end,
+          index: devicesConflicts.extraData.index,
+          inputTemp: devicesConflicts.extraData.temp,
+          isF,
+          id: res.id,
+        });
       if (heatingScheduleList[devicesConflicts.extraData.index]?.id) {
         updateScheduleService(
           heatingScheduleList[devicesConflicts.extraData.index]?.id,
@@ -516,7 +491,7 @@ const TgsControlBox = ({ location, machine, swtName, setTemp, isMobile }) => {
       }
     }
 
-    dispatch(tgsDeactivateConflictMessage({ location, machine }));
+    setDeactivateConflictMessage({ location, machine });
   };
 
   return (

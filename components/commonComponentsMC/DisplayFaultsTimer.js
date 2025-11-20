@@ -6,13 +6,10 @@ import {
   layerA180Deg,
 } from '../styles/commonStyles';
 import { useState } from 'react';
-import { selectFaults } from '../store/slices/FaultsSlice';
+import { useFaultsStore } from '../zustand-stores';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { countdownTimer } from '../../helpers/helpers';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
 
 const DisplayFaultsTimer = ({ swtName, location, machine }) => {
   const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
@@ -26,7 +23,7 @@ const DisplayFaultsTimer = ({ swtName, location, machine }) => {
   const swtStatus =
     swtName === 'ess' ? flatEssSwitch : swtName === 'tgs' ? flatTgsSwitch : flatTesSwitch;
   const { isWifi, thermocoupleFault } = swtStatus[location][machine];
-  const faultsState = useSelector(selectFaults);
+  const faultsState = useFaultsStore();
   const { receivedThermocoupleSetting } = faultsState[swtName][location][machine];
   // console.log(faultsState[swtName][location][machine],'faultsState');
 

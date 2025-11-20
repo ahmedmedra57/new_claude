@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import SettingConfirmedMessage from '../../masterControl/userMessages/SettingConfirmedMessage';
 import { selectEditCancelApplyButtons } from '../../store/slices/settings/editCancelApplyButtonsSlice';
@@ -38,8 +37,7 @@ const AddElementToBank = ({
   const [messageBoxForBankInputs, setMessageBoxForBankInput] = useState(false);
 
   // redux
-  const dispatch = useDispatch();
-  const state = useSelector(selectEditCancelApplyButtons);
+    const state = useSelector(selectEditCancelApplyButtons);
   const { isEdit } = state;
 
   const handleInput = (name, input) => {

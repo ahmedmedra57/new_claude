@@ -18,7 +18,6 @@ import {
   layerA,
   layerA180Deg,
 } from '../styles/commonStyles';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 
 const MachineTelemetry = ({
   swtName,
@@ -42,7 +41,7 @@ const MachineTelemetry = ({
   const { currentTemp, consumption, enclosureTemp, outSideTemp, hoursOfUsage } =
     switchStatus;
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   const gas = isF ? 'FT³' : 'M³';

@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
+import { useLocationsStore, useUnitsStore, useUserStore } from '../zustand-stores';
 import { useTranslation } from 'react-i18next';
 
 import styled, { css } from 'styled-components';
@@ -31,9 +32,6 @@ import {
   getTgsAuditTrailFaults,
 } from '../../helpers/helpers';
 import { useSelector } from 'react-redux';
-import { selectLocations } from '../store/slices/locationsSlice';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { selectUserInfo } from '../store/slices/userSlice';
 const AuditTrailComponentBySwitch = ({
   componentName,
   isReadyToRender,
@@ -46,11 +44,11 @@ const AuditTrailComponentBySwitch = ({
   const { t } = useTranslation();
   // userSelect[0]=> true => name or false => location
 
-  // const permissions = useSelector(selectUserInfo);
+  // const permissions = useUserStore();
   // const active = permissions.READ;
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const Locations = useSelector(selectLocations);
+  const Locations = useLocationsStore();
   const swtStatus = Locations[componentName];
   const { all: allLocations } = Locations;
   // userSelect[0] -> true (userName) || false(locations)
@@ -60,10 +58,10 @@ const AuditTrailComponentBySwitch = ({
   // Temporary logic for render data depending on user select until connected with BE
   // A userName
 
-  const unitsState = useSelector(selectUnits);
+  const unitsState = useUnitsStore();
   const { isF } = unitsState;
 
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { allUsers } = userInfo;
 
   const actionData = useMemo(() => {

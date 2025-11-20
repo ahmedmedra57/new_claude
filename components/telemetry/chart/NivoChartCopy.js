@@ -13,6 +13,7 @@ import {
 import { useSelector } from 'react-redux';
 import { selectTelemetry } from '../../store/slices/telemetrySlice';
 import { useState, useEffect, useCallback } from 'react';
+import { useESSSwitchStore, useMCStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore, useTelemetryStore, useUnitsStore } from '../../zustand-stores';
 
 import { selectTelemetryChartData } from '../../store/slices/telemetryChartDataSlice';
 import { selectMC } from '../../store/slices/mCSlice';
@@ -56,10 +57,10 @@ const NivoChartCopy = ({
   };
 
   // ******************************boolean that determines if the search button is clicked or not********************
-  const telemetryState = useSelector(selectTelemetry);
+  const telemetryState = useTelemetryStore();
   const { isSearch, selectChartSystem } = telemetryState;
 
-  const selectionOfSystem = useSelector(selectMC);
+  const selectionOfSystem = useMCStore();
   const { essDc, tgsTesDc, tesDc, hpDc, tgs, hpGc, ess, tes, hpEc } =
     selectionOfSystem.selectSystem;
 
@@ -75,11 +76,11 @@ const NivoChartCopy = ({
     intervalUnit,
   } = chartData;
 
-  const { essSwitch } = useSelector(selectEssSwitch);
-  const { tesSwitch } = useSelector(selectTesSwitch);
-  const { tgsSwitch } = useSelector(selectTgsSwitch);
-  const { isF } = useSelector(selectUnits);
-  const masterControlSelects = useSelector(selectMasterControls);
+  const { essSwitch } = useESSSwitchStore();
+  const { tesSwitch } = useTESSwitchStore();
+  const { tgsSwitch } = useTGSSwitchStore();
+  const { isF } = useUnitsStore();
+  const masterControlSelects = useMasterControlSelectStore();
 
   // ****************this is state is used to changed the bar system between single and double bars. back end needs to connect the calender so when selected start date and end date has a gap of 2 years, it needs to render double bars*************************
 

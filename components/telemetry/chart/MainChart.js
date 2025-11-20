@@ -29,7 +29,7 @@ const MainChart = ({
 }) => {
   const isDc = selectedSystemTitle?.split(' - ')[1] === 'dc';
 
-  const selectionOfSystem = useSelector(selectMC);
+  const selectionOfSystem = useMCStore();
   const { essDc, tgsTesDc, hpDc, tgs, hpGc, ess, tes, hpEc } =
     selectionOfSystem.selectSystem;
 

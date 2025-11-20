@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { useFaultsStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { selectFaults } from '../store/slices/FaultsSlice';
 import {
   flexBoxCenter,
   flexDirectionColumn,
@@ -35,7 +35,7 @@ const FaultSwitch = ({ title, name, message, comments, disabled }) => {
   const isFaults = number > 0;
   // const isFaults = false;
 
-  // const faultsState = useSelector(selectFaults);
+  // const faultsState = useFaultsStore();
 
   const imgSrcNormal = {
     ess: !disabled ? tabsSrc.ess.src : tabsSrc.ess.inactiveSrc,

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useESSSwitchStore, useLocationsStore, useMCCommandStore, useMCStore, useTESSwitchStore, useTGSSwitchStore } from '../../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   borderBlue,
@@ -21,13 +22,13 @@ function SwitchesByLocation({ selectedSwitches, setSelectedSwitches }) {
   const buttonArrowRight = './images/whiteArrowRight.svg';
 
   // redux
-  const { flatEssSwitch: essState } = useSelector(selectEssSwitch);
-  const { flatTgsSwitch: tgsState } = useSelector(selectTgsSwitch);
-  const { flatTesSwitch: tesState } = useSelector(selectTesSwitch);
-  const mCState = useSelector(selectMC);
+  const { flatEssSwitch: essState } = useESSSwitchStore();
+  const { flatTgsSwitch: tgsState } = useTGSSwitchStore();
+  const { flatTesSwitch: tesState } = useTESSwitchStore();
+  const mCState = useMCStore();
   const { ess, tgs, tes } = mCState.selectSystem;
-  const { commandNumber, isNewCommandCreated } = useSelector(selectMCCommand);
-  const locations = useSelector(selectLocations);
+  const { commandNumber, isNewCommandCreated } = useMCCommandStore();
+  const locations = useLocationsStore();
 
   // useState
   // toggles the opening and closing of each location

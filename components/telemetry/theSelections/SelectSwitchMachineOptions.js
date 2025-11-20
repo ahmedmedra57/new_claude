@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMasterControlSelectStore } from '../../zustand-stores';
 import styled from 'styled-components';
 import {
   layerBDark,
@@ -92,9 +92,8 @@ const SelectSwitchMachineOptions = ({
 }) => {
   const locations = Object.keys(data);
   const buttons = ['clear', 'apply'];
-  const masterControlSelects = useSelector(selectMasterControls);
-  const dispatch = useDispatch();
-
+  const masterControlSelects = useMasterControlSelectStore();
+  
   const [isSelected, setIsSelected] = useState(false);
 
   const [specificLocationsNameList, setSpecificLocationsNameList] = useState(
@@ -260,7 +259,7 @@ const SelectSwitchMachineOptions = ({
   //     if (isAllSelected) {
   //       // 1. selected All
   //       // dispatch
-  //       dispatch(handleSelectedOne({ switch: swt, selectedOne: 'all' }));
+  //       dispatch(handleSelectedOne({ switch: swt, selectedOne: 'all' });
   //       // #1.1. select locations
   //       selectLocationsHandler(locations);
   //     } else if (isLocationSelected.indexOf(true) !== -1) {
@@ -297,7 +296,7 @@ const SelectSwitchMachineOptions = ({
   //       // #4.1.switches/machines count
   //       switchCountHandler(isMachineSelected);
   //     } else if (!isSelected) {
-  //       dispatch(handleSelectedOne({ switch: swt, selectedOne: null }));
+  //       dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
   //     }
 
   //     // close select box
@@ -305,17 +304,17 @@ const SelectSwitchMachineOptions = ({
   //   } else {
   //     // reset all selections
   //     // 1.reset all local states
-  //     dispatch(handleSelectAll({ switch: swt, status: false }));
-  //     dispatch(handleSelectedOne({ switch: swt, selectedOne: null }));
+  //     dispatch(handleSelectAll({ switch: swt, status: false });
+  //     dispatch(handleSelectedOne({ switch: swt, selectedOne: null });
 
   //     // 1.1.reset state for dispatch
-  //     dispatch(handleAddLocations({ switch: swt, arr: [] }));
-  //     dispatch(handleAddSpecificLocations({ switch: swt, arr: [] }));
-  //     dispatch(handleAddMachines({ switch: swt, arr: [] }));
+  //     dispatch(handleAddLocations({ switch: swt, arr: [] });
+  //     dispatch(handleAddSpecificLocations({ switch: swt, arr: [] });
+  //     dispatch(handleAddMachines({ switch: swt, arr: [] });
 
   //     // 2. reset location
   //     const arr = locations.map((location) => false);
-  //     dispatch(handleLocationSelect({ switch: swt, arr }));
+  //     dispatch(handleLocationSelect({ switch: swt, arr });
 
   //     // 2.1 reset specific location
   //     const specificLocationArr = [];
@@ -340,7 +339,7 @@ const SelectSwitchMachineOptions = ({
   //     );
 
   //     // 2.2reset selected machines
-  //     dispatch(handleMachineSelect({ switch: swt, arr: machineArr }));
+  //     dispatch(handleMachineSelect({ switch: swt, arr: machineArr });
 
   //     // dispatch the selected switch slice
   //     locations.forEach((location) => {
@@ -713,11 +712,11 @@ const SelectSwitchMachineOptions = ({
 
   //   if (option === 'all') {
   //     // 1. select all
-  //     dispatch(handleSelectAll({ switch: swt, status: true }));
+  //     dispatch(handleSelectAll({ switch: swt, status: true });
 
   //     // update all locations
   //     const locationArr = isLocationSelected.map((location) => true);
-  //     dispatch(handleLocationSelect({ switch: swt, arr: locationArr }));
+  //     dispatch(handleLocationSelect({ switch: swt, arr: locationArr });
 
   //     // update all specific locations
   //     const specificLocationArr = isSpecificLocationSelected.map((el) => true);
@@ -737,14 +736,14 @@ const SelectSwitchMachineOptions = ({
   //       }
   //     });
 
-  //     dispatch(handleMachineSelect({ switch: swt, arr: individualArr }));
+  //     dispatch(handleMachineSelect({ switch: swt, arr: individualArr });
   //   } else if (option !== 'all' && machine === undefined) {
   //     // 2. select location
   //     // update the location
   //     const index = locations.indexOf(option);
   //     const arr = [...isLocationSelected];
   //     arr[index] = true;
-  //     dispatch(handleLocationSelect({ switch: swt, arr }));
+  //     dispatch(handleLocationSelect({ switch: swt, arr });
 
   //     // update specific locations
   //     const exitingSpecLocationsValue = Object.values(data).filter(
@@ -764,7 +763,7 @@ const SelectSwitchMachineOptions = ({
   //     });
 
   //     if (tempArr.length > 0) {
-  //       dispatch(handleSpecificLocationSelect({ switch: swt, arr: tempArr }));
+  //       dispatch(handleSpecificLocationSelect({ switch: swt, arr: tempArr });
   //     }
 
   //     // update machines in the location
@@ -779,12 +778,12 @@ const SelectSwitchMachineOptions = ({
   //     });
   //     const copyArr = [...isMachineSelected];
   //     copyArr[index] = machineNewArr;
-  //     dispatch(handleMachineSelect({ switch: swt, arr: copyArr }));
+  //     dispatch(handleMachineSelect({ switch: swt, arr: copyArr });
 
   //     // for dispatch selected locations
   //     const newSelect = [...selectedLocations];
   //     newSelect.push(option);
-  //     dispatch(handleAddLocations({ switch: swt, arr: newSelect }));
+  //     dispatch(handleAddLocations({ switch: swt, arr: newSelect });
   //   } else if (option !== 'all' && machine === 'isSpecificLocation') {
   //     // 3. select specific location
   //     // location index
@@ -793,7 +792,7 @@ const SelectSwitchMachineOptions = ({
   //     const index = specificLocations.indexOf(extraOption);
   //     const arr = [...isSpecificLocationSelected];
   //     arr[index] = true;
-  //     dispatch(handleSpecificLocationSelect({ switch: swt, arr }));
+  //     dispatch(handleSpecificLocationSelect({ switch: swt, arr });
 
   //     // update machines in the specific location
 
@@ -801,15 +800,15 @@ const SelectSwitchMachineOptions = ({
   //       (machine) => true
   //     );
 
-  //     const deepCopyArr = JSON.parse(JSON.stringify(isMachineSelected));
+  //     const deepCopyArr = JSON.parse(JSON.stringify(isMachineSelected);
 
   //     deepCopyArr[locationIndex][machineIndex] = machineNewArr;
-  //     dispatch(handleMachineSelect({ switch: swt, arr: deepCopyArr }));
+  //     dispatch(handleMachineSelect({ switch: swt, arr: deepCopyArr });
 
   //     // for dispatch selected locations
   //     const newSelect = [...selectedSpecificLocations];
   //     newSelect.push(extraOption);
-  //     dispatch(handleAddSpecificLocations({ switch: swt, arr: newSelect }));
+  //     dispatch(handleAddSpecificLocations({ switch: swt, arr: newSelect });
   //   } else {
   //     // 4. select individually
   //     const locationIdx = Object.keys(data).indexOf(option);
@@ -844,7 +843,7 @@ const SelectSwitchMachineOptions = ({
 
   //     // for dispatch selected machines
 
-  //     dispatch(handleAddMachines({ switch: swt, arr: newSelectedMachineArr }));
+  //     dispatch(handleAddMachines({ switch: swt, arr: newSelectedMachineArr });
   //   }
   // };
 

@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useUnitsStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
-import { selectMCBySwitch } from '../store/slices/masterControlBySwitchSelectSlice';
-import { selectMCByLocation } from '../store/slices/masterControlSelectByLocationSlice';
 
 import {
   flexBoxCenter,
@@ -21,7 +20,6 @@ import styled, { css } from 'styled-components';
 
 import SelectLocations from './SelectLocations';
 import InputTempMessage from '../userMessages/inputTempMessage';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import set from 'lodash/set';
 
 const InstantHeat = ({
@@ -43,7 +41,7 @@ const InstantHeat = ({
   const { selectedOne } = switchMiddleStatus.instantHeat;
   const { fanOnly } = switchMiddleStatus;
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   // Local

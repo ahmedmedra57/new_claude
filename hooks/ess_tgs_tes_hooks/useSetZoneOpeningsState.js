@@ -1,10 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  handleOpenMasterControl,
-  setOpenLocationInitialStateHandler,
-  setOpenSpecificLocationInitialStateHandler,
-} from '../../components/store/slices/MCIsExpandedSlice';
+import { useMCIsExpandedStore } from '../../components/zustand-stores';
 import { getSpecLocationHandler } from '../../helpers/helpers';
 
 export const useSetZoneOpeningsState = (
@@ -14,18 +9,13 @@ export const useSetZoneOpeningsState = (
   swtSystem,
   isOpenMasterControl
 ) => {
-  const dispatch = useDispatch();
+  const { setOpenLocationInitialState, setOpenMasterControl } = useMCIsExpandedStore();
 
   useEffect(() => {
     if (masterControl) {
       // update MCIsExpandedSlice=>isLocationOpen
       const locations = Object.keys(switchData).map((_) => false);
-      dispatch(
-        setOpenLocationInitialStateHandler({
-          swtSystem,
-          locations,
-        })
-      );
+      setOpenLocationInitialState(swtSystem, locations);
 
       // update MCIsExpandedSlice=>isSpecificLocationOpen
       // TODO: HANDLE CLOSE SUB-LOCATION LATER IF THERE IS A PROBLEM THERE
@@ -69,7 +59,7 @@ export const useSetZoneOpeningsState = (
         // );
       }
     } else if (isOpenMasterControl) {
-      dispatch(handleOpenMasterControl({ swtName: swtSystem, status: false }));
+      setOpenMasterControl(swtSystem, false);
     }
   }, [masterControl]);
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocationsStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   flexBoxCenter,
@@ -12,8 +13,6 @@ import {
 import Upload from './UploadBox';
 import WeatherBox from './WeatherBox';
 import ContainerLogin from '../adminPassword/ContainerLogin';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectLocations } from '../store/slices/locationsSlice';
 import MessageBox from '../userMessages/messageBox';
 
 const ButtonGroup = ({
@@ -34,8 +33,7 @@ const ButtonGroup = ({
   const [displayMessage, setDisplayMessage] = useState(false);
   const [openPasswordBox, setOpenPasswordBox] = useState(false);
 
-  const dispatch = useDispatch();
-  const locations = useSelector(selectLocations);
+    const locations = useLocationsStore();
   // !! test purpose only with test data
   const sitePlanUrl =
     locations[swtName][locationId][`site_maps_${swtName.toUpperCase()}`];
@@ -136,8 +134,7 @@ const ButtonGroup = ({
                 swtName,
                 locationIdx: id,
                 status: true,
-              })
-            );
+              });
           }}
         >
           <ExpandButtonHole>

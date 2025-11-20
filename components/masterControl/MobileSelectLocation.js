@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useESSSwitchStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   flexBoxCenter,
@@ -11,24 +12,7 @@ import {
   layerB,
 } from '../styles/commonStyles';
 import SelectMachineOptions from './controls/mainSelection/SelectMachineOptions';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  handleIsReadyToSelectProgram,
-  handleOpenSelectLocation,
-  handleUnselectProgram,
-  selectMobileMC,
-} from '../store/slices/mobileMasterControlSlice';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
 
-import {
-  selectMasterControls,
-  handleLocationSelect,
-  handleMachineSelect,
-  handleResetAllSelect,
-  handleSelectAll,
-} from '../store/slices/masterControlSelectSlice';
 
 import { useEffect } from 'react';
 
@@ -37,12 +21,12 @@ const MobileSelectLocation = ({ setIsApply }) => {
   const MCStatus = useSelector(selectMobileMC);
   const { selectedSwt, isOpenSelectLocation } = MCStatus;
 
-  const { essSwitch: essSwt } = useSelector(selectEssSwitch);
-  const { tgsSwitch: tgsSwt } = useSelector(selectTgsSwitch);
-  const { tesSwitch: tesSwt } = useSelector(selectTesSwitch);
+  const { essSwitch: essSwt } = useESSSwitchStore();
+  const { tgsSwitch: tgsSwt } = useTGSSwitchStore();
+  const { tesSwitch: tesSwt } = useTESSwitchStore();
 
   // states for selection
-  const selectLocationStatus = useSelector(selectMasterControls);
+  const selectLocationStatus = useMasterControlSelectStore();
   const { ess, tgs, tes } = selectLocationStatus;
 
   const { selectedOne } =
@@ -52,22 +36,22 @@ const MobileSelectLocation = ({ setIsApply }) => {
 
   useEffect(() => {
     if (selectedOne) {
-      dispatch(handleIsReadyToSelectProgram(true));
+      dispatch(handleIsReadyToSelectProgram(true);
     } else {
-      dispatch(handleIsReadyToSelectProgram(false));
-      // dispatch(handleUnselectProgram());
+      dispatch(handleIsReadyToSelectProgram(false);
+      // dispatch(handleUnselectProgram();
     }
   }, [selectedOne]);
 
   useEffect(() => {
     return () => {
-      dispatch(handleResetAllSelect());
+      dispatch(handleResetAllSelect();
     };
   }, []);
 
   useEffect(() => {
     if (!selectedSwt) {
-      dispatch(handleOpenSelectLocation(false));
+      dispatch(handleOpenSelectLocation(false);
     }
   }, [selectedSwt]);
 
@@ -76,10 +60,9 @@ const MobileSelectLocation = ({ setIsApply }) => {
     ? '/images/masterCtr-select-btn.svg'
     : '/images/masterCtr-select-btn.svg';
 
-  const dispatch = useDispatch();
-
+  
   const handleOpenSelect = () => {
-    dispatch(handleOpenSelectLocation());
+    dispatch(handleOpenSelectLocation();
     setIsApply(false);
   };
 

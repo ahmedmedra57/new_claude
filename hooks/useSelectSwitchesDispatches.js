@@ -1,73 +1,20 @@
 import {
-  handleAddLocations,
-  handleAddMachines,
-  handleAddSpecificLocations,
-  handleLocationSelect,
-  handleMachineSelect,
-  handleSelectAll,
-  handleSelectedOne,
-  handleSpecificLocationSelect,
-} from "../components/store/slices/masterControlSelectSlice";
-import {
-  essSpecificLocationSelectMachinesHandler,
-  essSpecificLocationUnselectMachinesHandler,
-  handleSelectIndividualMachine,
-  handleUnSelectIndividualMachine,
-} from "../components/store/slices/essSwitchSlice";
-import {
-  tesHandleSelectIndividualMachine,
-  tesHandleUnSelectIndividualMachine,
-  tesSpecificLocationSelectMachinesHandler,
-  tesSpecificLocationUnselectMachinesHandler,
-} from "../components/store/slices/tesSwitchSlice";
-import {
-  tgsHandleSelectIndividualMachine,
-  tgsHandleUnSelectIndividualMachine,
-  tgsSpecificLocationSelectMachinesHandler,
-  tgsSpecificLocationUnselectMachinesHandler,
-} from "../components/store/slices/tgsSwitchSlice";
-import {
-  hpEcHandleSelectIndividualMachine,
-  hpEcHandleUnSelectIndividualMachine,
-} from "../components/store/slices/hpElectricSwitchSlice";
-import {
-  hpGcHandleSelectIndividualMachine,
-  hpGcHandleUnSelectIndividualMachine,
-} from "../components/store/slices/hpGasSwitchSlice";
-import {
-  essDataConsumptionHandleSelectIndividualMachine,
-  essDataConsumptionHandleUnSelectIndividualMachine,
-  essDataConsumptionSpecificLocationSelectMachineHandler,
-  essDataConsumptionSpecificLocationUnselectMachineHandler,
-} from "../components/store/slices/essDataConsumptionSlice";
-import {
-  tesDataConsumptionHandleSelectIndividualMachine,
-  tesDataConsumptionHandleUnSelectIndividualMachine,
-  tesDataConsumptionSpecificLocationSelectMachineHandler,
-  tesDataConsumptionSpecificLocationUnselectMachineHandler,
-} from "../components/store/slices/tesDataConsumptionSlice";
-import {
-  tgsDataConsumptionHandleSelectIndividualMachine,
-  tgsDataConsumptionHandleUnSelectIndividualMachine,
-  tgsDataConsumptionSpecificLocationSelectMachineHandler,
-  tgsDataConsumptionSpecificLocationUnselectMachineHandler,
-} from "../components/store/slices/tgsDataConsumptionSlice";
-import {
-  hpDataConsumptionHandleSelectIndividualMachine,
-  hpDataConsumptionHandleUnSelectIndividualMachine,
-} from "../components/store/slices/hpDataConsumptionSlice";
-import {
-  handleFCSelectIndividualMachine,
-  handleFCUnSelectIndividualMachine,
-} from "../components/store/slices/settings/forceAndCommandsSlice";
-import {
-  handleAdminSelectIndividualMachine,
-  handleAdminUnSelectIndividualMachine,
-} from "../components/store/slices/settings/admin/adminSlice";
+  useMasterControlSelectStore,
+  useESSSwitchStore,
+  useTESSwitchStore,
+  useTGSSwitchStore,
+  useHPElectricSwitchStore,
+  useHPGasSwitchStore,
+  useESSDataConsumptionStore,
+  useTESDataConsumptionStore,
+  useTGSDataConsumptionStore,
+  useHPDataConsumptionStore,
+  useForceAndCommandsStore,
+  useAdminStore,
+} from "../components/zustand-stores";
 
 export const loopMachinesDispatchHandler = (
   dispatchHandler,
-  dispatch,
   machines,
   location,
   specificLocation = null,
@@ -75,20 +22,18 @@ export const loopMachinesDispatchHandler = (
   isSelectedSys
 ) => {
   machines.forEach((machine) =>
-    dispatch(
-      dispatchHandler({
-        location,
-        machine,
-        specificLocation,
-        swt: settingsSwtName,
-        isSelectedSys,
-      })
+    dispatchHandler(
+      location,
+      machine,
+      specificLocation,
+      settingsSwtName,
+      isSelectedSys
     )
   );
 };
 
 const dispatchesHandler = (
-  dispatch,
+  stores,
   swt,
   data,
   option,
@@ -100,535 +45,288 @@ const dispatchesHandler = (
 ) => {
   let machines;
   if (selectedMachines) {
-    // console.log("commandInfoInside1");
     machines = selectedMachines;
   } else if (extraOption) {
-    // console.log("commandInfoInside2",{option,extraOption});
     if (data[option].subLocations) {
       machines = Object.keys(data[option].subLocations[extraOption].devices);
     } else {
       machines = Object.keys(data[option]);
     }
   } else {
-    // console.log("commandInfoInside3",{option});
     if (data[option].devices) {
       machines = Object.keys(data[option].devices);
     } else {
       machines = Object.keys(data[option]);
     }
   }
+
   if (swt === "ess") {
+    const { selectIndividualMachine, unselectIndividualMachine, selectSpecificLocationMachines, unselectSpecificLocationMachines } = stores.essSwitch;
     if (select) {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          essSpecificLocationSelectMachinesHandler,
-          dispatch,
+          selectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     essSpecificLocationSelectMachinesHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          handleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     handleSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     } else {
-      
       if (extraOption) {
         loopMachinesDispatchHandler(
-          essSpecificLocationUnselectMachinesHandler,
-          dispatch,
+          unselectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     essSpecificLocationUnselectMachinesHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          handleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     handleUnSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     }
   } else if (swt === "tes") {
+    const { selectIndividualMachine, unselectIndividualMachine, selectSpecificLocationMachines, unselectSpecificLocationMachines } = stores.tesSwitch;
     if (select) {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          tesSpecificLocationSelectMachinesHandler,
-          dispatch,
+          selectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tesSpecificLocationSelectMachinesHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          tesHandleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tesHandleSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     } else {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          tesSpecificLocationUnselectMachinesHandler,
-          dispatch,
+          unselectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tesSpecificLocationUnselectMachinesHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          tesHandleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tesHandleUnSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     }
   } else if (swt === "tgs") {
+    const { selectIndividualMachine, unselectIndividualMachine, selectSpecificLocationMachines, unselectSpecificLocationMachines } = stores.tgsSwitch;
     if (select) {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          tgsSpecificLocationSelectMachinesHandler,
-          dispatch,
+          selectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tgsSpecificLocationSelectMachinesHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          tgsHandleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tgsHandleSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     } else {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          tgsSpecificLocationUnselectMachinesHandler,
-          dispatch,
+          unselectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tgsSpecificLocationUnselectMachinesHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          tgsHandleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tgsHandleUnSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     }
   } else if (swt === "hpEc") {
+    const { selectIndividualMachine, unselectIndividualMachine } = stores.hpElectricSwitch;
     if (select) {
       if (extraOption) {
       } else {
         loopMachinesDispatchHandler(
-          hpEcHandleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     hpEcHandleSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     } else {
       if (extraOption) {
       } else {
         loopMachinesDispatchHandler(
-          hpEcHandleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-      
       }
     }
   } else if (swt === "hpGc") {
+    const { selectIndividualMachine, unselectIndividualMachine } = stores.hpGasSwitch;
     if (select) {
       if (extraOption) {
       } else {
         loopMachinesDispatchHandler(
-          hpGcHandleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     hpGcHandleSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     } else {
       if (extraOption) {
       } else {
         loopMachinesDispatchHandler(
-          hpGcHandleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-      
       }
     }
   } else if (swt === "essDc") {
+    const { selectIndividualMachine, unselectIndividualMachine, selectSpecificLocationMachines, unselectSpecificLocationMachines } = stores.essDataConsumption;
     if (select) {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          essDataConsumptionSpecificLocationSelectMachineHandler,
-          dispatch,
+          selectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-    
       } else {
         loopMachinesDispatchHandler(
-          essDataConsumptionHandleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-      
       }
     } else {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          essDataConsumptionSpecificLocationUnselectMachineHandler,
-          dispatch,
+          unselectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     essDataConsumptionSpecificLocationUnselectMachineHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          essDataConsumptionHandleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     essDataConsumptionHandleUnSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     }
   } else if (swt === "tesDc") {
+    const { selectIndividualMachine, unselectIndividualMachine, selectSpecificLocationMachines, unselectSpecificLocationMachines } = stores.tesDataConsumption;
     if (select) {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          tesDataConsumptionSpecificLocationSelectMachineHandler,
-          dispatch,
+          selectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tesDataConsumptionSpecificLocationSelectMachineHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          tesDataConsumptionHandleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tesDataConsumptionHandleSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     } else {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          tesDataConsumptionSpecificLocationUnselectMachineHandler,
-          dispatch,
+          unselectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tesDataConsumptionSpecificLocationUnselectMachineHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          tesDataConsumptionHandleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tesDataConsumptionHandleUnSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     }
   } else if (swt === "tgsDc") {
+    const { selectIndividualMachine, unselectIndividualMachine, selectSpecificLocationMachines, unselectSpecificLocationMachines } = stores.tgsDataConsumption;
     if (select) {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          tgsDataConsumptionSpecificLocationSelectMachineHandler,
-          dispatch,
+          selectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tgsDataConsumptionSpecificLocationSelectMachineHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          tgsDataConsumptionHandleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tgsDataConsumptionHandleSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     } else {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          tgsDataConsumptionSpecificLocationUnselectMachineHandler,
-          dispatch,
+          unselectSpecificLocationMachines,
           machines,
           option,
           extraOption
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tgsDataConsumptionSpecificLocationUnselectMachineHandler({
-        //       location: option,
-        //       machine,
-        //       specificLocation: extraOption,
-        //     })
-        //   )
-        // );
       } else {
         loopMachinesDispatchHandler(
-          tgsDataConsumptionHandleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     tgsDataConsumptionHandleUnSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     }
   } else if (swt === "hpDc") {
+    const { selectIndividualMachine, unselectIndividualMachine } = stores.hpDataConsumption;
     if (select) {
       if (extraOption) {
       } else {
         loopMachinesDispatchHandler(
-          hpDataConsumptionHandleSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     hpDataConsumptionHandleSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     } else {
       if (extraOption) {
       } else {
         loopMachinesDispatchHandler(
-          hpDataConsumptionHandleUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option
         );
-        // machines.forEach((machine) =>
-        //   dispatch(
-        //     hpDataConsumptionHandleUnSelectIndividualMachine({
-        //       location: option,
-        //       machine,
-        //     })
-        //   )
-        // );
       }
     }
   } else if (swt === "forceAndCommand") {
+    const { selectIndividualMachine, unselectIndividualMachine } = stores.forceAndCommands;
     if (select) {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          handleFCSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option,
           extraOption,
@@ -637,8 +335,7 @@ const dispatchesHandler = (
         );
       } else {
         loopMachinesDispatchHandler(
-          handleFCSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option,
           null,
@@ -649,8 +346,7 @@ const dispatchesHandler = (
     } else {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          handleFCUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option,
           extraOption,
@@ -659,8 +355,7 @@ const dispatchesHandler = (
         );
       } else {
         loopMachinesDispatchHandler(
-          handleFCUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option,
           null,
@@ -670,11 +365,11 @@ const dispatchesHandler = (
       }
     }
   } else if (swt === "admin") {
+    const { selectIndividualMachine, unselectIndividualMachine } = stores.admin;
     if (select) {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          handleAdminSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option,
           extraOption,
@@ -683,8 +378,7 @@ const dispatchesHandler = (
         );
       } else {
         loopMachinesDispatchHandler(
-          handleAdminSelectIndividualMachine,
-          dispatch,
+          selectIndividualMachine,
           machines,
           option,
           null,
@@ -695,8 +389,7 @@ const dispatchesHandler = (
     } else {
       if (extraOption) {
         loopMachinesDispatchHandler(
-          handleAdminUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option,
           extraOption,
@@ -705,8 +398,7 @@ const dispatchesHandler = (
         );
       } else {
         loopMachinesDispatchHandler(
-          handleAdminUnSelectIndividualMachine,
-          dispatch,
+          unselectIndividualMachine,
           machines,
           option,
           null,
@@ -724,17 +416,17 @@ const verifyNoSpecificLocations = (location, data) => {
 };
 
 export const selectLocationsHandler = (
+  stores,
   locations,
   swt,
   data,
-  dispatch,
   settingsSwt,
   isSelectedSys
 ) => {
   locations.forEach((location) => {
     if (!data[location].isSpecificLocation) {
       dispatchesHandler(
-        dispatch,
+        stores,
         swt,
         data,
         location,
@@ -747,7 +439,7 @@ export const selectLocationsHandler = (
     } else {
       Object.keys(data[location].subLocations).forEach((specificLocation) =>
         dispatchesHandler(
-          dispatch,
+          stores,
           swt,
           data,
           location,
@@ -763,10 +455,10 @@ export const selectLocationsHandler = (
 };
 
 export const selectSpecificLocationsHandler = (
+  stores,
   specificLocations,
   swt,
   data,
-  dispatch,
   settingsSwt,
   isSelectedSys
 ) => {
@@ -779,7 +471,7 @@ export const selectSpecificLocationsHandler = (
       }
     })[0][0];
     dispatchesHandler(
-      dispatch,
+      stores,
       swt,
       data,
       location,
@@ -793,10 +485,10 @@ export const selectSpecificLocationsHandler = (
 };
 
 export const selectMachinesHandler = (
+  stores,
   machines,
   swt,
   data,
-  dispatch,
   settingsSwt,
   isSelectedSys
 ) => {
@@ -807,7 +499,7 @@ export const selectMachinesHandler = (
   uniqueArray.forEach((machine) => {
     if (machine[2]) {
       dispatchesHandler(
-        dispatch,
+        stores,
         swt,
         data,
         machine[0],
@@ -819,7 +511,7 @@ export const selectMachinesHandler = (
       );
     } else {
       dispatchesHandler(
-        dispatch,
+        stores,
         swt,
         data,
         machine[0],
@@ -834,10 +526,10 @@ export const selectMachinesHandler = (
 };
 
 export const unselectAllMachinesHandler = (
+  stores,
   locations,
   swt,
   data,
-  dispatch,
   settingsSwt,
   isSelectedSys
 ) => {
@@ -845,7 +537,7 @@ export const unselectAllMachinesHandler = (
     if (!data[location].isSpecificLocation) {
       Object.keys(data[location].devices).map((machine) => {
         dispatchesHandler(
-          dispatch,
+          stores,
           swt,
           data,
           location,
@@ -859,7 +551,7 @@ export const unselectAllMachinesHandler = (
     } else {
       Object.keys(data[location].subLocations).map((specificLocation) => {
         dispatchesHandler(
-          dispatch,
+          stores,
           swt,
           data,
           location,
@@ -874,7 +566,8 @@ export const unselectAllMachinesHandler = (
   });
 };
 
-export const switchCountHandler = (machines, swt, dispatch) => {
+export const switchCountHandler = (machines, swt, stores) => {
+  const { setSelectedOne } = stores.masterControlSelect;
   let selectedSwtNumber = 0;
   machines.forEach((location) =>
     location.forEach((machine) => {
@@ -891,12 +584,7 @@ export const switchCountHandler = (machines, swt, dispatch) => {
       }
     })
   );
-  dispatch(
-    handleSelectedOne({
-      switch: swt,
-      selectedOne: `${selectedSwtNumber} switches`,
-    })
-  );
+  setSelectedOne(swt, `${selectedSwtNumber} switches`);
 };
 
 export const useSelectSwitchDropBoxDispatches = (
@@ -905,9 +593,37 @@ export const useSelectSwitchDropBoxDispatches = (
   swt,
   isSelected,
   handleClose,
-  data,
-  dispatch
+  data
 ) => {
+  // Initialize all stores
+  const masterControlSelect = useMasterControlSelectStore();
+  const essSwitch = useESSSwitchStore();
+  const tesSwitch = useTESSwitchStore();
+  const tgsSwitch = useTGSSwitchStore();
+  const hpElectricSwitch = useHPElectricSwitchStore();
+  const hpGasSwitch = useHPGasSwitchStore();
+  const essDataConsumption = useESSDataConsumptionStore();
+  const tesDataConsumption = useTESDataConsumptionStore();
+  const tgsDataConsumption = useTGSDataConsumptionStore();
+  const hpDataConsumption = useHPDataConsumptionStore();
+  const forceAndCommands = useForceAndCommandsStore();
+  const admin = useAdminStore();
+
+  const stores = {
+    masterControlSelect,
+    essSwitch,
+    tesSwitch,
+    tgsSwitch,
+    hpElectricSwitch,
+    hpGasSwitch,
+    essDataConsumption,
+    tesDataConsumption,
+    tgsDataConsumption,
+    hpDataConsumption,
+    forceAndCommands,
+    admin,
+  };
+
   const locations = Object.keys(data);
   const {
     isAllSelected,
@@ -919,32 +635,43 @@ export const useSelectSwitchDropBoxDispatches = (
     selectedLocations,
   } = allSelectBoxData;
 
+  const {
+    setSelectedOne,
+    setSelectAll,
+    addLocations,
+    addSpecificLocations,
+    addMachines,
+    setLocationSelect,
+    setSpecificLocationSelect,
+    setMachineSelect,
+  } = masterControlSelect;
+
   if (button === 1) {
     //  switches/machines count
-    switchCountHandler(isMachineSelected, swt, dispatch);
+    switchCountHandler(isMachineSelected, swt, stores);
     if (isAllSelected) {
       // 1. selected All
       // dispatch
-      dispatch(handleSelectedOne({ switch: swt, selectedOne: "all" }));
+      setSelectedOne(swt, "all");
       // #1.1. select locations
-      selectLocationsHandler(locations, swt, data, dispatch);
+      selectLocationsHandler(stores, locations, swt, data);
     } else if (isLocationSelected.indexOf(true) !== -1) {
       // #2.1. selected locations
-      selectLocationsHandler(selectedLocations, swt, data, dispatch);
+      selectLocationsHandler(stores, selectedLocations, swt, data);
 
       // #2.2. selected specific locations
       if (selectedSpecificLocations.length > 0) {
         selectSpecificLocationsHandler(
+          stores,
           selectedSpecificLocations,
           swt,
-          data,
-          dispatch
+          data
         );
       }
 
       // #2.3. selected individual machines
       if (selectedMachines.length > 0) {
-        selectMachinesHandler(selectedMachines, swt, data, dispatch);
+        selectMachinesHandler(stores, selectedMachines, swt, data);
       }
 
       // #2.4. switches/machines count
@@ -952,27 +679,27 @@ export const useSelectSwitchDropBoxDispatches = (
     } else if (isSpecificLocationSelected.indexOf(true) !== -1) {
       // #3. selected specific locations
       selectSpecificLocationsHandler(
+        stores,
         selectedSpecificLocations,
         swt,
-        data,
-        dispatch
+        data
       );
 
       // #3.1.selected machines
       if (selectedMachines.length > 0) {
-        selectMachinesHandler(selectedMachines, swt, data, dispatch);
+        selectMachinesHandler(stores, selectedMachines, swt, data);
       }
 
       // #3.2.switches/machines count
       // switchCountHandler(isMachineSelected);
     } else if (selectedMachines.length > 0) {
       // #4.only selected individual machines
-      selectMachinesHandler(selectedMachines, swt, data, dispatch);
+      selectMachinesHandler(stores, selectedMachines, swt, data);
 
       // #4.1.switches/machines count
       // switchCountHandler(isMachineSelected);
     } else if (!isSelected) {
-      dispatch(handleSelectedOne({ switch: swt, selectedOne: null }));
+      setSelectedOne(swt, null);
     }
 
     // close select box
@@ -980,17 +707,17 @@ export const useSelectSwitchDropBoxDispatches = (
   } else {
     // reset all selections
     // 1.reset all local states
-    dispatch(handleSelectAll({ switch: swt, status: false }));
-    dispatch(handleSelectedOne({ switch: swt, selectedOne: null }));
+    setSelectAll(swt, false);
+    setSelectedOne(swt, null);
 
     // 1.1.reset state for dispatch
-    dispatch(handleAddLocations({ switch: swt, arr: [] }));
-    dispatch(handleAddSpecificLocations({ switch: swt, arr: [] }));
-    dispatch(handleAddMachines({ switch: swt, arr: [] }));
+    addLocations(swt, []);
+    addSpecificLocations(swt, []);
+    addMachines(swt, []);
 
     // 2. reset location
     const arr = locations.map((location) => false);
-    dispatch(handleLocationSelect({ switch: swt, arr }));
+    setLocationSelect(swt, arr);
 
     // 2.1 reset specific location
     const specificLocationArr = [];
@@ -1014,19 +741,14 @@ export const useSelectSwitchDropBoxDispatches = (
       (subArray) => subArray.length > 0
     );
     if (filteredArray.length > 0) {
-      dispatch(
-        handleSpecificLocationSelect({
-          arr: filteredArray,
-          switch: swt,
-        })
-      );
+      setSpecificLocationSelect(swt, filteredArray);
     }
 
     // 2.2reset selected machines
-    dispatch(handleMachineSelect({ switch: swt, arr: machineArr }));
+    setMachineSelect(swt, machineArr);
 
     // dispatch the selected switch slice
-    unselectAllMachinesHandler(locations, swt, data, dispatch);
+    unselectAllMachinesHandler(stores, locations, swt, data);
 
     // close select box
     // handleClose();

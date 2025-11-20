@@ -22,11 +22,11 @@ const SelectSubOptions = ({
   // specLocationName,
   specificLocationIdx,
 }) => {
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   // !!TEST DATA!!
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
+  // const { essSwitch } = useESSSwitchStore();
+  // const { tgsSwitch } = useTGSSwitchStore();
 
   // const {
   //   testEssLocationsAll,

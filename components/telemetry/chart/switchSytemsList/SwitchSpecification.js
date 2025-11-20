@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useLocationsStore, useTelemetryStore, useUnitsStore } from '../../../zustand-stores';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -43,11 +44,11 @@ const SwitchSpecification = ({
   setIsExpand,
 }) => {
   const { t } = useTranslation();
-  const telemetryState = useSelector(selectTelemetry);
+  const telemetryState = useTelemetryStore();
   const isSearch = telemetryState.isSearch;
-  const settingsUnitsState = useSelector(selectUnits);
+  const settingsUnitsState = useUnitsStore();
   const { isF } = settingsUnitsState;
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   const energySign =
     systemSwitches &&

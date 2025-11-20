@@ -13,11 +13,7 @@ import {
 import { useMediaQuery } from "react-responsive";
 import { useViewport } from "use-viewport";
 import { useSelector } from "react-redux";
-import { selectFaults } from "../store/slices/FaultsSlice";
-import { selectEssSwitch } from "../store/slices/essSwitchSlice";
 import { useGetAllSSRsQueries, useGetThermocouplesQueries } from "../../hooks";
-import { selectTesSwitch } from "../store/slices/tesSwitchSlice";
-import { selectUserInfo } from "../store/slices/userSlice";
 import { useTranslation } from 'react-i18next';
 
 const FaultsMain = () => {
@@ -26,15 +22,15 @@ const FaultsMain = () => {
 
   const { height } = useViewport();
 
-  const { flatEssSwitch } = useSelector(selectEssSwitch);
-  const { flatTesSwitch } = useSelector(selectTesSwitch);
+  const { flatEssSwitch } = useESSSwitchStore();
+  const { flatTesSwitch } = useTESSwitchStore();
   const { isEssSwitch, isTesSwitch, isTgsSwitch, isHpSwitch, isAteSwitch } =
-    useSelector(selectUserInfo);
+    useUserStore();
   useGetAllSSRsQueries(flatEssSwitch, "ESS");
   useGetAllSSRsQueries(flatTesSwitch, "TES");
   useGetThermocouplesQueries(flatEssSwitch, "ess");
   useGetThermocouplesQueries(flatTesSwitch, "tes");
-  const faultsState = useSelector(selectFaults);
+  const faultsState = useFaultsStore();
   const essFaultMessages = faultsState.messages.ess;
   const tgsFaultMessages = faultsState.messages.tgs;
   const tesFaultMessages = faultsState.messages.tes;

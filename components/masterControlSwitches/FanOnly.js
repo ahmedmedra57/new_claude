@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
 
-import { selectMCBySwitch } from '../store/slices/masterControlBySwitchSelectSlice';
-import { selectMCByLocation } from '../store/slices/masterControlSelectByLocationSlice';
 import {
   flexBoxCenter,
   flexDirectionColumn,

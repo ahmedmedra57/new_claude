@@ -19,7 +19,6 @@ import {
 } from '../styles/commonStyles';
 
 import { DUMMY_CHART_DATA } from './ChartDummyData';
-import { selectSystemIdentification } from '../store/slices/settingSystemIdentificationSlice';
 
 const Chart = ({ isReadyToRender }) => {
   const sysIdState = useSelector(selectSystemIdentification);

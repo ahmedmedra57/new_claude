@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { selectMCBySwitch } from '../store/slices/masterControlBySwitchSelectSlice';
-import { selectMCByLocation } from '../store/slices/masterControlSelectByLocationSlice';
 
 import {
   flexBoxCenter,

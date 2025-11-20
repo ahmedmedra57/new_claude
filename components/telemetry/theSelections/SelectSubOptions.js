@@ -21,7 +21,7 @@ const SelectSubOptions = ({
 }) => {
   // media query
   const isMobile = useMediaQuery({ query: "(max-width:600px)" });
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   let locationName = "undefined";
   let machineName = "undefined";

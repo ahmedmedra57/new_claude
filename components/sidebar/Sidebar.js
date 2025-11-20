@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState, memo } from 'react';
+import { useFaultsStore, useUserStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
 
 import styled, { css } from 'styled-components';
@@ -6,18 +7,13 @@ import { alignItemsFlexStart, layerA90Deg } from '../styles/commonStyles';
 
 import FaultsReportHoverBox from '../faults/FaultsReportHoverBox';
 import ButtonGroup from './ButtonGroup';
-import {
-  selectUserInfo,
-  selectUserPermissions,
-} from '../store/slices/userSlice';
 import { createBrowserHistory } from 'history';
-import { selectFaults } from '../store/slices/FaultsSlice';
 import { GeneralContext } from '../context/contextOfGeneral';
 import { PERMISSIONS } from '../../constants';
 
 const Sidebar = () => {
   // Global states
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const {
     isEssSwitch,
     isTesSwitch,
@@ -27,7 +23,7 @@ const Sidebar = () => {
     permissions,
   } = userInfo;
   const isMasterControl = permissions[PERMISSIONS.MASTER_CONTROL];
-  const faultsState = useSelector(selectFaults);
+  const faultsState = useFaultsStore();
   const essFaultMessages = faultsState.messages.ess;
   const tgsFaultMessages = faultsState.messages.tgs;
   const tesFaultMessages = faultsState.messages.tes;

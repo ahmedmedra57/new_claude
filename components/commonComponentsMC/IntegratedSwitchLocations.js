@@ -1,40 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useLocationsStore, useMCIsExpandedStore, useUnitsStore, useUserStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
 import useNavigationState from '../../hooks/useNavigationState';
 import LeftPanelNavigation from './LeftPanelNavigation';
 import SwitchDetailsPanel from './SwitchDetailsPanel';
 
-import {
-  handleInstantHeat,
-  handleInstantHeatOff,
-  handleInstantHeatReady,
-  handleOpenMachineController,
-  handleSnowSensor,
-  handleSnowSensorOff,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
 
-import {
-  tesHandleInstantHeat,
-  tesHandleInstantHeatOff,
-  tesHandleSnowSensor,
-  tesHandleSnowSensorOff,
-  selectTesSwitch,
-  tesHandleOpenMachineController,
-  tesHandleInstantHeatIsReady,
-} from '../store/slices/tesSwitchSlice';
 
-import {
-  tgsHandleInstantHeat,
-  tgsHandleInstantHeatOff,
-  tgsHandleSnowSensor,
-  tgsHandleSnowSensorOff,
-  selectTgsSwitch,
-  tgsHandleFanOnly,
-  tgsHandleOpenMachineController,
-  tgsHandleInstantHeatIsReady,
-} from '../store/slices/tgsSwitchSlice';
 
 import styled, { css } from 'styled-components';
 import {
@@ -54,26 +26,6 @@ import {
 import ButtonGroup from './ButtonGroup';
 import MainController from './MainController';
 import MasterControlByLocation from './MasterControlByLocation';
-import {
-  handleEssInitialState,
-  handleOpenLocation,
-  handleOpenLocationMasterControl,
-  handleOpenMasterControl,
-  handleOpenSpecificLocation,
-  handleOpenSpecificLocationMasterControl,
-  handleTesInitialState,
-  handleTgsInitialState,
-  selectMCIsExpanded,
-  setOpenLocationInitialStateHandler,
-  setOpenSpecificLocationInitialStateHandler,
-} from '../store/slices/MCIsExpandedSlice';
-import {
-  handleUnselectAllProgram,
-  selectedProgram,
-} from '../store/slices/mobileSelectProgramSlice';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { selectLocations } from '../store/slices/locationsSlice';
-import { selectUserPermissions } from '../store/slices/userSlice';
 import {
   getCommandNumberService,
   updateBlowersMasterControlService,
@@ -178,11 +130,11 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
       : flatTesSwitch;
 
       
-  const locations = useSelector(selectLocations);
-  const permissions = useSelector(selectUserPermissions);
+  const locations = useLocationsStore();
+  const { permissions } = useUserStore();
   const disabled = !permissions.WRITE;
 
-  const MCIsExpanded = useSelector(selectMCIsExpanded);
+  const MCIsExpanded = useMCIsExpandedStore();
   const {
     isLocationOpen,
     locationMasterControl,
@@ -191,7 +143,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
 
   const selectedProgramState = useSelector(selectedProgram);
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   // Location addresses and numbers
@@ -272,12 +224,11 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
     }
   }, [selectedProgramState]);
 
-  const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (isLocationOpen.length > 1) {
       const checker = isLocationOpen?.some((el) => el === true);
-      dispatch(handleOpenMasterControl({ swtName, status: !checker }));
+      dispatch(handleOpenMasterControl({ swtName, status: !checker });
     }
   }, [isLocationOpen]);
 
@@ -346,14 +297,12 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
                   machine,
                   temp: option,
                   isF,
-                })
-              );
+                });
             } else if (checkOption === 'fanOnly') {
               dispatch(
-                dispatchFC({ location: subLocation, machine, state: option })
-              );
+                dispatchFC({ location: subLocation, machine, state: option });
             } else {
-              dispatch(dispatchFC({ location: subLocation, machine }));
+              dispatch(dispatchFC({ location: subLocation, machine });
             }
           });
         }
@@ -362,11 +311,11 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
       Object.keys(switchStatusE[location]).forEach((machine) => {
         machineIds.push(switchStatusE[location][machine].deviceMac);
         if (checkOption === 'instantHeatOn') {
-          dispatch(dispatchFC({ location, machine, temp: option, isF }));
+          dispatch(dispatchFC({ location, machine, temp: option, isF });
         } else if (checkOption === 'fanOnly') {
-          dispatch(dispatchFC({ location, machine, state: option }));
+          dispatch(dispatchFC({ location, machine, state: option });
         } else {
-          dispatch(dispatchFC({ location, machine }));
+          dispatch(dispatchFC({ location, machine });
         }
       });
     }
@@ -570,7 +519,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
   const mainControllerExpandHandler = (location, index, isMobile) => {
     // initialize the previous selected program
     if (isMobile) {
-      dispatch(handleUnselectAllProgram());
+      dispatch(handleUnselectAllProgram();
     }
     // open location component
     headerGroupButtonsHandler(

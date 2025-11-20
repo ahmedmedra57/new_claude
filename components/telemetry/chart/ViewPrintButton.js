@@ -10,7 +10,7 @@ import { PERMISSIONS } from "../../../constants";
 import { selectUserPermissions } from "../../store/slices/userSlice";
 
 const ViewPrintButton = ({ onClickButton }) => {
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const isDisabled = !permissions[PERMISSIONS.PRINT_TELEMETRY];
   return (
     <ShadowButton onClick={() => !isDisabled && onClickButton()}>

@@ -8,7 +8,6 @@ import {
 } from '../../styles/commonStyles';
 import CreateNewCommandButton from './CreateNewCommandButton';
 import SystemButton from './SystemButton';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   handleControlResetInit,
   selectMCCommand,
@@ -22,7 +21,7 @@ function ContainerSelectSystem({
   setIsSystemSelectedMessage,
 }) {
   // mcCommandSlice
-  const { isNewCommandCreated } = useSelector(selectMCCommand);
+  const { isNewCommandCreated } = useMCCommandStore();
 
   const systemButtonsNames = [
     { abbr: 'ess', fullName: 'electric switch system' },

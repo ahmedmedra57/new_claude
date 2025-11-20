@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import { useTranslation } from 'react-i18next';
 import styled, { css } from "styled-components";
 import {
@@ -11,14 +12,10 @@ import {
   layerBDark,
   layerCLighter,
 } from "../styles/commonStyles";
-import { selectLocations } from "../store/slices/locationsSlice";
 import { useSelector } from "react-redux";
 import DisplayMachine from "./DisplayMachine";
 import DisplaySpecificLocation from "./DisplaySpecificLocation";
 import { all } from "axios";
-import { selectEssSwitch } from "../store/slices/essSwitchSlice";
-import { selectTesSwitch } from "../store/slices/tesSwitchSlice";
-import { selectTgsSwitch } from "../store/slices/tgsSwitchSlice";
 import testData from "../../test_data/testData";
 
 const SelectByLocation = ({
@@ -56,7 +53,7 @@ const SelectByLocation = ({
 
   const [saveLocationIdx, setSaveLocationIdx] = useState("");
 
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const { all: allLocations } = locations;
 
   useEffect(() => {
@@ -66,9 +63,9 @@ const SelectByLocation = ({
   }, [selectionSpecificLocations]);
 
   // !!TEST DATA
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { tesSwitch } = useSelector(selectTesSwitch);
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
+  // const { essSwitch } = useESSSwitchStore();
+  // const { tesSwitch } = useTESSwitchStore();
+  // const { tgsSwitch } = useTGSSwitchStore();
   // const { testAllLocations } = testData(
   //   essSwitch,
   //   tgsSwitch,

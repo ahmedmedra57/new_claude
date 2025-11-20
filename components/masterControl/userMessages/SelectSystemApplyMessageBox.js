@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useESSSwitchStore, useLocationsStore, useMCStore, useTGSSwitchStore } from '../../zustand-stores';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -20,9 +21,9 @@ import { selectTgsSwitch } from '../../store/slices/tgsSwitchSlice';
 const SelectSystemApplyMessageBox = ({ handleButtons, title, message }) => {
   const buttonNames = ['edit', 'confirm'];
   // redux
-  const mCState = useSelector(selectMC);
+  const mCState = useMCStore();
   const { ess, tgs } = mCState.selectSystem;
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   const selectedMachines = useSelector(selectedMachinesState);
   const { swt, selections } = selectedMachines.atsState;
@@ -75,8 +76,8 @@ const SelectSystemApplyMessageBox = ({ handleButtons, title, message }) => {
   }, [swt]);
 
   // !! TEST DATA!!
-  // const { essSwitch: essState } = useSelector(selectEssSwitch);
-  // const { tgsSwitch: tgsState } = useSelector(selectTgsSwitch);
+  // const { essSwitch: essState } = useESSSwitchStore();
+  // const { tgsSwitch: tgsState } = useTGSSwitchStore();
   // const { testEssLocationsAll, testTgsLocationsAll } = testData(
   //   essState,
   //   tgsState,

@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { useLocationsStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { selectLocations } from '../store/slices/locationsSlice';
 import {
   flexBoxCenter,
   justifyContentSpaceBetween,
@@ -24,7 +24,7 @@ const TitleBar = ({
   const [displayViewSite, setDisplayViewSite] = useState(false);
   const [displayMessage, setDisplayMessage] = useState(false);
 
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const locationId = Object.keys(location)[0];
   
   let locationData;

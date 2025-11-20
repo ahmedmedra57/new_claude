@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useUnitsStore } from '../../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   activeInput,
@@ -37,7 +38,7 @@ const MCHeatingSchedule = ({
   location,
   machine
 }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
       swtName === 'ess'

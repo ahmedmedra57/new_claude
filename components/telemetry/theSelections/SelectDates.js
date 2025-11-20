@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMCStore } from '../../zustand-stores';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +17,7 @@ const SelectDates = ({ scheduleData, setScheduleData }) => {
 
   const { ready, activated } = selectsState.heatingSchedule;
 
-  const selectedSwitch = useSelector(selectMC);
+  const selectedSwitch = useMCStore();
   const { ess, tgs, tes, essDc, tgsDc, tesDc, hpDc, hpGc, hpEc, tgsTesDc } = selectedSwitch.selectSystem;
   const [openScheduler, setOpenScheduler] = useState(false);
   const initialSchedule = {

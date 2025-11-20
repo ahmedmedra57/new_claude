@@ -1,18 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useUnitsStore } from '../zustand-stores';
 
 import styled, { css } from "styled-components";
-import {
-  handleInstantHeat,
-  handleInstantHeatOff,
-  selectEssSwitch,
-} from "../store/slices/essSwitchSlice";
-import {
-  handleApplyWithTemp,
-  selectMCBySwitch,
-} from "../store/slices/masterControlBySwitchSelectSlice";
-import { selectTesSwitch } from "../store/slices/tesSwitchSlice";
-import { selectTgsSwitch } from "../store/slices/tgsSwitchSlice";
 import {
   activeInput,
   activeLayer180Deg,
@@ -25,7 +14,6 @@ import {
   layerBDisabled,
   layerADisabled180Deg,
 } from "../styles/commonStyles";
-import { selectUnits } from "../store/slices/settings/unitsSlice";
 import { isNumber } from "lodash";
 import InputTempMessage from "../userMessages/inputTempMessage";
 import {
@@ -88,7 +76,7 @@ const InstantHeatMC = ({ location, buttonHandler, swtName, isMobile, disabled })
 
   // !! END OF TEST DATA
 
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
 
   // Local values

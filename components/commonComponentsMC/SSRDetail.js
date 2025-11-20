@@ -1,16 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  handleSelector,
-  handleToggleSSR,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
 
-import {
-  selectTesSwitch,
-  tesHandleSelector,
-  tesHandleToggleSSR,
-} from '../store/slices/tesSwitchSlice';
 
 import { useMediaQuery } from 'react-responsive';
 import styled, { css } from 'styled-components';
@@ -28,9 +17,8 @@ import {
 } from '../styles/commonStyles';
 import SSRInfoCommonContainer from './SSRInfoCommonCopntainer';
 import { useState } from 'react';
+import { useUnitsStore, useUserStore } from '../zustand-stores';
 import { useEffect } from 'react';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { selectUserPermissions } from '../store/slices/userSlice';
 import {
   updateBlowerSettingService,
   updateSwitchSettingService,
@@ -49,9 +37,9 @@ const SSRDetail = ({
   localActivatedHeaters,
   setLocalActivatedHeaters
 }) => {
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const disable = !permissions.WRITE;
   
   const { essSwitch, tesSwitch,flatEssSwitch,flatTesSwitch } = useSelector(
@@ -73,8 +61,7 @@ const SSRDetail = ({
   } = data?.specs?.[0] || {};
   const isMobile = useMediaQuery({ query: '(max-width:600px)' });
   const { isSettingOpen, buttonStatus } = data;
-  const dispatch = useDispatch();
-
+  
   const [isOverAmp, setIsOverAmp] = useState(false);
   const [mobileBg, setMobileBg] = useState(null);
   const [SSRSwitchName, setSSRSwitchName] = useState('');
@@ -117,7 +104,7 @@ useEffect(() => {
           heater_thermocouple_map: heaterThermocoupleMap.map(
             (select, index) => {
               if (index === id - 1) {
-                return Number(data.data.slice(-2));
+                return Number(data.data.slice(-2);
               } else {
                 return select;
               }
@@ -135,8 +122,7 @@ useEffect(() => {
                   machine,
                   id: data.id,
                   data: data.data,
-                })
-              );
+                });
             })
           : updateBlowerSettingService(
               [deviceMac],
@@ -148,8 +134,7 @@ useEffect(() => {
                   machine,
                   id: data.id,
                   data: data.data,
-                })
-              );
+                });
             });
         break;
       case 'toggle':
@@ -183,8 +168,7 @@ useEffect(() => {
                 machine,
                 id: data.id,
                 buttonStatus: data.buttonStatus,
-              })
-            );
+              });
             setLocalActivatedHeaters(serverData[0]?.activated_heaters);
             
             setIsUpdating(false);
@@ -207,8 +191,7 @@ useEffect(() => {
                 machine,
                 id: data.id,
                 buttonStatus: data.buttonStatus,
-              })
-            );
+              });
             setIsUpdating(false);
           }
         }

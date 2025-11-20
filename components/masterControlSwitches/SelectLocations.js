@@ -1,27 +1,8 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import { useMediaQuery } from "react-responsive";
 
-import { selectEssSwitch } from "../store/slices/essSwitchSlice";
-import { selectTgsSwitch } from "../store/slices/tgsSwitchSlice";
-import { selectTesSwitch } from "../store/slices/tesSwitchSlice";
-import {
-  handleLocationSelectBySwitch,
-  handleMachineSelectBySwitch,
-  handleResetSelectedOne,
-  handleSelectAllBySwitch,
-  handleSpecificLocationSelectBySwitch,
-  selectMCBySwitch,
-} from "../store/slices/masterControlBySwitchSelectSlice";
 
-import {
-  handleMachineSelectByLocation,
-  handleLocationSelectByLocation,
-  handleSelectAllByLocation,
-  selectMCByLocation,
-  handleSpecificLocationSelectByLocation,
-  handleResetSelectedOneByLocation,
-} from "../store/slices/masterControlSelectByLocationSlice";
 
 import styled, { css } from "styled-components";
 
@@ -38,7 +19,6 @@ import {
   layerBDisabled,
   layerC,
 } from "../styles/commonStyles";
-import { selectLocations } from "../store/slices/locationsSlice";
 import testData from "../../test_data/testData";
 import selectBoxResetHandler from "../../helpers/ess-tgs-tes-mc/selectBoxResetHandler";
 import { transformSpecificLocationData } from "../../helpers/helpers";
@@ -90,11 +70,11 @@ const SelectLocations = ({
   }
 
   // !!TEST DATA
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
-  // const { tesSwitch } = useSelector(selectTesSwitch);
+  // const { essSwitch } = useESSSwitchStore();
+  // const { tgsSwitch } = useTGSSwitchStore();
+  // const { tesSwitch } = useTESSwitchStore();
 
-  // const locations = useSelector(selectLocations);
+  // const locations = useLocationsStore();
 
   // const {
   //   testEssLocationsAll,
@@ -119,8 +99,7 @@ const SelectLocations = ({
 
   // location states and variables
   const [displaySelectBox, setDisplaySelectBox] = useState(false);
-  const dispatch = useDispatch();
-  const arrowSrc = disabled
+    const arrowSrc = disabled
     ? "/images/masterCtr-select-btn-disabled.svg"
     : displaySelectBox
       ? "/images/masterCtr-select-btn.svg"
@@ -135,9 +114,9 @@ const SelectLocations = ({
     handleResetSelectedOne
   ) => {
     // isAllSelected
-    dispatch(allSelectFC({ controller: name, status: false }));
+    dispatch(allSelectFC({ controller: name, status: false });
     // selectedOne
-    dispatch(handleResetSelectedOne());
+    dispatch(handleResetSelectedOne();
 
     // isLocationSelected
     // const locationArr = locations.map((_) => false);
@@ -172,18 +151,17 @@ const SelectLocations = ({
     //   selectBoxResetHandler(switchStatus);
 
     // isLocationSelected
-    dispatch(selectLocationFC({ arr: locationList, controller: name }));
+    dispatch(selectLocationFC({ arr: locationList, controller: name });
 
     //isSpecificLocationSelected
     dispatch(
       selectSpecificLocationFC({
         arr: specificLocationList,
         controller: name,
-      })
-    );
+      });
 
     // isMachineSelected
-    dispatch(selectMachineFC({ arr: machineList, controller: name }));
+    dispatch(selectMachineFC({ arr: machineList, controller: name });
   };
 
   useEffect(() => {
@@ -787,7 +765,7 @@ const SelectedOne2 = styled.span`
 //       );
 //       // const locations = Object.keys(switchStatus);
 //       // // unSelect all
-//       // dispatch(handleSelectAllBySwitch({ controller: name, status: false }));
+//       // dispatch(handleSelectAllBySwitch({ controller: name, status: false });
 //       // // unSelect all the locations
 //       // const locationArr = locations.map((location) => false);
 //       // dispatch(

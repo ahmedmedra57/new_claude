@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { borderBlue, flexBoxCenter, layerA } from '../../styles/commonStyles';
 import { useState } from 'react';
+import { useLocationsStore } from '../../zustand-stores';
 import SelectSubOptions from './SelectSubOptions';
 import { useSelector } from 'react-redux';
 import { selectLocations } from '../../store/slices/locationsSlice';
@@ -19,7 +20,7 @@ const SelectSpecificLocation = ({
   idx,
 }) => {
   const machines = machineData && Object.keys(machineData);
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   // const [arrowImg, setArrowImg] = useState(false);
 

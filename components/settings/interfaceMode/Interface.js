@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Button from '../buttons/Button';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -27,8 +26,7 @@ function Interface() {
   // states
   const [interfaceModeButton, setInterfaceModeButton] = useState(0);
   // redux
-  const dispatch = useDispatch();
-  const interfaceMode = useSelector(selectInterfaceMode);
+    const interfaceMode = useSelector(selectInterfaceMode);
   const mode = interfaceMode;
   // functions
   const handleClick = (index) => {
@@ -37,9 +35,9 @@ function Interface() {
 
   const handleMode = () => {
     if (interfaceModeButton === 0) {
-      return dispatch(setInterfaceMode(true));
+      return dispatch(setInterfaceMode(true);
     } else {
-      return dispatch(setInterfaceMode(false));
+      return dispatch(setInterfaceMode(false);
     }
   };
 

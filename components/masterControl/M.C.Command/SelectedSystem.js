@@ -8,9 +8,9 @@ import { selectMC } from '../../store/slices/mCSlice';
 import { useSelector } from 'react-redux';
 
 function SelectedSystem() {
-  const selectedMachinesState = useSelector(selectMasterControls);
+  const selectedMachinesState = useMasterControlSelectStore();
   const { ess, tgs, tes, hp } = selectedMachinesState;
-  const selectedSystemState = useSelector(selectMC);
+  const selectedSystemState = useMCStore();
   const { selectSystem } = selectedSystemState;
 
   const selectedSystem = selectSystem.ess

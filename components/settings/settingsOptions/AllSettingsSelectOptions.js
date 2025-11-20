@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useUserStore } from '../../zustand-stores';
 import { useTranslation } from 'react-i18next';
 import { selectInterfaceMode } from "../../store/slices/settings/interfaceModeSlice";
 import {
@@ -29,7 +29,7 @@ import { selectUserPermissions } from "../../store/slices/userSlice";
 function AllSettingsSelectOptions() {
   const { t } = useTranslation();
   const isMobile = useMediaQuery({ query: "(max-width:600px)" });
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const allowedSettings = permissions[PERMISSIONS.ALLOWED_SETTINGS];
 
   const settingsData = [
@@ -68,8 +68,7 @@ function AllSettingsSelectOptions() {
 
   const [option, setOption] = useState(0);
 
-  const dispatch = useDispatch();
-  const interfaceMode = useSelector(selectInterfaceMode);
+    const interfaceMode = useSelector(selectInterfaceMode);
   const mode = interfaceMode;
   const buttonsState = useSelector(selectEditCancelApplyButtons);
   const { isEdit } = buttonsState;
@@ -77,34 +76,34 @@ function AllSettingsSelectOptions() {
   const handleSelect = (value) => {
     if (option !== value) {
       setOption(value);
-      dispatch(setResetSettingsOptions());
+      dispatch(setResetSettingsOptions();
       switch (value) {
         case 0: {
-          dispatch(handleSelectingSettings("isUserProfileSelected"));
+          dispatch(handleSelectingSettings("isUserProfileSelected");
           break;
         }
         case 1: {
-          dispatch(handleSelectingSettings("isUnitsSelected"));
+          dispatch(handleSelectingSettings("isUnitsSelected");
           break;
         }
         case 2: {
-          dispatch(handleSelectingSettings("isWindFactorSelected"));
+          dispatch(handleSelectingSettings("isWindFactorSelected");
           break;
         }
         case 3: {
-          dispatch(handleSelectingSettings("isSnowSensorSelected"));
+          dispatch(handleSelectingSettings("isSnowSensorSelected");
           break;
         }
         case 4: {
-          dispatch(handleSelectingSettings("isForceAndCommandsSelected"));
+          dispatch(handleSelectingSettings("isForceAndCommandsSelected");
           break;
         }
         case 5: {
-          dispatch(handleSelectingSettings("isAdminSelected"));
+          dispatch(handleSelectingSettings("isAdminSelected");
           break;
         }
         case 6: {
-          dispatch(handleSelectingSettings("isInterfaceModeSelected"));
+          dispatch(handleSelectingSettings("isInterfaceModeSelected");
           break;
         }
         default:

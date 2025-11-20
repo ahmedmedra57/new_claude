@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useUnitsStore } from '../../../../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   borderABlue,
@@ -14,7 +15,7 @@ import { selectUnits } from '../../../../store/slices/settings/unitsSlice';
 const SetTempBox = ({ isWindFactor, title, windSpeed }) => {
   const tempRef = useRef('');
 
-  const unitsState = useSelector(selectUnits);
+  const unitsState = useUnitsStore();
   const { isF } = unitsState;
 
   return (

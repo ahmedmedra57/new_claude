@@ -1,9 +1,9 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useUserStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
-import { selectUserInfo } from '../store/slices/userSlice';
 import {
   flexBoxCenter,
   flexDirectionColumn,
@@ -17,7 +17,6 @@ import {
   layerCLighter,
 } from '../styles/commonStyles';
 import { useViewport } from 'use-viewport';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { getTitle } from '../../helpers/helpers';
 import { tabsSrc } from '../../constants';
 
@@ -25,7 +24,7 @@ const MobileMain = () => {
   const { height } = useViewport();
 
   // Global states
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { isEssSwitch, isTesSwitch, isTgsSwitch } = userInfo;
   const { firstname, lastname, title, gender, user_id } = userInfo.user;
 

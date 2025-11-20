@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useESSSwitchStore, useMasterControlSelectStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 import {
@@ -14,33 +14,11 @@ import {
 
 import MobileSelectLocation from './MobileSelectLocation';
 
-import {
-  handleExpand,
-  handleSelectSwitch,
-  selectMobileMC,
-  handleSelectMobileProgram,
-  handleUnselectProgram,
-  handleUnSelectSwitch,
-  handleOpenSelectLocation,
-  handleIsReadyToSelectProgram,
-} from '../store/slices/mobileMasterControlSlice';
 
-import { handleSelectProgram } from '../store/slices/mobileSelectProgramSlice';
 import ProgramsComponent from './ProgramsComponent';
 import EssMain from '../ess/EssMain';
 import TgsMain from '../tgs/TgsMain';
 import TesMain from '../tes/TesMain';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import {
-  handleLocationSelect,
-  handleMachineSelect,
-  handleResetAllSelect,
-  handleSelectAll,
-  handleSpecificLocationSelect,
-  selectMasterControls,
-} from '../store/slices/masterControlSelectSlice';
 import { setInitialStateSelectBoxHandler } from '../../helpers/ess-tgs-tes-mc/setInitialStateSelectBoxHandler';
 
 const MobileMasterControl = () => {
@@ -56,12 +34,12 @@ const MobileMasterControl = () => {
     isReadyToSelectProgram,
   } = MCStatus;
 
-  const { essSwitch: essSwt } = useSelector(selectEssSwitch);
-  const { tgsSwitch: tgsSwt } = useSelector(selectTgsSwitch);
-  const { tesSwitch: tesSwt } = useSelector(selectTesSwitch);
+  const { essSwitch: essSwt } = useESSSwitchStore();
+  const { tgsSwitch: tgsSwt } = useTGSSwitchStore();
+  const { tesSwitch: tesSwt } = useTESSwitchStore();
 
   // states for selection
-  const selectLocationStatus = useSelector(selectMasterControls);
+  const selectLocationStatus = useMasterControlSelectStore();
   const { ess, tgs, tes } = selectLocationStatus;
 
   // used for apply buttons of ProgramsComponent
@@ -69,13 +47,12 @@ const MobileMasterControl = () => {
 
   // local States
   const [height, setHeight] = useState(false);
-  const dispatch = useDispatch();
-  const switchNames = ['ess', 'tgs', 'tes', 'hp'];
+    const switchNames = ['ess', 'tgs', 'tes', 'hp'];
   const [isReadyToRenderProgram, setIsReadyToRenderProgram] = useState(false);
 
   useEffect(() => {
-    dispatch(handleUnSelectSwitch());
-    dispatch(handleOpenSelectLocation(false));
+    dispatch(handleUnSelectSwitch();
+    dispatch(handleOpenSelectLocation(false);
   }, []);
 
   useEffect(() => {
@@ -92,15 +69,14 @@ const MobileMasterControl = () => {
       setInitialStateSelectBoxHandler(swtData);
 
     // dispatches
-    dispatch(handleSelectAll({ switch: swt, status: false }));
-    dispatch(handleLocationSelect({ arr: locationArr, switch: swt }));
+    dispatch(handleSelectAll({ switch: swt, status: false });
+    dispatch(handleLocationSelect({ arr: locationArr, switch: swt });
     dispatch(
       handleSpecificLocationSelect({
         arr: specificLocationArr,
         switch: swt,
-      })
-    );
-    dispatch(handleMachineSelect({ arr: machineArr, switch: swt }));
+      });
+    dispatch(handleMachineSelect({ arr: machineArr, switch: swt });
   };
 
   useEffect(() => {
@@ -122,43 +98,43 @@ const MobileMasterControl = () => {
   // useEffect(() => {
   //   if (selectedSwt === 'ess') {
   //     if (!ess.selectedOne) {
-  //       dispatch(handleSelectAll({ switch: 'ess', status: false }));
+  //       dispatch(handleSelectAll({ switch: 'ess', status: false });
 
   //       const essLocations = Object.keys(essSwt);
   //       const locationArr = essLocations.map((location) => false);
-  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' }));
+  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' });
 
   //       const machineArr = Object.values(essSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
   //       );
-  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'ess' }));
+  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'ess' });
   //     }
   //     // setAtsSrc('/images/select-ats-disabled.svg');
   //   } else if (selectedSwt === 'tes') {
   //     if (!tes.selectedOne) {
   //       const tesLocations = Object.keys(tesSwt);
-  //       dispatch(handleSelectAll({ status: false, switch: 'tes' }));
+  //       dispatch(handleSelectAll({ status: false, switch: 'tes' });
   //       const locationArr = tesLocations.map((location) => false);
-  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' }));
+  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' });
 
   //       const machineArr = Object.values(tesSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
   //       );
-  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tes' }));
+  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tes' });
   //     }
   //     // setAtsSrc('/images/select-ats-disabled.svg');
   //   } else if (selectedSwt === 'tgs') {
   //     if (!tgs.selectedOne) {
   //       // setAtsSrc('/images/select-ats-active.svg');
   //       const tgsLocations = Object.keys(tgsSwt);
-  //       dispatch(handleSelectAll({ status: false, switch: 'ess' }));
+  //       dispatch(handleSelectAll({ status: false, switch: 'ess' });
   //       const locationArr = tgsLocations.map((location) => false);
-  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' }));
+  //       dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' });
 
   //       const machineArr = Object.values(tgsSwt).map((location) =>
   //         Object.keys(location).map((machine) => false)
   //       );
-  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tgs' }));
+  //       dispatch(handleMachineSelect({ arr: machineArr, switch: 'tgs' });
   //     }
   //   }
   // }, [selectedSwt]);
@@ -166,23 +142,23 @@ const MobileMasterControl = () => {
   // event handlers
   // open || close component
   const handleExpandButtonClick = () => {
-    dispatch(handleExpand());
+    dispatch(handleExpand();
   };
   // select swt ess || tgs || tes
   const handleSelectSwt = (switchName, idx) => {
     setIsApply(false);
     if (switchName === 'hp') {
-      dispatch(handleOpenSelectLocation(false));
-      dispatch(handleUnSelectSwitch());
+      dispatch(handleOpenSelectLocation(false);
+      dispatch(handleUnSelectSwitch();
     } else {
-      dispatch(handleSelectSwitch({ switchName, idx }));
+      dispatch(handleSelectSwitch({ switchName, idx });
     }
   };
 
   // select program
   const handleClickSelectProgram = (index) => {
     setIsApply(false);
-    dispatch(handleSelectMobileProgram(index));
+    dispatch(handleSelectMobileProgram(index);
     if (index === 1 || index === 3) {
       setHeight(true);
     } else {

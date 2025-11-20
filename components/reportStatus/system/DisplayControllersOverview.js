@@ -1,5 +1,6 @@
 import { sum } from "lodash";
 import { useEffect, useMemo, useState } from "react";
+import { useTESSwitchStore } from '../../zustand-stores';
 import { useSelector } from "react-redux";
 import { selectEssSwitch } from "../../store/slices/essSwitchSlice";
 import { selectTgsSwitch } from "../../store/slices/tgsSwitchSlice";
@@ -24,7 +25,7 @@ const DisplayControllersOverview = ({ machinesCount, machines, setFaults }) => {
         ? selectTgsSwitch
         : selectTesSwitch
     );
-  const { flatTesSwitch } = useSelector(selectTesSwitch);
+  const { flatTesSwitch } = useTESSwitchStore();
 
   useEffect(() => {
     let totalIsDisabled = 0;

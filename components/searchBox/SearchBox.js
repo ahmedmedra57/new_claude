@@ -1,19 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useContext, useState, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useLocationsStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
-import {
-  handleOpenMachineController,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
-import {
-  selectTesSwitch,
-  tesHandleOpenMachineController,
-} from '../store/slices/tesSwitchSlice';
-import {
-  selectTgsSwitch,
-  tgsHandleOpenMachineController,
-} from '../store/slices/tgsSwitchSlice';
 import {
   alignItemsFlexStart,
   flexBoxCenter,
@@ -28,17 +16,8 @@ import {
   layerC,
   layerCLighter,
 } from '../styles/commonStyles';
-import {
-  handleEssInitialState,
-  handleOpenLocation,
-  handleOpenSpecificLocation,
-  handleTesInitialState,
-  handleTgsInitialState,
-} from '../store/slices/MCIsExpandedSlice';
-import { selectLocations } from '../store/slices/locationsSlice';
 import testData from '../../test_data/testData';
 import { GeneralContext } from '../context/contextOfGeneral';
-import { selectUserPermissions } from '../store/slices/userSlice';
 import { PERMISSIONS } from '../../constants';
 import { useCheckControlPermsission } from '../../hooks';
 
@@ -49,7 +28,7 @@ const SearchBox = ({ handleClose, isMobile }) => {
   const [isSelected, setIsSelected] = useState(initialButtonState);
   const [selectedSwitch, setSelectedSwitch] = useState(null);
 
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
   const { flatEssSwitch, flatTgsSwitch, flatTesSwitch } = useSelector(
     selectedSwitch && selectedSwitch === 'ess'
       ? selectEssSwitch
@@ -65,8 +44,7 @@ const SearchBox = ({ handleClose, isMobile }) => {
       ? flatTgsSwitch
       : flatTesSwitch;
 
-  const dispatch = useDispatch();
-
+  
   // useContext
   const { handleOnClick } = useContext(GeneralContext);
 
@@ -89,14 +67,13 @@ const SearchBox = ({ handleClose, isMobile }) => {
     machine
   ) => {
     const locationArr = Object.keys(switches).map((location) => false);
-    dispatch(dispatchInitialStateFC(locationArr));
+    dispatch(dispatchInitialStateFC(locationArr);
 
     Object.keys(switches).forEach((location) =>
       Object.keys(switches[location]).forEach((newEl) => {
         if (switches[location][newEl]?.deviceMac) {
           dispatch(
-            dispatchOpenMachineFC({ location, machine: newEl, status: false })
-          );
+            dispatchOpenMachineFC({ location, machine: newEl, status: false });
         } else {
           Object.keys(switches[location][newEl]).forEach((newMachine) =>
             dispatch(
@@ -106,11 +83,9 @@ const SearchBox = ({ handleClose, isMobile }) => {
                 machine: newMachine,
                 status: false,
               })
-            )
-          );
+            );
         }
-      })
-    );
+      });
 
     if (machine) {
       dispatch(
@@ -118,15 +93,13 @@ const SearchBox = ({ handleClose, isMobile }) => {
           swtName,
           index: locationIdx,
           status: true,
-        })
-      );
+        });
       dispatch(
         handleOpenSpecificLocation({
           swtName,
           openSpecificLocationIdx: elIdx,
           status: true,
-        })
-      );
+        });
 
       dispatch(
         dispatchOpenMachineFC({
@@ -134,23 +107,20 @@ const SearchBox = ({ handleClose, isMobile }) => {
           specificLocation: el,
           machine,
           status: true,
-        })
-      );
+        });
     } else {
       dispatch(
         handleOpenLocation({
           swtName,
           index: locationIdx,
           status: true,
-        })
-      );
+        });
       dispatch(
         dispatchOpenMachineFC({
           location,
           machine: el,
           status: true,
-        })
-      );
+        });
     }
   };
 
@@ -261,8 +231,7 @@ const SearchBox = ({ handleClose, isMobile }) => {
             }
           );
         }
-      })
-  );
+      });
 
   const checkControlPermsission = useCheckControlPermsission();
   return (

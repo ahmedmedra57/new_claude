@@ -1,34 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useESSSwitchStore, useLocationsStore, useMCIsExpandedStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
 import { useMediaQuery } from 'react-responsive';
 
-import {
-  handleInstantHeat,
-  handleInstantHeatOff,
-  handleOpenMachineController,
-  handleSnowSensor,
-  handleSnowSensorOff,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
 
-import {
-  tesHandleInstantHeat,
-  tesHandleInstantHeatOff,
-  tesHandleSnowSensor,
-  tesHandleSnowSensorOff,
-  selectTesSwitch,
-  tesHandleOpenMachineController,
-} from '../store/slices/tesSwitchSlice';
 
-import {
-  tgsHandleInstantHeat,
-  tgsHandleInstantHeatOff,
-  tgsHandleSnowSensor,
-  tgsHandleSnowSensorOff,
-  selectTgsSwitch,
-  tgsHandleFanOnly,
-  tgsHandleOpenMachineController,
-} from '../store/slices/tgsSwitchSlice';
 
 import styled, { css } from 'styled-components';
 import {
@@ -51,18 +26,6 @@ import MasterControlByLocation from './MasterControlByLocation';
 import EssMasterControlByMachine from '../ess/EssMasterControlByMachine';
 import TesMasterControlByMachine from '../tes/TesMasterControlByMachine';
 import TgsMasterControlByMachine from '../tgs/TgsMasterControlByMachine';
-import {
-  handleOpenMasterControl,
-  handleOpenSpecificLocation,
-  selectMCIsExpanded,
-  setOpenLocationInitialStateHandler,
-} from '../store/slices/MCIsExpandedSlice';
-import {
-  handleUnselectAllProgram,
-  selectedProgram,
-} from '../store/slices/mobileSelectProgramSlice';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import { selectLocations } from '../store/slices/locationsSlice';
 import {
   getCommandNumberService,
   updateBlowersMasterControlService,
@@ -105,12 +68,12 @@ const IntegratedSwitchSpecificLocations = ({
 
   const switchStatus =
     swtName === 'ess' ? essSwitch : swtName === 'tgs' ? tgsSwitch : tesSwitch;
-  const locations = useSelector(selectLocations);
+  const locations = useLocationsStore();
 
   // !!TEST DATA
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
-  // const { tesSwitch } = useSelector(selectTesSwitch);
+  // const { essSwitch } = useESSSwitchStore();
+  // const { tgsSwitch } = useTGSSwitchStore();
+  // const { tesSwitch } = useTESSwitchStore();
 
   // const {
   //   testEssLocationsAll,
@@ -128,12 +91,12 @@ const IntegratedSwitchSpecificLocations = ({
   //     : testTesSwitch;
   // !!END OF TEST DATA
 
-  const MCIsExpanded = useSelector(selectMCIsExpanded);
+  const MCIsExpanded = useMCIsExpandedStore();
   const { isSpecificLocationOpen } = MCIsExpanded[swtName];
 
   const selectedProgramState = useSelector(selectedProgram);
 
-  // const unitsStatus = useSelector(selectUnits);
+  // const unitsStatus = useUnitsStore();
   // const { isF } = unitsStatus;
 
   // Location addresses and numbers
@@ -192,14 +155,13 @@ const IntegratedSwitchSpecificLocations = ({
   // ];
   // ***************temporary dummy data
 
-  const dispatch = useDispatch();
-  // --- temporary variables ---
+    // --- temporary variables ---
   // const isF = false;
 
   useEffect(() => {
     if (isSpecificLocationOpen.length > 1) {
       const checker = isSpecificLocationOpen?.some((el) => el === true);
-      dispatch(handleOpenMasterControl({ swtName, status: !checker }));
+      dispatch(handleOpenMasterControl({ swtName, status: !checker });
     }
   }, [isSpecificLocationOpen]);
 
@@ -231,7 +193,7 @@ const IntegratedSwitchSpecificLocations = ({
         // const locationArr = Object.keys(essSwitch).map(
         //   (location) => location === locationId
         // );
-        // dispatch(handleEssInitialState(locationArr));
+        // dispatch(handleEssInitialState(locationArr);
         // Object.keys(essSwitch).map((location) =>
         //   Object.keys(essSwitch[location]).map((machine) =>
         //     dispatch(
@@ -269,7 +231,7 @@ const IntegratedSwitchSpecificLocations = ({
         // const locationArr = Object.keys(tgsSwitch).map(
         //   (location) => location === locationId
         // );
-        // dispatch(handleTgsInitialState(locationArr));
+        // dispatch(handleTgsInitialState(locationArr);
         // Object.keys(tgsSwitch).map((location) =>
         //   Object.keys(tgsSwitch[location]).map((machine) =>
         //     dispatch(
@@ -311,7 +273,7 @@ const IntegratedSwitchSpecificLocations = ({
         // const locationArr = Object.keys(tesSwitch).map(
         //   (location) => location === locationId
         // );
-        // dispatch(handleTesInitialState(locationArr));
+        // dispatch(handleTesInitialState(locationArr);
         // Object.keys(tesSwitch).map((location) =>
         //   Object.keys(tesSwitch[location]).map((machine) =>
         //     dispatch(
@@ -403,7 +365,7 @@ const IntegratedSwitchSpecificLocations = ({
   const mainControllerExpandHandler = (specLocationIdx, isMobile) => {
     // initialize the previous selected program
     if (isMobile) {
-      dispatch(handleUnselectAllProgram());
+      dispatch(handleUnselectAllProgram();
     }
     // open location component
     headerGroupButtonsHandler(
@@ -461,7 +423,7 @@ const IntegratedSwitchSpecificLocations = ({
                       }
                       // handleExpand={() => {
                       //   // initialize the previous selected program
-                      //   dispatch(handleUnselectAllProgram());
+                      //   dispatch(handleUnselectAllProgram();
                       //   // open location component
                       //   handleHeaderButtonGroup('expand', specLocationIdx);
                       // }}

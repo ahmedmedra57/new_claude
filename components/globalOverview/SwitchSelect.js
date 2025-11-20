@@ -1,11 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useGlobalOverviewStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
-import {
-  handleDisplaySystemDetails,
-  handleSelectDisplaySystem,
-  selectGlobalOverview,
-} from '../store/slices/globalOverviewSlice';
 import {
   flexBoxCenter,
   flexDirectionColumn,
@@ -19,14 +14,12 @@ import {
   layerBDark,
   layerC,
 } from '../styles/commonStyles';
-import { selectUserInfo } from '../store/slices/userSlice';
 import { useCheckControlPermsission } from '../../hooks';
 
 const SwitchSelect = ({ isSelected, setIsSelected }) => {
-  const overViewState = useSelector(selectGlobalOverview);
+  const overViewState = useGlobalOverviewStore();
   const { selectedSystem } = overViewState;
-  const dispatch = useDispatch();
-  const checkSwitchPermission=useCheckControlPermsission();
+    const checkSwitchPermission=useCheckControlPermsission();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const buttons = ['clear', 'apply'];
@@ -77,8 +70,7 @@ const SwitchSelect = ({ isSelected, setIsSelected }) => {
     const selectedOptions=switches.map(({enabled})=>enabled);
     setIsSelected(selectedOptions);
     dispatch(
-      handleDisplaySystemDetails(selectedOptions)
-    );
+      handleDisplaySystemDetails(selectedOptions);
   }
   const handleSelect = (id) => {
     if (id === 0) {
@@ -87,39 +79,39 @@ const SwitchSelect = ({ isSelected, setIsSelected }) => {
       const arr = [...isSelected];
       arr[id] = true;
       setIsSelected(arr);
-      dispatch(handleDisplaySystemDetails(arr));
+      dispatch(handleDisplaySystemDetails(arr);
     }
   };
 
   const handleButtonClick = (button) => {
     if (button === 'clear') {
       setIsSelected([false, false, false, false, false, false]);
-      dispatch(handleSelectDisplaySystem(null));
+      dispatch(handleSelectDisplaySystem(null);
     } else {
       // apply button logic
       // send selected systems to the map component for displaying
       if (isSelected[0]) {
-        dispatch(handleSelectDisplaySystem('all'));
+        dispatch(handleSelectDisplaySystem('all');
       } else if (isSelected[1] && isSelected[2]) {
         // ess & tgs
-        dispatch(handleSelectDisplaySystem('ess, tgs'));
+        dispatch(handleSelectDisplaySystem('ess, tgs');
       } else if (isSelected[1] && isSelected[3]) {
         // ess & tes
-        dispatch(handleSelectDisplaySystem('ess, tes'));
+        dispatch(handleSelectDisplaySystem('ess, tes');
       } else if (isSelected[2] && isSelected[3]) {
         // tgs & tes
-        dispatch(handleSelectDisplaySystem('tgs, tes'));
+        dispatch(handleSelectDisplaySystem('tgs, tes');
       } else if (isSelected[1]) {
         // ess
-        dispatch(handleSelectDisplaySystem('ess'));
+        dispatch(handleSelectDisplaySystem('ess');
       } else if (isSelected[2]) {
         // tgs
-        dispatch(handleSelectDisplaySystem('tgs'));
+        dispatch(handleSelectDisplaySystem('tgs');
       } else if (isSelected[3]) {
         // tes
-        dispatch(handleSelectDisplaySystem('tes'));
+        dispatch(handleSelectDisplaySystem('tes');
       } else {
-        dispatch(handleSelectDisplaySystem(null));
+        dispatch(handleSelectDisplaySystem(null);
       }
       setIsExpanded(false);
     }

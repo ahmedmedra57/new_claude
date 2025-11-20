@@ -1,29 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import {
-  handleReportStatus,
-  selectReportStatus,
-} from '../store/slices/reportStatusSlice';
 import TitleContainer from '../TitleContainer';
 import EachLocationReportStatus from './EachLocationReportStatus';
 import { useEffect } from 'react';
+import { useESSSwitchStore, useReportStatusStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
 import { useGetAllSSRsQueries, useGetThermocouplesQueries } from '../../hooks';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 
 const ReportStatusMain = () => {
   // const [isHover, setIsHover] = useState([]);
   const { t } = useTranslation();
 
-  const dispatch = useDispatch();
-  const locations = useSelector(selectReportStatus);
-  const { essSwitch,flatEssSwitch } = useSelector(selectEssSwitch);
-  const { tgsSwitch,flatTgsSwitch } = useSelector(selectTgsSwitch);
-  const { tesSwitch,flatTesSwitch } = useSelector(selectTesSwitch);
-  const { isF } = useSelector(selectUnits);
+    const locations = useReportStatusStore();
+  const { essSwitch,flatEssSwitch } = useESSSwitchStore();
+  const { tgsSwitch,flatTgsSwitch } = useTGSSwitchStore();
+  const { tesSwitch,flatTesSwitch } = useTESSwitchStore();
+  const { isF } = useUnitsStore();
   const { allLocations } = locations;
 
 
@@ -60,7 +51,7 @@ const ReportStatusMain = () => {
   useGetThermocouplesQueries(flatTesSwitch, 'tes');
 
   useEffect(() => {
-    dispatch(handleReportStatus({ essSwitch, tgsSwitch, tesSwitch, isF }));
+    dispatch(handleReportStatus({ essSwitch, tgsSwitch, tesSwitch, isF });
   }, [essSwitch, tgsSwitch, tesSwitch]);
 
   // useEffect(() => {
@@ -78,7 +69,7 @@ const ReportStatusMain = () => {
   //     const newValue = Object.values(Object.values(location)[0]).filter(
   //       (value) => value.length > 0
   //     );
-  //     return newValue.map((el) => Object.keys(el).fill(false));
+  //     return newValue.map((el) => Object.keys(el).fill(false);
   //   });
   // }, [allLocations]);
 

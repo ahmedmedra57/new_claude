@@ -1,7 +1,5 @@
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { selectFaults } from '../store/slices/FaultsSlice';
-import { selectUserInfo } from '../store/slices/userSlice';
 import {
   flexBoxCenter,
   flexDirectionColumn,
@@ -12,10 +10,10 @@ import {
 
 const FaultsReportHoverBox = () => {
   // Global states
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useUserStore();
   const { isEssSwitch, isTesSwitch, isTgsSwitch } = userInfo;
 
-  const faultsState = useSelector(selectFaults);
+  const faultsState = useFaultsStore();
   const essFaultMessages = faultsState.messages.ess;
   const tgsFaultMessages = faultsState.messages.tgs;
   const tesFaultMessages = faultsState.messages.tes;

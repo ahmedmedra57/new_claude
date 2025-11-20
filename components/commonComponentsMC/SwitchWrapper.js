@@ -1,7 +1,4 @@
 import { useSelector } from "react-redux";
-import { selectEssSwitch } from "../store/slices/essSwitchSlice";
-import { selectTesSwitch } from "../store/slices/tesSwitchSlice";
-import { selectTgsSwitch } from "../store/slices/tgsSwitchSlice";
 
 import { flexBoxCenter } from "../styles/commonStyles";
 import styled, { css } from "styled-components";

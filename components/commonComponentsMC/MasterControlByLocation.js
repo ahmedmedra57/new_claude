@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useContext } from 'react';
 
 import styled, { css } from 'styled-components';
@@ -11,7 +10,6 @@ import {
   layerB,
   layerC,
 } from '../styles/commonStyles';
-import { selectUserPermissions } from '../store/slices/userSlice';
 
 import Ats from '../masterControlSwitches/Ats';
 import HeatingSchedule from '../masterControlSwitches/HeatingSchedule';
@@ -23,11 +21,6 @@ import WindFactor from '../masterControlSwitches/WindFactor';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import FanOnly from '../masterControlSwitches/FanOnly';
 
-import {
-  handleUnselectAllProgram,
-  selectedProgram,
-  handleSelectProgram,
-} from '../store/slices/mobileSelectProgramSlice';
 import { EssTgsTesContext } from '../context/contextOfEssTgsTes';
 
 const MasterControlByLocation = ({
@@ -59,17 +52,16 @@ const MasterControlByLocation = ({
   // const [isHeatingScheduleActivated, setIsHeatingScheduleActivated] =
   //   useState(false);
 
-  const dispatch = useDispatch();
-
+  
   const handleSwitchController = (program) => {
     if (program === 'unselect') {
-      dispatch(handleUnselectAllProgram());
+      dispatch(handleUnselectAllProgram();
     } else {
       if (isSelected[program]) {
-        dispatch(handleUnselectAllProgram());
+        dispatch(handleUnselectAllProgram();
       } else {
-        dispatch(handleUnselectAllProgram());
-        dispatch(handleSelectProgram(program));
+        dispatch(handleUnselectAllProgram();
+        dispatch(handleSelectProgram(program);
       }
     }
   };

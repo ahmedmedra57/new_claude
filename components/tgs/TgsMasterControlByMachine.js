@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { tgsHandleOpenMachineController } from '../store/slices/tgsSwitchSlice';
+import { useTGSSwitchStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 
@@ -28,7 +27,7 @@ import {
 
 import SwitchWrapper from '../commonComponentsMC/SwitchWrapper';
 import TgsControlBox from './TgsControlBox';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
+import { useUnitsStore, useUserStore } from '../zustand-stores';
 import { convertCelsiusToFahrenheit } from '../../helpers/helpers';
 import {
   useGetGraphQueries,
@@ -40,7 +39,6 @@ import {
 } from '../../hooks';
 import InputTempMessage from '../userMessages/inputTempMessage';
 import TurnOffMessageBox from '../commonComponentsMC/controllers/TurnOffMessageBox';
-import { selectUserPermissions } from '../store/slices/userSlice';
 
 const TgsMasterControlByMachine = ({
   location,
@@ -49,10 +47,10 @@ const TgsMasterControlByMachine = ({
   selectedProgramSrc,
 }) => {
   // Permissions and units
-  const dispatch = useDispatch();
-  const permissions = useSelector(selectUserPermissions);
+  const { permissions } = useUserStore();
   const disabled = !permissions.WRITE;
-  const { isF } = useSelector(selectUnits);
+  const { isF } = useUnitsStore();
+  const { setOpenMachineController } = useTGSSwitchStore();
 
   // Use shared hooks for switch data (replaces ~100 lines)
   const switchDataHook = useSwitchData(location, machine, 'tgs', isMobile, isF);
@@ -472,13 +470,11 @@ const TgsMasterControlByMachine = ({
               <HeaderHat third={true} imgSrc={'/images/MC-machine-header3.svg'}>
                 <HeaderButton
                   onClick={() => {
-                    dispatch(
-                      tgsHandleOpenMachineController({
-                        location,
-                        machine,
-                        status: false,
-                      })
-                    );
+                    setOpenMachineController({
+                      location,
+                      machine,
+                      status: false,
+                    });
                     sessionStorage.removeItem('machineId');
                   }}
                 >
@@ -875,13 +871,11 @@ const TgsMasterControlByMachine = ({
                     isOff={isOff}
                     onClick={() => {
                       isOff ||
-                        dispatch(
-                          tgsHandleOpenMachineController({
-                            location,
-                            machine,
-                            status: true,
-                          })
-                        );
+                        setOpenMachineController({
+                          location,
+                          machine,
+                          status: true,
+                        });
                       sessionStorage.setItem('machineId', machine);
                     }}
                   >

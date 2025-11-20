@@ -1,4 +1,3 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
 export const updateUserProfileService = async (data) => {
@@ -10,11 +9,11 @@ export const updateUserProfileService = async (data) => {
   }
 }
 
-export const getUserProfileDataService = createAsyncThunk( "userInfo/getUserProfileDataService" ,async () => {
+export const getUserProfileDataService = async () => {
   try {
-      const response = await axios.get(`/me`);
-      return response?.data?.data;
+    const response = await axios.get(`/me`);
+    return response?.data?.data;
   } catch (error) {
-      throw error?.response?.data;
+    throw error?.response?.data;
   }
-})
+}

@@ -62,8 +62,7 @@ const DropBox = ({
     }
   }, []);
 
-  const dispatch = useDispatch();
-  const keyOfOptions =
+    const keyOfOptions =
     selectBoxFor === 'switchSize' ? 'switchSizeOptions' : 'ssrRatingOptions';
 
   const handleMultipleSelections = (el) => {
@@ -203,14 +202,13 @@ const DropBox = ({
                 addSSRsRatingService(inputValue);
               }
               if (buttonTitle === 'add gas type') {
-                dispatch(handleAddGasType(inputValue));
+                dispatch(handleAddGasType(inputValue);
               } else {
                 dispatch(
                   handleAddSwitchSizeSSRRating({
                     keyOfOptions,
                     value: inputValue,
-                  })
-                );
+                  });
               }
               setInputValue('');
             }}

@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  handleUnselectProgram,
-  selectMobileMC,
-} from '../store/slices/mobileMasterControlSlice';
+import { useESSSwitchStore, useTESSwitchStore, useTGSSwitchStore, useUnitsStore } from '../zustand-stores';
 
 import styled, { css } from 'styled-components';
 
@@ -16,54 +12,7 @@ import {
   layerADark,
   layerB,
 } from '../styles/commonStyles';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
-import {
-  handleAddHeatingSchedule,
-  handleAtsSelection,
-  handleInstantHeat,
-  handleInstantHeatReady,
-  handleOptionalConstantTemp,
-  handleOptionalConstantTempReady,
-  handleReadyHeatingSchedule,
-  handleShutOff,
-  handleSnowSensor,
-  handleUnSelectIndividualMachine,
-  handleWindFactor,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
-import {
-  selectTgsSwitch,
-  tgsHandleAddHeatingSchedule,
-  tgsHandleAtsSelection,
-  tgsHandleFanOnly,
-  tgsHandleInstantHeat,
-  tgsHandleInstantHeatIsReady,
-  tgsHandleReadyHeatingSchedule,
-  tgsHandleShutOff,
-  tgsHandleSnowSensor,
-  tgsHandleUnSelectIndividualMachine,
-  tgsHandleWindFactor,
-} from '../store/slices/tgsSwitchSlice';
-import {
-  selectTesSwitch,
-  tesHandleAddHeatingSchedule,
-  tesHandleAtsSelection,
-  tesHandleInstantHeat,
-  tesHandleOptionalConstantTemp,
-  tesHandleReadyHeatingSchedule,
-  tesHandleShutOff,
-  tesHandleSnowSensor,
-  tesHandleUnSelectIndividualMachine,
-  tesHandleWindFactor,
-} from '../store/slices/tesSwitchSlice';
 
-import {
-  handleCleanUpSelectedOne,
-  handleLocationSelect,
-  handleMachineSelect,
-  handleSelectAll,
-  handleSpecificLocationSelect,
-} from '../store/slices/masterControlSelectSlice';
 import ScheduleCalendar from './controls/heatingScheduler/ScheduleCalendar';
 import Ats from '../masterControlSwitches/Ats';
 import ShutOff from '../masterControlSwitches/ShutOff';
@@ -75,16 +24,16 @@ const ProgramsComponent = ({
   selectionDispatchHandler,
 }) => {
   // !! TODO: implement specific location
-  const unitsStatus = useSelector(selectUnits);
+  const unitsStatus = useUnitsStore();
   const { isF } = unitsStatus;
   const unit = isF ? '°F' : '°C';
 
   const MCStatus = useSelector(selectMobileMC);
   const { selectedSwt, isProgramSelected } = MCStatus;
 
-  const { essSwitch } = useSelector(selectEssSwitch);
-  const { tgsSwitch } = useSelector(selectTgsSwitch);
-  const { tesSwitch } = useSelector(selectTesSwitch);
+  const { essSwitch } = useESSSwitchStore();
+  const { tgsSwitch } = useTGSSwitchStore();
+  const { tesSwitch } = useTESSwitchStore();
 
   const [instantHeatTemp, setInstantHeatTemp] = useState('');
   const [constantTemp, setConstantTemp] = useState('');
@@ -117,12 +66,11 @@ const ProgramsComponent = ({
         } / ${end.date.getFullYear()} `
       : ' -----------------';
 
-  const dispatch = useDispatch();
-
+  
   const handleCleanUp = () => {
-    dispatch(handleCleanUpSelectedOne());
+    dispatch(handleCleanUpSelectedOne();
     // unselect program
-    // dispatch(handleUnselectProgram());
+    // dispatch(handleUnselectProgram();
     // initialize select location
     if (selectedSwt === 'ess') {
       selectionDispatchHandler(selectedSwt, essSwitch);
@@ -134,49 +82,49 @@ const ProgramsComponent = ({
   };
 
   // const handleInitializeSelectLocation = () => {
-  //   dispatch(handleCleanUpSelectedOne());
+  //   dispatch(handleCleanUpSelectedOne();
 
   //   if (selectedSwt === 'ess') {
   //     const essLocations = Object.keys(essSwitch);
-  //     dispatch(handleSelectAll({ switch: 'ess', status: false }));
+  //     dispatch(handleSelectAll({ switch: 'ess', status: false });
   //     const locationArr = essLocations.map((location) => false);
-  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' }));
+  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'ess' });
 
   //     const machineArr = Object.values(essSwitch).map((location) =>
   //       Object.keys(location).map((machine) => false)
   //     );
-  //     dispatch(handleMachineSelect({ arr: machineArr, switch: 'ess' }));
+  //     dispatch(handleMachineSelect({ arr: machineArr, switch: 'ess' });
 
   //     // setAtsSrc('/images/select-ats-disabled.svg');
   //   } else if (selectedSwt === 'tes') {
   //     const tesLocations = Object.keys(tesSwitch);
-  //     dispatch(handleSelectAll({ status: false, switch: 'tss' }));
+  //     dispatch(handleSelectAll({ status: false, switch: 'tss' });
   //     const locationArr = tesLocations.map((location) => false);
-  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' }));
+  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'tes' });
 
   //     const machineArr = Object.values(tesSwitch).map((location) =>
   //       Object.keys(location).map((machine) => false)
   //     );
-  //     dispatch(handleMachineSelect({ arr: machineArr, switch: 'tes' }));
+  //     dispatch(handleMachineSelect({ arr: machineArr, switch: 'tes' });
 
   //     // setAtsSrc('/images/select-ats-disabled.svg');
   //   } else if (selectedSwt === 'tgs') {
   //     // setAtsSrc('/images/select-ats-active.svg');
   //     const tgsLocations = Object.keys(tgsSwitch);
-  //     dispatch(handleSelectAll({ status: false, switch: 'ess' }));
+  //     dispatch(handleSelectAll({ status: false, switch: 'ess' });
   //     const locationArr = tgsLocations.map((location) => false);
-  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' }));
+  //     dispatch(handleLocationSelect({ arr: locationArr, switch: 'tgs' });
 
   //     const machineArr = Object.values(tgsSwitch).map((location) =>
   //       Object.keys(location).map((machine) => false)
   //     );
-  //     dispatch(handleMachineSelect({ arr: machineArr, switch: 'tgs' }));
+  //     dispatch(handleMachineSelect({ arr: machineArr, switch: 'tgs' });
   //   }
   // };
 
   // const handleCleanUp = () => {
   //   // unselect program
-  //   // dispatch(handleUnselectProgram());
+  //   // dispatch(handleUnselectProgram();
   //   // initialize select location
   //   handleInitializeSelectLocation();
   // };
@@ -194,13 +142,13 @@ const ProgramsComponent = ({
     };
     switch (swt) {
       case 'ess':
-        dispatch(handleUnSelectIndividualMachine(dispatchObj));
+        dispatch(handleUnSelectIndividualMachine(dispatchObj);
         break;
       case 'tgs':
-        dispatch(tgsHandleUnSelectIndividualMachine(dispatchObj));
+        dispatch(tgsHandleUnSelectIndividualMachine(dispatchObj);
         break;
       case 'tes':
-        dispatch(tesHandleUnSelectIndividualMachine(dispatchObj));
+        dispatch(tesHandleUnSelectIndividualMachine(dispatchObj);
         break;
       default:
         break;
@@ -217,13 +165,13 @@ const ProgramsComponent = ({
     const dispatchObj = { location, specificLocation, machine, isF, temp };
     switch (swt) {
       case 'ess':
-        dispatch(handleInstantHeatReady(dispatchObj));
+        dispatch(handleInstantHeatReady(dispatchObj);
         break;
       case 'tes':
-        dispatch(tesHandleInstantHeat(dispatchObj));
+        dispatch(tesHandleInstantHeat(dispatchObj);
         break;
       case 'tgs':
-        dispatch(tgsHandleInstantHeat(dispatchObj));
+        dispatch(tgsHandleInstantHeat(dispatchObj);
         break;
       default:
         break;
@@ -239,13 +187,13 @@ const ProgramsComponent = ({
     const dispatchObj = { location, specificLocation, machine };
     switch (swt) {
       case 'ess':
-        dispatch(handleSnowSensor(dispatchObj));
+        dispatch(handleSnowSensor(dispatchObj);
         break;
       case 'tes':
-        dispatch(tesHandleSnowSensor(dispatchObj));
+        dispatch(tesHandleSnowSensor(dispatchObj);
         break;
       case 'tgs':
-        dispatch(tgsHandleSnowSensor(dispatchObj));
+        dispatch(tgsHandleSnowSensor(dispatchObj);
         break;
       default:
         break;
@@ -261,13 +209,13 @@ const ProgramsComponent = ({
     const dispatchObj = { location, specificLocation, machine };
     switch (swt) {
       case 'ess':
-        dispatch(handleWindFactor(dispatchObj));
+        dispatch(handleWindFactor(dispatchObj);
         break;
       case 'tes':
-        dispatch(tesHandleWindFactor(dispatchObj));
+        dispatch(tesHandleWindFactor(dispatchObj);
         break;
       case 'tgs':
-        dispatch(tgsHandleWindFactor(dispatchObj));
+        dispatch(tgsHandleWindFactor(dispatchObj);
         break;
       default:
         break;
@@ -284,10 +232,10 @@ const ProgramsComponent = ({
     const dispatchObj = { location, specificLocation, machine, isF, temp };
     switch (swt) {
       case 'ess':
-        dispatch(handleOptionalConstantTempReady(dispatchObj));
+        dispatch(handleOptionalConstantTempReady(dispatchObj);
         break;
       case 'tes':
-        dispatch(tesHandleOptionalConstantTemp(dispatchObj));
+        dispatch(tesHandleOptionalConstantTemp(dispatchObj);
         break;
       default:
         break;
@@ -315,19 +263,19 @@ const ProgramsComponent = ({
     const dispatchObj2 = { location, specificLocation, machine, state: true };
     switch (swt) {
       case 'ess':
-        dispatch(handleAddHeatingSchedule(dispatchObj));
+        dispatch(handleAddHeatingSchedule(dispatchObj);
         // ready
-        dispatch(handleReadyHeatingSchedule(dispatchObj2));
+        dispatch(handleReadyHeatingSchedule(dispatchObj2);
         break;
       case 'tes':
-        dispatch(tesHandleAddHeatingSchedule(dispatchObj));
+        dispatch(tesHandleAddHeatingSchedule(dispatchObj);
         // ready
-        dispatch(tesHandleReadyHeatingSchedule(dispatchObj2));
+        dispatch(tesHandleReadyHeatingSchedule(dispatchObj2);
         break;
       case 'tgs':
-        dispatch(tgsHandleAddHeatingSchedule(dispatchObj));
+        dispatch(tgsHandleAddHeatingSchedule(dispatchObj);
         // ready
-        dispatch(tgsHandleReadyHeatingSchedule(dispatchObj2));
+        dispatch(tgsHandleReadyHeatingSchedule(dispatchObj2);
         break;
       default:
         break;
@@ -350,13 +298,13 @@ const ProgramsComponent = ({
 
     switch (swt) {
       case 'ess':
-        dispatch(handleAtsSelection(dispatchObj));
+        dispatch(handleAtsSelection(dispatchObj);
         break;
       case 'tes':
-        dispatch(tesHandleAtsSelection(dispatchObj));
+        dispatch(tesHandleAtsSelection(dispatchObj);
         break;
       case 'tgs':
-        dispatch(tgsHandleAtsSelection(dispatchObj));
+        dispatch(tgsHandleAtsSelection(dispatchObj);
         break;
       default:
         break;
@@ -367,13 +315,13 @@ const ProgramsComponent = ({
     const dispatchObj = { location, specificLocation, machine };
     switch (swt) {
       case 'ess':
-        dispatch(handleShutOff(dispatchObj));
+        dispatch(handleShutOff(dispatchObj);
         break;
       case 'tes':
-        dispatch(tesHandleShutOff(dispatchObj));
+        dispatch(tesHandleShutOff(dispatchObj);
         break;
       case 'tgs':
-        dispatch(tgsHandleShutOff(dispatchObj));
+        dispatch(tgsHandleShutOff(dispatchObj);
         break;
       default:
         break;
@@ -426,9 +374,7 @@ const ProgramsComponent = ({
         );
         break;
       case 'fanOnly':
-        dispatch(
-          tgsHandleFanOnly({ location, specificLocation, machine, state: true })
-        );
+        setFanOnly({ location, specificLocation, machine, state: true });
         break;
       case 'ats':
         dispatchAtsHandler(swt, location, specificLocation, machine, selection);
@@ -488,8 +434,7 @@ const ProgramsComponent = ({
             }
           });
         }
-      })
-    );
+      });
   };
 
   // instant Heat handler
@@ -620,7 +565,7 @@ const ProgramsComponent = ({
   const handleClear = () => {};
 
   const handleClose = () => {
-    // dispatch(handleCloseCalendar());
+    // dispatch(handleCloseCalendar();
     setOpenScheduler(false);
   };
 
@@ -1296,7 +1241,7 @@ const ScheduleCalendarWrapper = styled.div`
 //           //         dispatch(
 //           //           handleInstantHeatReady({ location, machine: el, isF, temp })
 //           //         );
-//           //         //   dispatch(handleInstantHeat({ location, machine, isF, temp }));
+//           //         //   dispatch(handleInstantHeat({ location, machine, isF, temp });
 //           //         // }
 //           //       }
 //           //     } else {
@@ -1385,7 +1330,7 @@ const ScheduleCalendarWrapper = styled.div`
 //           //       dispatch(
 //           //         handleUnSelectIndividualMachine({ location, machine })
 //           //       );
-//           //       // dispatch(handleInstantHeat({ location, machine, isF, temp }));
+//           //       // dispatch(handleInstantHeat({ location, machine, isF, temp });
 //           //       dispatch(
 //           //         handleInstantHeatReady({ location, machine, isF, temp })
 //           //       );
@@ -1459,8 +1404,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(essSwitch[location]).forEach((machine) => {
 //       //     if (essSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(handleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(handleSnowSensor({ location, machine }));
+//       //       dispatch(handleUnSelectIndividualMachine({ location, machine });
+//       //       dispatch(handleSnowSensor({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -1471,8 +1416,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(tesSwitch[location]).forEach((machine) => {
 //       //     if (tesSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(tesHandleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(tesHandleSnowSensor({ location, machine }));
+//       //       setUnSelectIndividualMachine({ location, machine });
+//       //       setSnowSensor({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -1483,8 +1428,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(tgsSwitch[location]).forEach((machine) => {
 //       //     if (tgsSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(tgsHandleSnowSensor({ location, machine }));
+//       //       setUnSelectIndividualMachine({ location, machine });
+//       //       setSnowSensor({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -1505,8 +1450,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(essSwitch[location]).forEach((machine) => {
 //       //     if (essSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(handleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(handleWindFactor({ location, machine }));
+//       //       dispatch(handleUnSelectIndividualMachine({ location, machine });
+//       //       dispatch(handleWindFactor({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -1517,8 +1462,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(tesSwitch[location]).forEach((machine) => {
 //       //     if (tesSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(tesHandleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(tesHandleWindFactor({ location, machine }));
+//       //       setUnSelectIndividualMachine({ location, machine });
+//       //       setWindFactor({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -1529,8 +1474,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(tgsSwitch[location]).forEach((machine) => {
 //       //     if (tgsSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(tgsHandleWindFactor({ location, machine }));
+//       //       setUnSelectIndividualMachine({ location, machine });
+//       //       setWindFactor({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -1557,7 +1502,7 @@ const ScheduleCalendarWrapper = styled.div`
 
 //           // Object.keys(essSwitch).forEach((location) =>
 //           //   Object.keys(essSwitch[location]).forEach((machine) => {
-//           //     dispatch(handleUnSelectIndividualMachine({ location, machine }));
+//           //     dispatch(handleUnSelectIndividualMachine({ location, machine });
 
 //           //     if (essSwitch[location][machine].isSelected) {
 //           //       // dispatch(
@@ -1616,7 +1561,7 @@ const ScheduleCalendarWrapper = styled.div`
 
 //           // Object.keys(essSwitch).forEach((location) =>
 //           //   Object.keys(essSwitch[location]).forEach((machine) => {
-//           //     dispatch(handleUnSelectIndividualMachine({ location, machine }));
+//           //     dispatch(handleUnSelectIndividualMachine({ location, machine });
 
 //           //     if (essSwitch[location][machine].isSelected) {
 //           //       // dispatch(
@@ -1676,7 +1621,7 @@ const ScheduleCalendarWrapper = styled.div`
 //   const handleClear = () => {};
 
 //   const handleClose = () => {
-//     // dispatch(handleCloseCalendar());
+//     // dispatch(handleCloseCalendar();
 //     setOpenScheduler(false);
 //   };
 
@@ -1954,8 +1899,8 @@ const ScheduleCalendarWrapper = styled.div`
 //     //   Object.keys(tgsSwitch[location]).forEach((machine) => {
 //     //     if (tgsSwitch[location][machine].isSelected) {
 //     //       // unSelect individual machine as false
-//     //       dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }));
-//     //       dispatch(tgsHandleFanOnly({ location, machine, state: true }));
+//     //       setUnSelectIndividualMachine({ location, machine });
+//     //       setFanOnly({ location, machine, state: true });
 //     //     }
 //     //   })
 //     // );
@@ -1975,8 +1920,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(essSwitch[location]).forEach((machine) => {
 //       //     if (essSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(handleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(handleAtsSelection({ location, machine, selection }));
+//       //       dispatch(handleUnSelectIndividualMachine({ location, machine });
+//       //       dispatch(handleAtsSelection({ location, machine, selection });
 //       //     }
 //       //   })
 //       // );
@@ -1987,8 +1932,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(tesSwitch[location]).forEach((machine) => {
 //       //     if (tesSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(tesHandleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(tesHandleAtsSelection({ location, machine, selection }));
+//       //       setUnSelectIndividualMachine({ location, machine });
+//       //       dispatch(tesHandleAtsSelection({ location, machine, selection });
 //       //     }
 //       //   })
 //       // );
@@ -1999,8 +1944,8 @@ const ScheduleCalendarWrapper = styled.div`
 //     //     Object.keys(tgsSwitch[location]).forEach((machine) => {
 //     //       if (tgsSwitch[location][machine].isSelected) {
 //     //         // unSelect individual machine as false
-//     //         dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }));
-//     //         dispatch(tgsHandleAtsSelection({ location, machine, selection }));
+//     //         setUnSelectIndividualMachine({ location, machine });
+//     //         dispatch(tgsHandleAtsSelection({ location, machine, selection });
 //     //       }
 //     //     })
 //     //   );
@@ -2019,8 +1964,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(essSwitch[location]).forEach((machine) => {
 //       //     if (essSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(handleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(handleShutOff({ location, machine }));
+//       //       dispatch(handleUnSelectIndividualMachine({ location, machine });
+//       //       dispatch(handleShutOff({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -2031,8 +1976,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(tesSwitch[location]).forEach((machine) => {
 //       //     if (tesSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(tesHandleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(tesHandleShutOff({ location, machine }));
+//       //       setUnSelectIndividualMachine({ location, machine });
+//       //       setShutOff({ location, machine });
 //       //     }
 //       //   })
 //       // );
@@ -2043,8 +1988,8 @@ const ScheduleCalendarWrapper = styled.div`
 //       //   Object.keys(tgsSwitch[location]).forEach((machine) => {
 //       //     if (tgsSwitch[location][machine].isSelected) {
 //       //       // unSelect individual machine as false
-//       //       dispatch(tgsHandleUnSelectIndividualMachine({ location, machine }));
-//       //       dispatch(tgsHandleShutOff({ location, machine }));
+//       //       setUnSelectIndividualMachine({ location, machine });
+//       //       dispatch(tgsHandleShutOff({ location, machine });
 //       //     }
 //       //   })
 //       // );

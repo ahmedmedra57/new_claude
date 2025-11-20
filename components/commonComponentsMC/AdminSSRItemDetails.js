@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Fragment } from 'react';
-import {
-  handleChangeSSRDetail,
-  selectEssSwitch,
-} from '../store/slices/essSwitchSlice';
-import { selectDescription } from '../store/slices/ssrDescriptionSlice';
 
 import styled, { css } from 'styled-components';
 import {
@@ -29,11 +23,6 @@ import {
   getAdminHeatersService,
 } from '../../services/ssrs.service';
 import { useDebounce } from '../../hooks';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import {
-  tesHandleChangeSSRDetail,
-  selectTesSwitch,
-} from '../store/slices/tesSwitchSlice';
 import MessageBox from '../userMessages/messageBox';
 
 const AdminSSRItemDetails = ({
@@ -122,8 +111,7 @@ const AdminSSRItemDetails = ({
 
   const [activateMessageBox, setActivateMessageBox] = useState(false);
   const [message, setMessage] = useState(null);
-  const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (inputDetails[0].partNumber !== '') {
       // 1. find index with partNumber in ssr
@@ -188,8 +176,7 @@ const AdminSSRItemDetails = ({
           data: elementData,
           id: `ssr${id}`,
           unit: unitsMeasurement,
-        })
-      );
+        });
           elementData.forEach((el, index) => {
           const oldEl = initialInputState[index];
 
@@ -230,8 +217,7 @@ const AdminSSRItemDetails = ({
             data: [{}],
             id: `ssr${id}`,
             unit: unitsMeasurement,
-          })
-        );
+          });
         initialInputState
           .filter((element) => element.partNumber !== '')
           .map((el) => {
@@ -343,7 +329,7 @@ const AdminSSRItemDetails = ({
     // 2. update new Input into requested index and name
     newInput[index].partNumber = input.toUpperCase();
     setInputDetails(newInput);
-    setInputPartNumber(input.toUpperCase());
+    setInputPartNumber(input.toUpperCase();
   };
 
   // ********************************auto complete*****************************
@@ -366,9 +352,8 @@ const AdminSSRItemDetails = ({
                 voltage: Number(el.voltage),
                 lengths: Number(el.lengths),
               };
-            })
-          );
-          setPartNumberSuggestions(res.map((el) => el.partNumber));
+            });
+          setPartNumberSuggestions(res.map((el) => el.partNumber);
         })
         .catch((err) => {
         });
@@ -377,8 +362,7 @@ const AdminSSRItemDetails = ({
 
   let filteredSuggestions = partNumberSuggestions.filter(
     (suggestion) =>
-      suggestion.includes(inputPartNumber) 
-  );
+      suggestion.includes(inputPartNumber);
 
   useEffect(() => {
     filteredSuggestions.length >= 1 && inputPartNumber.length >= 2

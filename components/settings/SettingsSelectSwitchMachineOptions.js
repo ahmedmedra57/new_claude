@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import {
-  selectForceCommandAndAdminSelect,
-} from '../store/slices/settings/force&CommandAndAdminSelectSlice';
 import {
   flexBoxCenter,
   justifyContentFlexEnd,
@@ -130,8 +126,7 @@ const SettingsSelectSwitchMachineOptions = ({
 
   const [isSelected, setIsSelected] = useState(false);
 
-  const dispatch = useDispatch();
-
+  
   const handleOnClick = (...props) => {
     const propsObj = {
       button: props[1],

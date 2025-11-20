@@ -13,11 +13,8 @@ import moment from 'moment';
 
 import { flexBoxCenter } from '../styles/commonStyles';
 import styled from 'styled-components';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { useMemo } from 'react';
+import { useUnitsStore } from '../zustand-stores';
 import {
   formatDateTooltip,
   formatDateXAxis,
@@ -39,7 +36,7 @@ const BarGraph = ({ swtName, graph, location, machine }) => {
   const {
     graphDateData: { energyGasConsumptionGraphData, dataConsumptionGraphData, intervalUnit }
   } = swtStatus[location][machine];
-  const { isF } = useSelector(selectUnits);
+  const { isF } = useUnitsStore();
   const isGas = swtName === 'tgs';
   const configuration = swtName === 'ess' ? 'ess' : 'tgs/tes';
   const { locationName, machineName } = swtStatus[location][machine];

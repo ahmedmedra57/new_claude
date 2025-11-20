@@ -1,17 +1,7 @@
 import { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useFaultsStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import { updateDeviceThermocoupleService } from '../../services/faults.service';
-import { handleShutOff } from '../store/slices/essSwitchSlice';
-import {
-  handleDisplayForceStatusBox,
-  handleForceButtonActivated,
-  handleForceSelection,
-  handleTimer,
-  selectFaults,
-} from '../store/slices/FaultsSlice';
-import { tesHandleShutOff } from '../store/slices/tesSwitchSlice';
-import { tgsHandleShutOff } from '../store/slices/tgsSwitchSlice';
 
 import {
   flexBoxCenter,
@@ -34,11 +24,10 @@ const SelectForce = ({
   faultId,
 }) => {
   // !! TODO: implement specific location for dispatches
-  const faultsState = useSelector(selectFaults);
+  const faultsState = useFaultsStore();
   const verifiedFaultsState = faultsState[swtName][location][machine];
   const { receivedThermocoupleSetting } = verifiedFaultsState;
-  const dispatch = useDispatch();
-
+  
   const options = useMemo(() => {
     const result = [];
     const selectedThermocouple = receivedThermocoupleSetting?.find(
@@ -77,8 +66,7 @@ const SelectForce = ({
         specificLocation,
         machine,
         selectedOne,
-      })
-    );
+      });
 
     switch (selectedOne) {
       case options[0]: {
@@ -91,8 +79,7 @@ const SelectForce = ({
             specificLocation,
             machine,
             time: 72,
-          })
-        );
+          });
         break;
       }
       case options[1]: {
@@ -105,16 +92,15 @@ const SelectForce = ({
             specificLocation,
             machine,
             time: 12,
-          })
-        );
+          });
         break;
       }
       case options[2]: {
         // turn off all electric heater and show the message
         if (swtName === 'ess') {
-          dispatch(handleShutOff({ location, specificLocation, machine }));
+          dispatch(handleShutOff({ location, specificLocation, machine });
         } else {
-          dispatch(tesHandleShutOff({ location, specificLocation, machine }));
+          setShutOff({ location, specificLocation, machine });
         }
         // Display force status box
         dispatch(
@@ -123,8 +109,7 @@ const SelectForce = ({
             location,
             specificLocation,
             machine,
-          })
-        );
+          });
         break;
       }
       default: {
@@ -151,8 +136,7 @@ const SelectForce = ({
         specificLocation,
         machine,
         state: true,
-      })
-    );
+      });
     handleClose();
   };
 

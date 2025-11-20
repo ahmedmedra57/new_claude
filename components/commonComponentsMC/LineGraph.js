@@ -13,12 +13,9 @@ import moment from 'moment';
 
 import styled from 'styled-components';
 import { flexBoxCenter } from '../styles/commonStyles';
-import { selectUnits } from '../store/slices/settings/unitsSlice';
 import { useMemo } from 'react';
+import { useUnitsStore } from '../zustand-stores';
 import { convertCelsiusToFahrenheit, formatDateTooltip, formatDateXAxis } from '../../helpers/helpers';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
 
 const LineGraph = ({ swtName, location, machine, realTime }) => {
   const { essSwitch, tgsSwitch, tesSwitch,flatEssSwitch,flatTgsSwitch,flatTesSwitch } = useSelector(
@@ -42,7 +39,7 @@ const LineGraph = ({ swtName, location, machine, realTime }) => {
     windGraphData,
     intervalUnit,
   } = realTime ? swtStatus[location][machine] : graphDateData;
-  const { isF } = useSelector(selectUnits);
+  const { isF } = useUnitsStore();
   const isGas = swtName === 'tgs';
   const configuration = swtName === 'ess' ? 'ess' : 'tgs/tes';
   const { locationName, machineName } = swtStatus[location][machine];

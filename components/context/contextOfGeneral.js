@@ -1,14 +1,13 @@
 import { createContext, useState, useMemo } from 'react';
+import { useFaultsStore, useUserStore } from '../zustand-stores';
 import { useSelector } from 'react-redux';
-import { selectFaults } from '../store/slices/FaultsSlice';
-import { selectUserInfo } from '../store/slices/userSlice';
 import { GROUPS_ACTIVE_TAPS, PERMISSIONS, tabsSrc } from '../../constants';
 
 export const GeneralContext = createContext();
 
 const GeneralProvider = ({ children }) => {
-  const faultsState = useSelector(selectFaults);
-  const userInfo = useSelector(selectUserInfo);
+  const faultsState = useFaultsStore();
+  const userInfo = useUserStore();
   const { isEssSwitch, isTesSwitch, isTgsSwitch, isHpSwitch, permissions } =
     userInfo;
   const isMasterControl = permissions[PERMISSIONS.MASTER_CONTROL];

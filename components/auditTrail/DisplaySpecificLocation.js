@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useESSSwitchStore, useLocationsStore, useTESSwitchStore, useTGSSwitchStore } from '../zustand-stores';
 import styled, { css } from 'styled-components';
 import {
   flexBoxCenter,
@@ -7,11 +8,7 @@ import {
 } from '../styles/commonStyles';
 import DisplayMachine from './DisplayMachine';
 import { useSelector } from 'react-redux';
-import { selectEssSwitch } from '../store/slices/essSwitchSlice';
-import { selectTesSwitch } from '../store/slices/tesSwitchSlice';
-import { selectTgsSwitch } from '../store/slices/tgsSwitchSlice';
 import testData from '../../test_data/testData';
-import { selectLocations } from '../store/slices/locationsSlice';
 
 const DisplaySpecificLocation = ({
   locationIdx,
@@ -36,11 +33,11 @@ const DisplaySpecificLocation = ({
   const [trackOpenSpecificLocation, setTrackOpenSpecificLocation] =
     useState(false);
 
-  // const locations = useSelector(selectLocations);
+  // const locations = useLocationsStore();
   // !!TEST DATA
-  // const { essSwitch } = useSelector(selectEssSwitch);
-  // const { tesSwitch } = useSelector(selectTesSwitch);
-  // const { tgsSwitch } = useSelector(selectTgsSwitch);
+  // const { essSwitch } = useESSSwitchStore();
+  // const { tesSwitch } = useTESSwitchStore();
+  // const { tgsSwitch } = useTGSSwitchStore();
   // const { testAllLocations } = testData(
   //   essSwitch,
   //   tgsSwitch,
