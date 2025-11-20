@@ -82,7 +82,7 @@ const MasterControlMain = () => {
       }
     } else {
       // if we don't have a command date, we will set new commandDate to today
-      dispatch(handleCommandDate(moment().format('DDMMYY');
+      useMCCommandStore().setCommandDate(moment().format('DDMMYY'));
     }
   }, [moment().format('DDMMYY')]);
 
