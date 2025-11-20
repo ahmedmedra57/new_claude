@@ -129,8 +129,7 @@ const ButtonGroup = ({
               locationId,
               specificLocationId
             );
-            dispatch(
-              expandFC({
+            expandFCCallback({
                 swtName,
                 locationIdx: id,
                 status: true,

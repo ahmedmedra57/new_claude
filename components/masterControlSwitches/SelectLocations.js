@@ -107,14 +107,14 @@ const SelectLocations = ({
 
   // initialize all the select for display
   const presetSelectBoxHandler = (
-    allSelectFC,
-    selectLocationFC,
-    selectSpecificLocationFC,
-    selectMachineFC,
+    allSelectCallback,
+    selectLocationCallback,
+    selectSpecificLocationCallback,
+    selectMachineCallback,
     handleResetSelectedOne
   ) => {
     // isAllSelected
-    dispatch(allSelectFC({ controller: name, status: false });
+    allSelectCallback({ controller: name, status: false });
     // selectedOne
     useMasterControlSelectStore().resetSelectedOne();
 
@@ -151,36 +151,35 @@ const SelectLocations = ({
     //   selectBoxResetHandler(switchStatus);
 
     // isLocationSelected
-    dispatch(selectLocationFC({ arr: locationList, controller: name });
+    selectLocationCallback({ arr: locationList, controller: name });
 
     //isSpecificLocationSelected
-    dispatch(
-      selectSpecificLocationFC({
+    selectSpecificLocationCallback({
         arr: specificLocationList,
         controller: name,
       });
 
     // isMachineSelected
-    dispatch(selectMachineFC({ arr: machineList, controller: name });
+    selectMachineCallback({ arr: machineList, controller: name });
   };
 
   useEffect(() => {
     if (displaySelectBox) {
       if (scope === "switch") {
         presetSelectBoxHandler(
-          handleSelectAllBySwitch,
-          handleLocationSelectBySwitch,
-          handleSpecificLocationSelectBySwitch,
-          handleMachineSelectBySwitch,
+          (args) => useMasterControlBySwitchSelectStore().selectAll(args),
+          (args) => useMasterControlBySwitchSelectStore().selectLocation(args),
+          (args) => useMasterControlBySwitchSelectStore().selectSpecificLocation(args),
+          (args) => useMasterControlBySwitchSelectStore().selectMachine(args),
           handleResetSelectedOne
         );
       } else {
 
         presetSelectBoxHandler(
-          handleSelectAllByLocation,
-          handleLocationSelectByLocation,
-          handleSpecificLocationSelectByLocation,
-          handleMachineSelectByLocation,
+          (args) => useMasterControlSelectByLocationStore().selectAll(args),
+          (args) => useMasterControlSelectByLocationStore().selectLocation(args),
+          (args) => useMasterControlSelectByLocationStore().selectSpecificLocation(args),
+          (args) => useMasterControlSelectByLocationStore().selectMachine(args),
           handleResetSelectedOneByLocation
         );
       }

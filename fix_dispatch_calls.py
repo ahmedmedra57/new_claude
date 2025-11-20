@@ -515,3 +515,6 @@ def main():
 if __name__ == '__main__':
     count = main()
     exit(0)
+# Add to ACTION_TO_ZUSTAND before running:
+# 'handleSpecificLocationSelectBySwitch': ('useMasterControlBySwitchSelectStore', 'selectSpecificLocation'),
+# 'handleSpecificLocationSelectByLocation': ('useMasterControlSelectByLocationStore', 'selectSpecificLocation'),

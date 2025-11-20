@@ -56,8 +56,8 @@ const SearchBox = ({ handleClose, isMobile }) => {
   };
 
   const machineControlHandler = (
-    dispatchInitialStateFC,
-    dispatchOpenMachineFC,
+    initialStateCallback,
+    openMachineCallback,
     swtName,
     location,
     locationIdx,
@@ -66,23 +66,24 @@ const SearchBox = ({ handleClose, isMobile }) => {
     machine
   ) => {
     const locationArr = Object.keys(switches).map((location) => false);
-    dispatch(dispatchInitialStateFC(locationArr);
+    initialStateCallback(locationArr);
 
     Object.keys(switches).forEach((location) =>
       Object.keys(switches[location]).forEach((newEl) => {
         if (switches[location][newEl]?.deviceMac) {
-          dispatch(
-            dispatchOpenMachineFC({ location, machine: newEl, status: false });
+          openMachineCallback({ location, machine: newEl, status: false });
         } else {
           Object.keys(switches[location][newEl]).forEach((newMachine) =>
-            // TODO: Call appropriate store.setOpenMachineController({
+            openMachineCallback({
                 location,
                 specificLocation: newEl,
                 machine: newMachine,
                 status: false,
-              });
+              })
+          );
         }
-      });
+      })
+    );
 
     if (machine) {
       useLocationsStore().openLocation({
@@ -96,8 +97,7 @@ const SearchBox = ({ handleClose, isMobile }) => {
           status: true,
         });
 
-      dispatch(
-        dispatchOpenMachineFC({
+      openMachineCallback({
           location,
           specificLocation: el,
           machine,
@@ -109,8 +109,7 @@ const SearchBox = ({ handleClose, isMobile }) => {
           index: locationIdx,
           status: true,
         });
-      dispatch(
-        dispatchOpenMachineFC({
+      openMachineCallback({
           location,
           machine: el,
           status: true,
@@ -125,8 +124,8 @@ const SearchBox = ({ handleClose, isMobile }) => {
 
     if (selectedSwitch === 'ess') {
       machineControlHandler(
-        handleEssInitialState,
-        handleOpenMachineController,
+        (arr) => useESSSwitchStore().resetMachinesState(arr),
+        (args) => useESSSwitchStore().setOpenMachineController(args),
         'ess',
         location,
         locationIndex,
@@ -136,8 +135,8 @@ const SearchBox = ({ handleClose, isMobile }) => {
       );
     } else if (selectedSwitch === 'tgs') {
       machineControlHandler(
-        handleTgsInitialState,
-        tgsHandleOpenMachineController,
+        (arr) => useTGSSwitchStore().resetMachinesState(arr),
+        (args) => useTGSSwitchStore().setOpenMachineController(args),
         'tgs',
         location,
         locationIndex,
@@ -147,8 +146,8 @@ const SearchBox = ({ handleClose, isMobile }) => {
       );
     } else if (selectedSwitch === 'tes') {
       machineControlHandler(
-        handleTesInitialState,
-        tesHandleOpenMachineController,
+        (arr) => useTESSwitchStore().resetMachinesState(arr),
+        (args) => useTESSwitchStore().setOpenMachineController(args),
         'tes',
         location,
         locationIndex,

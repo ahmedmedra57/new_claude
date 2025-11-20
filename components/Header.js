@@ -187,8 +187,7 @@ const Header = () => {
     Object.keys(swtData).forEach((location) =>
       Object.keys(swtData[location]).forEach((el) => {
         if (el?.deviceMac && Object.keys(el).length > 0) {
-          dispatch(
-            machineControlFC({
+          machineControlFCCallback({
               location,
               machine: el,
               status: false,
@@ -196,8 +195,7 @@ const Header = () => {
         }
       });
 
-    dispatch(
-      machineControlFC({
+    machineControlFCCallback({
         location: searchedLocation,
         specificLocation: searchedSpecificLocation,
         machine: searchedMachine,

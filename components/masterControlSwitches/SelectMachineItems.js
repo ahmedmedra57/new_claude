@@ -114,7 +114,7 @@ const SelectMachineItems = ({
     const result = getAllSpecificLocationNames(data);
     setSpecificLocationsNameList(result);
   }, [data]);
-  const switchCountHandler = (machines, selectOneFC) => {
+  const switchCountHandler = (machines, selectOneCallback) => {
     let selectedSwtNumber = 0;
     machines.forEach((location) =>
       location.forEach((machine) => {
@@ -129,9 +129,9 @@ const SelectMachineItems = ({
             selectedSwtNumber += 1;
           }
         }
-      });
-    dispatch(
-      selectOneFC({
+      })
+    );
+    selectOneCallback({
         controller: name,
         selectedOne: `${selectedSwtNumber} switches`,
       });
@@ -159,12 +159,10 @@ const SelectMachineItems = ({
         // dispatch
 
         scope === "switch"
-          ? dispatch(
-              handleSelectedOneBySwitch({
+          ? useMasterControlBySwitchSelectStore().setSelectedOne({
                 controller: name,
                 selectedOne: "all",
               })
-            )
           : useMasterControlSelectByLocationStore().setSelectedOne({
                 controller: name,
                 selectedOne: "all",
@@ -244,9 +242,7 @@ const SelectMachineItems = ({
         selectMachinesHandler(selectedMachines, swtName, switchData, dispatch);
       } else if (!isSelected) {
         scope === "switch"
-          ? dispatch(
-              handleSelectedOneBySwitch({ controller: name, selectedOne: null })
-            )
+          ? useMasterControlBySwitchSelectStore().setSelectedOne({ controller: name, selectedOne: null })
           : useMasterControlSelectByLocationStore().setSelectedOne({
                 controller: name,
                 selectedOne: null,
@@ -309,8 +305,7 @@ const SelectMachineItems = ({
         useMasterControlBySwitchSelectStore().selectLocation(locationResetObj);
         // 3.1. reset isSpecificLocationSelected to an array of false
         if (specificLocationList.length > 0) {
-          dispatch(
-            handleSpecificLocationSelectBySwitch(specificLocationResetObj);
+          useMasterControlBySwitchSelectStore().selectSpecificLocation(specificLocationResetObj);
         }
         // 3.2. reset isMachineSelected to an array of false
         useMasterControlBySwitchSelectStore().selectMachine(machineResetObj);
@@ -331,8 +326,7 @@ const SelectMachineItems = ({
 
         // 3.1. reset isSpecificLocationSelected to an array of false
         if (specificLocationList.length > 0) {
-          dispatch(
-            handleSpecificLocationSelectByLocation(specificLocationResetObj);
+          useMasterControlSelectByLocationStore().selectSpecificLocation(specificLocationResetObj);
         }
 
         // 3.2. reset isMachineSelected to an array of false
