@@ -69,9 +69,9 @@ const ProgramsComponent = ({
 
   
   const handleCleanUp = () => {
-    dispatch(handleCleanUpSelectedOne();
+    useMasterControlSelectStore().cleanUpSelectedOne();
     // unselect program
-    // dispatch(handleUnselectProgram();
+    // useMCStore().unselectProgram();
     // initialize select location
     if (selectedSwt === 'ess') {
       selectionDispatchHandler(selectedSwt, essSwitch);
@@ -83,7 +83,7 @@ const ProgramsComponent = ({
   };
 
   // const handleInitializeSelectLocation = () => {
-  //   dispatch(handleCleanUpSelectedOne();
+  //   useMasterControlSelectStore().cleanUpSelectedOne();
 
   //   if (selectedSwt === 'ess') {
   //     const essLocations = Object.keys(essSwitch);
@@ -125,7 +125,7 @@ const ProgramsComponent = ({
 
   // const handleCleanUp = () => {
   //   // unselect program
-  //   // dispatch(handleUnselectProgram();
+  //   // useMCStore().unselectProgram();
   //   // initialize select location
   //   handleInitializeSelectLocation();
   // };
@@ -566,7 +566,7 @@ const ProgramsComponent = ({
   const handleClear = () => {};
 
   const handleClose = () => {
-    // dispatch(handleCloseCalendar();
+    // useMCStore().closeCalendar();
     setOpenScheduler(false);
   };
 
@@ -1622,7 +1622,7 @@ const ScheduleCalendarWrapper = styled.div`
 //   const handleClear = () => {};
 
 //   const handleClose = () => {
-//     // dispatch(handleCloseCalendar();
+//     // useMCStore().closeCalendar();
 //     setOpenScheduler(false);
 //   };
 

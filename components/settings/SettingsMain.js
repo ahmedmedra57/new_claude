@@ -273,8 +273,8 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
   }, [openHeaders]);
 
   useEffect(() => {
-    dispatch(handleSetInitialStateSettingsOptions();
-    return () => dispatch(handleResetButtons();
+    useSettingsOptionsStore().setInitialState();
+    return () => useEditCancelApplyButtonsStore().resetButtons();
   }, []);
 
   const handleCancelButtonsFunctions = (sysIndex) => {
@@ -318,7 +318,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
   // logic for edit, cancel and apply buttons
   const handleEditCancelApplyButtons = (value, sysIndex) => {
     const buttonsIndex = Number(value);
-    dispatch(handleResetButtons();
+    useEditCancelApplyButtonsStore().resetButtons();
     switch (buttonsIndex) {
       case 0:
         useEditCancelApplyButtonsStore().setButtonClicked('isEdit');
@@ -400,7 +400,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
     };
     try {
       const response = await updateUserProfileService(updatedData);
-      dispatch(getUserProfileDataService();
+      useUserStore().getUserProfile();
       useEditCancelApplyButtonsStore().setButtonClicked('isApply');
       handleMessageBox(sysIndex);
       // setUpdateProfileError(null);
@@ -426,7 +426,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
 
     try {
       const response = await updateUserProfileService(dataObject);
-      dispatch(getUserProfileDataService();
+      useUserStore().getUserProfile();
       useEditCancelApplyButtonsStore().setButtonClicked('isApply');
       handleMessageBox(sysIndex);
       // setUpdateProfileError(null);

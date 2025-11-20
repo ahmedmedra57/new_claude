@@ -156,15 +156,15 @@ function MasterControlCommandMain({
 
   const handleCreateNewCommand = () => {
     // ***this will create new command which will set everything to default and increase the command# by 1
-    // dispatch(handleViewPrevCommandAndCreateNewCommand();
-    dispatch(handleCreateCommand();
+    // useMCCommandStore().viewPrevAndCreateNew();
+    useMCCommandStore().createCommand();
     useMCCommandStore().applyCommand(false);
   };
 
   const handleCommandResetSystem = () => {
     // ***resets all dial system selection state in selected machines slice
 
-    dispatch(handleResetAll();
+    useMasterControlSelectStore().resetAll();
   };
 
   // const dispatchSelectLocationHandler = (switchData, location, dispatchFC) => {
@@ -1131,8 +1131,8 @@ function MasterControlCommandMain({
   const handleSelectCommand = (el) => {
     setSelectCommand({ command: el, userId: userID });
     // ***resets all select switch location state in master control select slice
-    dispatch(handleResetAllSelect();
-    dispatch(handleResetAll();
+    useMasterControlSelectStore().resetAllSelect();
+    useMasterControlSelectStore().resetAll();
     setResetDialControl(true);
 
     // finds the command that's chosen depending on the userID given by the backend

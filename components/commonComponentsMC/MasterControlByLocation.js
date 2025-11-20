@@ -56,12 +56,12 @@ const MasterControlByLocation = ({
   
   const handleSwitchController = (program) => {
     if (program === 'unselect') {
-      dispatch(handleUnselectAllProgram();
+      useMCStore().unselectAllProgram();
     } else {
       if (isSelected[program]) {
-        dispatch(handleUnselectAllProgram();
+        useMCStore().unselectAllProgram();
       } else {
-        dispatch(handleUnselectAllProgram();
+        useMCStore().unselectAllProgram();
         useMCStore().selectProgram(program);
       }
     }

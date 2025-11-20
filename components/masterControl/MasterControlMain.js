@@ -68,10 +68,10 @@ const MasterControlMain = () => {
 
   // Reset selected switch and dial control
   useEffect(() => {
-    dispatch(handleUnselectAllSystem();
-    dispatch(handleResetAll();
-    dispatch(handleResetAllSelect();
-    dispatch(handleResetCreateNewCommand();
+    useMCStore().unselectAllSystem();
+    useMasterControlSelectStore().resetAll();
+    useMasterControlSelectStore().resetAllSelect();
+    useMCCommandStore().resetCreateNewCommand();
   }, []);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const MasterControlMain = () => {
     if (commandDate) {
       let difference = moment().diff(commandDate, 'days');
       if (difference) {
-        dispatch(handleResetCommandNumber();
+        useMCCommandStore().resetCommandNumber();
       }
     } else {
       // if we don't have a command date, we will set new commandDate to today
@@ -119,11 +119,11 @@ const MasterControlMain = () => {
   const handleCreateNewCommand = (e) => {
     // this will create new command which will set everything to default and increase the command# by 1
     e.stopPropagation();
-    dispatch(handleCreateCommand();
-    dispatch(handleResetAllSelect();
-    dispatch(handleResetAll();
+    useMCCommandStore().createCommand();
+    useMasterControlSelectStore().resetAllSelect();
+    useMasterControlSelectStore().resetAll();
     useMCCommandStore().applyCommand(false);
-    dispatch(handleUnselectAllSystem();
+    useMCStore().unselectAllSystem();
     useMCStore().resetControlInit(false);
     handleCreateNewCommandMessageBox(1);
 

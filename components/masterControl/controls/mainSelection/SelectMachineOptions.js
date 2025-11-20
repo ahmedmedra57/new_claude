@@ -621,7 +621,7 @@ const ButtonWrapper = styled.button`
 //     locations.map((location) => handleSelectLocation(location);
 
 //     // reset all changes
-//     dispatch(handleResetAll();
+//     useMasterControlSelectStore().resetAll();
 //   }
 // };
 

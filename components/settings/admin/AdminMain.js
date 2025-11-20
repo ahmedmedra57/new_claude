@@ -114,7 +114,7 @@ function AdminMain({
 
   useEffect(() => {
     return () => {
-      dispatch(handleResetAccessAdministrator();
+      useAdminStore().resetAccessAdministrator();
       setSaveChanges({
         addElementToBank: false,
         trackTempControl: false,

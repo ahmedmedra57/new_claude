@@ -92,7 +92,7 @@ function WindFactorMain({
 
   useEffect(() => {
     return () => {
-      dispatch(handleResetAccessAdministrator();
+      useAdminStore().resetAccessAdministrator();
     };
   }, []);
 

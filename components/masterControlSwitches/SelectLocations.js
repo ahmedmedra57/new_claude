@@ -116,7 +116,7 @@ const SelectLocations = ({
     // isAllSelected
     dispatch(allSelectFC({ controller: name, status: false });
     // selectedOne
-    dispatch(handleResetSelectedOne();
+    useMasterControlSelectStore().resetSelectedOne();
 
     // isLocationSelected
     // const locationArr = locations.map((_) => false);

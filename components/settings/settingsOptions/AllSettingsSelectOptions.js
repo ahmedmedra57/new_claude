@@ -75,7 +75,7 @@ function AllSettingsSelectOptions() {
   const handleSelect = (value) => {
     if (option !== value) {
       setOption(value);
-      dispatch(setResetSettingsOptions();
+      useSettingsOptionsStore().resetSettingsOptions();
       switch (value) {
         case 0: {
           useSettingsOptionsStore().selectSetting("isUserProfileSelected");

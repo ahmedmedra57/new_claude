@@ -365,7 +365,7 @@ const IntegratedSwitchSpecificLocations = ({
   const mainControllerExpandHandler = (specLocationIdx, isMobile) => {
     // initialize the previous selected program
     if (isMobile) {
-      dispatch(handleUnselectAllProgram();
+      useMCStore().unselectAllProgram();
     }
     // open location component
     headerGroupButtonsHandler(
@@ -423,7 +423,7 @@ const IntegratedSwitchSpecificLocations = ({
                       }
                       // handleExpand={() => {
                       //   // initialize the previous selected program
-                      //   dispatch(handleUnselectAllProgram();
+                      //   useMCStore().unselectAllProgram();
                       //   // open location component
                       //   handleHeaderButtonGroup('expand', specLocationIdx);
                       // }}

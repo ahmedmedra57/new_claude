@@ -34,19 +34,19 @@ function SystemButton({
   const handleSelectSystem = () => {
     switch (shortName) {
       case 'ess':
-        dispatch(handleSelectEss();
+        useMCStore().selectEss();
         setIsSystemSelectedMessage(false);
         break;
       case 'tgs':
-        dispatch(handleSelectTgs();
+        useMCStore().selectTgs();
         setIsSystemSelectedMessage(false);
         break;
       case 'tes':
-        dispatch(handleSelectTes();
+        useMCStore().selectTes();
         setIsSystemSelectedMessage(false);
         break;
       case 'hp':
-        dispatch(handleSelectHp();
+        useMCStore().selectHp();
         setIsSystemSelectedMessage(false);
         break;
       default:

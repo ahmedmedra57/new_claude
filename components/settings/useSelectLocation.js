@@ -133,7 +133,7 @@ const useSelectLocationBox = (
   };
 
   useEffect(() => {
-    dispatch(handleSettingsResetAllSelect();
+    useSettingsOptionsStore().resetAllSelect();
     if (openHeaders[0]) {
       loopHandler("ess", essSpec);
     } else if (openHeaders[2]) {

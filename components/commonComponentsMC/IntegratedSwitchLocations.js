@@ -519,7 +519,7 @@ const IntegratedSwitchLocations = ({ swtName, buttonHandler }) => {
   const mainControllerExpandHandler = (location, index, isMobile) => {
     // initialize the previous selected program
     if (isMobile) {
-      dispatch(handleUnselectAllProgram();
+      useMCStore().unselectAllProgram();
     }
     // open location component
     headerGroupButtonsHandler(

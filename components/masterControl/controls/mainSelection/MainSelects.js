@@ -272,8 +272,8 @@ const MainSelects = ({
       setIsSelectedForAts(atsInitialState);
       setGreenDetour([false, false]);
       setSelectPrograms(initialState);
-      dispatch(handleResetMCOffState();
-      dispatch(handleResetAtsState();
+      useMCStore().resetMCOffState();
+      useMCStore().resetAtsState();
       if (ess) {
         loopAllMachinesHandler(flatEssSwitch, 'ess');
         // const locations = flatEssSwitch && Object.keys(flatEssSwitch);
@@ -304,11 +304,11 @@ const MainSelects = ({
     if (!controlResetInitialState) {
       if (!selectedOne) {
         // *** reset all switch location to initial state
-        dispatch(handleResetAllSelect();
+        useMasterControlSelectStore().resetAllSelect();
 
         // *** reset dial and  sections control to initial state
 
-        dispatch(handleResetAll();
+        useMasterControlSelectStore().resetAll();
       }
     }
   }, [controlResetInitialState, ess, tes, tgs]);
@@ -425,10 +425,10 @@ const MainSelects = ({
     }
 
     if (Object.values(el).every((value) => value === false)) {
-      dispatch(handleResetMCOffState();
+      useMCStore().resetMCOffState();
       setDisplayOffBox(value);
     } else {
-      dispatch(handleResetAllDialControl();
+      useMCStore().resetAllDialControl();
       if (el.instantHeat === true) {
         setDisplayOffBox(value);
         useMCStore().deactivatePrograms('instantHeat');
@@ -463,7 +463,7 @@ const MainSelects = ({
   const handleButtonClick = (btnNum) => {
     switch (btnNum) {
       case 0: {
-        dispatch(handleDisplaySelectBox();
+        useMasterControlSelectStore().toggleDisplaySelectBox();
         break;
       }
       case 1: {

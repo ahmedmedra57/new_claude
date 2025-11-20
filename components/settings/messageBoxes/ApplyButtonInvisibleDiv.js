@@ -27,7 +27,7 @@ function ApplyButtonInvisibleDiv() {
   const clearMessageBox = (event) => {
     event.stopPropagation();
 
-    dispatch(handleResetButtons();
+    useEditCancelApplyButtonsStore().resetButtons();
     useEditCancelApplyButtonsStore().setButtonClicked('isCancel');
 
     setDisplay(false);

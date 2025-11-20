@@ -165,7 +165,7 @@ const SectionControllers = ({
       // turn on
       useESSSwitchStore().addHeatingSchedule(data);
     } else if (state === 'off') {
-      dispatch(handleClearScheduler();
+      useMCStore().clearScheduler();
     } else {
       // message
       handleMessageBox('heating schedule program', [

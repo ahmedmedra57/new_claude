@@ -331,7 +331,7 @@ const MainSelections = ({
   useEffect(() => {
     // this resets all switches when system is changed
 
-    dispatch(handleResetAllSelect();
+    useMasterControlSelectStore().resetAllSelect();
     if (ess) {
       loopAllMachinesHandler(flatEssSwitch, "ess");
 
@@ -594,7 +594,7 @@ const MainSelections = ({
         case 0:
           setSelectedSystemTitle(null);
           setSystemGreenCircle(null);
-          dispatch(handleUnselectAllSystem();
+          useMCStore().unselectAllSystem();
           break;
         case 1:
           useTelemetryStore().selectSystem(abrSelectedSystemTitle);
@@ -609,7 +609,7 @@ const MainSelections = ({
 
   // ******************************************it handles the select switch location*******************************
   const handleButtonClick = () => {
-    dispatch(handleDisplaySelectBox();
+    useMasterControlSelectStore().toggleDisplaySelectBox();
   };
 
   // *********************************************handles search button***********************

@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+import { useMCStore } from '../../zustand-stores';
   MC_SELECTED_READY,
   flexBoxCenter,
   justifyContentSpaceBetween,
@@ -72,7 +73,7 @@ const HeatingScheduler = ({
   };
 
   const handleClear = () => {
-    // dispatch(handleClearScheduler();
+    // useMCStore().clearScheduler();
   };
   const handleClose = () => {
     setDisplayScheduler(false);

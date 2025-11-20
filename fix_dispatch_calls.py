@@ -209,6 +209,45 @@ ACTION_TO_ZUSTAND = {
     # Admin actions
     'handleAccessAdministrator': ('useAdminStore', 'setAccessAdministrator'),
     'resetAccessAdministrator': ('useAdminStore', 'resetAccessAdministrator'),
+    'handleResetAccessAdministrator': ('useAdminStore', 'resetAccessAdministrator'),
+
+    # Reset actions
+    'handleResetAll': ('useMasterControlSelectStore', 'resetAll'),
+    'handleResetAllSelect': ('useMasterControlSelectStore', 'resetAllSelect'),
+    'handleSettingsResetAllSelect': ('useSettingsOptionsStore', 'resetAllSelect'),
+    'handleResetButtons': ('useEditCancelApplyButtonsStore', 'resetButtons'),
+    'handleResetSelectedOne': ('useMasterControlSelectStore', 'resetSelectedOne'),
+    'handleResetMCOffState': ('useMCStore', 'resetMCOffState'),
+    'handleResetMapSelection': ('useMasterControlSelectStore', 'resetMapSelection'),
+    'handleResetCreateNewCommand': ('useMCCommandStore', 'resetCreateNewCommand'),
+    'handleResetCommandNumber': ('useMCCommandStore', 'resetCommandNumber'),
+    'setResetSettingsOptions': ('useSettingsOptionsStore', 'resetSettingsOptions'),
+
+    # Unselect actions
+    'handleUnselectAllProgram': ('useMCStore', 'unselectAllProgram'),
+    'handleUnselectProgram': ('useMCStore', 'unselectProgram'),
+    'handleUnselectAllSystem': ('useMCStore', 'unselectAllSystem'),
+    'handleUnSelectSwitch': ('useMCStore', 'unselectSwitch'),
+
+    # Calendar and scheduler
+    'handleCloseCalendar': ('useMCStore', 'closeCalendar'),
+    'handleClearScheduler': ('useMCStore', 'clearScheduler'),
+    'handleCleanUpSelectedOne': ('useMasterControlSelectStore', 'cleanUpSelectedOne'),
+
+    # Switch selection
+    'handleSelectEss': ('useMCStore', 'selectEss'),
+    'handleSelectTgs': ('useMCStore', 'selectTgs'),
+    'handleSelectTes': ('useMCStore', 'selectTes'),
+    'handleSelectHp': ('useMCStore', 'selectHp'),
+
+    # Other
+    'handleDisplaySelectBox': ('useMasterControlSelectStore', 'toggleDisplaySelectBox'),
+    'handleCreateCommand': ('useMCCommandStore', 'createCommand'),
+    'handleViewPrevCommandAndCreateNewCommand': ('useMCCommandStore', 'viewPrevAndCreateNew'),
+    'handleSetInitialStateSettingsOptions': ('useSettingsOptionsStore', 'setInitialState'),
+    'handleExpand': ('useMCIsExpandedStore', 'toggleExpand'),
+    'handleResetAtsState': ('useMCStore', 'resetAtsState'),
+    'handleResetAllDialControl': ('useMCStore', 'resetAllDialControl'),
 
     # Location actions
     'handleOpenLocation': ('useLocationsStore', 'openLocation'),
@@ -226,19 +265,27 @@ ACTION_TO_ZUSTAND = {
 
 def extract_dispatch_calls(content):
     """Extract all dispatch() calls from content"""
-    # Pattern 1: dispatch(actionName(args)) - properly formed
+    # Pattern 1: dispatch(actionName(args)) - properly formed with args
     pattern1 = r'dispatch\((\w+)\(([^)]*)\)\)'
     matches1 = re.findall(pattern1, content)
 
-    # Pattern 2: dispatch(actionName({ args }); - malformed (missing closing paren)
+    # Pattern 2: dispatch(actionName({ args }); - malformed (missing dispatch closing paren) with object args
     pattern2 = r'dispatch\((\w+)\((\{[^}]*\})\);'
     matches2 = re.findall(pattern2, content)
 
-    # Pattern 3: dispatch(actionName(args); - malformed (missing closing paren)
-    pattern3 = r'dispatch\((\w+)\(([^)]+)\);'
+    # Pattern 3: dispatch(actionName(args); - malformed (missing dispatch closing paren) with args
+    pattern3 = r'dispatch\((\w+)\(([^);]+)\);'
     matches3 = re.findall(pattern3, content)
 
-    all_matches = matches1 + matches2 + matches3
+    # Pattern 4: dispatch(actionName(); - action with no args, malformed (missing dispatch closing paren)
+    pattern4 = r'dispatch\((\w+)\(\);'
+    matches4 = [(action, '') for action in re.findall(pattern4, content)]
+
+    # Pattern 5: dispatch(actionName()); - action with no args, properly formed
+    pattern5 = r'dispatch\((\w+)\(\)\);'
+    matches5 = [(action, '') for action in re.findall(pattern5, content)]
+
+    all_matches = matches1 + matches2 + matches3 + matches4 + matches5
     return [(action, args) for action, args in all_matches]
 
 def get_import_path(filepath):
@@ -282,16 +329,27 @@ def migrate_file(filepath):
             store, method = ACTION_TO_ZUSTAND[action]
             stores_needed.add(store)
 
-            # Replace both properly formed and malformed dispatch calls
-            # Pattern 1: dispatch(action(args)) - properly formed
-            old_pattern1 = rf'dispatch\({action}\({re.escape(args)}\)\)'
-            new_replacement = f'{store}().{method}({args})'
-            content = re.sub(old_pattern1, new_replacement, content)
+            # Handle empty args (action with no parameters)
+            if args == '':
+                # Pattern 1: dispatch(action(); - malformed (missing dispatch closing paren)
+                old_pattern_no_args1 = rf'dispatch\({action}\(\);'
+                new_replacement_no_args = f'{store}().{method}();'
+                content = re.sub(old_pattern_no_args1, new_replacement_no_args, content)
 
-            # Pattern 2: dispatch(action({ args }); - malformed (missing closing paren)
-            old_pattern2 = rf'dispatch\({action}\({re.escape(args)}\);'
-            new_replacement2 = f'{store}().{method}({args});'
-            content = re.sub(old_pattern2, new_replacement2, content)
+                # Pattern 2: dispatch(action()); - properly formed
+                old_pattern_no_args2 = rf'dispatch\({action}\(\)\);'
+                content = re.sub(old_pattern_no_args2, new_replacement_no_args, content)
+            else:
+                # Replace both properly formed and malformed dispatch calls with args
+                # Pattern 1: dispatch(action(args)) - properly formed
+                old_pattern1 = rf'dispatch\({action}\({re.escape(args)}\)\)'
+                new_replacement = f'{store}().{method}({args})'
+                content = re.sub(old_pattern1, new_replacement, content)
+
+                # Pattern 2: dispatch(action({ args }); - malformed (missing closing paren)
+                old_pattern2 = rf'dispatch\({action}\({re.escape(args)}\);'
+                new_replacement2 = f'{store}().{method}({args});'
+                content = re.sub(old_pattern2, new_replacement2, content)
         else:
             unmapped_actions.append(action)
 

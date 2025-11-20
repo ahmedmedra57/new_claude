@@ -64,7 +64,7 @@ const HeatingSchedule = ({
   const handleClear = () => {};
 
   const handleClose = () => {
-    // dispatch(handleCloseCalendar();
+    // useMCStore().closeCalendar();
     setOpenScheduler(false);
   };
 

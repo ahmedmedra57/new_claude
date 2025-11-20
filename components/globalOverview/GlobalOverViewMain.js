@@ -54,7 +54,7 @@ const GlobalOverviewMain = () => {
   }, [selectedSystem]);
 
   useEffect(() => {
-    dispatch(handleResetMapSelection();
+    useMasterControlSelectStore().resetMapSelection();
   }, []);
 
   return (

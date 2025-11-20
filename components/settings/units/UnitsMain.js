@@ -58,7 +58,7 @@ const UnitsMain = ({
   // keeps track and render last state saved either to imperial or metric
   useEffect(() => {
     let choosenUnit = user?.temperature_unit === 'f' ? 0 : 1;
-    dispatch(handleResetButtons();
+    useEditCancelApplyButtonsStore().resetButtons();
     setMetricImperialToggle(choosenUnit);
   }, [user]);
 

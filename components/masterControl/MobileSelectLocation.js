@@ -41,13 +41,13 @@ const MobileSelectLocation = ({ setIsApply }) => {
       useMCStore().setReadyToSelectProgram(true);
     } else {
       useMCStore().setReadyToSelectProgram(false);
-      // dispatch(handleUnselectProgram();
+      // useMCStore().unselectProgram();
     }
   }, [selectedOne]);
 
   useEffect(() => {
     return () => {
-      dispatch(handleResetAllSelect();
+      useMasterControlSelectStore().resetAllSelect();
     };
   }, []);
 
@@ -64,7 +64,7 @@ const MobileSelectLocation = ({ setIsApply }) => {
 
   
   const handleOpenSelect = () => {
-    dispatch(handleOpenSelectLocation();
+    useMasterControlSelectStore().openSelectLocation();
     setIsApply(false);
   };
 

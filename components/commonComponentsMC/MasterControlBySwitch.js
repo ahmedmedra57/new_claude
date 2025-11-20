@@ -46,7 +46,7 @@ const MasterControlBySwitch = ({ swtName, buttonHandler }) => {
   const [btnName, setBtnName] = useState(masterControl ? 'close' : 'expand');
   
   useEffect(() => {
-    dispatch(handleResetSelectedOne();
+    useMasterControlSelectStore().resetSelectedOne();
   }, [swtName]);
 
   useEffect(() => {

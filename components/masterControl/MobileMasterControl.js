@@ -52,7 +52,7 @@ const MobileMasterControl = () => {
   const [isReadyToRenderProgram, setIsReadyToRenderProgram] = useState(false);
 
   useEffect(() => {
-    dispatch(handleUnSelectSwitch();
+    useMCStore().unselectSwitch();
     useMasterControlSelectStore().openSelectLocation(false);
   }, []);
 
@@ -143,14 +143,14 @@ const MobileMasterControl = () => {
   // event handlers
   // open || close component
   const handleExpandButtonClick = () => {
-    dispatch(handleExpand();
+    useMCIsExpandedStore().toggleExpand();
   };
   // select swt ess || tgs || tes
   const handleSelectSwt = (switchName, idx) => {
     setIsApply(false);
     if (switchName === 'hp') {
       useMasterControlSelectStore().openSelectLocation(false);
-      dispatch(handleUnSelectSwitch();
+      useMCStore().unselectSwitch();
     } else {
       useMCStore().selectSwitch({ switchName, idx });
     }
