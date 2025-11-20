@@ -2033,8 +2033,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
                     essRefetch();
                     tgsRefetch(); 
                     tesRefetch();
-                    dispatch(
-                      handleRemoveSysIdentificationLocation({
+                    useAdminStore().removeSysIdentificationLocation({
                         locationIdx: selectedLocation.locationIdx,
                       });
                     setUOSDelete([]);
@@ -2275,8 +2274,7 @@ const SettingsMain = ({ essRefetch, tgsRefetch, tesRefetch }) => {
               }
               if (accessMachineData?.isSelected) {
                 deviceIds.push(machine);
-                dispatch(
-                  handleForceGasAndElectric({
+                useSettingsOptionsStore().setForceGasAndElectric({
                     location,
                     specificLocation,
                     machine,

@@ -204,8 +204,7 @@ const DropBox = ({
               if (buttonTitle === 'add gas type') {
                 useAdminStore().addGasType(inputValue);
               } else {
-                dispatch(
-                  handleAddSwitchSizeSSRRating({
+                useAdminStore().addSwitchSizeSSRRating({
                     keyOfOptions,
                     value: inputValue,
                   });

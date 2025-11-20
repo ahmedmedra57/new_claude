@@ -296,8 +296,7 @@ const SelectMachineItems = ({
       if (scope === "switch") {
         // 1.reset all and title (selected one)
         useMasterControlBySwitchSelectStore().selectAll({ controller: name, status: false });
-        dispatch(
-          handleSelectedOneBySwitch({ controller: name, selectedOne: null });
+        useMasterControlBySwitchSelectStore().setSelectedOne({ controller: name, selectedOne: null });
 
         // 2. Empty selected location names
         useMasterControlBySwitchSelectStore().addLocations(resetObj);
@@ -317,8 +316,7 @@ const SelectMachineItems = ({
         useMasterControlBySwitchSelectStore().selectMachine(machineResetObj);
       } else {
         // 1.reset all and title (selected one)
-        dispatch(
-          handleSelectAllByLocation({ controller: name, status: false });
+        useMasterControlSelectByLocationStore().selectAll({ controller: name, status: false });
         useMasterControlSelectByLocationStore().setSelectedOne({ controller: name, selectedOne: null });
 
         // 2. Empty selected location names

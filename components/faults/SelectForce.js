@@ -59,8 +59,7 @@ const SelectForce = ({
   };
 
   const handleConfirm = () => {
-    dispatch(
-      handleForceSelection({
+    useSettingsOptionsStore().setForceSelection({
         swtName,
         location,
         specificLocation,
@@ -101,8 +100,7 @@ const SelectForce = ({
           setShutOff({ location, specificLocation, machine });
         }
         // Display force status box
-        dispatch(
-          handleDisplayForceStatusBox({
+        useSettingsOptionsStore().toggleDisplayForceStatusBox({
             swtName,
             location,
             specificLocation,
@@ -127,8 +125,7 @@ const SelectForce = ({
     });
 
     // force button activated and close the select force box
-    dispatch(
-      handleForceButtonActivated({
+    useSettingsOptionsStore().setForceButtonActivated({
         swtName,
         location,
         specificLocation,

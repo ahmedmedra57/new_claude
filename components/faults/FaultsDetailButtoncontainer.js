@@ -50,8 +50,7 @@ const FaultsDetailButtonContainer = ({
     switch (buttonName) {
       case 'force':
         // 1. force button clicked
-        dispatch(
-          handleForceButtonClick({
+        useSettingsOptionsStore().setForceButtonClick({
             swtName: name,
             specificLocation,
             location,
@@ -127,8 +126,7 @@ const FaultsDetailButtonContainer = ({
             }
           }
         }
-        dispatch(
-          handleFaultsReset({
+        useFaultsStore().resetFaults({
             swtName: name,
             location,
             specificLocation,

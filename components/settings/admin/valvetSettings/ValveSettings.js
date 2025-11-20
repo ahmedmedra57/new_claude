@@ -123,8 +123,7 @@ function ValveSettings({
     const machinesInfo = Object.entries(tgs[location]);
 
     machinesInfo.forEach((machine) => {
-      dispatch(
-        handleResetUnApplyMachinesOfGasInputs({
+      useSettingsOptionsStore().resetUnApplyMachinesOfGasInputs({
           location,
           machine: machine[0],
           isApplyState: machine[1].gasValue.isApply,

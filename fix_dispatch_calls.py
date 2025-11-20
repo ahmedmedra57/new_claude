@@ -266,8 +266,37 @@ ACTION_TO_ZUSTAND = {
     'handleTimer': ('useMCStore', 'setTimer'),
     'handleAttendButtonClick': ('useMCCommandStore', 'setAttendButtonClick'),
 
-    # Selection by location
+    # Selection actions
     'handleSelectedOneByLocation': ('useMasterControlSelectByLocationStore', 'setSelectedOne'),
+    'handleSelectedOneBySwitch': ('useMasterControlBySwitchSelectStore', 'setSelectedOne'),
+    'handleSelectAllByLocation': ('useMasterControlSelectByLocationStore', 'selectAll'),
+    'handleSelector': ('useESSSwitchStore', 'setSelector'),
+    'tesHandleSelector': ('useTESSwitchStore', 'setSelector'),
+
+    # SSR and Toggle actions
+    'handleToggleSSR': ('useESSSwitchStore', 'toggleSSR'),
+    'tesHandleToggleSSR': ('useTESSwitchStore', 'toggleSSR'),
+    'tgsHandleInstantHeatIsReady': ('useTGSSwitchStore', 'setInstantHeatIsReady'),
+
+    # Admin panel actions
+    'handleRemoveSysIdentificationLocation': ('useAdminStore', 'removeSysIdentificationLocation'),
+    'handleForceGasAndElectric': ('useSettingsOptionsStore', 'setForceGasAndElectric'),
+    'handleResetUnApplyMachinesOfGasInputs': ('useSettingsOptionsStore', 'resetUnApplyMachinesOfGasInputs'),
+    'handleAddSwitchSizeSSRRating': ('useAdminStore', 'addSwitchSizeSSRRating'),
+    'handleSitePlanURL': ('useAdminStore', 'setSitePlanURL'),
+
+    # Force and Faults actions
+    'handleForceButtonClick': ('useSettingsOptionsStore', 'setForceButtonClick'),
+    'handleFaultsReset': ('useFaultsStore', 'resetFaults'),
+    'handleForceSelection': ('useSettingsOptionsStore', 'setForceSelection'),
+    'handleDisplayForceStatusBox': ('useSettingsOptionsStore', 'toggleDisplayForceStatusBox'),
+    'handleForceButtonActivated': ('useSettingsOptionsStore', 'setForceButtonActivated'),
+
+    # Data Consumption unselect actions
+    'essDataConsumptionHandleUnSelectIndividualMachine': ('useESSDataConsumptionStore', 'unselectIndividualMachine'),
+    'tesDataConsumptionHandleUnSelectIndividualMachine': ('useTESDataConsumptionStore', 'unselectIndividualMachine'),
+    'tgsDataConsumptionHandleUnSelectIndividualMachine': ('useTGSDataConsumptionStore', 'unselectIndividualMachine'),
+    'hpDataConsumptionHandleUnSelectIndividualMachine': ('useHPDataConsumptionStore', 'unselectIndividualMachine'),
 
     # Other
     'handleDisplaySelectBox': ('useMasterControlSelectStore', 'toggleDisplaySelectBox'),

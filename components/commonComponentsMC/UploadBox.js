@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import styled from 'styled-components';
 import {
+import { useAdminStore } from '../zustand-stores';
   flexBoxCenter,
   flexDirectionColumn,
   justifyContentFlexStart,
@@ -61,8 +62,7 @@ const Upload = ({
         ).then((res) => {
           const key = `site_maps_${swtName.toUpperCase()}`;
           const sitePlanURL = res.data[key][0];
-          dispatch(
-            handleSitePlanURL({
+          useAdminStore().setSitePlanURL({
               swtName,
               key,
               location: locationId,

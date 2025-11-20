@@ -115,8 +115,7 @@ useEffect(() => {
               [deviceMac],
               newHeaterThermocoupleMap
             ).then(() => {
-              dispatch(
-                handleSelector({
+              useESSSwitchStore().setSelector({
                   location,
                   machine,
                   id: data.id,
@@ -127,8 +126,7 @@ useEffect(() => {
               [deviceMac],
               newHeaterThermocoupleMap
             ).then(() => {
-              dispatch(
-                tesHandleSelector({
+              useTESSwitchStore().setSelector({
                   location,
                   machine,
                   id: data.id,
@@ -161,8 +159,7 @@ useEffect(() => {
               
               
           if (!isDifferent) {
-            dispatch(
-              handleToggleSSR({
+            useESSSwitchStore().toggleSSR({
                 location,
                 machine,
                 id: data.id,
@@ -184,8 +181,7 @@ useEffect(() => {
 
 
           if (!isDifferent ) {
-            dispatch(
-              tesHandleToggleSSR({
+            useTESSwitchStore().toggleSSR({
                 location,
                 machine,
                 id: data.id,

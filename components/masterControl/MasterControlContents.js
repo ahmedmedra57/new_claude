@@ -144,8 +144,7 @@ const MasterControlContents = ({
 
           break;
         case 'tgs':
-          dispatch(
-            tgsHandleInstantHeatIsReady({
+          useTGSSwitchStore().setInstantHeatIsReady({
               location,
               specificLocation,
               machine,

@@ -289,25 +289,21 @@ const MainSelections = ({
         } else if (swt === "hpGc") {
           useHPElectricSwitchStore().unselectIndividualMachine({ location, machine });
         } else if (swt === "essDc") {
-          dispatch(
-            essDataConsumptionHandleUnSelectIndividualMachine({
+          useESSDataConsumptionStore().unselectIndividualMachine({
               location,
               machine,
             });
         } else if (swt === "tgsTesDc") {
-          dispatch(
-            tesDataConsumptionHandleUnSelectIndividualMachine({
+          useTESDataConsumptionStore().unselectIndividualMachine({
               location,
               machine,
             });
-          dispatch(
-            tgsDataConsumptionHandleUnSelectIndividualMachine({
+          useTGSDataConsumptionStore().unselectIndividualMachine({
               location,
               machine,
             });
         } else if (swt === "hpDc") {
-          dispatch(
-            hpDataConsumptionHandleUnSelectIndividualMachine({
+          useHPDataConsumptionStore().unselectIndividualMachine({
               location,
               machine,
             });
