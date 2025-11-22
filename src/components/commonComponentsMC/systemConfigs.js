@@ -7,6 +7,7 @@ import {
   handleShutOn,
   handleSnowSensor,
   handleSnowSensorOff,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
   handleWindFactor,
   handleWindFactorOff,
   handleReadyHeatingSchedule,
@@ -20,6 +21,11 @@ import {
   handleExpandSSRDetail,
   handleUnSelectIndividualMachine,
   essSpecificLocationUnselectMachinesHandler,
+=======
+  selectEssSwitch,
+  essHandleUnselectAllProgram,
+  handleExpandSSRDetail,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 } from '../store/slices/essSwitchSlice';
 
 import {
@@ -27,6 +33,7 @@ import {
   tgsHandleShutOff,
   tgsHandleSnowSensor,
   tgsHandleSnowSensorOff,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
   tgsHandleWindFactor,
   tgsHandleWindFactorOff,
   tgsHandleReadyHeatingSchedule,
@@ -44,6 +51,13 @@ import {
   tgsHandleInstantHeatIsReady,
   tgsHandleUnSelectIndividualMachine,
   tgsSpecificLocationUnselectMachinesHandler,
+=======
+  selectTgsSwitch,
+  tgsHandleOpenMachineController,
+  tgsHandleFanOnly,
+  tgsHandleUnselectAllProgram,
+  tgsHandleInstantHeatIsReady,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 } from '../store/slices/tgsSwitchSlice';
 
 import {
@@ -51,6 +65,7 @@ import {
   tesHandleShutOff,
   tesHandleSnowSensor,
   tesHandleSnowSensorOff,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
   tesHandleWindFactor,
   tesHandleWindFactorOff,
   tesHandleReadyHeatingSchedule,
@@ -61,10 +76,13 @@ import {
   tesActivateConflictMessage,
   tesDeactivateConflictMessage,
   tesSetDevicesConflicts,
+=======
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
   selectTesSwitch,
   tesHandleOpenMachineController,
   tesHandleExpandSSRDetail,
   tesHandleUnselectAllProgram,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
   tesHandleSelectProgram,
   tesHandleInstantHeatIsReady,
   tesHandleUnSelectIndividualMachine,
@@ -80,6 +98,16 @@ import {
 } from '../../services';
 import { freezeBlowerDeviceService, postTgsCommand, postTesCommand } from '../../services';
 import ControlBox from './ControlBox';
+=======
+  tesHandleInstantHeatIsReady,
+} from '../store/slices/tesSwitchSlice';
+
+import { freezeSwitchDeviceService, postEssCommand } from '../../services';
+import { freezeBlowerDeviceService, postTgsCommand, postTesCommand } from '../../services';
+import EssControlBox from '../ess/EssControlBox';
+import TgsControlBox from '../tgs/TgsControlBox';
+import TesControlBox from '../tes/TesControlBox';
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 
 /**
  * System-specific configurations for ESS, TGS, and TES
@@ -96,6 +124,7 @@ export const systemConfigs = {
       handleShutOff: handleShutOff,
       handleSnowSensor: handleSnowSensor,
       handleSnowSensorOff: handleSnowSensorOff,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
       handleWindFactor: handleWindFactor,
       handleWindFactorOff: handleWindFactorOff,
       handleReadyHeatingSchedule: handleReadyHeatingSchedule,
@@ -109,16 +138,27 @@ export const systemConfigs = {
       handleSelectProgram: essHandleSelectProgram,
       handleUnSelectIndividualMachine: handleUnSelectIndividualMachine,
       specificLocationUnselectMachinesHandler: essSpecificLocationUnselectMachinesHandler,
+=======
+      handleOpenMachineController: handleOpenMachineController,
+      handleExpandSSRDetail: handleExpandSSRDetail,
+      handleUnselectAllProgram: essHandleUnselectAllProgram,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
     },
 
     // Services
     freezeDeviceService: freezeSwitchDeviceService,
     postCommand: postEssCommand,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
     getZones: getEssZones,
 
     // Components
     ControlBox: ControlBox,
     ControlBoxComponent: ControlBox,
+=======
+
+    // Components
+    ControlBox: EssControlBox,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 
     // Configuration
     systemType: 'ESS',
@@ -126,12 +166,18 @@ export const systemConfigs = {
     energyUnit: 'kw',
     energySource: 'energy',
     useSSRQueries: true,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
     hasSSRQueries: true,
 
     // Features
     hasFanOnly: false,
     hasThermocouples: true,
     requiresPermissionCheck: true,
+=======
+
+    // Features
+    hasFanOnly: false,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 
     // Display
     getHeaderTitle: (machineName, swtSize, applicationAbr, isMobile) =>
@@ -147,6 +193,7 @@ export const systemConfigs = {
       handleShutOff: tgsHandleShutOff,
       handleSnowSensor: tgsHandleSnowSensor,
       handleSnowSensorOff: tgsHandleSnowSensorOff,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
       handleWindFactor: tgsHandleWindFactor,
       handleWindFactorOff: tgsHandleWindFactorOff,
       handleReadyHeatingSchedule: tgsHandleReadyHeatingSchedule,
@@ -162,17 +209,28 @@ export const systemConfigs = {
       handleSelectProgram: tgsHandleSelectProgram,
       handleUnSelectIndividualMachine: tgsHandleUnSelectIndividualMachine,
       specificLocationUnselectMachinesHandler: tgsSpecificLocationUnselectMachinesHandler,
+=======
+      handleOpenMachineController: tgsHandleOpenMachineController,
+      handleFanOnly: tgsHandleFanOnly,
+      handleUnselectAllProgram: tgsHandleUnselectAllProgram,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
     },
 
     // Services
     freezeDeviceService: (isOff, deviceMac, userId) =>
       freezeBlowerDeviceService(isOff, deviceMac, userId, 'TGS'),
     postCommand: postTgsCommand,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
     getZones: getTgsZones,
 
     // Components
     ControlBox: ControlBox,
     ControlBoxComponent: ControlBox,
+=======
+
+    // Components
+    ControlBox: TgsControlBox,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 
     // Configuration
     systemType: 'TGS',
@@ -180,12 +238,18 @@ export const systemConfigs = {
     energyUnit: 'FT³/M³', // Changes based on isF
     energySource: 'gas',
     useSSRQueries: false,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
     hasSSRQueries: false,
 
     // Features
     hasFanOnly: true,
     hasThermocouples: false,
     requiresPermissionCheck: false,
+=======
+
+    // Features
+    hasFanOnly: true,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 
     // Display
     getHeaderTitle: (machineName, swtSize, applicationAbr, isMobile) =>
@@ -201,6 +265,7 @@ export const systemConfigs = {
       handleShutOff: tesHandleShutOff,
       handleSnowSensor: tesHandleSnowSensor,
       handleSnowSensorOff: tesHandleSnowSensorOff,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
       handleWindFactor: tesHandleWindFactor,
       handleWindFactorOff: tesHandleWindFactorOff,
       handleReadyHeatingSchedule: tesHandleReadyHeatingSchedule,
@@ -217,17 +282,28 @@ export const systemConfigs = {
       handleSelectProgram: tesHandleSelectProgram,
       handleUnSelectIndividualMachine: tesHandleUnSelectIndividualMachine,
       specificLocationUnselectMachinesHandler: tesSpecificLocationUnselectMachinesHandler,
+=======
+      handleOpenMachineController: tesHandleOpenMachineController,
+      handleExpandSSRDetail: tesHandleExpandSSRDetail,
+      handleUnselectAllProgram: tesHandleUnselectAllProgram,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
     },
 
     // Services
     freezeDeviceService: (isOff, deviceMac, userId) =>
       freezeBlowerDeviceService(isOff, deviceMac, userId, 'TES'),
     postCommand: postTesCommand,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
     getZones: getTesZones,
 
     // Components
     ControlBox: ControlBox,
     ControlBoxComponent: ControlBox,
+=======
+
+    // Components
+    ControlBox: TesControlBox,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 
     // Configuration
     systemType: 'TES',
@@ -235,12 +311,18 @@ export const systemConfigs = {
     energyUnit: 'kw',
     energySource: 'energy',
     useSSRQueries: true,
+<<<<<<< HEAD:src/components/commonComponentsMC/systemConfigs.js
     hasSSRQueries: true,
 
     // Features
     hasFanOnly: false,
     hasThermocouples: true,
     requiresPermissionCheck: false,
+=======
+
+    // Features
+    hasFanOnly: false,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/systemConfigs.js
 
     // Display
     getHeaderTitle: (machineName, swtSize, applicationAbr, isMobile) =>

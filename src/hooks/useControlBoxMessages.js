@@ -33,11 +33,14 @@ const useControlBoxMessages = () => {
     messageTitle,
     showMessage,
     closeMessageBox,
+<<<<<<< HEAD:src/hooks/useControlBoxMessages.js
     // Expose setters for backward compatibility with existing code
     setOpenMessageBox,
     setMessage,
     setProgramName,
     setMessageTitle,
+=======
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:hooks/useControlBoxMessages.js
   };
 };
 

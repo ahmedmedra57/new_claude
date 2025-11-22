@@ -28,8 +28,12 @@ const useNavigationState = () => {
     setSelectedSwitch({
       location: specificLocation || location,
       machine,
+<<<<<<< HEAD:src/hooks/useNavigationState.js
       parentZone: location,
       specificLocation: specificLocation,
+=======
+      parentLocation: specificLocation ? location : null,
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:hooks/useNavigationState.js
     });
   };
 

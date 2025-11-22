@@ -26,7 +26,11 @@ const SwitchesList = ({
           onClick={() => onSpecificLocationClick(specLoc)}
         >
           <SubLocationTitle>
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchesList.js
           {`${specificLocationData?.location_name_short} - ${specificLocationData?.specific_address} - ${specificLocationData?.zone_city},${specificLocationData?.zone_state_short_name} - ${devicesLength} switches `}
+=======
+            {specificLocationData?.location_name_short}
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchesList.js
           </SubLocationTitle>
           <SubLocationCount>{devicesLength} sw</SubLocationCount>
         </SubLocationItem>
@@ -60,7 +64,10 @@ const SwitchesList = ({
           active={isActive}
           onClick={() => onSwitchClick(selectedZone, machine)}
         >
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchesList.js
           
+=======
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchesList.js
           {machine}
         </SwitchItem>
       );
@@ -101,6 +108,7 @@ export default SwitchesList;
 
 const SwitchesListContainer = styled.div`
   ${flexDirectionColumn};
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchesList.js
   gap: 8px;
   border-radius: 18px;
   width: 100%;
@@ -108,6 +116,14 @@ const SwitchesListContainer = styled.div`
   ${layerC};
   padding: 8px;
   flex: 1;
+=======
+  gap: 6px;
+  border-radius: 18px;
+  ${layerC};
+  padding: 8px;
+  max-height: 700px;
+  overflow-y: auto;
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchesList.js
 `;
 
 const BackButton = styled.button`
@@ -119,17 +135,25 @@ const BackButton = styled.button`
   color: #fff;
   font-size: 11px;
   letter-spacing: 1px;
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchesList.js
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+=======
+  transition: all 0.2s ease;
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchesList.js
   margin-bottom: 6px;
 
   &:hover {
     ${layerB};
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchesList.js
     transform: translateX(-4px) scale(1.02);
     box-shadow: -2px 2px 8px rgba(255, 255, 255, 0.1);
   }
 
   &:active {
     transform: translateX(-2px) scale(0.98);
+=======
+    transform: translateX(-2px);
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchesList.js
   }
 `;
 
@@ -141,20 +165,29 @@ const SwitchItem = styled.div`
   font-size: 11px;
   letter-spacing: 1px;
   color: ${(p) => p.active ? '#95ff45' : '#fff'};
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchesList.js
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: ${(p) => p.active ? '2px solid #95ff45' : '2px solid transparent'};
   word-break: break-word;
   transform-origin: center;
+=======
+  transition: all 0.2s ease;
+  border: ${(p) => p.active ? '2px solid #95ff45' : '2px solid transparent'};
+  word-break: break-word;
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchesList.js
 
   &:hover {
     ${layerB};
     color: #95ff45;
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchesList.js
     transform: scale(1.03);
     box-shadow: 0 3px 10px rgba(149, 255, 69, 0.15);
   }
 
   &:active {
     transform: scale(0.98);
+=======
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchesList.js
   }
 `;
 
@@ -163,6 +196,7 @@ const SubLocationItem = styled.div`
   ${layerA180Deg};
   padding: 8px 12px;
   cursor: pointer;
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchesList.js
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: left center;
 
@@ -174,6 +208,13 @@ const SubLocationItem = styled.div`
 
   &:active {
     transform: translateX(2px) scale(0.98);
+=======
+  transition: all 0.2s ease;
+
+  &:hover {
+    ${layerB};
+    transform: translateX(2px);
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchesList.js
   }
 `;
 

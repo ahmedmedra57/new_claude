@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { flexBoxCenter, layerC } from '../styles/commonStyles';
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchDetailsPanel.js
 import MasterControlByMachine from './MasterControlByMachine';
 
 const SwitchDetailsPanel = ({ selectedSwitch, swtName, locations }) => {
@@ -30,6 +31,13 @@ const SwitchDetailsPanel = ({ selectedSwitch, swtName, locations }) => {
     );
   };
 
+=======
+import EssMasterControlByMachine from '../ess/EssMasterControlByMachine';
+import TesMasterControlByMachine from '../tes/TesMasterControlByMachine';
+import TgsMasterControlByMachine from '../tgs/TgsMasterControlByMachine';
+
+const SwitchDetailsPanel = ({ selectedSwitch, swtName, locations }) => {
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchDetailsPanel.js
   const renderSwitchDetails = () => {
     if (!selectedSwitch) {
       return (
@@ -39,6 +47,7 @@ const SwitchDetailsPanel = ({ selectedSwitch, swtName, locations }) => {
       );
     }
 
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchDetailsPanel.js
     return (
       <MasterControlByMachine
         systemType={swtName}
@@ -47,14 +56,43 @@ const SwitchDetailsPanel = ({ selectedSwitch, swtName, locations }) => {
         indivLocationName={locations[swtName][selectedSwitch.location]?.location_name_short}
       />
     );
+=======
+    const commonProps = {
+      location: selectedSwitch.location,
+      machine: selectedSwitch.machine,
+      swtName: swtName,
+      indivLocationName: locations[swtName][selectedSwitch.location]?.location_name_short
+    };
+
+    switch (swtName) {
+      case 'ess':
+        return <EssMasterControlByMachine {...commonProps} />;
+      case 'tes':
+        return <TesMasterControlByMachine {...commonProps} />;
+      case 'tgs':
+        return (
+          <TgsMasterControlByMachine
+            location={selectedSwitch.location}
+            machine={selectedSwitch.machine}
+            swtName={swtName}
+          />
+        );
+      default:
+        return null;
+    }
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchDetailsPanel.js
   };
 
   return (
     <RightPanel>
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchDetailsPanel.js
       {renderBreadcrumbs()}
       <DetailsContent>
         {renderSwitchDetails()}
       </DetailsContent>
+=======
+      {renderSwitchDetails()}
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchDetailsPanel.js
     </RightPanel>
   );
 };
@@ -64,6 +102,7 @@ export default SwitchDetailsPanel;
 const RightPanel = styled.div`
   flex: 1;
   border-radius: 18px;
+<<<<<<< HEAD:src/components/commonComponentsMC/SwitchDetailsPanel.js
   min-width: 0;
   ${layerC};
   display: flex;
@@ -152,6 +191,12 @@ const DetailsContent = styled.div`
       background: rgba(255, 255, 255, 0.5);
     }
   }
+=======
+  ${layerC};
+  ${flexBoxCenter};
+  padding: 16px;
+  min-height: 600px;
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/SwitchDetailsPanel.js
 `;
 
 const PlaceholderContainer = styled.div`

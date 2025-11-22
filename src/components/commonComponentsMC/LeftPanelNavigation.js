@@ -23,8 +23,12 @@ const LeftPanelNavigation = ({
     <LeftPanel>
       <Header>
         <Title>
+<<<<<<< HEAD:src/components/commonComponentsMC/LeftPanelNavigation.js
           integrated switch
           locations ({locationNumber})
+=======
+          integrated switch locations - {locationNumber} locations
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/LeftPanelNavigation.js
         </Title>
       </Header>
 
@@ -58,6 +62,7 @@ export default LeftPanelNavigation;
 
 const LeftPanel = styled.div`
   flex: 0 0 280px;
+<<<<<<< HEAD:src/components/commonComponentsMC/LeftPanelNavigation.js
   width: 280px;
   ${flexDirectionColumn};
   gap: 8px;
@@ -89,20 +94,37 @@ const LeftPanel = styled.div`
 
 const Header = styled.div`
   width: 100%;
+=======
+  ${flexDirectionColumn};
+  gap: 8px;
+`;
+
+const Header = styled.div`
+  width: 1216px;
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/LeftPanelNavigation.js
   height: 32px;
   border-radius: 16px;
   ${layerADark};
   ${justifyContentSpaceBetween};
   padding: 0 14px;
   margin-bottom: 5px;
+<<<<<<< HEAD:src/components/commonComponentsMC/LeftPanelNavigation.js
   box-sizing: border-box;
+=======
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/LeftPanelNavigation.js
 `;
 
 const Title = styled.span`
   display: inline-block;
   width: 100%;
+<<<<<<< HEAD:src/components/commonComponentsMC/LeftPanelNavigation.js
   font-size: 11px;
   letter-spacing: 0.8px;
   border-bottom: 1px solid #fff;
   line-height: 1.4;
+=======
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  border-bottom: 1px solid #fff;
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/LeftPanelNavigation.js
 `;

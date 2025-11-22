@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/components/commonComponentsMC/ZonesList.js
 import { useState } from 'react';
 import styled from 'styled-components';
 import { flexDirectionColumn, layerA180Deg, layerB, layerC, layerBDark } from '../styles/commonStyles';
@@ -70,6 +71,34 @@ const ZonesList = ({ switchStatus, locations, swtName, machineNumber, onZoneClic
           <NoResultsText>No zones found</NoResultsText>
         )}
       </ZonesScrollContainer>
+=======
+import styled from 'styled-components';
+import { flexDirectionColumn, layerA180Deg, layerB, layerC } from '../styles/commonStyles';
+
+const ZonesList = ({ switchStatus, locations, swtName, machineNumber, onZoneClick }) => {
+  return (
+    <ZonesListContainer>
+      {Object.keys(switchStatus).map((location, index) => {
+        const locationData = locations[swtName][location];
+        const isSpecificLocation = switchStatus[location].isSpecificLocation;
+        const numSpecLocations = isSpecificLocation && Object.keys(switchStatus[location].subLocations).length;
+        const count = isSpecificLocation ? numSpecLocations : machineNumber[index];
+
+        return (
+          <ZoneItem
+            key={location}
+            onClick={() => onZoneClick(location)}
+          >
+            <ZoneItemTitle>
+              {locationData?.location_name_short || locationData?.location_name}
+            </ZoneItemTitle>
+            <ZoneItemCount>
+              {count} {isSpecificLocation ? 'sub-loc' : 'sw'}
+            </ZoneItemCount>
+          </ZoneItem>
+        );
+      })}
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/ZonesList.js
     </ZonesListContainer>
   );
 };
@@ -78,6 +107,7 @@ export default ZonesList;
 
 const ZonesListContainer = styled.div`
   ${flexDirectionColumn};
+<<<<<<< HEAD:src/components/commonComponentsMC/ZonesList.js
   gap: 8px;
   border-radius: 18px;
   width: 100%;
@@ -163,10 +193,19 @@ const NoResultsText = styled.div`
   font-size: 11px;
   letter-spacing: 0.8px;
   color: rgba(255, 255, 255, 0.5);
+=======
+  gap: 6px;
+  border-radius: 18px;
+  ${layerC};
+  padding: 8px;
+  max-height: 700px;
+  overflow-y: auto;
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/ZonesList.js
 `;
 
 const ZoneItem = styled.div`
   border-radius: 12px;
+<<<<<<< HEAD:src/components/commonComponentsMC/ZonesList.js
   width : 100%;
   ${layerA180Deg};
   padding: 10px 12px;
@@ -182,6 +221,16 @@ const ZoneItem = styled.div`
 
   &:active {
     transform: translateX(2px) scale(0.98);
+=======
+  ${layerA180Deg};
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    ${layerB};
+    transform: translateX(2px);
+>>>>>>> 9cf9a32773896e201f614a12d99dd6469d3b32ed:components/commonComponentsMC/ZonesList.js
   }
 `;
 
