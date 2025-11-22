@@ -2,7 +2,7 @@
 
 **Date**: 2025-11-22
 **Analysis Scope**: Full codebase component duplication analysis
-**Status**: ✅ Phase 1 Complete (Legacy code removed)
+**Status**: ✅ Phase 1 & 2 Complete (Legacy code removed, shared logic extracted)
 
 ---
 
@@ -39,6 +39,61 @@ Centralized validation exists in `/src/utils/temperatureValidation.js`:
 - `validateTemperatureInput()` - Input parsing & validation
 - `getTemperatureRange()` - Get program-specific ranges
 - Constants for INSTANT_HEAT, HEATING_SCHEDULE, OPTIONAL_CONSTANT
+
+### 3. Shared Control Logic Hooks (Phase 2)
+**Impact**: Eliminates logic duplication across 12 control component files
+
+Created `/src/hooks/useControlLogic.js` with reusable hooks:
+- `useInstantHeatLogic()` - Temperature input, validation, submission logic
+- `useSnowSensorLogic()` - Activation state and toggle logic
+- `useWindFactorLogic()` - Activation state management
+- `useHeatingScheduleLogic()` - Schedule validation and submission
+- `useOptionalConstantTempLogic()` - Constant temperature logic
+- `useControlActivation()` - Generic activation state management
+- `useTgsFanOnlyLogic()` - TGS-specific fan-only rules
+
+**Benefits**:
+- Eliminates duplicated validation logic across 3 implementations per control
+- Ensures consistent behavior across all control components
+- Easier to maintain and test (single source of truth)
+- Can be used by all 12 control component variations
+
+### 4. Shared Styled Components Library (Phase 2)
+**Impact**: Reduces styled-component duplication
+
+Created `/src/components/ui/SharedControlStyles.js`:
+- Common input components (`TemperatureInput`, `InputWrapper`)
+- Common button components (`ControlButton`, `ButtonHole`, `ButtonTop`)
+- Common circle/logo components (`CircleButton`, `CircleHole`, `CircleTop`)
+- Common container components (`ControlWrapper`, `ControlForm`, etc.)
+- Mobile-specific components
+- TGS-specific components
+- Utility functions (`getLogoPath`, `getTemperaturePlaceholder`)
+
+**Benefits**:
+- Consistent UI across all control components
+- Single place to update styling
+- Smaller bundle size (deduplicated styles)
+
+### 5. Control Helper Utilities (Phase 2)
+**Impact**: Centralizes common control operations
+
+Created `/src/utils/controlHelpers.js`:
+- `extractTemperature()` - Parse temperature from various input formats
+- `formatTemperature()` - Format temperature with unit for display
+- `getTemperatureErrorMessages()` - Generate error messages
+- `isEbpDisabled()` - EBP mode validation
+- `canActivateControl()` - Conflict checking and validation
+- `validateScheduleDateRange()` - Schedule date/time validation
+- `formatScheduleDateTime()` / `parseScheduleDateTime()` - Date formatting
+- `getSystemConfig()` - System-specific configuration
+- `getControlLogo()` - Logo path based on state
+- `getControlTitle()` - Control display names
+
+**Benefits**:
+- Eliminates helper function duplication
+- Consistent business logic across components
+- Easier to update validation rules
 
 ---
 
@@ -220,10 +275,16 @@ These all import system-specific slice handlers. Could be consolidated with fact
 - [x] Remove legacy `/components/` directory
 - [x] Document refactoring opportunities
 
-### Phase 2: Extract Shared Logic (Recommended Next)
-- [ ] Create shared control logic hooks (useInstantHeatLogic, etc.)
-- [ ] Extract common styled components to shared library
-- [ ] Create temperature range constants shared across components
+### Phase 2: ✅ Complete - Extract Shared Logic
+- [x] Create shared control logic hooks (useInstantHeatLogic, etc.)
+- [x] Extract common styled components to shared library
+- [x] Create helper utilities for control components
+- [x] Centralize common validation and formatting logic
+
+**Files Created:**
+- `/src/hooks/useControlLogic.js` - Shared hooks for all controls
+- `/src/components/ui/SharedControlStyles.js` - Common styled components
+- `/src/utils/controlHelpers.js` - Helper utilities
 
 ### Phase 3: Redux Slice Factory
 - [ ] Design slice factory function
@@ -294,5 +355,5 @@ The Redux slice factory would be the next logical step.
 
 ---
 
-**Last Updated**: 2025-11-22
-**Next Review**: After Phase 2 completion
+**Last Updated**: 2025-11-22 (Phase 2 Complete)
+**Next Review**: After Phase 3 completion (Redux Slice Factory)
